@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//WebContent/change-pass.jsp=UTF-8
+encoding//WebContent/dangnhap.jsp=UTF-8
+encoding//WebContent/them-nguoi-dung.jsp=UTF-8
+encoding//WebContent/xuatFile.jsp=UTF-8
+encoding//src/controller/CtvtController.java=UTF-8
+encoding//src/controller/DvtController.java=UTF-8
+encoding//src/controller/ReadExcel.java=UTF-8
+encoding//src/controller/VattuController.java=UTF-8
+encoding//src/controller/VtController.java=UTF-8
+encoding//src/dao/DonViDAO.java=UTF-8
+encoding//src/test/TestYeuCAU.java=UTF-8
