@@ -185,10 +185,6 @@ public class CTVatTuDAO {
 		session.getTransaction().commit();
 		return list;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 50d5ae3afab2cb708c81eff3216c766c68f90f7e
 	public void close() {
 //		HibernateUtil.shutdown();
 		session.close();
