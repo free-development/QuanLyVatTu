@@ -242,7 +242,7 @@ public class YeuCauDAO {
 	// function cap vat tu
 	public YeuCau capVatTu(YeuCau yeuCau, final int soLuongCap) {
 		
-		int sl = yeuCau.getYcSoLuong();
+		int sl = yeuCau.getCapSoLuong();
 		if(yeuCau.getDaXoa() == 0)
 			sl += soLuongCap;
 		yeuCau.setCapSoLuong(sl);
@@ -266,6 +266,13 @@ public class YeuCauDAO {
 			return 0;
 		else
 			return -1;
+	}
+	
+	public void close() {
+		session.close();
+	}
+	public void disconnect() {
+		session.disconnect();
 	}
 	public static void main(String[] args) {
 //		ArrayList<CongVan> congVanList = new CongVanDAO().getTrangThai("", "", null, null);

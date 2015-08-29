@@ -72,6 +72,7 @@ function preAddSoLuong(){
 function addSoLuong(){
 	var soLuong = $('input[name=soLuongAdd]').val();
 	count = 0;
+	count = 0;
 	$.ajax({
 		url: "/QLVatTuYeuCau/addSoLuong.html",	
 	  	type: "GET",
@@ -91,10 +92,16 @@ function addSoLuong(){
 					+ '<td>' + ctVatTu.noiSanXuat.nsxTen + '</td>'
 					+ '<td>' + ctVatTu.chatLuong.clTen + '</td>'
 					+ '<td>' + ctVatTu.vatTu.dvt.dvtTen + '</td>'
-					+ '<td>' + yeuCau.ycSoLuong + '</td>';
-					
+					+ '<td>' + yeuCau.ycSoLuong + '</td>'
+					+ '<td>' + yeuCau.capSoLuong + '</td>';
+				
 	  			var row = '<tr id=\"' + yeuCau.ycId +'\"> ' + cells + + '</tr>';
+	  			var style = '';
+				
 	  			if (yeuCau.ycSoLuong == soLuong) {
+	  				if (count == 0) 
+						style = 'style=\"background : #CCFFFF;\"';
+	  					count ++;
 		  			$('#view-table-yc table tr:first').after(row);
 	  			}
 	  			else {
@@ -186,9 +193,10 @@ function updateYc() {
 	//	  			$('input:radio[name=ctvtId]').prop('checked',false);
 	  			$('input[name=soLuongUpdate]').val('0');	
 				$('#view-table-yc table tr #soLuong' + ycId).html(soLuong);
+				showForm('add-yeu-cau-form','update-so-luong-form',false);
+		  		$('#danh-sach-vat-tu').show();
 	  		}
-	  		showForm('add-yeu-cau-form','update-so-luong-form',false);
-	  		$('#danh-sach-vat-tu').show();
+	  		
   		}
 	});
 }

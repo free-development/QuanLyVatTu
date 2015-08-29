@@ -144,6 +144,9 @@ public class VTCongVanDAO {
 	public void close() {
 		session.close();
 	}
+	public void disconnect() {
+		session.disconnect();
+	}
 	public static void main(String[] args) {
 		VTCongVanDAO l = new VTCongVanDAO();
 		System.out.println(l.getVaiTro(1));

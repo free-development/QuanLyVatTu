@@ -185,14 +185,6 @@ public class CTVatTuDAO {
 		session.getTransaction().commit();
 		return list;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 50d5ae3afab2cb708c81eff3216c766c68f90f7e
-	public void close() {
-//		HibernateUtil.shutdown();
-		session.close();
-	}
 	public ArrayList<CTVatTu> searchVtTen(String i) {
 		session.beginTransaction();
 		String sql = "from CTVatTu where vtMa in (select * from VatTu where vtTen LIKE :vtTen)";
@@ -305,6 +297,15 @@ public class CTVatTuDAO {
 		session.getTransaction().commit();
 		return list;
 	}
+	public void close() {
+		if(session.isOpen())
+			session.close();
+	}
+	public void disconnect() {
+		if (session.isConnected())
+			session.disconnect();
+	}
+
 	public static void main(String[] args) {
 		//CTVatTuDAO ct = new CTVatTuDAO();//.getCTVatTu("VT5", "NB", "CL0");
 //		System.out.pritnln(ct.getCtvtId());

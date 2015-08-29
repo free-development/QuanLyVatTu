@@ -102,7 +102,9 @@ public class ChatLuongDAO {
 	public void close() {
 		session.close();
 	}
-	
+	public void disconnect() {
+		session.disconnect();
+	}
 	public static void main(String[] args) {
 		new ChatLuongDAO().deleteChatLuong("cl5");
 	}

@@ -111,10 +111,13 @@ public ArrayList<String> startWith(String i) {
 	}
 
 public void close() {
-//	HibernateUtil.shutdown();
-	session.close();
+	if(session.isOpen())
+		session.close();
 }
-
+public void disconnect() {
+	if (session.isConnected())
+		session.disconnect();
+}
 
 public ArrayList<VatTu> searchVtTen(String i) {
 	session.beginTransaction();

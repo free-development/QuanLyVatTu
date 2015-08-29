@@ -181,11 +181,13 @@ public class CongVanDAO {
 		return congVan;
 	}
 	public void close() {
-		session.close();
+		if(session.isOpen())
+			session.close();
 	}
 	public void disconnect() {
 		if (session.isConnected())
-		session.disconnect();
+			session.disconnect();
 	}
+
 	
 }

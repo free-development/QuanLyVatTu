@@ -89,9 +89,14 @@ public class NoiSanXuatDAO {
 		
 	}
 	public void close() {
-//		HibernateUtil.shutdown();
-		session.close();
+		if(session.isOpen())
+			session.close();
 	}
+	public void disconnect() {
+		if (session.isConnected())
+			session.disconnect();
+	}
+
 	public static void main(String[] args) {
 //		new NoiSanXuatDAO().deleteNoiSanXuat("Vn5");
 //		System.out.println(new NoiSanXuatDAO().size());
