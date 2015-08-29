@@ -66,6 +66,12 @@ public class YcController extends HttpServlet {
     	request.setAttribute("yeuCauList", yeuCauList);
     	request.setAttribute("nsxList", nsxList);
     	request.setAttribute("chatLuongList", chatLuongList);
+    	chatLuongDAO.disconnect();
+    	ctvtDAO.disconnect();
+    	yeuCauDAO.disconnect();
+    	nsxDAO.disconnect();
+    	chatLuongDAO.disconnect();
+    	
     	return new ModelAndView(siteMap.ycVatTu);
     	//return new ModelAndView(siteMap.login);
     }
@@ -74,6 +80,7 @@ public class YcController extends HttpServlet {
 	 public @ResponseBody String searchCtvt(@RequestParam("vtMa") String vtMa, @RequestParam("vtTen") String vtTen, @RequestParam("nsx") String nsx, @RequestParam("chatLuong") String chatLuong) {
 		CTVatTuDAO ctvtDAO = new CTVatTuDAO();
 		ArrayList<CTVatTu> ctVatTuList = ctvtDAO.search(vtMa, vtTen, nsx, chatLuong);
+		ctvtDAO.disconnect();
 		return JSonUtil.toJson(ctVatTuList);
 	}
 	@RequestMapping(value="/preAddSoLuong", method=RequestMethod.GET, 
@@ -83,6 +90,7 @@ public class YcController extends HttpServlet {
 		int ctVatTuId = Integer.parseInt(ctvtId); 
 		CTVatTu ctvt = ctvtDAO.getCTVatTuById(ctVatTuId);
 		session.setAttribute("ctvtId", ctVatTuId);
+		ctvtDAO.disconnect();
 		return JSonUtil.toJson(ctvt);
 	}
 	@RequestMapping(value="/addSoLuong", method=RequestMethod.GET, 
@@ -93,6 +101,7 @@ public class YcController extends HttpServlet {
 		int ctvtId = (Integer) session.getAttribute("ctvtId");
 		int sl = Integer.parseInt(soLuong);
 		YeuCau yeuCau = ycDAO.addSoLuong(cvId, ctvtId, sl);
+		ycDAO.disconnect();
 		return JSonUtil.toJson(yeuCau);
 	}
 	
@@ -106,6 +115,7 @@ public class YcController extends HttpServlet {
 			int id = Integer.parseInt(s);
 			ycDAO.deleteYeuCau(id);
 		}
+		ycDAO.disconnect();
 		return JSonUtil.toJson("success");
 	}
 	@RequestMapping(value="/preUpdateYc", method=RequestMethod.GET, 
@@ -116,6 +126,7 @@ public class YcController extends HttpServlet {
 		YeuCauDAO ycDAO = new YeuCauDAO();
 		YeuCau yc = ycDAO.getYeuCau(id);
 		session.setAttribute("yeuCauUpdate", yc);
+		ycDAO.disconnect();
 		return JSonUtil.toJson(yc); 
 	}
 	@RequestMapping(value="/updateSoLuong", method=RequestMethod.GET, 
@@ -124,10 +135,13 @@ public class YcController extends HttpServlet {
 		YeuCauDAO ycDAO = new YeuCauDAO();
 		YeuCau yeuCau = (YeuCau) session.getAttribute("yeuCauUpdate");
 		int sl = Integer.parseInt(soLuong);
-		if (!ycDAO.checkUpdateSoLuong(yeuCau.getYcId(), sl))
+		if (!ycDAO.checkUpdateSoLuong(yeuCau.getYcId(), sl)) {
+			ycDAO.disconnect();
 			return JSonUtil.toJson("fail");
+		}
 		yeuCau.setYcSoLuong(sl);
-		new YeuCauDAO().updateYeuCau(yeuCau);
+		ycDAO.updateYeuCau(yeuCau);
+		ycDAO.disconnect();
 		return JSonUtil.toJson(yeuCau.getYcId());
 	}
 	@RequestMapping(value="/preCapVatTu", method=RequestMethod.GET, 
@@ -138,6 +152,7 @@ public class YcController extends HttpServlet {
 		YeuCauDAO ycDAO = new YeuCauDAO();
 		YeuCau yc = ycDAO.getYeuCau(id);
 		session.setAttribute("vatTuCap", yc);
+		ycDAO.disconnect();
 		return JSonUtil.toJson(yc); 
 	}
 	@RequestMapping(value="/capVatTu", method=RequestMethod.GET, 
@@ -146,10 +161,13 @@ public class YcController extends HttpServlet {
 		YeuCauDAO ycDAO = new YeuCauDAO();
 		YeuCau yeuCau = (YeuCau) session.getAttribute("vatTuCap");
 		int sl = Integer.parseInt(soLuong);
-		if (ycDAO.checkCapSoLuong(yeuCau.getYcId(), sl) < 0)
+		if (ycDAO.checkCapSoLuong(yeuCau.getYcId(), sl) < 0) {
+			ycDAO.disconnect();
 			return JSonUtil.toJson("fail");
+		}
 //		yeuCau.setYcSoLuong(sl);
 		ycDAO.capVatTu(yeuCau, sl);
+		ycDAO.disconnect();
 		return JSonUtil.toJson(yeuCau);
 	}
 //	@RequestMapping(value="/loadPageCtvtYc", method=RequestMethod.GET, 
@@ -167,30 +185,26 @@ public class YcController extends HttpServlet {
 		int page = Integer.parseInt(pageNumber);
 		ArrayList<Object> objectList = new ArrayList<Object>();
 		if(searchMa.length() != 0){
-			JOptionPane.showMessageDialog(null, "SEARCH MA");
 			long size = ctvtDAO.sizeOfSearchCtvtMa(searchMa); 
 			ArrayList<CTVatTu> ctvtList = ctvtDAO.searchByCtvtMaLimit(searchMa, (page - 1) * 10, 10);
 			objectList.add(ctvtList);
 			objectList.add((size - 1) / 10);
-			return JSonUtil.toJson(objectList);
-		}
-		else if (searchTen.length() != 0)
-		{
-			JOptionPane.showMessageDialog(null, "search ten");
+			//return JSonUtil.toJson(objectList);
+		} else if (searchTen.length() != 0) {
 			long size = ctvtDAO.sizeOfSearchCtvtTen(searchTen); 
 			ArrayList<CTVatTu> ctvtList = ctvtDAO.searchByCtvtTenLimit(searchTen, (page - 1) *10, 10);
 			objectList.add(ctvtList);
 			objectList.add((size - 1) / 10);
-			return JSonUtil.toJson(objectList);
-		}
-		else {
-			JOptionPane.showMessageDialog(null, "phan trang");
+			//return JSonUtil.toJson(objectList);
+		} else {
 			long sizeCtvt = ctvtDAO.size();
 			ArrayList<CTVatTu> ctVatTuList = (ArrayList<CTVatTu>) ctvtDAO.limit((page - 1) * 10, 10);
 			objectList.add(ctVatTuList);
 			objectList.add((sizeCtvt - 1)/10);
-			return JSonUtil.toJson(objectList);
+			//return JSonUtil.toJson(objectList);
 		}
+		ctvtDAO.disconnect();
+		return JSonUtil.toJson(objectList);
 	}						
 	@RequestMapping(value="/searchCtvtYc", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -199,34 +213,30 @@ public class YcController extends HttpServlet {
 		ArrayList<Object> objectList = new ArrayList<Object>();
 		JOptionPane.showMessageDialog(null, vtMa + "***"+vtTen + "***");
 		if(vtMa.length() != 0){
-			JOptionPane.showMessageDialog(null, "search by ma");
 			searchMa = vtMa;
 			searchTen = "";
 			long size = ctvtDAO.sizeOfSearchCtvtMa(vtMa); 
 			ArrayList<CTVatTu> ctvtList = ctvtDAO.searchByCtvtMaLimit(searchMa, pageCtvt - 1, 10);
 			objectList.add(ctvtList);
 			objectList.add((size -1) / 	10);
-			return JSonUtil.toJson(objectList);
 		} else if(vtTen.length() != 0){
-			JOptionPane.showMessageDialog(null, "search by ten");
 			searchTen = vtTen;
 			searchMa = "";
 			long size = ctvtDAO.sizeOfSearchCtvtTen(vtTen); 
 			ArrayList<CTVatTu> ctvtList = ctvtDAO.searchByCtvtTenLimit(searchTen, pageCtvt - 1, 10);
 			objectList.add(ctvtList);
 			objectList.add(size/10);
-			return JSonUtil.toJson(objectList);
 		} else {
-			JOptionPane.showMessageDialog(null, "no search");
 			searchTen = "";
 			searchMa = "";
 			long sizeCtvt = ctvtDAO.size();
 			ArrayList<CTVatTu> ctVatTuList = (ArrayList<CTVatTu>) ctvtDAO.limit((pageCtvt - 1) * 10, 10);
 			objectList.add(ctVatTuList);
 			objectList.add(sizeCtvt/10);
-			return JSonUtil.toJson(objectList);
+			
 		}
-		
+		ctvtDAO.disconnect();
+		return JSonUtil.toJson(objectList);
 		/*return JSonUtil.toJson(objectList);*/
 	}
 }

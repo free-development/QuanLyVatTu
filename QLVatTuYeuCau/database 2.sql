@@ -89,7 +89,7 @@ create table CONGVAN
    CVNGAYDI             date,
    TRICHYEU             text,
    BUTPHE               text,
-   DAXOA int,
+   DAXOA int(2),
    primary key (CVID)
 ) ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;

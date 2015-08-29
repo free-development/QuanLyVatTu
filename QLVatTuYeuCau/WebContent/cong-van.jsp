@@ -127,29 +127,20 @@
 				<div class="left-content" >
 					<div id="scroll_time">
 						<ol class="tree">
-							<li><label for="folder1">Năm 2015</label> <input
-								type="checkbox" id="folder1" />
+							<li><label for="year">Năm 2015</label> <input
+								type="checkbox" id="year" />
 								<ol>
-									<li><label for="subfolder1">Tháng 08</label> <input
-										type="checkbox" id="subfolder1" />
+									<li><label for="month">Tháng 08</label> <input
+										type="checkbox" id="month" />
 										<ol>
-
-											<li class="file"><a href="">Ngày 31</a></li>
-											<li class="file"><a href="">Ngày 30</a></li>
-											<li class="file"><a href="">Ngày 29</a></li>
-											<li class="file"><a href="">Ngày 28</a></li>
-											<li class="file"><a href="">Ngày 27</a></li>
-											<li class="file"><a href="">Ngày 26</a></li>
-											<li class="file"><a href="">Ngày 25</a></li>
-											<li class="file"><a href="">Ngày 24</a></li>
-											<li class="file"><a href="">Ngày 23</a></li>
-											<li class="file"><a href="">Ngày 22</a></li>
-											<li class="file"><a href="">Ngày 21</a></li>
+											<div class>
+											<li class="date"><input type="button"></input><a href="">Ngày 31</a></li>
+											</div>
 										</ol>
-										</li>
+									</li>
 								</ol>
-								</li>
-								</ol>
+							</li>
+						</ol>
 					</div>
 				<div id="Link-vbd">
 						<div class="vbd-column">--Văn bản đến--</div><br>

@@ -121,9 +121,14 @@ public class DonViTinhDAO {
 		return l;
 	}
 	public void close() {
-//		HibernateUtil.shutdown();
-		session.close();
+		if(session.isOpen())
+			session.close();
 	}
+	public void disconnect() {
+		if (session.isConnected())
+			session.disconnect();
+	}
+
 	public static void main(String[] args) {
 //		new DonViTinhDAO().deleteDonViTinh(1);
 //		System.out.println(new DonViTinhDAO().getDonViTinhByTen("cai").getdvtTen());

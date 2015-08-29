@@ -21,7 +21,7 @@ function preUpdateCd(formId, check) {
 		alert('Bạn chỉ được chọn 1 chức danh để thay đổi!!');
 	else {
 	$.ajax({
-		url: "/QLVatTuYeuCau/preUpdateCd.html",	
+		url: "/QuanLyVatTuYeuCau/preUpdateCd.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "cdMa": cdMa},
@@ -42,7 +42,7 @@ $(document).ready(function() {
 	  	$('.page').click(function(){
 		var pageNumber = $(this).val();
 	    	$.ajax({
-				url: "/QLVatTuYeuCau/loadPageCd.html",	
+				url: "/QuanLyVatTuYeuCau/loadPageCd.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "pageNumber": pageNumber},
@@ -106,7 +106,7 @@ function confirmDeleteCd(){
 	
 	 function deleteCd(str) {
 	$.ajax({
-		url: "/QLVatTuYeuCau/deleteCd.html",	
+		url: "/QuanLyVatTuYeuCau/deleteCd.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "cdList": str},
@@ -132,7 +132,7 @@ function confirmDeleteCd(){
 		}
 	else{
 	$.ajax({
-		url: "/QLVatTuYeuCau/addCd.html",	
+		url: "/QuanLyVatTuYeuCau/addCd.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "cdMa": cdMa, "cdTen": cdTen},
@@ -185,7 +185,7 @@ function confirmDeleteCd(){
 	function updateCd(cdMaUpdate, cdTenUpdate) {
 
 	$.ajax({
-		url: "/QLVatTuYeuCau/updateCd.html",	
+		url: "/QuanLyVatTuYeuCau/updateCd.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "cdMaUpdate": cdMaUpdate, "cdTenUpdate": cdTenUpdate},

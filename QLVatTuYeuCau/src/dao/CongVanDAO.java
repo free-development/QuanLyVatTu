@@ -180,12 +180,41 @@ public class CongVanDAO {
 		session.getTransaction().commit();
 		return congVan;
 	}
+	public ArrayList<Integer> groupByYearLimit(int yearNumber){
+		session.beginTransaction();
+		String sql = "select distinct year(cvNgayNhan) from CongVan order by year(cvNgayNhan)";
+		Query query = session.createQuery(sql);
+		query.setMaxResults(yearNumber);
+		ArrayList<Integer> yearList = (ArrayList<Integer>) query.list();
+		session.getTransaction().commit();
+		return yearList;
+	}
+	public ArrayList<Integer> groupByMonth(final int year){
+		session.beginTransaction();
+		String sql = "select distinct month(cvNgayNhan) from CongVan where year(cvNgayNhan) = :year order by year(cvNgayNhan) DESC";
+		Query query = session.createQuery(sql);
+		query.setParameter("year", year);
+		
+		ArrayList<Integer> monthList = (ArrayList<Integer>) query.list();
+		session.getTransaction().commit();
+		return monthList;
+	}
+	public ArrayList<Integer> groupByDate(final int year, int month){
+		session.beginTransaction();
+		String sql = "select distinct DAY(cvNgayNhan) from CongVan where year(cvNgayNhan) = :year and month(cvNgayNhan) = :month order by cvNgayNhan";
+		Query query = session.createQuery(sql);
+		query.setParameter("year", year);
+		query.setParameter("month", month);
+		ArrayList<Integer> monthList = (ArrayList<Integer>) query.list();
+		session.getTransaction().commit();
+		return monthList;
+	}
 	public void close() {
-		session.close();
+		if(session.isOpen())
+			session.close();
 	}
 	public void disconnect() {
 		if (session.isConnected())
-		session.disconnect();
+			session.disconnect();
 	}
-	
 }
