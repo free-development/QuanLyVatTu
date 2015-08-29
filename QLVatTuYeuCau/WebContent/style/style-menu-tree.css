@@ -42,12 +42,12 @@ li {
 	list-style: none;
 }
 
-li.file {
+li.date {
 	margin-left: 0px !important;
 	padding-left: -1px;
 }
 
-li.file a {
+li.date a {
 	background: url(document.png) 0 0 no-repeat;
 	margin-left: 0px !important;
 	padding-left: 20px;
@@ -55,19 +55,19 @@ li.file a {
 	display: block;
 }
 
-li.file a[href*='.pdf'] {
+li.date a[href*='.pdf'] {
 	background: url(document.png) 0 0 no-repeat;
 }
 
-li.file a[href*='.html'] {
+li.date a[href*='.html'] {
 	background: url(document.png) 0 0 no-repeat;
 }
 
-li.file a[href$='.css'] {
+li.date a[href$='.css'] {
 	background: url(document.png) 0 0 no-repeat;
 }
 
-li.file a[href$='.js'] {
+li.date a[href$='.js'] {
 	background: url(document.png) 0 0 no-repeat;
 }
 

@@ -315,10 +315,6 @@
 			</table>
 			</div>
 			</form>
-			<br>
-			<br>
-			<br>
-			<br>
 			<form id="cap-so-luong-form" onsubmit="return false">
 			<div class = "form-title"style="margin-top: 10px;">Cấp phát vật tư</div>
 			<div id="view-table-cap" class="scroll-vat-tu">
