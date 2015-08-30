@@ -43,6 +43,7 @@
     	ArrayList<DonVi> donViList = (ArrayList<DonVi>) request.getAttribute("donViList");
     	ArrayList<MucDich> mucDichList = (ArrayList<MucDich>) request.getAttribute("mucDichList");
     	ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) request.getAttribute("trangThaiList");
+    	ArrayList<Integer> yearList = (ArrayList<Integer>) request.getAttribute("yearList");
     	Long size = (Long) request.getAttribute("size");
     %>
 	<div class="wrapper">
@@ -127,21 +128,33 @@
 				<div class="left-content" >
 					<div id="scroll_time">
 						<ol class="tree">
-							<li><label for="year">Năm 2015</label> <input
-								type="checkbox" id="year" />
-								<ol>
-									<li><label for="month">Tháng 08</label> <input
-										type="checkbox" id="month" />
-										<ol>
-											<div class>
-											<li class="date"><input type="button"></input><a href="">Ngày 31</a></li>
-											</div>
-										</ol>
-									</li>
-								</ol>
+						<% for (Integer year : yearList) {%>
+							<li id="year<%=year%>"><label for="y<%=year%>"><%=year %></label> <input
+									type="checkbox" id="y<%=year %>" value=<%=year %> class="year" name="year"/>
+									<ol>
+									</ol>
+<!-- 								<div class="month">	 -->
+								
 							</li>
-						</ol>
+							
+							<%} %>
+						</ol>		
 					</div>
+<!-- 					<div id="scroll_time"> -->
+<!-- 						<ol class="tree"> -->
+<!-- 							<li><label for="year">Năm 2015</label> <input -->
+<!-- 								type="checkbox" id="year" /> -->
+<!-- 								<ol id> -->
+<!-- 										<li><label for="month">Tháng 08</label> <input -->
+<!-- 											type="checkbox" id="month" /> -->
+<!-- 											<ol> -->
+<!-- 													<li class="date"><input type="button"></input><a href="">Ngày 31</a></li> -->
+<!-- 											</ol> -->
+<!-- 										</li> -->
+<!-- 								</ol> -->
+<!-- 							</li> -->
+<!-- 						</ol> -->
+<!-- 					</div> -->
 				<div id="Link-vbd">
 						<div class="vbd-column">--Văn bản đến--</div><br>
 						<div class="tt-column">
@@ -209,7 +222,7 @@
                      	for(CongVan congVan : congVanList) {
                      		count ++;
                      %>
-					<table class="rowContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : Blush;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
+					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : Blush;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
 								<tr >
 									<td class="column-check" rowspan="7">
 										Chọn&nbsp;&nbsp;
@@ -258,8 +271,13 @@
 
 									<td class="left-column-first">Nơi GQ chính</td>
 
+<<<<<<< HEAD
 									<td class="column-nql"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
 									<td colspan=3 style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
+=======
+									<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
+									<td colspan="3" style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
+>>>>>>> origin/master
 								<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
 							</button></td>
 								</tr>

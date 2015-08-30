@@ -95,7 +95,7 @@ public class CongVan implements Serializable{
 	 * @param donVi
 	 * @param file
 	 */
-	public CongVan(int soDen, Date cvNgayNhan, String cvSo,
+	public CongVan(int soDen, String cvSo, Date cvNgayNhan, 
 			Date cvNgayDi, String trichYeu, String butPhe, MucDich mucDich,
 			TrangThai trangThai, DonVi donVi, int daXoa) {
 		this.soDen = soDen;

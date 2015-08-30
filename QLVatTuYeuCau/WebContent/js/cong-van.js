@@ -101,10 +101,60 @@ function chiaSeCv() {
 		  	dateType: "JSON",
 		  	data: { "cvId": cvId},
 		  	contentType: 'application/json',
-		    mimeType: 'application/json'
+		    mimeType: 'application/json',
+		   
 		});  
 }
-
+function loadMonth(year) {
+	$.ajax({
+		url: "/QLVatTuYeuCau/loadMonth.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: { "year": year},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	    success: function(monthList) {
+	    	var content = '';
+	    	var length = monthList.length;
+	    	var monthLi = '';
+	    	var monthOl = '';
+	    	for(var i = 0; i< length; i++) {
+	    		monthLi += 	'<li id = \"month' + monthList[i] + '\">' 
+							+ '<label for="m' + monthList[i] + '\">' + 'Tháng ' + monthList[i]  + '</label>' 
+							+' <input type="checkbox" class=\"month\" id=\"m' + monthList[i] + '\" onchange="loadDate(' + monthList[i] + '); ' + '\"/>' 
+							+ '<ol></ol> </li>'; 
+	    	}
+	    	var yearLi = '';
+	    	$('#year'+year + ' ol').html(monthLi);
+	    } 
+	});  
+}
+function loadDate(month) {
+	$.ajax({
+		url: "/QLVatTuYeuCau/loadDate.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: { "month": month},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	    success: function(dateList) {
+	    	var content = '';
+	    	var length = dateList.length;
+	    	var dateLi = '';
+	    	var dateOl = '';
+	    	for(var i = 0; i< length; i++) {
+	    		dateLi += 	'<li id = \"date' + dateList[i] + '\">' 
+							+ '<label for="d' + dateList[i] + '\">' + 'Ngày ' + dateList[i]  + '</label>' 
+							+' <input type="button" class=\"date\" id=\"d' + dateList[i] +'\" value =\"' + dateList[i] + '\" onclick=\"showMesseage(' + dateList[i] + ');' + '\"/>' 
+							+ '</li>'; 
+	    	}
+	    	$('#month'+month + ' ol').html(dateLi);
+	    } 
+	});  
+}
+function showMesseage(date) {
+	alert(date);
+}
 $(document).ready(function() {
 	  	$('.page').click(function(){
 		var pageNumber = $(this).val();
@@ -193,3 +243,25 @@ $(document).ready(function() {
 //	});
 //	showForm('main-form','update-form', true);
 //}
+$(document).ready(function(){
+	$('.year').change(function(){
+//		alert($(this).val());
+		var year = $(this).val();
+		loadMonth(year);
+	});
+});
+$(document).ready(function(){
+	$('.month').change(function(){
+//		alert($(this).val());
+		var month = $(this).val();
+		loadDate(month);
+	});
+});	
+$(document).ready(function(){
+	$('.date').click(function(){
+//		alert($(this).val());
+		var date = $(this).val();
+//		loadDate(month);
+		alert(date);
+	});
+});	
