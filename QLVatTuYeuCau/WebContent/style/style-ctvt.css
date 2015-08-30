@@ -1,9 +1,9 @@
 @CHARSET "ISO-8859-1";
 #import-form {
 	display: none;
-	width: 30%;;
+	width: 20%;;
 	left: 35%;
-	height: 45%;
+	height: 150px;
 	top: 25%;
 	/*bottom: 65%;*/
 	position: absolute;

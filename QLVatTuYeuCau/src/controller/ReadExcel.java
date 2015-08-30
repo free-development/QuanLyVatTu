@@ -101,7 +101,7 @@ public class ReadExcel extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		return new ModelAndView(siteMap.home);
+		return new ModelAndView(siteMap.ctvtManage + "?action=manageCtvt");
 
 	}
 

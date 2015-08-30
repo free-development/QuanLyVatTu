@@ -42,7 +42,7 @@
 	<%
     
     	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) session.getAttribute("ctVatTuList");
-		Long size = (Long) request.getAttribute("page");
+		Long pageNum = (Long) request.getAttribute("page")/10;
    		
     %>
 	<div class="wrapper">
@@ -162,10 +162,10 @@
 											<td><input type="button" value="Previous"></td>
 											<td>
 												<%
-													long pageNum = size / 10;
-													for(int i = 0; i <= pageNum; i++) { %>
-														<input type="button" value="<%=i+1%>" class="page">
-												<%} %>
+										long p = (pageNum <= 9 ? pageNum : 10);
+									for(int i = 0; i <= p; i++) { %>
+										<input type="button" value="<%=i+1%>" class="page">
+								<%} %>
 											</td>
 											<td><input type="button" value="Next"></td>
 										</tr>
@@ -196,8 +196,9 @@
 				</div>
 						<form id="import-form" action="<%=siteMap.readExcel %>" method="post" enctype="multipart/form-data" >
 								<input type="file" name="file" accept=".xls, .xlsx" class="text" style="padding-left: 0px;">
-								<input value="uploadFile" name="action" type="submit" class="button">
+<div class="button-group" style="margin-top: -40px;"><input value="uploadFile" name="action" type="submit" class="button">
 								<input value="Thoát" onclick="showForm('import-form',false);" type="button" class="button">
+								</div>
 						</form>
 				
 	

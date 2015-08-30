@@ -49,7 +49,7 @@
    		ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) request.getAttribute("noiSanXuatList");
    		ArrayList<ChatLuong> listChatLuong = (ArrayList<ChatLuong>) request.getAttribute("chatLuongList");
    		ArrayList<DonViTinh> listDonViTinh = (ArrayList<DonViTinh>) request.getAttribute("donViTinhList");
-   		Long size = (Long) request.getAttribute("size");
+   		Long pageNum = (Long) request.getAttribute("size")/10;
     %>
         <div class="wrapper">
 				<div class="header">
@@ -204,10 +204,10 @@
 									<td><a href=""> Previous<< </a></td>
 									<td>
 										<%
-											long pageNum = size / 10;
-											for(int i = 0; i <= pageNum; i++) { %>
-												<input type="button" value="<%=i+1%>" class="page">
-										<%} %>
+										long p = (pageNum < 10 ? pageNum : 10);
+									for(int i = 0; i <= p; i++) { %>
+										<input type="button" value="<%=i+1%>" class="page">
+								<%} %>
 									</td>
 									<td><a href="">>>Next </a> </td>
 								</tr>
@@ -385,21 +385,21 @@
 				</table>	
 					
 			</div>
-			<div id = "paging" >
-							<table style ="border-style: none;">
-								<tr>
-									<td><a href=""> Previous<< </a></td>
-									<td>
-										<%
-											long  pagenum = size / 10;
-											for(int i = 0; i <= pagenum; i++) { %>
-												<input type="button" value="<%=i+1%>" class="page">
-										<%} %>
-									</td>
-									<td><a href="">>>Next </a> </td>
-								</tr>
-							</table>
-						</div>		
+<!-- 			<div id = "paging" > -->
+<!-- 							<table style ="border-style: none;"> -->
+<!-- 								<tr> -->
+<!-- 									<td><a href=""> Previous<< </a></td> -->
+<!-- 									<td> -->
+<%-- 									<% --%>
+<!-- // 										long p = (pageNum <= 9 ? pageNum : 10); -->
+<%-- 										for(int i = 0; i <= p; i++) { %> --%>
+<%-- 										<input type="button" value="<%=i+1%>" class="page"> --%>
+<%-- 										<%} %> --%>
+<!-- 									</td> -->
+<!-- 									<td><a href="">>>Next </a> </td> -->
+<!-- 								</tr> -->
+<!-- 							</table> -->
+<!-- 						</div>		 -->
 					<div class="group-button">
 				<input type="hidden" name="action" value="deleteVatTu">
 				<button type="button" class="button"
