@@ -122,7 +122,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào Nguyễn Văn An</div>
+		<div id="greeting"></div>
 
 		<div id="main-content">
 			
@@ -208,14 +208,33 @@
 			<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td><input type="button" value="<<Previous"></td>
+<<<<<<< HEAD
+									<td><input type="button" value="<<"></td>
+=======
+>>>>>>> origin/master
 									<td>
+									
 										<%
+<<<<<<< HEAD
 									for(int i = 0; i <= pageNum; i++) { %>
 										<input type="button" value="<%=i+1%>" class="page">
 								<%} %>
 									</td>
-									<td><input type="button" value="Next>>"></td>
+									<td><input type="button" value=">>"></td>
+=======
+										String str = "";
+										String pages = ""; 
+										long p = (pageNum < 10 ? pageNum : 10);
+									for(int i = 0; i < p; i++) {
+										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCtvtYc(" + i +")\">&nbsp;";
+									}
+									if (pageNum > 10)
+										// str = "<input type=\"button\" value=\"<<Previous\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;"  + str + "<input type=\"button\" value=\"Next>>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
+										str += "<input type=\"button\" value=\"Sau>>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
+									out.println(str);	
+								%>
+<!-- 									<input type="button" value="Next>>"></td> -->
+>>>>>>> origin/master
 								</tr>
 							</table>
 			</div>

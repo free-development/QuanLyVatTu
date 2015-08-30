@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import org.springframework.http.MediaType;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.oreilly.servlet.MultipartRequest;
 
 import dao.CTNguoiDungDAO;
@@ -50,9 +52,16 @@ import util.StringUtil;
 public class CvController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	int page = 1;
+	private HttpSession session;
 	private final String tempPath = "./"; 
     private final String pathFile = "./";
+    
+    private int year = 0;
+    private int month = 0;
+    private int date = 0;
     public ModelAndView getCongvan( HttpServletRequest request) {
+//    	session = request.getSession(false);
+    	
     	MucDichDAO mucDichDAO =  new MucDichDAO();
     	DonViDAO donViDAO =  new DonViDAO();
     	TrangThaiDAO trangThaiDAO =  new TrangThaiDAO();
@@ -63,6 +72,7 @@ public class CvController extends HttpServlet {
 		ArrayList<DonVi> donViList = (ArrayList<DonVi>) donViDAO.getAllDonVi();
 		ArrayList<MucDich> mucDichList = (ArrayList<MucDich>) mucDichDAO.getAllMucDich();
 		ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) trangThaiDAO.getAllTrangThai();
+		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(5);
 		for(CongVan congVan : congVanList) {
 			int cvId = congVan.getCvId();
 			fileHash.put(cvId, fileDAO.getByCongVanId(cvId));
@@ -72,6 +82,8 @@ public class CvController extends HttpServlet {
 		request.setAttribute("mucDichList", mucDichList);
 		request.setAttribute("donViList", donViList);
 		request.setAttribute("trangThaiList", trangThaiList);
+		request.setAttribute("yearList", yearList);
+		
 //		congVanDAO.close();
 //		donViDAO.close();
 //		trangThaiDAO.close();
@@ -164,7 +176,8 @@ public class CvController extends HttpServlet {
 		String action = multipartRequest.getParameter("action");
 //		int soDen = Integer.parseInt(multipartRequest.getParameter("soDen"));
 		String cvSo = multipartRequest.getParameter("cvSo");
-		if (congVanDAO.getByCvSo(cvSo) != null) {
+		CongVan congVanCheck = congVanDAO.getByCvSo(cvSo);
+		if (congVanCheck != null && congVanCheck.getDaXoa() == 0) {
 			request.setAttribute("error", "error");
 			return getCongvan(request);
 		}
@@ -200,9 +213,27 @@ public class CvController extends HttpServlet {
 //		new CongVan(cvId, soDen, cvNgayNhan, cvSo, cvNgayDi, trichYeu, butPhe, mucDich, trangThai, donVi)
 		System.out.println(dvMa);
 //		java.util.Date.
-		congVanDAO.addCongVan(new CongVan (cvId, soDen, cvSo, cvNgayNhan, cvNgayGoi, trichYeu, butPhe, new MucDich(mdMa), new TrangThai("CGQ",""), new DonVi(dvMa),0));
-		fileDAO.addFile(new File(pathFile + fileName, moTa, cvId));
-//    	
+		
+		if (congVanCheck != null) {
+			congVanCheck.setSoDen(soDen);
+			congVanCheck.setCvSo(cvSo);
+			congVanCheck.setButPhe(butPhe);
+			congVanCheck.setCvNgayDi(cvNgayGoi);
+			congVanCheck.setCvNgayNhan(cvNgayNhan);
+			congVanCheck.setDonVi(new DonVi(dvMa));
+			congVanCheck.setMucDich(new MucDich(mdMa));
+			congVanCheck.setTrangThai(new TrangThai("CGQ",""));
+			congVanCheck.setTrichYeu(trichYeu);
+			congVanCheck.setDaXoa(0);
+			congVanDAO.updateCongVan(congVanCheck);
+			File file = fileDAO.getByCongVanId(congVanCheck.getCvId());
+			file.setDiaChi(pathFile + fileName);
+			file.setMoTa(moTa);
+			fileDAO.updateFile(file);
+		} else {
+			congVanDAO.addCongVan(new CongVan (soDen, cvSo, cvNgayNhan, cvNgayGoi, trichYeu, butPhe, new MucDich(mdMa), new TrangThai("CGQ",""), new DonVi(dvMa),0));
+			fileDAO.addFile(new File(pathFile + fileName, moTa, cvId));
+    	}
 		congVanDAO.close();
 		fileDAO.close();
 		return getCongvan(request);
@@ -335,5 +366,28 @@ public class CvController extends HttpServlet {
 		CongVan cv = congVanDAO.getCongVan(id);
 		congVanDAO.close();
 		return JSonUtil.toJson(cv);
+	}
+	@RequestMapping(value="/loadMonth", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody String loadMonth(@RequestParam("year") String yearRequest) {
+		CongVanDAO congVanDAO = new CongVanDAO();
+		int year = Integer.parseInt(yearRequest);
+		ArrayList<Integer> monthList = congVanDAO.groupByMonth(year);
+//		session.setAttribute("", arg1);
+		this.year = year; 
+		congVanDAO.close();
+		return JSonUtil.toJson(monthList);
+	}
+	@RequestMapping(value="/loadDate", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody String loadDate(@RequestParam("month") String monthRequest) {
+		CongVanDAO congVanDAO = new CongVanDAO();
+		int month = Integer.parseInt(monthRequest);
+		ArrayList<Integer> monthList = congVanDAO.groupByDate(year, month);
+//		session.setAttribute("", arg1);
+		this.year = year; 
+		this.month = month;
+		congVanDAO.close();
+		return JSonUtil.toJson(monthList);
 	}
 }

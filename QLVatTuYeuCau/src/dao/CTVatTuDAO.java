@@ -14,6 +14,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -184,7 +185,11 @@ public class CTVatTuDAO {
 		
 		session.getTransaction().commit();
 		return list;
+<<<<<<< HEAD
 	}
+=======
+	}
+>>>>>>> 0a38437c79575adb00c6d0dfaa0ff14f243f5739
 	public ArrayList<CTVatTu> searchVtTen(String i) {
 		session.beginTransaction();
 		String sql = "from CTVatTu where vtMa in (select * from VatTu where vtTen LIKE :vtTen)";
@@ -251,6 +256,7 @@ public class CTVatTuDAO {
 		cr.createAlias("ctVatTu.vatTu", "vatTu");
 		cr.createAlias("vatTu.dvt", "dvt");
 		cr.add(Restrictions.like("vatTu.vtMa", vtMa+"%"));
+		cr.addOrder(Order.asc("vatTu.vtMa"));
 		cr.setFirstResult(first);
 		cr.setMaxResults(limit);
 		ArrayList<CTVatTu> list = (ArrayList<CTVatTu>) cr.list();
@@ -261,7 +267,7 @@ public class CTVatTuDAO {
 	public long sizeOfSearchCtvtTen(String vtTen) {
 		session.beginTransaction();
 
-		String sql = "select count(b.vtTen) from CTVatTu a join a.vatTu b  where a.vatTu.vtTen LIKE :vtTen and a.vatTu.vtTen = b.vtTen";
+		String sql = "select count(b.vtTen) from CTVatTu a join a.vatTu b  where a.vatTu.vtTen LIKE :vtTen and a.vatTu.vtTen = b.vtTen order by b.vtMa";
 		Query query = session.createQuery(sql);
 		query.setParameter("vtTen", vtTen+"%");
 		long size = (long) query.list().get(0);
@@ -276,6 +282,7 @@ public class CTVatTuDAO {
 		cr.createAlias("ctVatTu.vatTu", "vatTu");
 		cr.createAlias("vatTu.dvt", "dvt");
 		cr.add(Restrictions.like("vatTu.vtTen", vtTen+"%"));
+		cr.addOrder(Order.asc("vatTu.vtMa"));
 		cr.setFirstResult(first);
 		cr.setMaxResults(limit);
 		ArrayList<CTVatTu> list = (ArrayList<CTVatTu>) cr.list();
@@ -290,6 +297,7 @@ public class CTVatTuDAO {
 		cr.createAlias("ctVatTu.chatLuong", "chatLuong");
 		cr.createAlias("ctVatTu.vatTu", "vatTu");
 		cr.createAlias("vatTu.dvt", "dvt");
+		cr.addOrder(Order.asc("vatTu.vtMa"));
 		cr.setFirstResult(first);
 		cr.setMaxResults(limit);
 		ArrayList<CTVatTu> list = (ArrayList<CTVatTu>) cr.list();

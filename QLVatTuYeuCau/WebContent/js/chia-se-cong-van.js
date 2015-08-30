@@ -21,7 +21,7 @@ function confirmDelete(){
 $(document).ready(function() {
 	$('#update').click(function() {
 		var msnv = $('#view-chia-se input:checkbox[name=msnv]:checked').val();
-		alert(msnv);
+		//alert(msnv);
 		var msnvList = [];
 		$.each($('#view-chia-se input:checkbox[name=msnv]:checked'), function(){            
 			msnvList.push($(this).val());
@@ -58,8 +58,8 @@ $(document).ready(function() {
 			  		var button = '<button type=\"button\" class=\"button\" id=\"updateCs\">Luu lai</button>';
 			  		
 			  		$('#update-form table').html(head + content + button);
-			  		//$('#updateButton').html(button);
-			  		alert(vtCongVanList.length);
+			  	//	$('#updateButton').html(button);
+//			  		alert(vtCongVanList.length);
 			  		for (var i = 0; i < vtCongVanList.length; i++) {
 //			  			alert('#update #'+vtCongVanList[i].vtId);
 			  			$('#'+vtCongVanList[i].vtId).prop('checked',true);
@@ -101,7 +101,7 @@ $(document).ready(function() {
 			  		else {
 			  			
 			  			var content = '';
-			  			alert('#' + msnv + ' input:checkbox[name=vaiTro]');
+			  			//alert('#' + msnv + ' input:checkbox[name=vaiTro]');
 			  			$('#' + msnv +' input:checkbox').prop('checked',false);
 				  		for (var i = 0; i < vaiTroList.length; i++) {
 				  			content += vaiTroList[i].vtTen + '<br>';

@@ -43,6 +43,7 @@
     	ArrayList<DonVi> donViList = (ArrayList<DonVi>) request.getAttribute("donViList");
     	ArrayList<MucDich> mucDichList = (ArrayList<MucDich>) request.getAttribute("mucDichList");
     	ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) request.getAttribute("trangThaiList");
+    	ArrayList<Integer> yearList = (ArrayList<Integer>) request.getAttribute("yearList");
     	Long size = (Long) request.getAttribute("size");
     %>
 	<div class="wrapper">
@@ -127,21 +128,33 @@
 				<div class="left-content" >
 					<div id="scroll_time">
 						<ol class="tree">
-							<li><label for="year">Năm 2015</label> <input
-								type="checkbox" id="year" />
-								<ol>
-									<li><label for="month">Tháng 08</label> <input
-										type="checkbox" id="month" />
-										<ol>
-											<div class>
-											<li class="date"><input type="button"></input><a href="">Ngày 31</a></li>
-											</div>
-										</ol>
-									</li>
-								</ol>
+						<% for (Integer year : yearList) {%>
+							<li id="year<%=year%>"><label for="y<%=year%>"><%=year %></label> <input
+									type="checkbox" id="y<%=year %>" value=<%=year %> class="year" name="year"/>
+									<ol>
+									</ol>
+<!-- 								<div class="month">	 -->
+								
 							</li>
-						</ol>
+							
+							<%} %>
+						</ol>		
 					</div>
+<!-- 					<div id="scroll_time"> -->
+<!-- 						<ol class="tree"> -->
+<!-- 							<li><label for="year">Năm 2015</label> <input -->
+<!-- 								type="checkbox" id="year" /> -->
+<!-- 								<ol id> -->
+<!-- 										<li><label for="month">Tháng 08</label> <input -->
+<!-- 											type="checkbox" id="month" /> -->
+<!-- 											<ol> -->
+<!-- 													<li class="date"><input type="button"></input><a href="">Ngày 31</a></li> -->
+<!-- 											</ol> -->
+<!-- 										</li> -->
+<!-- 								</ol> -->
+<!-- 							</li> -->
+<!-- 						</ol> -->
+<!-- 					</div> -->
 				<div id="Link-vbd">
 						<div class="vbd-column">--Văn bản đến--</div><br>
 						<div class="tt-column">
@@ -209,10 +222,12 @@
                      	for(CongVan congVan : congVanList) {
                      		count ++;
                      %>
-					<table class="rowContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : Blush;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
+					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : Blush;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
 								<tr >
 									<td class="column-check" rowspan="7">
-										<input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
+										Chọn&nbsp;&nbsp;
+										<br>
+										<input style="text-align: center;" title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
 									</td>
 									<td class="left-column-soden">Số đến: &nbsp;&nbsp;</td>
 									<td class="column-so-den" style="text-align: left"><%=congVan.getSoDen() %></td>
@@ -222,42 +237,47 @@
 									
 									<td class="left-column-first" >Ngày đến: &nbsp;&nbsp;</td>
 
-									<td class="column-date"style="text-align: left"><%=congVan.getCvNgayNhan() %></td>
+									<td class="column-date-den"style="text-align: left"><%=congVan.getCvNgayNhan() %></td>
 									
 								</tr>
 								<tr>
 
 									<td class="left-column-first">Mục đích: &nbsp;&nbsp;</td>
 
-									<td class="column-color" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
+									<td class="column-md" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
 
 									<td class="left-column-ngdi">Ngày công văn đi:&nbsp;&nbsp;</td>
-									<td class="column-date" style="text-align: left"><%=congVan.getCvNgayDi()%></td>
+									<td class="column-date-di" style="text-align: left"><%=congVan.getCvNgayDi()%></td>
 									
 								</tr>
 								<tr>
 
 									<td class="left-column-first">Nơi gửi: &nbsp;&nbsp;</td>
-									<td class="column-color" colspan="6" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
+									<td class="column-ng" colspan="6" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
 									
 								</tr>
 								<tr>
 
 									<td class="left-column-first">Trích yếu: &nbsp;&nbsp;</td>
-									<td class="column-color"colspan="6" style="text-align: left"><%= congVan.getTrichYeu()%></td>
+									<td class="column-ty"colspan="6" style="text-align: left"><%= congVan.getTrichYeu()%></td>
 								</tr>
 								<tr>
 
 									<td class="left-column-first">Bút phê: &nbsp;&nbsp;</td>
 
-									<td class="column-color" colspan="6"><%= congVan.getButPhe()%></td>
+									<td class="column-bp" colspan="6"><%= congVan.getButPhe()%></td>
 								</tr>
 								<tr>
 
 									<td class="left-column-first">Nơi GQ chính</td>
 
-									<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
+<<<<<<< HEAD
+									<td class="column-nql"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
 									<td colspan=3 style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
+=======
+									<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
+									<td colspan="3" style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
+>>>>>>> origin/master
 								<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
 							</button></td>
 								</tr>
@@ -265,7 +285,7 @@
 								
 								<tr>
 								<td class="left-column-first">Link file công văn: </td>
-								<td colspan="6"><a
+								<td colspan="6" class="column-lcv"><a
 												href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
 												<div class="mo-ta"><%=fileHash.get(congVan.getCvId()).getMoTa() %></div>
 											</a></td>

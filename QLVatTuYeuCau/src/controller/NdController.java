@@ -87,19 +87,19 @@ public class NdController extends HttpServlet {
 	 public @ResponseBody String addNd(@RequestParam("msnv") String msnv, @RequestParam("chucdanh") String chucdanh, @RequestParam("matkhau") String matkhau
 	 , @RequestParam("hoten") String hoten, @RequestParam("sdt") String sdt,@RequestParam("email") String email, @RequestParam("diachi") String diachi){
 		String result = "";
-		System.out.println("MA: "+msnv);
+		//System.out.println("MA: "+msnv);
 		if((new NguoiDungDAO().getNguoiDung(msnv)==null)&&(new CTNguoiDungDAO().getCTNguoiDung(msnv)==null))
 		{
 			new NguoiDungDAO().addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh)));
 			new CTNguoiDungDAO().addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau)));
 			
-			System.out.println("success");
+//			System.out.println("success");
 			result = "success";	
 			
 		}
 		else
 		{
-			System.out.println("fail");
+//			s
 			result = "fail";
 		}
 			return JSonUtil.toJson(result);

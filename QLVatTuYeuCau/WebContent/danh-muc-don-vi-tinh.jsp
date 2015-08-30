@@ -51,7 +51,7 @@
 
 	<%
     		ArrayList<DonViTinh> listDonViTinh = (ArrayList<DonViTinh>) request.getAttribute("donViTinhList");
-			Long size = (Long) request.getAttribute("size");
+	long pageNum = (Long) request.getAttribute("page");
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -155,15 +155,15 @@
 					<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td><a href=""> Previous<< </a></td>
+									<td><input type="button" value="<<"></td>
 									<td>
 										<%
-											long pageNum = size / 10;
+ 											//long pageNum = size / 10;
 											for(int i = 0; i <= pageNum; i++) { %>
 												<input type="button" value="<%=i+1%>" class="page">
 										<%} %>
 									</td>
-									<td><a href="">>>Next </a> </td>
+									<td><input type="button" value=">>"></td>
 								</tr>
 							</table>
 						</div>

@@ -113,7 +113,7 @@
 		<div id="main-content">
 
 			<form id="main-form">
-				<div id="view-table">
+				<div id="view-table" class="scroll">
 					<table>
 						<tr style="background-color: #199e5e;">
 							<td class="left-column"><input type="checkbox" name=""
@@ -138,21 +138,21 @@
 					</table>
 				
 				</div>
-				<div id = "paging" >
-							<table style ="border-style: none;">
-								<tr>
-									<td><input type="button" value="<<Previous"></td>
-									<td>
-										<%
-									long pageNum = size / 10;
-									for(int i = 0; i <= pageNum; i++) { %>
-										<input type="button" value="<%=i+1%>" class="page">
-								<%} %>
-									</td>
-									<td><input type="button" value="Next>>"></td>
-								</tr>
-							</table>
-						</div>
+<!-- 				<div id = "paging" > -->
+<!-- 							<table style ="border-style: none;"> -->
+<!-- 								<tr> -->
+<!-- 									<td><input type="button" value="<<Previous"></td> -->
+<!-- 									<td> -->
+<%-- 										<% --%>
+<!-- // 									long pageNum = size / 10; -->
+<%-- 									for(int i = 0; i <= pageNum; i++) { %> --%>
+<%-- 										<input type="button" value="<%=i+1%>" class="page"> --%>
+<%-- 								<%} %> --%>
+<!-- 									</td> -->
+<!-- 									<td><input type="button" value="Next>>"></td> -->
+<!-- 								</tr> -->
+<!-- 							</table> -->
+<!-- 						</div> -->
 				<div class="group-button">
 					<input type="hidden" name="action" value="deleteCl">
 					<button type="button" class="button"
