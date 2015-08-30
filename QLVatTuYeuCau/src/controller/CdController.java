@@ -86,9 +86,9 @@ public class CdController extends HttpServlet {
 	 public @ResponseBody String addCd(@RequestParam("cdMa") String cdMa, @RequestParam("cdTen") String cdTen) {
 		String result = "";
 		System.out.println("MA: "+cdMa);
-		if(new ChucDanhDAO().getChucDanh(cdMa)==null)
+		if((new ChucDanhDAO().getChucDanh(cdMa)==null) || (new ChucDanhDAO().getChucDanh(cdMa)!=null && new ChucDanhDAO().getChucDanh(cdMa).getDaXoa() == 1 ))
 		{
-			new ChucDanhDAO().addChucDanh(new ChucDanh(cdMa,cdTen,0));
+			new ChucDanhDAO().addOrUpdateChucDanh(new ChucDanh(cdMa,cdTen,0));
 			System.out.println("success");
 			result = "success";
 			

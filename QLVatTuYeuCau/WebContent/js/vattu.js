@@ -2,7 +2,7 @@
 			if (check)
 				document.getElementById(formId).style.display="block";
 			else document.getElementById(formId).style.display="none";
-			var f = document.getElementById('main-form'), s, opacity;
+			var f = document.getElementById('vattu'), s, opacity;
 			s = f.style;
 			opacity = check? '10' : '100';
 			s.opacity = s.MozOpacity = s.KhtmlOpacity = opacity/100;
@@ -239,7 +239,12 @@
 
 
   	function showCTVatTu(formId, check, vtMa){ 
-
+  		var f = document.getElementById('vattu'), s, opacity;
+		s = f.style;
+		opacity = check? '10' : '100';
+		s.opacity = s.MozOpacity = s.KhtmlOpacity = opacity/100;
+		s.filter = 'alpha(opacity='+opacity+')';
+		for(var i=0; i<f.length; i++) f[i].disabled = check;
   		$.ajax({
   			url: "/QLVatTuYeuCau/showCTVatTu.html",
 			type: "GET",

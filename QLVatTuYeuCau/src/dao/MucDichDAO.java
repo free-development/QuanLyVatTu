@@ -6,6 +6,7 @@ import java.util.List;
 import model.ChatLuong;
 import model.ChucDanh;
 import model.MucDich;
+import model.NoiSanXuat;
 import model.YeuCau;
 
 import org.hibernate.Criteria;
@@ -43,6 +44,11 @@ public class MucDichDAO {
 	public void addMucDich(MucDich mucDich){
 		session.beginTransaction();
 		session.save(mucDich);
+		session.getTransaction().commit();
+	}
+	public void addOrUpdateMucDich(MucDich mucDich){
+		session.beginTransaction();
+		session.saveOrUpdate(mucDich);
 		session.getTransaction().commit();
 	}
 	public void updateMucDich(MucDich mucDich){

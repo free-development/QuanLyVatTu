@@ -77,7 +77,7 @@ public class DvtController extends HttpServlet {
 		String result = "";
 		System.out.println("Ten: "+dvt);
 //		int dvtId = Integer.parseInt(dvt);
-		if(new DonViTinhDAO().getDonViTinhByTen(dvt)==null)
+		if((new DonViTinhDAO().getDonViTinhByTen(dvt)==null) || (new DonViTinhDAO().getDonViTinhByTen(dvt)!=null &&new DonViTinhDAO().getDonViTinhByTen(dvt).getDaXoa() == 1) )
 		{
 			new DonViTinhDAO().addOrUpdateDonViTinh(new DonViTinh(dvt,0));
 			System.out.println("success");

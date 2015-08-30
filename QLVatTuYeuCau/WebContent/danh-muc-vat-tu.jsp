@@ -130,6 +130,7 @@
 <!-- 						<script> -->
 <!--  							$("#country").autocomplete("getdata.jsp"); -->
 <!-- 						</script> -->
+		<form id="vattu">
 			<table>		
 					<tr>		
 					<th  style="text-align: left; color: black; font-size: 19px;">* Tìm kiếm mã</th>
@@ -242,7 +243,7 @@
 			</div>
 			</form>
 			
-
+</div>
 					<!-- add-form-->
 			
 			<form id="add-form" method="get" action="<%=siteMap.vattuManage + "?action=manageVattu"%>">

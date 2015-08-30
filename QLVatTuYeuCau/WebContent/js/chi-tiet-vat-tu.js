@@ -57,7 +57,7 @@
 							+ vtTen +'</td><td class=\"col\">'
 							+ ctvt.noiSanXuat.nsxTen +'</td><td class=\"col\">' 				
 							+ ctvt.chatLuong.clTen +'</td><td class=\"col\">'
-							+ ctvt.dvt.dvtTen +'</td><td class=\"col\">'
+							+ ctvt.vattu.dvt.dvtTen +'</td><td class=\"col\">'
 							+ dinhMuc +'</td><td class=\"col\">'
 							+ soLuongTon +'</td></tr>');
 			  		
