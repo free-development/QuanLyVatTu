@@ -122,7 +122,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào Nguyễn Văn An</div>
+		<div id="greeting"></div>
 
 		<div id="main-content">
 			
@@ -208,14 +208,14 @@
 			<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td><input type="button" value="<<Previous"></td>
+									<td><input type="button" value="<<"></td>
 									<td>
 										<%
 									for(int i = 0; i <= pageNum; i++) { %>
 										<input type="button" value="<%=i+1%>" class="page">
 								<%} %>
 									</td>
-									<td><input type="button" value="Next>>"></td>
+									<td><input type="button" value=">>"></td>
 								</tr>
 							</table>
 			</div>

@@ -148,7 +148,7 @@
 						<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td><input type="button" value="<<Previous"></td>
+									<td><input type="button" value="<<"></td>
 									<td>
 										<%
  											//long pageNum = size / 10;
@@ -156,7 +156,7 @@
 												<input type="button" value="<%=i+1%>" class="page">
 										<%} %>
 									</td>
-									<td><input type="button" value="Next>>"></td>
+									<td><input type="button" value=">>"></td>
 								</tr>
 							</table>
 						</div>

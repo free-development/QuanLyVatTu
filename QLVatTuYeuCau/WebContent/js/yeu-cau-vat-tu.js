@@ -65,6 +65,7 @@ function preAddSoLuong(){
 				
 			showForm('add-yeu-cau-form','add-so-luong-form',true);
 			$('#danh-sach-vat-tu').hide();
+			$('#main-form').hide();
 //		});
 //	});	
 };
@@ -109,6 +110,7 @@ function addSoLuong(){
 	  			}
 	  			showForm('add-yeu-cau-form','add-so-luong-form',false);
 	  			$('#danh-sach-vat-tu').show();
+	  			$('#main-form').show();
 	  	}
 	});
 	
@@ -171,6 +173,7 @@ function preUpdateYc() {
 		});  
 		showForm('add-yeu-cau-form','update-so-luong-form',true);
 		$('#danh-sach-vat-tu').hide();
+		$('#main-form').hide();
 	}
 }
 function updateYc() {
@@ -195,6 +198,7 @@ function updateYc() {
 				$('#view-table-yc table tr #soLuong' + ycId).html(soLuong);
 				showForm('add-yeu-cau-form','update-so-luong-form',false);
 		  		$('#danh-sach-vat-tu').show();
+		  		$('#main-form').show();
 	  		}
 	  		
   		}
@@ -231,6 +235,7 @@ function preCapVatTu() {
 		});  
 		showForm('add-yeu-cau-form','cap-so-luong-form',true);
 		$('#danh-sach-vat-tu').hide();
+		$('#main-form').hide();
 	}
 }
 function capVatTu() {
@@ -254,6 +259,7 @@ function capVatTu() {
 	  		}
 	  		showForm('add-yeu-cau-form','cap-so-luong-form',false);
 	  		$('#danh-sach-vat-tu').show();
+	  		$('#main-form').show();
   		}
 	});
 }

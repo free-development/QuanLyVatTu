@@ -108,12 +108,13 @@
 			<div class="clear"></div>
 		</div>
 		<div id="main-content">
-			<div id="title-content">Chia sẻ công văn</div>
+			
 				<form id="main-form" action="<%=siteMap.updateChiaSeCv%>" method="get">
-					<div id="input-table" style="width: 75%; margin-left: 25px;">
+				<div id="title-content">Chia sẻ công văn</div>
+					<div id="input-table" style="width: 960px; margin-left: 25px;margin-bottom: 10px;">
 						<table>
 							<tr>
-								<th style="text-align: ce"">Số công văn:</th>
+								<th style="text-align: left">Số công văn:</th>
 								<td class="b-column"><%=congVan.getCvSo() %></td>
 								<th class="c-column">Ngày đến:</th>
 								<td class="b-column"><%=congVan.getCvNgayNhan() %></td>
@@ -168,9 +169,8 @@
 						<button type="reset" class="btn">
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Bỏ qua
 						</button>
-						<button type="button" class="btn" onclick="showForm('main-form')">
-							<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
-						</button>
+						<button type="button" class="button" onclick="location.href='<%=siteMap.home%>'">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</div>
 				</form>
 				
@@ -181,11 +181,10 @@
 				%>
 				<div id="title-content">Công việc đã chia sẽ</div>
 				<div id="view-table-chia-se">
-				<form>
 					<table >
 						<tr bgcolor= "#199e5e">
-						<th style="text-align: center;"><input type = "checkbox" class="checkAll" name=""></th>
-							</th><th>Msnv</th><th>Họ tên</th><th>Vai trò</th>
+						<th style="text-align: center;">Chọn</th>
+						<th>Msnv</th><th>Họ tên</th><th>Vai trò</th>
 						</tr>
 						<%
 							int i = 0;
@@ -215,32 +214,28 @@
 						</tr>
 						<%}%>
 					</table>
+					</div>
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">
 						<button class="button" id="update" type="button">
 							<i class="fa fa-pencil fa-fw"></i>&nbsp;sửa
 						</button>
 						<button type="reset" class="button" type="button">
-							<i class="fa fa-trash-o"></i>&nbsp;&nbsp;xóa
+							<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Bỏ qua
 						</button>
 					</div>
-					</form>
-				</div>
-				<div style="color:red; text-align: center;s">
-				<%} else out.println("Chưa chia sẻ công văn");%>
-				</div>
-<!-- 				</div> -->
 				</form>
+				</div>
+				<div style="color: red; text-align: center;">
+				<%}%>
+				</div>
 			</div>
-			<div id="update-form">
-				<table>
-				
-				</table>	
+			<div id="update-form" style="top:60%;position:absolute;width:900px;left:20%;">
+				<table style="width:900px;"></table>
 				<div class="group-button" id="updateButton">
-				<button type="button" class="button" id="updateCs">Luu lai</button> 
+				<button type="button" class="button" id="updateCs">Lưu lại</button> 
 				</div>		
-			</div>
+				</div>
 		</div>
-	</div>
 </body>
 </html>

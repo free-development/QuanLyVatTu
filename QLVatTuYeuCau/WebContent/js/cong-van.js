@@ -60,7 +60,7 @@ function preUpdateCv(cv) {
 	  	success: function(congVan) {
 //			$('table').has('input[name="cvId"]:checked').remove();
 //			alert("Cong van da bi xoa");
-	  		alert(congVan.trangThai.ttMa);
+	  		//alert(congVan.trangThai.ttMa);
 	  		$('#update-form input:text[name=soDen]').val(congVan.soDen);
 	  		$('#update-form input:text[name=cvSo]').val(congVan.cvSo);
 	  		$('#update-form input:text[name=ngayGoiUpdate]').val(congVan.cvNgayGoi);

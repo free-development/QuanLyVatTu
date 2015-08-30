@@ -212,7 +212,9 @@
 					<table class="rowContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : Blush;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
 								<tr >
 									<td class="column-check" rowspan="7">
-										<input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
+										Chọn&nbsp;&nbsp;
+										<br>
+										<input style="text-align: center;" title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
 									</td>
 									<td class="left-column-soden">Số đến: &nbsp;&nbsp;</td>
 									<td class="column-so-den" style="text-align: left"><%=congVan.getSoDen() %></td>
@@ -222,41 +224,41 @@
 									
 									<td class="left-column-first" >Ngày đến: &nbsp;&nbsp;</td>
 
-									<td class="column-date"style="text-align: left"><%=congVan.getCvNgayNhan() %></td>
+									<td class="column-date-den"style="text-align: left"><%=congVan.getCvNgayNhan() %></td>
 									
 								</tr>
 								<tr>
 
 									<td class="left-column-first">Mục đích: &nbsp;&nbsp;</td>
 
-									<td class="column-color" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
+									<td class="column-md" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
 
 									<td class="left-column-ngdi">Ngày công văn đi:&nbsp;&nbsp;</td>
-									<td class="column-date" style="text-align: left"><%=congVan.getCvNgayDi()%></td>
+									<td class="column-date-di" style="text-align: left"><%=congVan.getCvNgayDi()%></td>
 									
 								</tr>
 								<tr>
 
 									<td class="left-column-first">Nơi gửi: &nbsp;&nbsp;</td>
-									<td class="column-color" colspan="6" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
+									<td class="column-ng" colspan="6" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
 									
 								</tr>
 								<tr>
 
 									<td class="left-column-first">Trích yếu: &nbsp;&nbsp;</td>
-									<td class="column-color"colspan="6" style="text-align: left"><%= congVan.getTrichYeu()%></td>
+									<td class="column-ty"colspan="6" style="text-align: left"><%= congVan.getTrichYeu()%></td>
 								</tr>
 								<tr>
 
 									<td class="left-column-first">Bút phê: &nbsp;&nbsp;</td>
 
-									<td class="column-color" colspan="6"><%= congVan.getButPhe()%></td>
+									<td class="column-bp" colspan="6"><%= congVan.getButPhe()%></td>
 								</tr>
 								<tr>
 
 									<td class="left-column-first">Nơi GQ chính</td>
 
-									<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
+									<td class="column-nql"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
 									<td colspan=3 style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
 								<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
 							</button></td>
@@ -265,7 +267,7 @@
 								
 								<tr>
 								<td class="left-column-first">Link file công văn: </td>
-								<td colspan="6"><a
+								<td colspan="6" class="column-lcv"><a
 												href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
 												<div class="mo-ta"><%=fileHash.get(congVan.getCvId()).getMoTa() %></div>
 											</a></td>

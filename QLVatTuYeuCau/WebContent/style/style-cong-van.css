@@ -112,8 +112,8 @@
 	width: 100px;
 }
 .column-so-den {
-	color:red;
-	font-weight: bold;
+	
+	
 	text-align: left;
 	width: 100px;
 	
@@ -137,15 +137,54 @@
 .column-socv{
 	width: 100px;
 	text-align: left;
-	color:#EE0000;
+	color:#CC3300;
 	font-weight: bold;
 }
 
-.column-date {
+.column-md{
 	width: 100px;
 	text-align: left;
-	color:#3399CC;
+
+}
+
+.column-ty{
+	width: 100px;
+	text-align: left;
+	
+}
+
+.column-nql{
+	width: 100px;
+	text-align: left;
+	
+}
+
+.column-ng{
+	width: 100px;
+	text-align: left;
+	
+}
+.column-bp {
+	width: 100px;
+	text-align: left;
+	
+}
+.column-lcv {
+	width: 100px;
+	text-align: left;
+	color:#0000FF;
 	font-weight: bold;
+}
+.column-date-den{
+	width: 100px;
+	text-align: left;
+	
+}
+.column-date-di {
+	width: 100px;
+	text-align: left;
+	
+	
 }
 .vbd-column{
 	font-weight: bold;
@@ -344,7 +383,7 @@
 
 #add-form {
 	display: none;
-	width: 66%;
+	width: 63%;
 	/*    height: 36%*/
 	position: absolute;
 	left: 17%;
@@ -354,7 +393,7 @@
 	/*    bottom: 32%;*/
 	background-color: #dceaf5;
 	border-radius: 10px;
-	border: 4px solid #CCFFFF;
+	border: 3px solid #3399CC;
 	padding-left: 20px;
 	padding-right: 20px;
 	padding-top: 15px ;
@@ -363,7 +402,7 @@
 
 #update-form {
 	display: none;
-	width: 66%;
+	width: 63%;
 	/*    height: 36%*/
 	position: absolute;
 	left: 17%;
@@ -377,7 +416,7 @@
 	padding-right: 10px;
 	padding-top: 20px;
 	padding-bottom: 10px;
-	border: 4px solid #CCFFFF;
+	border: 3px solid #3399CC;
 }
 
 #update-yc-vat-tu {
@@ -489,7 +528,7 @@
 }
 
 .mo-ta {
-	color: red;
+	color:#0000FF;
 	text-decoration: underline;
 }
 
