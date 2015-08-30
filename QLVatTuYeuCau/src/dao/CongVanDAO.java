@@ -2,14 +2,10 @@ package dao;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import model.ChatLuong;
-import model.CongVan;
-import model.DonVi;
-import model.File;
-import model.TrangThai;
-
+import org.apache.jasper.tagplugins.jstl.core.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -19,8 +15,13 @@ import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import model.CongVan;
+import model.DonVi;
+import model.File;
+import model.TrangThai;
 import util.DateUtil;
 import util.HibernateUtil;
+import util.SqlUtil;
 
 public class CongVanDAO {
 	
@@ -70,6 +71,11 @@ public class CongVanDAO {
 	public void addCongVan(CongVan congVan){
 		session.beginTransaction();
 		session.save(congVan);
+		session.getTransaction().commit();
+	}
+	public void addOrUpdateCongVan(CongVan congVan){
+		session.beginTransaction();
+		session.saveOrUpdate(congVan);
 		session.getTransaction().commit();
 	}
 	public void updateCongVan(CongVan congVan){
@@ -182,7 +188,7 @@ public class CongVanDAO {
 	}
 	public ArrayList<Integer> groupByYearLimit(int yearNumber){
 		session.beginTransaction();
-		String sql = "select distinct year(cvNgayNhan) from CongVan order by year(cvNgayNhan)";
+		String sql = "select distinct year(cvNgayNhan) from CongVan where daXoa = 0 order by year(cvNgayNhan) DESC";
 		Query query = session.createQuery(sql);
 		query.setMaxResults(yearNumber);
 		ArrayList<Integer> yearList = (ArrayList<Integer>) query.list();
@@ -191,7 +197,7 @@ public class CongVanDAO {
 	}
 	public ArrayList<Integer> groupByMonth(final int year){
 		session.beginTransaction();
-		String sql = "select distinct month(cvNgayNhan) from CongVan where year(cvNgayNhan) = :year order by year(cvNgayNhan) DESC";
+		String sql = "select distinct month(cvNgayNhan) from CongVan where  daXoa = 0 and year(cvNgayNhan) = :year order by month(cvNgayNhan) DESC";
 		Query query = session.createQuery(sql);
 		query.setParameter("year", year);
 		
@@ -201,7 +207,7 @@ public class CongVanDAO {
 	}
 	public ArrayList<Integer> groupByDate(final int year, int month){
 		session.beginTransaction();
-		String sql = "select distinct DAY(cvNgayNhan) from CongVan where year(cvNgayNhan) = :year and month(cvNgayNhan) = :month order by cvNgayNhan";
+		String sql = "select distinct DAY(cvNgayNhan) from CongVan where daXoa = 0 and year(cvNgayNhan) = :year and month(cvNgayNhan) = :month order by cvNgayNhan DESC";
 		Query query = session.createQuery(sql);
 		query.setParameter("year", year);
 		query.setParameter("month", month);
@@ -209,6 +215,26 @@ public class CongVanDAO {
 		session.getTransaction().commit();
 		return monthList;
 	}
+	public ArrayList<CongVan> searchByYear(int year) {
+		session.beginTransaction();
+		String sql = "from CongVan where daXoa = 0 and year(cvNgayNhan) = :year";
+		Query query = session.createQuery(sql);
+		query.setParameter("year", year);
+		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) query.list();
+		session.getTransaction().commit();
+		return congVanList;
+	}
+	/*
+	public  ArrayList<CongVan> search(Integer year, Integer month, Integer date, String ttMa, Map<String, String> filter) {
+		session.beginTransaction();
+		String sql = "from CongVan where daXoa = 0 and year(cvNgayNhan) = :year";
+		Query query = session.createQuery(sql);
+		query.setParameter("year", year);
+		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) query.list();
+		session.getTransaction().commit();
+		return congVanList;
+	}
+	*/
 	public void close() {
 		if(session.isOpen())
 			session.close();
@@ -216,5 +242,22 @@ public class CongVanDAO {
 	public void disconnect() {
 		if (session.isConnected())
 			session.disconnect();
+	}
+	public static void main(String[] args) {
+		ArrayList<CongVan> congVanList = new CongVanDAO().searchByYear(2015);
+		for (CongVan congVan :  congVanList) {
+			System.out.println(congVan.getCvId());
+		}
+		SqlUtil sqlUtil = new SqlUtil();
+//		System.out.println("create table: " + sqlUtil.createQuery("CongVan"));
+//		System.out.println("add condition: " + sqlUtil.addCondition("year(cvNgayNhan) = " + 2015));
+//		System.out.println("add condition: " + sqlUtil.addCondition("month(cvNgayNhan) = " + 8));
+//		System.out.println("add condition: " + sqlUtil.addCondition("DAY(cvNgayNhan) = " + 8));
+		sqlUtil.createQuery("CongVan");
+		sqlUtil.addCondition("year(cvNgayNhan) = " + 2015);
+		sqlUtil.addCondition("DAY(cvNgayNhan) = " + 8);
+		sqlUtil.addCondition("DAY(cvNgayNhan) = " + 8);
+		
+		System.out.println("add condition: " + sqlUtil.orderBy("month(cvNgayNhan) ", false));
 	}
 }

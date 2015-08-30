@@ -316,14 +316,29 @@ function searchCtVt(){
 	});
 };
 function loadPageCtvtYc(pageNumber) {
+	
+	var page = 0;
+	var p = 0;
+	if (pageNumber == 'Next') {
+		var lastPage = document.getElementsByClassName('page')[9].value;
+		p = (lastPage) / 5;
+		page = p * 5;
+	}
+	else if (pageNumber == 'Previous') {
+		var firstPage = document.getElementsByClassName('page')[0].value;
+		p = (firstPage - 1) / 5;
+		page =  p * 5 - 1;
+	}
+	else {
+		page = pageNumber;
+	}
 	$.ajax({
 		url: "/QLVatTuYeuCau/loadPageCtvtYc.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
-	  	data: { "pageNumber": pageNumber},
+	  	data: { "pageNumber": page},
 	  	contentType: 'application/json',
 	    mimeType: 'application/json',
-	  	
 	  	success: function(objectList) {
 	  		var size = objectList[1];
 	  		var ctvtList = objectList[0];
@@ -331,19 +346,43 @@ function loadPageCtvtYc(pageNumber) {
 	  			$('#view-table-ds table .rowContent').remove();
 				for(i = 0; i < length; i++ ) {
 					var ctVatTu = ctvtList[i];
-//					alert(ctVatTu.vatTu.vtTen);
+					var cells = '';
 					var style = '';
 					if (i % 2 == 0)
 						style = 'style=\"background : #CCFFFF;\"';
-					var cells =   '<td>' + ctVatTu.vatTu.vtMa + '</td>'
+					cells =   '<td>' + ctVatTu.vatTu.vtMa + '</td>'
 								+ '<td>' + ctVatTu.vatTu.vtTen + '</td>'
 								+ '<td>' + ctVatTu.noiSanXuat.nsxTen + '</td>'
 								+ '<td>' + ctVatTu.chatLuong.clTen + '</td>'
 								+ '<td>' + ctVatTu.vatTu.dvt.dvtTen + '</td>'
 								+ '<td><input class=\"radio\"  type=\"radio\" id="a" name=\"ctvtId\" value=\"' + ctVatTu.ctvtId + '\" onchange=\"preAddSoLuong();\"> </td>';
 					var row = '<tr ' +style + 'class = \"rowContent\">' + cells + '</tr>';
-					$('#view-table-ds table tr:first').after(row);
-		  		}
+					 $('#view-table-ds table tr:first').after(row);
+				}
+					var button = '';
+					if(pageNumber == 'Next') {
+						for (var i = 0; i < 10; i++) {
+							var t = ((p -1) * 5 + i + 1);
+							
+							button += '<input type=\"button\" value=\"' + ((p -1) * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageCtvtYc(' + ((p -1)*5 + i)  +')\">&nbsp;';
+							if (t > size)
+								break;
+						}
+						button = '<input type=\"button\" value=\"<<Trước\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;'  + button;
+						if ((p + 1) * 5 < size)
+							button += '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPageCtvtYc(\'Next\');\">';
+						$('#paging').html(button);
+					} else if (pageNumber == 'Previous'){
+						if (p > 0)
+							p = p -1;
+						for (var i = 0; i < 10; i++)
+							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageCtvtYc(' + (p * 5 + i)  +')\">&nbsp;';
+						
+						button = button + '<input type=\"button\" value=\"Next>>\" onclick= \"loadPageCtvtYc(\'Next\');\">';
+						if (p >= 1)
+							button = '<input type=\"button\" value=\"<<Previous\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;' + button;
+						$('#paging').html(button);	
+					}
 	  	}
 	});
 }
@@ -421,8 +460,13 @@ $(document).ready(function(){
 		searchCtVt();
 	});
 });
+/*
 $(document).ready(function(){
 	$('.page').click(function(){
-		loadPageCtvtYc($(this).val());
+		var lastPage = document.getElementsByClassName('page')[9].value;
+//		alert(items[1].value);
+		alert(lastPage);
+		loadPageCtvtYc($(this).val(), lastPage);
 	});
 });
+*/
