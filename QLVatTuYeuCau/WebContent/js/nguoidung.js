@@ -64,6 +64,7 @@ function checkPassword()
 		var sdt = $('#add-form input:text[name=sdt]').val();
 		var email = $('#add-form input:text[name=email]').val();
 		var diachi = $('#add-form input:text[name=diachi]').val();
+		
 			$.ajax({
 				url: "/QLVatTuYeuCau/addNd.html",	
 			  	type: "GET",

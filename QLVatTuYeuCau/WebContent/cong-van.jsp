@@ -270,6 +270,10 @@
 								<tr>
 
 									<td class="left-column-first">Nơi GQ chính</td>
+<<<<<<< HEAD
+=======
+
+>>>>>>> ec30ef6b73da64a1ad387e1fca8445643f375f24
 
 									<td class="column-nql"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
 									<td colspan=3 style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">

@@ -83,7 +83,7 @@ function addSoLuong(){
 	    mimeType: 'application/json',
 	  	
 	  	success: function(yeuCau) {
-	  			alert('them so luong thanh cong');
+	  			alert('Thêm số lượng thành công');
 	  			$('input:radio[name=ctvtId]').prop('checked',false);
 	  			$('input[name=soLuongAdd]').val('0');
 	  			var ctVatTu = yeuCau.ctVatTu;
@@ -125,7 +125,7 @@ function confirmDelete() {
 		alert('Bạn phải chọn 1 yêu cầu để sửa đổi!');
 	else if (ycList.length > 1)
 		alert('Bạn phải chọn 1 yêu cầu để sửa đổi!');
-	else if(confirm('Ban co chac xoa yeu cau?'))
+	else if(confirm('Bạn có chắc xóa yêu cầu?'))
 		deleteYc(str);
 };
 function deleteYc(ycList) {	
@@ -191,7 +191,7 @@ function updateYc() {
 	  		if (ycId == 'fail')
 	  			alert('Số lương yêu cầu không hợp lệ! Số lượng yêu cầu phải lớn hơn số lượng cấp!!!');
 	  		else {
-	  			alert('cap nhat so luong thanh cong');
+	  			alert('Cập nhật số lượng thành công');
 	//  			alert('soLuong' + ycId);
 	//	  			$('input:radio[name=ctvtId]').prop('checked',false);
 	  			$('input[name=soLuongUpdate]').val('0');	
@@ -374,9 +374,9 @@ function loadPageCtvtYc(pageNumber) {
 							if (t > size)
 								break;
 						}
-						button = '<input type=\"button\" value=\"<<Trước\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;'  + button;
+						button = '<input type=\"button\" value=\"<<\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;'  + button;
 						if ((p + 1) * 5 < size)
-							button += '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPageCtvtYc(\'Next\');\">';
+							button += '<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">';
 						$('#paging').html(button);
 					} else if (pageNumber == 'Previous'){
 						if (p > 0)
@@ -476,3 +476,5 @@ $(document).ready(function(){
 	});
 });
 */
+
+
