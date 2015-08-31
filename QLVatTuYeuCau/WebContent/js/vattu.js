@@ -424,7 +424,7 @@
 					}
  			  	}
  			});
-    } 
+    }
  	$(document).ready(function() {
 	$('#add-form').keypress(function(e) {
 	 var key = e.which;

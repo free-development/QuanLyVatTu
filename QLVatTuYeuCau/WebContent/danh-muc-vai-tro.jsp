@@ -120,9 +120,8 @@
 		<div id="main-content">
 			<div id="title-content">Danh mục vai trò</div>
 			<div id="main-content">
-
 				<form id="main-form">
-					<div id="view-table">
+					<div id="view-table" style="height: 600px; margin: 0 auto;">
 						<table>
 							<tr style="background: #199e5e">
 								<th class="left-column"><input type="checkbox"

@@ -118,7 +118,7 @@
 			<div id="title-content">Danh mục bộ phận sử dụng</div>
 
 				<form id="main-form">
-					<div id="view-table-bo-phan">
+					<div id="view-table-bo-phan" style="height: 600px; margin: 0 auto;">
 						<table>
 							<tr>
 								<th class="left-column"><input type="checkbox"
