@@ -79,6 +79,8 @@ public class CtvtController extends HttpServlet {
 			ArrayList<CTVatTu> ctVatTuList =  (ArrayList<CTVatTu>) ctVatTuDAO.limit(page - 1, 10);
 			request.setAttribute("size", size);
 			session.setAttribute("ctVatTuList", ctVatTuList);
+			ArrayList<CTVatTu> allCTVatTuList =  (ArrayList<CTVatTu>) ctVatTuDAO.getAllCTVatTu();
+			session.setAttribute("allCTVatTuList", allCTVatTuList);
 			return new ModelAndView(siteMap.ctVatu);
 		}
 		return new ModelAndView("login");
