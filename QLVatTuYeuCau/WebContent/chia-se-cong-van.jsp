@@ -37,7 +37,7 @@
 	CongVan congVan = (CongVan) session.getAttribute("congVan");
 	HashMap<String,NguoiDung> vtNguoiDungHash = (HashMap<String,NguoiDung>) request.getAttribute("vtNguoiDungHash");
 	HashMap<String, HashMap<Integer, VaiTro>> vaiTroHash = (HashMap<String, HashMap<Integer, VaiTro>>) request.getAttribute("vaiTroHash");
-	Long pageNum = (Long) request.getAttribute("page");
+	//Long pageNum = (Long) request.getAttribute("page");
 	%>
 	<div class="wrapper">
 		<div class="header">
@@ -125,8 +125,8 @@
 					</div>
 <!-- 					<br /> -->
 <%-- 					<form action="<%=siteMap.chiaSeCv%>" method="get"> --%>
-					<div id="view-table" >
-						<table style="margin: 0 auto; margin-top:10px; max-height: 420px;width: 960px;display: auto;margin: 0 auto;overflow: scroll;" > 
+					<div id="view-table" class="scroll-chia-se">
+						<table> 
 							<tr style="background-color: #199e5e;">
 
 								<th style="width: 100px;">Mã nhân viên</th>
@@ -161,19 +161,19 @@
 							<%} %>
 						</table>
 					</div>
-					<div id = "paging" >
-									<%
-										String str = "";
-										String pages = ""; 
-										long p = (pageNum < 10 ? pageNum : 10);
-									for(int i = 0; i < p; i++) {
-										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCscv(" + i +")\">&nbsp;";
-									}
-									if (pageNum > 10)
-								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCscv(\'Next\');\">";
-									out.println(str);	
-								%>
-					</div>
+<!-- 					<div id = "paging" > -->
+<%-- 									<% --%>
+<!-- // 										String str = ""; -->
+<!-- // 										String pages = "";  -->
+<!-- // 										long p = (pageNum < 10 ? pageNum : 10); -->
+<!-- // 									for(int i = 0; i < p; i++) { -->
+<!-- // 										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCscv(" + i +")\">&nbsp;"; -->
+<!-- // 									} -->
+<!-- // 									if (pageNum > 10) -->
+<!-- // 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCscv(\'Next\');\">"; -->
+<!-- // 									out.println(str);	 -->
+<%-- 								%> --%>
+<!-- 					</div> -->
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">
 						<button class="btn">
@@ -194,7 +194,7 @@
 					if (vtNguoiDungHash.size() != 0 || vtNguoiDungHash == null) {
 				%>
 				<div id="title-content">Công việc đã chia sẻ</div>
-				<div id="view-table-chia-se">
+				<div id="view-table-chia-se" class="scroll-cs">
 					<table >
 						<tr bgcolor= "#199e5e">
 						<th style="text-align: center;">Chọn</th>
@@ -244,13 +244,14 @@
 				<%}%>
 				</div>
 			</div>
-			<div id="update-form" style="top:60%;position:absolute;width:900px;left:20%;">
+			<div id="update-form" style="top:60%;position:absolute;width:900px;left:20%;" >
+				<div class="scroll-cs">
 				<table style="width:900px;"></table>
+				</div>
 				<div class="group-button" id="updateButton">
 				<button type="button" class="button" id="updateCs">Lưu lại</button> 
-			</div>		
-				
 				</div>
+			</div>
 		</div>
 </body>
 </html>

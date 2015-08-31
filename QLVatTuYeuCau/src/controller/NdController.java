@@ -115,7 +115,7 @@ public class NdController extends HttpServlet {
 	}
 	
 	
-	@RequestMapping(value="/changePass", method=RequestMethod.POST, 
+	@RequestMapping(value="/changePass", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String changePass(@RequestParam("msnv") String msnv, @RequestParam("passOld") String passOld
 			, @RequestParam("passNew") String passNew) {
