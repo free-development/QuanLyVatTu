@@ -111,6 +111,13 @@ public class DonViTinhDAO {
 		query.executeUpdate();
 		session.getTransaction().commit();
 	}
+	public void deleteDonViTinhTen(String dvtTen){
+		session.beginTransaction();
+		String sql = "update DonViTinh set daXoa = 1 where dvtTen = '" + dvtTen+ "'";		
+		Query query = session.createQuery(sql);
+		query.executeUpdate();
+		session.getTransaction().commit();
+	}
 	public int getDonViTinhDAO(final int dvtId) {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(DonViTinh.class);

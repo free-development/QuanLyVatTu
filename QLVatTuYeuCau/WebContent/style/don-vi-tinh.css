@@ -80,7 +80,7 @@
 }
 
 .right-column {
-	width: 430px;
+	width: 500px;
 }
 
 .btn {
@@ -113,14 +113,16 @@
 	display: none;
 	width: 30%;;
 	left: 35%;
-	top: 25%;
+	top: 30%;
 	height: 35%;
 	position: absolute;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
-	padding-top: 20px
+	padding-top: 20px;
+	border: outset;
+	border-color: #0000FF;
 }
 
 #update-form {
@@ -129,14 +131,16 @@
 	height: 35%;
 	left: 35%;
 	right: 35%;
-	top: 25%;
+	top: 30%;
 	bottom: 65%;
 	position: absolute;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
-	padding-top: 20px
+	padding-top: 20px;
+	border: outset;
+	border-color: #0000FF;
 }
 
 #paging table {

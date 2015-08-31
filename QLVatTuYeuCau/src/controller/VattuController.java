@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import model.CTVatTu;
 import model.ChatLuong;
@@ -74,7 +75,7 @@ public class VattuController extends HttpServlet {
 //		}
 		if("manageVattu".equalsIgnoreCase(action)) {
 			long size = vatTuDAO.size();
-			ArrayList<VatTu> vatTuList =  (ArrayList<VatTu>) vatTuDAO.limit(page-1, 10);
+			ArrayList<VatTu> vatTuList =  (ArrayList<VatTu>) vatTuDAO.limit(page - 1, 10);
 			request.setAttribute("size", size);
 			ArrayList<NoiSanXuat> noiSanXuatList =  (ArrayList<NoiSanXuat>) noiSanXuatDAO.getAllNoiSanXuat();
 			ArrayList<ChatLuong> chatLuongList =  (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();
@@ -157,25 +158,17 @@ public class VattuController extends HttpServlet {
 	@RequestMapping(value="/loadPageVatTu", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String loadPageVt(@RequestParam("pageNumber") String pageNumber) {
-		String result = "";
-		System.out.println("MA: " + pageNumber);
+//		String result = "";
+//		System.out.println("MA: " + pageNumber);
 		VatTuDAO vtDAO = new VatTuDAO();
 		int page = Integer.parseInt(pageNumber);
-		ArrayList<VatTu> vtList = (ArrayList<VatTu>) vtDAO.limit((page -1 ) * 10, 10);
-		
-		/*
-		if(new NoiSanXuatDAO().getNoiSanXuat(nsxMa)==null)
-		{
-			new NoiSanXuatDAO().addNoiSanXuat(new NoiSanXuat(nsxMa, nsxTen,0));
-			System.out.println("success");
-			result = "success";	
-		}
-		else
-		{
-			System.out.println("fail");
-			result = "fail";
-		}
-		*/
-			return JSonUtil.toJson(vtList);
+		ArrayList<Object> objectList = new ArrayList<Object>();
+		long sizevt = vtDAO.size();
+		ArrayList<VatTu> vatTuList = (ArrayList<VatTu>) vtDAO.limit((page - 1) * 10, 10);
+		//JOptionPane.showMessageDialog(null, vatTuList.size());
+		objectList.add(vatTuList);
+		objectList.add((sizevt - 1)/10);
+		vtDAO.disconnect();
+		return JSonUtil.toJson(objectList);
 	}
 }

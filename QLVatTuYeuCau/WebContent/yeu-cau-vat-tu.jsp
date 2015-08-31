@@ -205,23 +205,8 @@
 				</div>
 				</div>
 			</form>
-			<div id = "paging" >
-							<table style ="border-style: none;">
-								<tr>
-<<<<<<< HEAD
-									<td><input type="button" value="<<"></td>
-=======
->>>>>>> origin/master
-									<td>
-									
-										<%
-<<<<<<< HEAD
-									for(int i = 0; i <= pageNum; i++) { %>
-										<input type="button" value="<%=i+1%>" class="page">
-								<%} %>
-									</td>
-									<td><input type="button" value=">>"></td>
-=======
+					<div id = "paging" >
+								<%
 										String str = "";
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
@@ -234,10 +219,10 @@
 									out.println(str);	
 								%>
 <!-- 									<input type="button" value="Next>>"></td> -->
->>>>>>> origin/master
+
 								</tr>
 							</table>
-			</div>
+					</div>
 			<form id="main-form">
 			<div class="form-title">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">

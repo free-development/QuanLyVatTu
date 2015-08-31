@@ -43,29 +43,30 @@ function showForm(formId, check){
 			}
 		}
 		function confirmDelete(){
-			dvtId = $('input:checkbox[name=dvtId]:checked').val();
-			var dvtMaList = [];
+			vtId = $('input:checkbox[name=dvtId]:checked').val();
+			var vtMaList = [];
 			$.each($("input[name='dvtId']:checked"), function(){            
-				dvtMaList.push($(this).val());
+				vtMaList.push($(this).val());
 		    });
-			if (dvtMaList.length == 0)
-				alert('Bạn phải chọn 1 hoặc nhiều đơn vị tính để xóa!!');
-			else if (confirm('Bạn có chắc xóa đơn vị tính có mã ' + dvtMaList.join(", ")))
-				deletedvt(dvtId);
+			var str = vtMaList.join(", ");
+			if (vtMaList.length == 0)
+				alert('Bạn phải chọn 1 hoặc nhiều vai trò để xóa!!');
+			else if (confirm('Bạn có chắc xóa đơn vị tính ' + str))
+				deletedvt(str);
 		}
  		
-	 	 function deletedvt(dvtId) {
+	 	 function deletedvt(str) {
 			 
 			$.ajax({
 				url: "/QLVatTuYeuCau/deletedvt.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
-			  	data: { "dvtId": dvtId},
+			  	data: { "dvtList": str},
 			  	contentType: 'application/json',
 			    mimeType: 'application/json',
-			  	success: function() {
+			  	success: function(dvtList) {
 			  		$('table tr').has('input[name="dvtId"]:checked').remove();
-				  	alert(dvtId + " da bi xoa");
+			  		alert('Đơn vị tính ' + str + " đã bị xóa");
 							
 			    } 
 			});  
@@ -131,10 +132,10 @@ function showForm(formId, check){
 					  	
 					  	success: function(dvt) {
 					  		$('table tr').has('input[name="dvtId"]:checked').remove();
-					  		$('#view-table table tr:first').after('<tr><td class=\"left-column\"><input type=\"checkbox\" name=\"dvtId\" value=\"' +dvtTenUpdate + '\"</td><td class=\"col\">' + dvtTenUpdate+'</td></tr>');
-							dvtTenUpdate = $('input:text[name=dvtTenUpdate]').val('');
+					  		$('#view-table table tr:first').after('<tr><td class=\"left-column\"><input type=\"checkbox\" name=\"dvtId\" value=\"' +dvtTenUpdate + '\"</td><td class=\"col\">' + dvtTenUpdate+'</td></tr>');						
 					  		showForm("update-form", false);	
-					  		alert("Thay đổi thành công đơn vị tính có mã "+ dvtTenUpdate);
+					  		alert("Thay đổi thành công đơn vị tính "+ dvtTenUpdate);
+					  		dvtTenUpdate = $('input:text[name=dvtTenUpdate]').val('');
 					  	}
 					});
  			}
