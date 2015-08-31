@@ -63,6 +63,51 @@ function changeFile(){
 function changeMoTa(){
 	$('#requireMoTa').html('');
 } 	
+
+function changeNgayNhanUp(){
+	$('#requireNgayNhanUp').html('');
+} 	
+function changeMucDichUp(){
+	$('#requireMucDichUp').html('');
+} 	
+function changeDonViUp(){
+	$('#requireDonViUp').html('');
+} 	
+function changeFileUp(){
+	$('#requireFileUp').html('');
+} 	
+function changeTrangThaiUp(){
+	$('#requireTrangThaiUp').html('');
+}
+function checkUp(){
+	var ngayNhan = $('#update-form input:text[name=ngayNhanUpdate]').val();
+	var mucDich = $('#update-form select[name=mucDichUpdate]').val();
+	var donVi = $('#update-form select[name=donViUpdate]').val();
+	var file = $('#update-form input[name=fileUpdate]').val();
+	var trangThai = $('#update-form radio[name=trangThaiUpdate]').val();
+
+	if(ngayNhan == ''){
+		$('#requireNgayNhanUp').html('Vui lòng chọn ngày nhận công văn');
+		return false;
+	}
+	else if(mucDich == null){
+		$('#requireMucDichUp').html('Vui lòng chọn mục đích');
+		return false;
+	}
+	else if(donVi == null){
+		$('#requireDonViUp').html('Vui lòng chọn đơn vị');
+		return false;
+	}
+	else if(file == ''){
+		$('#requireFileUp').html('Vui lòng đính kèm file');
+		return false;
+	}
+	else if(trangThai == ''){
+		$('#requireTrangThaiUp').html('Vui lòng cập nhật trạng thái');
+		return false;
+	}
+	return true;
+}
 function checkCongVan() {
 	var congVanList = [];
 	$.each($("input[name='cvId']:checked"), function(){            

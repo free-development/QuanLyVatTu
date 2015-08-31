@@ -9,6 +9,17 @@
 			s.filter = 'alpha(opacity='+opacity+')';
 			for(var i=0; i<f.length; i++) f[i].disabled = check;
 		}	
+		function showForm2(formId1, formId2, check){
+			if (check)
+				document.getElementById(formId2).style.display="block";
+			else document.getElementById(formId2).style.display="none";
+			var f = document.getElementById(formId1), s, opacity;
+			s = f.style;
+			opacity = check? '10' : '100';
+			s.opacity = s.MozOpacity = s.KhtmlOpacity = opacity/100;
+			s.filter = 'alpha(opacity='+opacity+')';
+			for(var i=0; i<f.length; i++) f[i].disabled = check;
+		}	
 		function timKiemVattu(){
 			var vtTen = '';
 			var vtMa = '';
@@ -129,7 +140,7 @@
 						
 						$('input:text[name=vtMaUpdate]').val(vt.vtMa);
 					  	$('input:text[name=vtTenUpdate]').val(vt.vtTen);
-						$('#dvtUp option[value='+vt.dvt.dvtTen+']').prop('selected',true);
+						$('#donvitinhUp option[value='+vt.dvt.dvtId+']').prop('selected',true);
 						$('#aa').focus();
 					  	showForm(formId, check);
 					}
@@ -238,13 +249,8 @@
   	 
 
 
-  	function showCTVatTu(formId, check, vtMa){ 
-  		var f = document.getElementById('vattu'), s, opacity;
-		s = f.style;
-		opacity = check? '10' : '100';
-		s.opacity = s.MozOpacity = s.KhtmlOpacity = opacity/100;
-		s.filter = 'alpha(opacity='+opacity+')';
-		for(var i=0; i<f.length; i++) f[i].disabled = check;
+  	function showCTVatTu(vtMa){ 
+  		
   		$.ajax({
   			url: "/QLVatTuYeuCau/showCTVatTu.html",
 			type: "GET",
@@ -290,7 +296,8 @@
 							
 						}
 				}
-				showForm(formId, check);
+				//showForm(formId, check);
+				showForm2('vattu','chitiet',true);
 			}
 		  	
   		});
@@ -345,41 +352,79 @@
     }
     
     
-    $(document).ready(function() {
- 	  	$('.page').click(function(){
- 		var pageNumber = $(this).val();
+    function loadPageVatTu(pageNumber){
+ 		var page = 0;
+ 		var p = 0;
+ 		if (pageNumber == 'Next') {
+ 			var lastPage = document.getElementsByClassName('page')[9].value;
+ 			p = (lastPage) / 5;
+ 			page = p * 5;
+ 		}
+ 		else if (pageNumber == 'Previous') {
+ 			var firstPage = document.getElementsByClassName('page')[0].value;
+ 			p = (firstPage - 1) / 5;
+ 			page =  p * 5 - 1;
+ 		}
+ 		else {
+ 			page = pageNumber;
+ 		}
  	    	$.ajax({
  				url: "/QLVatTuYeuCau/loadPageVatTu.html",	
  			  	type: "GET",
  			  	dateType: "JSON",
- 			  	data: { "pageNumber": pageNumber},
+ 			  	data: { "pageNumber": page},
  			  	contentType: 'application/json',
  			    mimeType: 'application/json',
  			  	
- 			  	success: function(vtList) {
+ 			  	success: function(objectList) {
+ 			  		var size = objectList[1];
+ 			  		var vtList = objectList[0];
+ 			  		var length = vtList.length;
  			  		$('#view-table-vat-tu table .rowContent').remove();
- 					if(vtList.length>0){
- 						for(i = 0;i < vtList.length; i++ ) {
- 							var vt = vtList[i] ;
- 							var style = '';	
+ 						for(i = 0;i < length; i++ ) {
+ 							var vt = vtList[i];
+ 							var cells = '';
+ 							var style = '';
  							if (i % 2 == 0)
  								style = 'style=\"background : #CCFFFF;\"';
- 							var str = '';
- 							str = '<tr class=\"rowContent\" ' + style + '>'
- 								+ '<td class=\"left-column\"><input type=\"checkbox\" name=\"vtMa\" value=\"' 
- 								+ vt.vtMa +'\" class=\"checkbox\"></td>'
- 								+ '<td class=\"col\">' + vt.vtMa + '</td>'
- 								+ '<td class=\"col\">' + vt.vtTen + '</td>'
- 								+ '<td class=\"col\">' + vt.dvt.dvtTen + '</td>'
- 								+ '<td style=\"text-align: center;\"><button type=\"button\" class=\"button-xem\" value=\"Xem\" onclick=\"showCTVatTu(\'chitiet\',true,\''
-								+vt.vtMa+'\');\">Xem</button></td></tr>';
- 							$('#view-table-vat-tu table tr:first').after(str);
+// 							str = '<tr class=\"rowContent\" ' + style + '>'
+		 					cells = 	'<td class=\"left-column\">' 
+		 								+'<input type=\"checkbox\" name=\"vtMa\" value=\"'+ vt.vtMa +'\" class=\"checkbox\"></td>'
+		 								+ '<td class=\"col\">' + vt.vtMa + '</td>'
+		 								+ '<td class=\"col\" style=\"text-align: left;\">' + vt.vtTen + '</td>'
+		 								+ '<td class=\"col\">' + vt.dvt.dvtTen + '</td>'
+		 								+ '<td style=\"text-align: center;\"><button type=\"button\" class=\"button-xem\" value=\"Xem\" onclick=\"showCTVatTu(\''
+										+vt.vtMa+'\');\">Xem</button></td>';
+		 					var row = '<tr ' +style + 'class = \"rowContent\">' + cells + '</tr>';
+		 					$('#view-table-vat-tu table tr:first').after(row);
  						}
- 					}
+ 					var button = '';
+					if(pageNumber == 'Next') {
+						for (var i = 0; i < 10; i++) {
+							var t = ((p -1) * 5 + i + 1);
+							
+							button += '<input type=\"button\" value=\"' + ((p -1) * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageVatTu(' + ((p -1)*5 + i)  +')\">&nbsp;';
+							if (t > size)
+								break;
+						}
+						button = '<input type=\"button\" value=\"<<Trước\" onclick= \"loadPageVatTu(\'Previous\')\">&nbsp;'  + button;
+						if ((p + 1) * 5 < size)
+							button += '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPageVatTu(\'Next\');\">';
+						$('#paging').html(button);
+					} else if (pageNumber == 'Previous'){
+						if (p > 0)
+							p = p -1;
+						for (var i = 0; i < 10; i++)
+							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageVatTu(' + (p * 5 + i)  +')\">&nbsp;';
+						
+						button = button + '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageVatTu(\'Next\');\">';
+						if (p >= 1)
+							button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageVatTu(\'Previous\')\">&nbsp;' + button;
+						$('#paging').html(button);	
+					}
  			  	}
  			});
- 	    });	
- 	})   
+    } 
  	$(document).ready(function() {
 	$('#add-form').keypress(function(e) {
 	 var key = e.which;

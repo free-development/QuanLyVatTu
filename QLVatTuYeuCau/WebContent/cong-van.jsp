@@ -270,7 +270,10 @@
 								<tr>
 
 									<td class="left-column-first">Nơi GQ chính</td>
+<<<<<<< HEAD
+=======
 
+>>>>>>> ec30ef6b73da64a1ad387e1fca8445643f375f24
 
 									<td class="column-nql"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
 									<td colspan=3 style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
@@ -418,26 +421,26 @@
 								<th style="text-align: left"><label for="ngayGoi" class="input">Ngày gởi: </label></th>
 								<td><input type="date" class="text" name="ngayGoiUpdate" id="ngayGoi" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %>></td>
 								<th style="text-align: left"><label for="ngayNhan" class="input">Ngày nhận: </label></th>
-								<td><input type="date" class="text" name="ngayNhanUpdate" id="ngayNhan" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %>>
-								</td>
+								<td><input onchange="changeNgayNhanUp();" type="date" class="text" name="ngayNhanUpdate" id="ngayNhan" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %>>
+								<div id="requireNgayNhanUp" style="color: red"></div></td>
 							</tr>
 							<tr>
 								<th style="text-align: left"><label for="mucDich" class="input">Mục
 										đích</label></th>
-								<td><select class="select" name="mucDichUpdate" id="mucDich">
+								<td><select class="select" name="mucDichUpdate" id="mucDich" onchange="changeMucDichUp();">
 										<option disabled selected value="">Chọn mục đích</option>
 										<%for(MucDich mucDich : mucDichList) {%>
 										<option value="<%=mucDich.getMdMa()%>" name="mucDich"><%=mucDich.getMdTen()%></option>
 										<%} %>
-								</select></td>
+								</select><div id="requireMucDichUp" style="color: red"></div></td>
 								<th style="text-align: left;"><label
 									for="noiGoi" class="input">Nơi gửi</label></th>
-								<td><select class="select" name="donViUpdate" id="noiGoi">
+								<td><select class="select" name="donViUpdate" id="noiGoi" onchange="changeDonViUp();">
 										<option selected disabled value="">Chọn nơi gởi</option>
 										<%for(DonVi donVi : donViList) {%>
 										<option value="<%=donVi.getDvMa()%>" ><%=donVi.getDvTen() %></option>
 										<%} %>
-								</select></td>
+								</select><div id="requireDonViUp" style="color: red"></div></td>
 							<tr>
 								<th style="text-align: left;" colspan="1"><label id="trichYeu" class="input">Trích yếu</label>
 								<td colspan="3"><textarea class="txtarea" name="trichYeuUpdate"></textarea></td>
@@ -449,17 +452,17 @@
 							<tr>
 								<th style="text-align: left;"><label
 									for="file" class="input" name="file">Tệp đính kèm: </label></th>
-								<td><input type="file" id="file" name="file">
+								<td><input type="file" id="file" name="file" onchange="changeFileUp();"><div id="requireFileUp" style="color: red"></div></td>
 							</tr>
 							<tr>
 								<th style="text-align: left"><label for="TT">Trạng
 										thái</label></th>
 								<td style="text-align: right; padding-left: 10px;">
 									<% for (TrangThai trangThai : trangThaiList) {%>
-									<input type="radio" name="ttMaUpdate" value="<%=trangThai.getTtMa()%>" id="<%=trangThai.getTtMa()%>"> 
+									<input type="radio" name="ttMaUpdate" value="<%=trangThai.getTtMa()%>" id="<%=trangThai.getTtMa()%>" onchange="changeTrangThaiUp();"> 
 									<label for="<%=trangThai.getTtMa()%>"><%=trangThai.getTtTen()%></label>&nbsp;&nbsp;&nbsp;
 									<%}%>
-								</td>
+								<div id="requireTrangThaiUp" style="color: red"></div></td>
 							</tr>	
 						</table>
 						
@@ -467,7 +470,9 @@
 						
 					</div>
 					<div class="group-button">
-						<button class="button">
+						<input type="hidden" name="action" value="updateCv">
+						<button class="button" type="submit"
+							onclick="return checkUp();">
 							<i class="fa fa-floppy-o"></i>&nbsp;Lưu lại
 						</button>
 						<button type="reset" class="button">

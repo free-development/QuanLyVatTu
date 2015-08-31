@@ -34,7 +34,9 @@
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
-	padding-top: 20px
+	padding-top: 20px;
+	border: outset;
+	border-color: #0000FF;
 }
 
 #update-form {
@@ -49,7 +51,9 @@
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
-	padding-top: 20px
+	padding-top: 20px;
+	border: outset;
+	border-color: #0000FF;
 }
 
 #title-content {

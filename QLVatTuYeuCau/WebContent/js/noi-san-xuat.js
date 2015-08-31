@@ -194,7 +194,7 @@ $(document).ready(function() {
     });	
 })   
 	function reset(){
-			$('#update-form input:text[name=nsxTenUpdate]').val('');
+			$('#update-form input:text[name=nsxTenUpdate]').vval('');
  	}
 $(document).ready(function() {
 	$('#add-form').keypress(function(e) {
