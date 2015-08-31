@@ -271,13 +271,10 @@
 
 									<td class="left-column-first">Nơi GQ chính</td>
 
-<<<<<<< HEAD
+
 									<td class="column-nql"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
 									<td colspan=3 style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
-=======
-									<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
-									<td colspan="3" style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
->>>>>>> origin/master
+
 								<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
 							</button></td>
 								</tr>

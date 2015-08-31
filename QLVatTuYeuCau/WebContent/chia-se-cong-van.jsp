@@ -37,6 +37,7 @@
 	CongVan congVan = (CongVan) session.getAttribute("congVan");
 	HashMap<String,NguoiDung> vtNguoiDungHash = (HashMap<String,NguoiDung>) request.getAttribute("vtNguoiDungHash");
 	HashMap<String, HashMap<Integer, VaiTro>> vaiTroHash = (HashMap<String, HashMap<Integer, VaiTro>>) request.getAttribute("vaiTroHash");
+	Long pageNum = (Long) request.getAttribute("page");
 	%>
 	<div class="wrapper">
 		<div class="header">
@@ -108,7 +109,6 @@
 			<div class="clear"></div>
 		</div>
 		<div id="main-content">
-			
 				<form id="main-form" action="<%=siteMap.updateChiaSeCv%>" method="get">
 				<div id="title-content">Chia sẻ công văn</div>
 					<div id="input-table" style="width: 960px; margin-left: 25px;margin-bottom: 10px;">
@@ -143,7 +143,7 @@
 								count ++;
 								String msnv = nguoiDung.getMsnv();
 							%>
-							<tr <% if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%> id="<%=nguoiDung.getMsnv() %>">
+							<tr id="row" class = "rowContent" <% if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%> id="<%=nguoiDung.getMsnv() %>">
 								<td class="tbody-nguoidung"><%=nguoiDung.getMsnv() %></td>
 								<td class="tbody-nguoidung"><%=nguoiDung.getHoTen() %></td>
 								<% for(VaiTro vaiTro : vaiTroList) {
@@ -161,6 +161,19 @@
 							<%} %>
 						</table>
 					</div>
+					<div id = "paging" >
+									<%
+										String str = "";
+										String pages = ""; 
+										long p = (pageNum < 10 ? pageNum : 10);
+									for(int i = 0; i < p; i++) {
+										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCscv(" + i +")\">&nbsp;";
+									}
+									if (pageNum > 10)
+								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCscv(\'Next\');\">";
+									out.println(str);	
+								%>
+					</div>
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">
 						<button class="btn">
@@ -171,6 +184,7 @@
 						</button>
 						<button type="button" class="button" onclick="location.href='<%=siteMap.home%>'">
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
+						</button>
 					</div>
 				</form>
 				
@@ -200,14 +214,14 @@
 							<td><%=hoTen %></td>
 							<td id="vaiTro<%=msnv%>">
 								<%
-									StringBuilder str = new StringBuilder("");
+									StringBuilder str1 = new StringBuilder("");
 									for(Integer vtId : vtHash.keySet()) {
 										VaiTro vaiTro = vtHash.get(vtId);
-										str.append(vaiTro.getVtTen() + "<br>");
+										str1.append(vaiTro.getVtTen() + "<br>");
 									}
-									int end = str.length();
-									str.delete(end - 4, end);
-									out.println(str.toString());
+									int end = str1.length();
+									str1.delete(end - 4, end);
+									out.println(str1.toString());
 								%>
 								
 							</td>
@@ -234,7 +248,8 @@
 				<table style="width:900px;"></table>
 				<div class="group-button" id="updateButton">
 				<button type="button" class="button" id="updateCs">Lưu lại</button> 
-				</div>		
+			</div>		
+				
 				</div>
 		</div>
 </body>

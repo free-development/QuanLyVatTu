@@ -204,24 +204,8 @@
 				</table>
 				</div>
 				</div>
-			</form>
-			<div id = "paging" >
-							<table style ="border-style: none;">
-								<tr>
-<<<<<<< HEAD
-									<td><input type="button" value="<<"></td>
-=======
->>>>>>> origin/master
-									<td>
-									
-										<%
-<<<<<<< HEAD
-									for(int i = 0; i <= pageNum; i++) { %>
-										<input type="button" value="<%=i+1%>" class="page">
-								<%} %>
-									</td>
-									<td><input type="button" value=">>"></td>
-=======
+				<div id = "paging" >
+									<%
 										String str = "";
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
@@ -229,21 +213,18 @@
 										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCtvtYc(" + i +")\">&nbsp;";
 									}
 									if (pageNum > 10)
-										// str = "<input type=\"button\" value=\"<<Previous\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;"  + str + "<input type=\"button\" value=\"Next>>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
-										str += "<input type=\"button\" value=\"Sau>>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
+								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
 									out.println(str);	
 								%>
-<!-- 									<input type="button" value="Next>>"></td> -->
->>>>>>> origin/master
-								</tr>
-							</table>
 			</div>
+			</form>
+			
 			<form id="main-form">
 			<div class="form-title">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
 							<table style= "width:960px; margin: 0 auto;s" >
 								<tr>
-									<th class="a-column"style= "text-align: center;"><input type="checkbox" name="checkAll" class="checkAll"></th>
+									<th class="a-column"style= "text-align: center;">Chọn</th>
 									<th class="b-column" style="text-align: center;">Mã vật tư</th>
 									<th class="c-column"style="text-align: center;">Tên vật tư</th>
 									<th class="e-column"style="text-align: center;">Nơi sản xuất</th>

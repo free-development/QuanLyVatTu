@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dao.CTVatTuDAO;
 import dao.CongVanDAO;
 import dao.NguoiDungDAO;
 import dao.NoiSanXuatDAO;
 import dao.VTCongVanDAO;
 import dao.VaiTroDAO;
 import map.siteMap;
+import model.CTVatTu;
 import model.CongVan;
 import model.NguoiDung;
 import model.NoiSanXuat;
@@ -38,6 +40,7 @@ import util.JSonUtil;
 @WebServlet("/ChiaSeCvController")
 public class ChiaSeCvController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private int pageCscv = 1;
 //	HttpSession session = null;
 	HttpSession session;
 	HttpServletResponse res = null;
@@ -55,8 +58,7 @@ public class ChiaSeCvController extends HttpServlet {
 			
 			CongVan congVan = congVanDAO.getCongVan(cvId);
 			ArrayList<VaiTro> vaiTroList = (ArrayList<VaiTro>) vaiTroDAO.getAllVaiTro();
-			ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung();
-			
+			ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) nguoiDungDAO.limit((pageCscv - 1)*10, 10);
 			VTCongVanDAO vtCongVanDAO = new VTCongVanDAO();
 
 			HashMap<String,NguoiDung> vtNguoiDungHash = vtCongVanDAO.getNguoiXuLy(cvId);
@@ -66,7 +68,8 @@ public class ChiaSeCvController extends HttpServlet {
 				HashMap<Integer, VaiTro> vtHash = vtCongVanDAO.toVaiTro(vtcvList);
 				vaiTroHash.put(msnv, vtHash);
 			}
-			
+			long sizeCscv = nguoiDungDAO.size();
+	    	request.setAttribute("page", sizeCscv / 10);
 			request.setAttribute("vaiTroHash", vaiTroHash);
 			request.setAttribute("vtNguoiDungHash", vtNguoiDungHash);
 			
@@ -74,7 +77,9 @@ public class ChiaSeCvController extends HttpServlet {
 			session.setAttribute("nguoiDungList", nguoiDungList);
 			session.setAttribute("congVan", congVan);
 			
-			
+			congVanDAO.disconnect();
+			vaiTroDAO.disconnect();
+			nguoiDungDAO.disconnect();
 			return new ModelAndView(siteMap.chiaSeCv);
 		}
 		return new ModelAndView("login");
@@ -116,6 +121,9 @@ public class ChiaSeCvController extends HttpServlet {
 			
 			request.setAttribute("vaiTroHash", vaiTroHash);
 			request.setAttribute("vtNguoiDungHash", vtNguoiDungHash);
+			vtCongVanDAO.disconnect();
+			nguoiDungDAO.disconnect();
+			vaiTroDAO.disconnect();
 			return new ModelAndView(siteMap.chiaSeCv);
 		}
 		return new ModelAndView("login");
@@ -136,6 +144,9 @@ public class ChiaSeCvController extends HttpServlet {
 	   objectList.add(msnv);
 	   objectList.add(vaiTroList);
 	   objectList.add(vtCongVanList);
+	   nguoiDungDAO.disconnect();
+	   vtCongVanDAO.disconnect();
+	   vaiTroDAO.disconnect();
 			return JSonUtil.toJson(objectList);
 	}
    
@@ -175,6 +186,24 @@ public class ChiaSeCvController extends HttpServlet {
 //	   vtCongVanDAO.close();
 	   nguoiDungDAO.close();
 	   vaiTroDAO.close();
+	   nguoiDungDAO.disconnect();
+	   vtCongVanDAO.disconnect();
+	   vaiTroDAO.disconnect();
 		return JSonUtil.toJson(objectList);
 	}
+   
+   @RequestMapping(value="/loadPageCscv", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody String loadPageCscv(@RequestParam("pageNumber") String pageNumber) {
+		NguoiDungDAO ndDAO = new NguoiDungDAO();
+		int page = Integer.parseInt(pageNumber);
+		ArrayList<Object> objectList = new ArrayList<Object>();
+			long sizeNd = ndDAO.size();
+			ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) ndDAO.limit((page - 1) * 10, 10);
+			objectList.add(ndList);
+			objectList.add((sizeNd - 1)/10);
+			//return JSonUtil.toJson(objectList);
+		ndDAO.disconnect();
+		return JSonUtil.toJson(objectList);
+	}						
 }
