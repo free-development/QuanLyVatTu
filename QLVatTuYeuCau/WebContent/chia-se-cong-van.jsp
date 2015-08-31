@@ -193,7 +193,7 @@
 				<%
 					if (vtNguoiDungHash.size() != 0 || vtNguoiDungHash == null) {
 				%>
-				<div id="title-content">Công việc đã chia sẽ</div>
+				<div id="title-content">Công việc đã chia sẻ</div>
 				<div id="view-table-chia-se">
 					<table >
 						<tr bgcolor= "#199e5e">

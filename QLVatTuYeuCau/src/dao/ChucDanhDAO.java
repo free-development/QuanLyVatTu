@@ -60,12 +60,16 @@ public class ChucDanhDAO {
 		long size = (long) query.list().get(0);
 		session.getTransaction().commit();
 		return size;
-		
 	}
 	
 	public void addChucDanh(ChucDanh chucDanh){
 		session.beginTransaction();
 		session.save(chucDanh);
+		session.getTransaction().commit();
+	}
+	public void addOrUpdateChucDanh(ChucDanh chucDanh){
+		session.beginTransaction();
+		session.saveOrUpdate(chucDanh);
 		session.getTransaction().commit();
 	}
 	public void updateChucDanh(ChucDanh chucDanh){

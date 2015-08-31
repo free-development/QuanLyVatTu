@@ -340,32 +340,31 @@
 <!-- 							</tr> -->
 							<tr style="margin-bottom: 20px;">
 								<th style="text-align: left" colspan="1"> <label for="soDen" style="text-align: left">Số công văn: </label></th>
-								<td colspan="3"><input type="text" class="text" name="cvSo" id="cvSo"></td>
+								<td colspan="3"><input type="text" class="text" name="cvSo" id="cvSo" onkeypress="changeSoCv();"><div id="requireSoCv" style="color: red"></div></td>
 							</tr>	
 							<tr style="margin-bottom: 20px;">	
 								<th style="text-align: left"><label for="ngayGoi" class="input">Ngày gởi: </label></th>
-								<td><input type="date" class="text" name="ngayGoi" id="ngayGoi" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %>></td>
+								<td><input type="date" class="text" name="ngayGoi" id="ngayGoi" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %> ></td>
 								<th style="text-align: left"><label for="ngayNhan" class="input">Ngày nhận: </label></th>
-								<td><input type="date" class="text" name="ngayNhan" id="ngayNhan" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %>>
-								</td>
+								<td><input type="date" class="text" name="ngayNhan" id="ngayNhan" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %> onkeypress="changeNgayNhan();"><div id="requireNgayNhan" style="color: red"></div></td>
 							</tr>
 							<tr>
 								<th style="text-align: left"><label for="mucDich" class="input">Mục
 										đích</label></th>
-								<td><select class="select" name="mucDich" id="mucDich">
+								<td><select class="select" name="mucDich" id="mucDich" onchange="changeMucDich();">
 										<option disabled selected value="">Chọn mục đích</option>
 										<%for(MucDich mucDich : mucDichList) {%>
 										<option value="<%=mucDich.getMdMa()%>" name="mucDich"><%=mucDich.getMdTen()%></option>
 										<%} %>
-								</select></td>
+								</select><div id="requireMucDich" style="color: red"></div></td>
 								<th style="text-align: left;"><label
 									for="noiGoi" class="input">Nơi gửi</label></th>
-								<td><select class="select" name="donVi" id="noiGoi">
+								<td><select class="select" name="donVi" id="noiGoi" onchange="changeDonVi();">
 										<option selected disabled value="">Chọn nơi gởi</option>
 										<%for(DonVi donVi : donViList) {%>
 										<option value="<%=donVi.getDvMa()%>" ><%=donVi.getDvTen() %></option>
 										<%} %>
-								</select></td>
+								</select><div id="requireDonVi" style="color: red"></div></td>
 							<tr>
 								<th style="text-align: left;" colspan="1"><label id="trichYeu" class="input">Trích yếu</label>
 								<td colspan="3"><textarea class="txtarea" name="trichYeu"></textarea></td>
@@ -377,19 +376,19 @@
 							</tr>
 								<th  style="text-align: left;"><label
 										for="file" class="input" name="file">Đính kèm công văn: </label></th>
-								<td colspan="3"><input type="file" id="file" name="file">
+								<td colspan="3"><input type="file" id="file" name="file" onchange="changeFile();"><div id="requireFile" style="color: red"></div></td>
 							<tr>	
 							</tr>
 								<th  style="text-align: left;"><label
 										for="moTa" class="input" >Mô tả file: </label></th>
-								<td colspan="3"><textarea class="txtarea" name="moTa"></textarea></td>
+								<td colspan="3"><textarea class="txtarea" name="moTa" onkeypress="changeMoTa();"></textarea><div id="requireMoTa" style="color: red"></div></td>
 							<tr>
 						</table>
 					</div>
 					<div class="group-button">
 						<input type="hidden" name="action" value="addCongVan">
-						<button class="button"
-							onclick="showForm('main-form', 'add-form', true)">
+						<button class="button" type="submit"
+							onclick="return checkAdd();">
 							<i class="fa fa-plus-circle"></i>&nbsp;Lưu lại
 						</button>
 						<button type="reset" class="button">

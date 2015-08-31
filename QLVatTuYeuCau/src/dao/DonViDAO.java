@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 
 import model.ChatLuong;
 import model.DonVi;
+import model.NoiSanXuat;
 import util.HibernateUtil;
 
 public class DonViDAO {
@@ -64,6 +65,11 @@ public class DonViDAO {
 	public void addDonVi(DonVi donVi){
 		session.beginTransaction();
 		session.save(donVi);
+		session.getTransaction().commit();
+	}
+	public void addOrUpdateDonVi(DonVi donVi){
+		session.beginTransaction();
+		session.saveOrUpdate(donVi);
 		session.getTransaction().commit();
 	}
 	public void updateDonVi(DonVi donVi){

@@ -6,7 +6,9 @@ body {
 	padding: 0px;
 	border: 1px solid WindowFrame;
 	background-color: Window;
-	overflow: hidden;
+	overflow: scroll;
+	height: 300px;
+	width: 500px;
 }
 
 .ac_results ul {
@@ -15,6 +17,7 @@ body {
 	list-style: none;
 	padding: 0;
 	margin: 0;
+	width: 500px;
 }
 
 .ac_results iframe {

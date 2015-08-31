@@ -93,9 +93,9 @@ public class ClController extends HttpServlet {
 	 public @ResponseBody String addCl(@RequestParam("clMa") String clMa, @RequestParam("clTen") String clTen) {
 		String result = "";
 		System.out.println("MA: "+clMa);
-		if(new ChatLuongDAO().getChatLuong(clMa)==null)
+		if((new ChatLuongDAO().getChatLuong(clMa)==null) || (new ChatLuongDAO().getChatLuong(clMa)!=null && new ChatLuongDAO().getChatLuong(clMa).getDaXoa() == 1))
 		{
-			new ChatLuongDAO().addChatLuong(new ChatLuong(clMa,clTen,0));
+			new ChatLuongDAO().addOrUpdateChatLuong(new ChatLuong(clMa,clTen,0));
 			System.out.println("success");
 			result = "success";
 			

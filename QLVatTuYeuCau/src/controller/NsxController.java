@@ -83,9 +83,9 @@ public class NsxController extends HttpServlet {
 	 public @ResponseBody String addNsx(@RequestParam("nsxMa") String nsxMa, @RequestParam("nsxTen") String nsxTen) {
 		String result = "";
 		System.out.println("MA: "+nsxMa);
-		if(new NoiSanXuatDAO().getNoiSanXuat(nsxMa)==null)
+		if((new NoiSanXuatDAO().getNoiSanXuat(nsxMa)==null) || (new NoiSanXuatDAO().getNoiSanXuat(nsxMa)!=null && new NoiSanXuatDAO().getNoiSanXuat(nsxMa).getDaXoa()==1) )
 		{
-			new NoiSanXuatDAO().addNoiSanXuat(new NoiSanXuat(nsxMa, nsxTen,0));
+			new NoiSanXuatDAO().addOrUpdateNoiSanXuat(new NoiSanXuat(nsxMa, nsxTen,0));
 			System.out.println("success");
 			result = "success";	
 		}

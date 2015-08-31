@@ -92,9 +92,9 @@ public class MdController extends HttpServlet {
 	 public @ResponseBody String addMd(@RequestParam("mdMa") String mdMa, @RequestParam("mdTen") String mdTen) {
 		String result = "";
 		System.out.println("MA: "+mdMa);
-		if(new MucDichDAO().getMucDich(mdMa)==null)
+		if((new MucDichDAO().getMucDich(mdMa)==null) || (new MucDichDAO().getMucDich(mdMa)!=null && new MucDichDAO().getMucDich(mdMa).getDaXoa()==1))
 		{
-			new MucDichDAO().addMucDich(new MucDich(mdMa,mdTen,0));
+			new MucDichDAO().addOrUpdateMucDich(new MucDich(mdMa,mdTen,0));
 			System.out.println("success");
 			result = "success";
 			

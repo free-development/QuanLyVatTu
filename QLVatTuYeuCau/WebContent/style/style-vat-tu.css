@@ -115,6 +115,7 @@
 	padding-top: 5px;
 	padding-bottom: 5px;
 	text-align: center;
+	margin-top: 10px;
 }
 
 #view-table-chi-tiet table tr th {
@@ -241,6 +242,8 @@
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 20px;
+	border: solid;
+	border-color: #199e5e;
 }
 
 #update-form {
@@ -254,7 +257,9 @@
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
-	padding-top: 20px
+	padding-top: 20px;
+	border: solid;
+	border-color: #199e5e;
 }
 .button-xem {
 	border-radius: 5px;
@@ -296,32 +301,38 @@
 }
 #chitiet{
 	display: none;
+	position: absolute;
+	top: 35%;
+	background-color: #DCEAF5;
+	
 }
 #add-chitiet{
 	display: none;
 	width: 450px;
 	position: absolute;
-	left: 483px;
+	left: 550px;
 	margin-top: 30px;
-	top: 140px;
+	top: 200px;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 20px;
-	
+	border: solid;
+	border-color: #199e5e;
 }
 #update-chitiet{
 	display: none;
 	width: 450px;
 	position: absolute;
-	left: 483px;
+	left: 490px;
 	margin-top: 30px;
-	top: 140px;
+	top: 200px;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 20px;
-	
+	border: solid;
+	border-color: #199e5e;
 }
