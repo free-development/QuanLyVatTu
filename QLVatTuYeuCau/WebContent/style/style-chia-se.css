@@ -13,7 +13,10 @@
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
-
+#main-content {
+	height: 800px;
+	background-color: while;
+}
 #content {
 	margin: 0 auto;
 	width: 100%;
@@ -23,10 +26,12 @@
 	margin: 0 auto;
 	/* width: 100%; */
 	
+	
 }
 
 #view-table table {
 	border-spacing: 0px;
+	width:900px;
 }
 
 #view-table table tr td {
@@ -164,6 +169,14 @@
 }
 .scroll-chia-se {
 	max-height: 420px;
+	/*height: 300px;*/
+	width: 900px;
+	display: auto;
+	margin: 0 auto;
+	overflow: scroll;
+}
+.scroll-cs {
+	max-height: 200px;
 	/*height: 300px;*/
 	width: 900px;
 	display: auto;

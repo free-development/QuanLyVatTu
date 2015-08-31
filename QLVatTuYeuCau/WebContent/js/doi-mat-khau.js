@@ -14,27 +14,57 @@ function showForm(formId, check){
 			}
 			function checkPassword()
 				{
-				alert("Xin chào ");	
+				//alert("Xin chào ");	
 //				var msnv = $('input:text[name=msnv]').val();
 //				alert(msnv);
+				var msnv = $('input:text[name=msnv]').val();
+				var passOld = $('input:password[name=passOld]').val();
 				var passNew = $('input:password[name=passNew]').val();
 				var rePassNew = $('input:password[name=rePassNew]').val();
-					if(passNew != rePassNew)
+				if(msnv == ''){
+					$('#requireMsnv').html('Vui lòng nhập mã số nhân viên ');
+					return false;
+				}
+				else if(passOld == ''){
+					$('#requirePassOld').html('Vui lòng nhập mật khẩu cũ');
+					return false;
+				}
+				else if(passNew == ''){
+					$('#requirePassNew').html('Vui lòng nhập mật khẩu mới');
+					return false;
+				}
+				else if(rePassNew == ''){
+					$('#requireRePassNew').html('Vui lòng nhập nhập lại mật khẩu mới');
+					return false;
+				}
+				else if(passNew != rePassNew)
 					{
 						alert("Mật khẩu nhập lại chưa chính xác. Vui lòng kiểm tra lại!");
 						return false;
 					}
-					else
-						changePassWord(passNew);
+				else
+						{
+							changePassWord(passNew);
+						}
 				}
+			
+			function changeMsnv(){
+				$('#requireMsnv').html('');
+			} 	
+			function changePassOld(){
+				$('#requirePassOld').html('');
+			} 	
+			function changePassNew(){
+				$('#requirePassNew').html('');
+			} 	
+			function changeRePassNew(){
+				$('#requireRePassNew').html('');
+			} 	
+			
 			function changePassWord(passNew){
 				var msnv = $('input:text[name=msnv]').val();
 				var passOld = $('input:password[name=passOld]').val();
-//				var passNew = $('input:text[name=passNew]').val();
-//				var rePassNew = $('input:text[name=rePassNew]').val();
-//				if (confirm('Bạn có chắc thay doi noi san xuat co ma ' + nsxMaUpdate))
-//					updateNsx(nsxMaUpdate, nsxTenUpdate);
-//				alert(passOld + "**" + passNew);
+				
 				$.ajax({
 					url: "/QLVatTuYeuCau/changePass.html",	
 				  	type: "GET",
@@ -45,10 +75,13 @@ function showForm(formId, check){
 				  	
 				  	success: function(result) {
 //				  		alert(result);
-				  		if(result === "success")
+				  		if(result === "success"){
+				  			$('input:text[name=msnv]').val('');
+							$('input:password[name=passOld]').val('');
 				  			window.location.assign("home");
+				  		}
 				  		else 
-				  			alert('Tai khoan hoac mat khau chua dung');
+				  			alert('Tên tài khoản hoặc mật khẩu chưa đúng');
 				  	}
 				});
 			}

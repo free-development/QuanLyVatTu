@@ -40,7 +40,7 @@ import util.JSonUtil;
 @WebServlet("/ChiaSeCvController")
 public class ChiaSeCvController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private int pageCscv = 1;
+//	private int pageCscv = 1;
 //	HttpSession session = null;
 	HttpSession session;
 	HttpServletResponse res = null;
@@ -58,7 +58,7 @@ public class ChiaSeCvController extends HttpServlet {
 			
 			CongVan congVan = congVanDAO.getCongVan(cvId);
 			ArrayList<VaiTro> vaiTroList = (ArrayList<VaiTro>) vaiTroDAO.getAllVaiTro();
-			ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) nguoiDungDAO.limit((pageCscv - 1)*10, 10);
+			ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung();
 			VTCongVanDAO vtCongVanDAO = new VTCongVanDAO();
 
 			HashMap<String,NguoiDung> vtNguoiDungHash = vtCongVanDAO.getNguoiXuLy(cvId);
@@ -68,8 +68,8 @@ public class ChiaSeCvController extends HttpServlet {
 				HashMap<Integer, VaiTro> vtHash = vtCongVanDAO.toVaiTro(vtcvList);
 				vaiTroHash.put(msnv, vtHash);
 			}
-			long sizeCscv = nguoiDungDAO.size();
-	    	request.setAttribute("page", sizeCscv / 10);
+			//long sizeCscv = nguoiDungDAO.size();
+	    	//request.setAttribute("page", sizeCscv / 10);
 			request.setAttribute("vaiTroHash", vaiTroHash);
 			request.setAttribute("vtNguoiDungHash", vtNguoiDungHash);
 			

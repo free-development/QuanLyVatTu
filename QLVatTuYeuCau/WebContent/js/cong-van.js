@@ -10,6 +10,7 @@ function showForm(formId1, formId2, check){
     s.filter = 'alpha(opacity='+opacity+')';
     for(var i=0; i<f.length; i++) f[i].disabled = check;
 }
+
 function checkAdd(){
 	var cvSo = $('#add-form input:text[name=cvSo]').val();
 	var ngayNhan = $('#add-form input:text[name=ngayNhan]').val();
