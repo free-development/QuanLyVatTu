@@ -28,6 +28,11 @@
 	type="text/css" rel="stylesheet">
 <meta charset="utf-8">
 <title></title>
+<style type="text/css" media="print">
+#print_button{
+display:none;
+}
+</style>
 </head>
 <body>
 		<% 
@@ -78,13 +83,13 @@
 			
 		</tr>
 		</table>
-		<div style="text-align: center;font-size: 20px;font-weight: bold;color: #199e5e;margin-top:20px;">Báo cáo bảng đề nghị cấp vật tư</div>
+		<div style="text-align: center;font-size: 30px;font-weight: bold;color: #199e5e;margin-top:20px;">Báo cáo bảng đề nghị cấp vật tư</div>
 		<% if((ngaybd!=null)&&(ngaykt!=null)){%>
 			
 			<div style="text-align: center;">Từ ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaybd)%>&nbsp;&nbsp;đến ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaykt)%></div>
 			
 			<% }%>
-		<div style="margin-right: 20px;padding-left: 900px;">Ngày in:&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
+		<div style="margin-right: 10px;padding-left: 800px;">Ngày in:&nbsp;&nbsp;&nbsp;&nbsp;  <%=DateUtil.toString(new java.util.Date())%></div>
 			<div id="view-table-bao-cao">
 					<table style="text-align: center;margin: 0 auto; color: black;border: solid 1px black;width:960px;">
 					<thead>
@@ -119,8 +124,8 @@
 									<td class="d-column"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
 									<td class="e-column"><%=yeuCau.getCtVatTu().getNoiSanXuat().getNsxTen() %></td>
 									<td class="f-column"><%=yeuCau.getCtVatTu().getVatTu().getDvt().getDvtTen() %></td>
-									<td class="g-column"><%=congVan.getTrangThai() %></td>
-									<td class="h-column"><%=congVan.getDonVi()%></td>
+									<td class="g-column"><%=congVan.getTrangThai().getTtTen() %></td>
+									<td class="h-column"><%=congVan.getDonVi().getDvTen()%></td>
 									<td class="k-column"><%=yeuCau.getCtVatTu().getChatLuong().getClTen() %></td>
 									<td class="m-column"><%=yeuCau.getYcSoLuong() %></td>
 	
@@ -135,15 +140,15 @@
 					<%
         				if (exportToExcel == null) {
    				 	 %>
-   				 	 <button class="button" type="button" onclick="window.print();">
+   				 	 <button class="button" id="print_button" type="button" onclick="window.print();">
 						<i class="fa fa-print"></i>&nbsp;&nbsp;In
 					</button>
 					&nbsp;&nbsp;
-					<button class="button" type="button" onclick="location.href='<%=siteMap.xuatBangDeNghi+".jsp"+ "?exportToExel=YES" %>'">
+					<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.xuatBangDeNghi+".jsp"+ "?exportToExel=YES" %>'">
 						<i class="fa fa-print"></i>&nbsp;&nbsp;Tải file
 					</button>
 					&nbsp;&nbsp;
-					<button type="button" class="button"  onclick="location.href='<%=siteMap.baoCaoBangDeNghi+".jsp" %>'">
+					<button type="button" id="print_button" class="button"  onclick="location.href='<%=siteMap.baoCaoBangDeNghi+".jsp" %>'">
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
 					<% } %>

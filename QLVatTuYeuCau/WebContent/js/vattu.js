@@ -95,7 +95,7 @@
 							$('#view-table-vat-tu table tr:first').after('<tr><td class=\"left-column\"><input type=\"checkbox\" name=\"vtMa\" value=\"' +vtMa 
 									+ '\"</td><td class=\"col\">'+ vtMa +'</td><td class=\"col\">' + vtTen
 									+'</td><td class=\"col\" style=\"text-align: center;\">' + dvt
-									+'</td><td style=\"text-align: center;\"><button type=\"button\" class=\"button-xem\" value=\"Xem\" onclick=\"showCTVatTu(\'chitiet\',true,\''
+									+'</td><td style=\"text-align: center;\"><button type=\"button\" class=\"button-xem\" value=\"Xem\" onclick=\"showCTVatTu(\''
 									+vtMa+'\');\">Xem</button></td></tr>');
 					  		$('#add-form input:text[name=vtMa]').val('');
 							$('#add-form input:text[name=vtTen]').val('');

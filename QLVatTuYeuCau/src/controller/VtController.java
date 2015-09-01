@@ -43,6 +43,7 @@ public class VtController extends HttpServlet {
 			vaiTroDAO.addVaiTro(new VaiTro(vtId, vtTen,0));
 			
 			ArrayList<VaiTro> vaiTroList =  (ArrayList<VaiTro>) vaiTroDAO.getAllVaiTro();
+			vaiTroDAO.disconnect();
 			return new ModelAndView("danh-muc-vai-tro", "vaiTroList", vaiTroList);
 		}
 		
@@ -52,14 +53,17 @@ public class VtController extends HttpServlet {
 					vaiTroDAO.deleteVaiTro(s);
 			}
 			ArrayList<VaiTro> vaiTroList =  (ArrayList<VaiTro>) vaiTroDAO.getAllVaiTro();
+			vaiTroDAO.disconnect();
 			return new ModelAndView("danh-muc-vai-tro", "vaiTroList", vaiTroList);
 		}
 		if("manageVt".equalsIgnoreCase(action)) {
 			long size = vaiTroDAO.size();
 			ArrayList<VaiTro> vaiTroList =  (ArrayList<VaiTro>) vaiTroDAO.limit(page - 1, 10);
 			request.setAttribute("size", size);
+			vaiTroDAO.disconnect();
 			return new ModelAndView("danh-muc-vai-tro", "vaiTroList", vaiTroList);
 		}
+		vaiTroDAO.disconnect();
 		return new ModelAndView("login");
 	}
 	@RequestMapping(value="/preEditVt", method=RequestMethod.GET,
@@ -68,6 +72,7 @@ public class VtController extends HttpServlet {
 			System.out.println("****" + vtId + "****");
 			VaiTroDAO vaiTroDAO = new VaiTroDAO();
 			VaiTro vt = vaiTroDAO.getVaiTro(Integer.parseInt(vtId));
+			vaiTroDAO.disconnect();
 			return JSonUtil.toJson(vt);
 			/*ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) new NoiSanXuatDAO().getAllNoiSanXuat();
 			return toJson(nsxList);*/
@@ -76,10 +81,11 @@ public class VtController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String addVt(@RequestParam("vtId") int vtId, @RequestParam("vtTen") String vtTen) {
 		String result = "";
-		System.out.println("MA: "+vtId);
-		if(new VaiTroDAO().getVaiTro(vtId)==null)
+//		System.out.println("MA: "+vtId);
+		VaiTroDAO vaiTroDAO = new VaiTroDAO();
+		if(vaiTroDAO.getVaiTro(vtId)==null)
 		{
-			new VaiTroDAO().addVaiTro(new VaiTro(vtId, vtTen,0));;
+			vaiTroDAO.addVaiTro(new VaiTro(vtId, vtTen,0));;
 			System.out.println("success");
 			result = "success";
 			
@@ -90,6 +96,7 @@ public class VtController extends HttpServlet {
 			System.out.println("fail");
 			result = "fail";
 		}
+		vaiTroDAO.disconnect();
 			return JSonUtil.toJson(result);
 //		System.out.println("****" + vtId + "****");
 //
@@ -100,9 +107,10 @@ public class VtController extends HttpServlet {
 	@RequestMapping(value="/updateVt", method=RequestMethod.GET, 
 		produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String updateVt(@RequestParam("vtIdUpdate") String vtIdUpdate, @RequestParam("vtTenUpdate") String vtTenUpdate) {
-
+		VaiTroDAO vaiTroDAO = new VaiTroDAO();
 		VaiTro vt = new VaiTro(Integer.parseInt(vtIdUpdate), vtTenUpdate,0);
-		new VaiTroDAO().updateVaiTro(vt);
+		vaiTroDAO.updateVaiTro(vt);
+		vaiTroDAO.disconnect();
 		return JSonUtil.toJson(vt);
 	}
 	@RequestMapping(value="/deleteVt", method=RequestMethod.GET, 
@@ -110,10 +118,11 @@ public class VtController extends HttpServlet {
 	 public @ResponseBody String deleteVt(@RequestParam("vtList") String vtList) {
 		String[] str = vtList.split("\\, ");
 		
-		VaiTroDAO vtDAO =  new VaiTroDAO();
+		VaiTroDAO vaiTroDAO =  new VaiTroDAO();
 		for(String vtId : str) {
-			vtDAO.deleteVaiTro(vtId);
+			vaiTroDAO.deleteVaiTro(vtId);
 		}
+		vaiTroDAO.disconnect();
 		return JSonUtil.toJson(vtList);
 	}
 	
@@ -121,10 +130,10 @@ public class VtController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String loadPageVt(@RequestParam("pageNumber") String pageNumber) {
 		String result = "";
-		System.out.println("MA: " + pageNumber);
-		VaiTroDAO vtDAO = new VaiTroDAO();
+//		System.out.println("MA: " + pageNumber);
+		VaiTroDAO vaiTroDAO = new VaiTroDAO();
 		int page = Integer.parseInt(pageNumber);
-		ArrayList<VaiTro> vtList = (ArrayList<VaiTro>) vtDAO.limit((page -1 ) * 10, 10);
+		ArrayList<VaiTro> vtList = (ArrayList<VaiTro>) vaiTroDAO.limit((page -1 ) * 10, 10);
 		
 		/*
 		if(new NoiSanXuatDAO().getNoiSanXuat(nsxMa)==null)
@@ -139,6 +148,7 @@ public class VtController extends HttpServlet {
 			result = "fail";
 		}
 		*/
+		vaiTroDAO.disconnect();
 			return JSonUtil.toJson(vtList);
 	}
 }

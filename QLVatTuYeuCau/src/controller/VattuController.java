@@ -84,16 +84,25 @@ public class VattuController extends HttpServlet {
 			request.setAttribute("chatLuongList", chatLuongList);
 			request.setAttribute("donViTinhList", donViTinhList);
 			request.setAttribute("vatTuList", vatTuList);
+			vatTuDAO.disconnect();
+			noiSanXuatDAO.disconnect();
+			chatLuongDAO.disconnect();
+			donViTinhDAO.disconnect();
 			return new ModelAndView("danh-muc-vat-tu");
 		}
+		vatTuDAO.disconnect();
+		noiSanXuatDAO.disconnect();
+		chatLuongDAO.disconnect();
+		donViTinhDAO.disconnect();
 		return new ModelAndView("login");
 	}
    @RequestMapping(value="/preEditVattu", method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String preEditVattu(@RequestParam("vtMa") String vtMa) {
-			System.out.println("****" + vtMa + "****");
-			VatTuDAO VatTuDAO = new VatTuDAO();
-			VatTu vt = VatTuDAO.getVatTu(vtMa);
+			//System.out.println("****" + vtMa + "****");
+			VatTuDAO vatTuDAO = new VatTuDAO();
+			VatTu vt = vatTuDAO.getVatTu(vtMa);
+			vatTuDAO.disconnect();
 			return JSonUtil.toJson(vt);
 		}
 	@RequestMapping(value="/addVattu", method=RequestMethod.GET, 
@@ -102,9 +111,10 @@ public class VattuController extends HttpServlet {
 		String result = "";
 		System.out.println("MA: "+vtMa);
 		int id = Integer.parseInt(dvt);
-		if(new VatTuDAO().getVatTu(vtMa) == null)
+		VatTuDAO vatTuDAO = new VatTuDAO();
+		if(vatTuDAO.getVatTu(vtMa) == null)
 		{
-			new VatTuDAO().addOrUpdateVatTu(new VatTu(vtMa, vtTen, new DonViTinh(id),0));
+			vatTuDAO.addOrUpdateVatTu(new VatTu(vtMa, vtTen, new DonViTinh(id),0));
 			System.out.println("success");
 			result = "success";
 			
@@ -115,23 +125,26 @@ public class VattuController extends HttpServlet {
 			System.out.println("fail");
 			result = "fail";
 		}
+		vatTuDAO.disconnect();
 			return JSonUtil.toJson(result);
 	}
 	@RequestMapping(value="/timKiemVattu", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String timKiemVattu(@RequestParam("vtMa") String vtMa, @RequestParam("vtTen") String vtTen) {
-		VatTuDAO vtDAO = new VatTuDAO();
+		VatTuDAO vatTuDAO = new VatTuDAO();
 		System.out.println("Ma goi qua " + vtMa);
 		System.out.println("Ten goi qua " + vtTen);
 		if(vtMa != ""){
-			ArrayList<VatTu> vtList = (ArrayList<VatTu>) vtDAO.searchVtMa(vtMa);
-			System.out.println("MA: "+vtMa);
+			ArrayList<VatTu> vtList = (ArrayList<VatTu>) vatTuDAO.searchVtMa(vtMa);
+			//System.out.println("MA: "+vtMa);
+			vatTuDAO.disconnect();
 			return JSonUtil.toJson(vtList);
 		}
 		else
 		{
-			ArrayList<VatTu> vtList = (ArrayList<VatTu>) vtDAO.searchVtTen(vtTen);
-			System.out.println("Ten: "+vtTen);
+			ArrayList<VatTu> vtList = (ArrayList<VatTu>) vatTuDAO.searchVtTen(vtTen);
+			//System.out.println("Ten: "+vtTen);
+			vatTuDAO.disconnect();
 			return JSonUtil.toJson(vtList);
 		}
 	}
@@ -140,7 +153,9 @@ public class VattuController extends HttpServlet {
 	 public @ResponseBody String updateVattu(@RequestParam("vtMaUpdate") String vtMaUpdate, @RequestParam("vtTenUpdate") String vtTenUpdate, @RequestParam("dvtUpdate") String dvtUpdate) {
 		int id = Integer.parseInt(dvtUpdate);
 		VatTu vt = new VatTu(vtMaUpdate, vtTenUpdate, new DonViTinh(id),0);
-		new VatTuDAO().updateVatTu(vt);
+		VatTuDAO vatTuDAO = new VatTuDAO();
+		vatTuDAO.updateVatTu(vt);
+		vatTuDAO.disconnect();
 		return JSonUtil.toJson(vt);
 	}
 	@RequestMapping(value="/deleteVattu", method=RequestMethod.GET, 
@@ -148,10 +163,11 @@ public class VattuController extends HttpServlet {
 	 public @ResponseBody String deleteVattu(@RequestParam("vtList") String vtList) {
 		String[] str = vtList.split("\\, ");
 		
-		VatTuDAO vtDAO =  new VatTuDAO();
+		VatTuDAO vatTuDAO = new VatTuDAO();
 		for(String vtMa : str) {
-			vtDAO.deleteVatTu(vtMa);
+			vatTuDAO.deleteVatTu(vtMa);
 		}
+		vatTuDAO.disconnect();
 		return JSonUtil.toJson(vtList);
 	}
 	
@@ -160,15 +176,15 @@ public class VattuController extends HttpServlet {
 	 public @ResponseBody String loadPageVt(@RequestParam("pageNumber") String pageNumber) {
 //		String result = "";
 //		System.out.println("MA: " + pageNumber);
-		VatTuDAO vtDAO = new VatTuDAO();
+		VatTuDAO vatTuDAO = new VatTuDAO();
 		int page = Integer.parseInt(pageNumber);
 		ArrayList<Object> objectList = new ArrayList<Object>();
-		long sizevt = vtDAO.size();
-		ArrayList<VatTu> vatTuList = (ArrayList<VatTu>) vtDAO.limit((page - 1) * 10, 10);
+		long sizevt = vatTuDAO.size();
+		ArrayList<VatTu> vatTuList = (ArrayList<VatTu>) vatTuDAO.limit((page - 1) * 10, 10);
 		//JOptionPane.showMessageDialog(null, vatTuList.size());
 		objectList.add(vatTuList);
 		objectList.add((sizevt - 1)/10);
-		vtDAO.disconnect();
+		vatTuDAO.disconnect();
 		return JSonUtil.toJson(objectList);
 	}
 }

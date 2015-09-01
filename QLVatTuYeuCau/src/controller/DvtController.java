@@ -41,6 +41,7 @@ public class DvtController extends HttpServlet {
 			donViTinhDAO.addOrUpdateDonViTinh(new DonViTinh(dvtTen,0));
 			
 			ArrayList<DonViTinh> donViTinhList =  (ArrayList<DonViTinh>) donViTinhDAO.getAllDonViTinh();
+			donViTinhDAO.disconnect();
 			return new ModelAndView("danh-muc-don-vi-tinh", "donViTinhList", donViTinhList);
 		}
 		
@@ -51,14 +52,17 @@ public class DvtController extends HttpServlet {
 				donViTinhDAO.deleteDonViTinh(dvtId);
 			}
 			ArrayList<DonViTinh> donViTinhList =  (ArrayList<DonViTinh>) donViTinhDAO.getAllDonViTinh();
+			donViTinhDAO.disconnect();
 			return new ModelAndView("danh-muc-don-vi-tinh", "donViTinhList", donViTinhList);
 		}
 		if("manageDvt".equalsIgnoreCase(action)) {
 			long size = donViTinhDAO.size();
 			ArrayList<DonViTinh> donViTinhList =  (ArrayList<DonViTinh>) donViTinhDAO.limit(page - 1, 10);
 			request.setAttribute("size", size);
+			donViTinhDAO.disconnect();
 			return new ModelAndView("danh-muc-don-vi-tinh", "donViTinhList", donViTinhList);
 		}
+		donViTinhDAO.disconnect();
 		return new ModelAndView("login");
 	}
 	@RequestMapping(value="/preEditdvt", method=RequestMethod.GET,
@@ -97,17 +101,20 @@ public class DvtController extends HttpServlet {
 			System.out.println("fail");
 			result = "fail";
 		}
+		dvtDAO.disconnect();
 			return JSonUtil.toJson(result);
 	}
 	@RequestMapping(value="/updatedvt", method=RequestMethod.GET, 
 		produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String updatedvt(@RequestParam("dvtTenUpdate") String dvtTenUpdate) {
 		//JOptionPane.showMessageDialog(null, dvtOld);
-		DonViTinh dvt = new DonViTinhDAO().getDonViTinhByTen(dvtOld);
+		DonViTinhDAO dvtDAO = new DonViTinhDAO();
+		DonViTinh dvt = dvtDAO.getDonViTinhByTen(dvtOld);
 		//JOptionPane.showMessageDialog(null, dvt.getDvtTen() + dvt.getDvtId());
 		dvt.setDvtTen(dvtTenUpdate);
 		dvt.setDaXoa(0);
-		new DonViTinhDAO().updateDonViTinh(dvt);
+		dvtDAO.updateDonViTinh(dvt);
+		dvtDAO.disconnect();
 		return JSonUtil.toJson(dvt);
 	}
 	@RequestMapping(value="/deletedvt", method=RequestMethod.GET, 
@@ -123,6 +130,7 @@ public class DvtController extends HttpServlet {
 		for(String dvtTen : str) {
 			dvtDAO.deleteDonViTinhTen(dvtTen);
 		}
+		dvtDAO.disconnect();
 		return JSonUtil.toJson(dvtList);
 	}
 	@RequestMapping(value="/loadPagedvt", method=RequestMethod.GET, 
@@ -132,6 +140,7 @@ public class DvtController extends HttpServlet {
 		DonViTinhDAO dvtDAO = new DonViTinhDAO();
 		int page = Integer.parseInt(pageNumber);
 		ArrayList<DonViTinh> dvtList = (ArrayList<DonViTinh>) dvtDAO.limit((page -1 ) * 10, 10);
+		dvtDAO.disconnect();
 			return JSonUtil.toJson(dvtList);
 	}
 }

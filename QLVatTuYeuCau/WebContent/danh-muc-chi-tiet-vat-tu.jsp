@@ -119,7 +119,7 @@
 		<div id="main-content">
 			<div id="title-content">Danh mục chi tiết vật tư</div>
 			<form id="main-form">
-					<div id="view-table-chi-tiet" style="height: 450px; margin: 0 auto;">
+					<div id="view-table-chi-tiet" style="height: 480px; margin: 0 auto;">
 						<table>
 							<tr style="background: #199e5e">
 <!-- 								<th class="left-column"><input type="checkbox" -->
@@ -179,12 +179,6 @@
 						
 						<button class="button" type="button" onclick="location.href='<%=siteMap.xuatCTVatTu+".jsp"%>'">
 							<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xuất File
-						</button>
-						&nbsp;
-		
-						&nbsp;
-						<button class="button" type="button">
-							<i class="fa fa-print"></i>&nbsp;&nbsp;In
 						</button>
 						&nbsp;
 						<button type="button" class="button" onclick="location.href='<%=siteMap.home%>'">
