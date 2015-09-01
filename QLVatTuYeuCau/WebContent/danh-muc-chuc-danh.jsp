@@ -112,7 +112,7 @@
 		<div id="main-content">
 
 			<form id="main-form">
-				<div id="view-table">
+				<div id="view-table" style="height: 600px; margin: 0 auto;">
 					<table>
 						<tr style="background-color: #199e5e;">
 							<td class="left-column"><input type="checkbox" name=""

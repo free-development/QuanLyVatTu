@@ -42,7 +42,7 @@
 	<%
     
     	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) session.getAttribute("ctVatTuList");
-		Long pageNum = (Long) request.getAttribute("page")/10;
+		Long pageNum = (Long) request.getAttribute("size")/10;
    		
     %>
 	<div class="wrapper">
@@ -119,7 +119,7 @@
 		<div id="main-content">
 			<div id="title-content">Danh mục chi tiết vật tư</div>
 			<form id="main-form">
-					<div id="view-table-chi-tiet">
+					<div id="view-table-chi-tiet" style="height: 450px; margin: 0 auto;">
 						<table>
 							<tr style="background: #199e5e">
 <!-- 								<th class="left-column"><input type="checkbox" -->
@@ -142,7 +142,7 @@
 <!-- 								<td class="left-column"><input type="checkbox" name="vtMa" -->
 <%-- 									value="<%=ctVatTu.getVatTu().getVtMa() %>" class="checkbox"></td> --%>
 								<td class="col"><%=ctVatTu.getVatTu().getVtMa() %></td>
-								<td class="col"><%=ctVatTu.getVatTu().getVtTen() %></td>
+								<td class="col" style="text-align: left;"><%=ctVatTu.getVatTu().getVtTen() %></td>
 								<td class="col"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
 								<td class="col"><%=ctVatTu.getChatLuong().getClTen() %></td>
 								<td class="col"><%=ctVatTu.getVatTu().getDvt().getDvtTen() %></td>
@@ -156,23 +156,22 @@
 								
 									
 					</div>
-						<div id = "paging" style="text-align: center;">
-									<table style ="border-style: none;" >
-										<tr>
-											<td><input type="button" value="Previous"></td>
-											<td>
-												<%
-										long p = (pageNum <= 9 ? pageNum : 10);
-									for(int i = 0; i <= p; i++) { %>
-										<input type="button" value="<%=i+1%>" class="page">
-								<%} %>
-											</td>
-											<td><input type="button" value="Next"></td>
-										</tr>
-									</table>
-								</div>
-								<div class="group-button" style="text-align: center;">
-		
+			<div id = "paging" >
+								<%
+										String str = "";
+										String pages = ""; 
+										long p = (pageNum < 10 ? pageNum : 10);
+									for(int i = 0; i < p; i++) {
+										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCTVatTu(" + i +")\">&nbsp;";
+									}
+									if (pageNum > 10)
+										// str = "<input type=\"button\" value=\"<<Previous\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;"  + str + "<input type=\"button\" value=\"Next>>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
+										str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageCTVatTu(\'Next\');\">";
+									out.println(str);	
+								%>
+					
+			</div>
+						<div class="group-button" style="text-align: center;">		
  						<button type="button" class="button" 
 							onclick="showForm('import-form', true)"> 
 							<i class="fa fa-pencil fa-fw"></i>&nbsp;Import 

@@ -32,7 +32,7 @@
 </head>
 <body>
 		<% 
-    	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) session.getAttribute("ctVatTuList");
+    	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) session.getAttribute("allCTVatTuList");
 // 	Long pageNum = (Long) request.getAttribute("page");
 
 	       %>
@@ -67,7 +67,7 @@
 			
 		</tr>
 		</table>
-		<div style="text-align: center;font-size: 20px;font-weight: bold;color: #199e5e;margin-top:20px;">Báo cáo chi tiết vật tư</div>
+		<div style="text-align: center;font-size: 40px;font-weight: bold;color: #199e5e;margin-top:20px;">Báo cáo chi tiết vật tư</div>
 			
 		<div style="margin-right: 20px;padding-left: 900px;">Ngày in:&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
 			<div id="view-table-bao-cao">
@@ -93,7 +93,7 @@
 										<tr class="rowContent"
 											<%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>>
 											<td class="col"><%=ctVatTu.getVatTu().getVtMa() %></td>
-											<td class="col"><%=ctVatTu.getVatTu().getVtTen() %></td>
+											<td class="col" style="text-align: left"><%=ctVatTu.getVatTu().getVtTen() %></td>
 											<td class="col"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
 											<td class="col"><%=ctVatTu.getChatLuong().getClTen() %></td>
 											<td class="col"><%=ctVatTu.getVatTu().getDvt().getDvtTen() %></td>

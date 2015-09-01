@@ -16,7 +16,16 @@
 	border: solid;
 	border-color: #199e5e;
 }
+#title-content {
+	text-align: center;
+	font-size: 25px;
+	color: firebrick;
+	font-weight: bold;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
 #view-table-chi-tiet {
+	margin-top: 50px;
 	margin: 0 auto;
 	width: 1024px;
 }
@@ -166,18 +175,13 @@
 	padding-right: 10px;
 	padding-top: 20px
 }
-#paging table {
+#paging {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	margin: 0 auto;
-	margin-top: 20px;
-	border-style: none;
 }
-#paging table tr td{
-	border-style: none;
-}
-#paging table tr td a {
-	color: blue;
-	font-size: 15px;
-}
+
 .button-xem {
 	border-radius: 5px;
 	background-color: #199e5e;

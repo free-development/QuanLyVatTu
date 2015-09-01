@@ -77,8 +77,10 @@ public class CtvtController extends HttpServlet {
 		if("manageCtvt".equalsIgnoreCase(action)) {
 			long size = ctVatTuDAO.size();
 			ArrayList<CTVatTu> ctVatTuList =  (ArrayList<CTVatTu>) ctVatTuDAO.limit(page - 1, 10);
-			request.setAttribute("page", size/10);
+			request.setAttribute("size", size);
 			session.setAttribute("ctVatTuList", ctVatTuList);
+			ArrayList<CTVatTu> allCTVatTuList =  (ArrayList<CTVatTu>) ctVatTuDAO.getAllCTVatTu();
+			session.setAttribute("allCTVatTuList", allCTVatTuList);
 			return new ModelAndView(siteMap.ctVatu);
 		}
 		return new ModelAndView("login");
@@ -169,29 +171,18 @@ public class CtvtController extends HttpServlet {
 		return JSonUtil.toJson(ctvtList);
 	}
 	
-	@RequestMapping(value="/loadPageCtvt", method=RequestMethod.GET, 
+	@RequestMapping(value="/loadPageCTVatTu", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String loadPageCtvt(@RequestParam("pageNumber") String pageNumber) {
-		String result = "";
-		System.out.println("MA: " + pageNumber);
+	 public @ResponseBody String loadPageVt(@RequestParam("pageNumber") String pageNumber) {
 		CTVatTuDAO ctvtDAO = new CTVatTuDAO();
 		int page = Integer.parseInt(pageNumber);
-		ArrayList<CTVatTu> ctvtList = (ArrayList<CTVatTu>) ctvtDAO.limit((page -1 ) * 10, 10);
-		
-		/*
-		if(new NoiSanXuatDAO().getNoiSanXuat(nsxMa)==null)
-		{
-			new NoiSanXuatDAO().addNoiSanXuat(new NoiSanXuat(nsxMa, nsxTen,0));
-			System.out.println("success");
-			result = "success";	
-		}
-		else
-		{
-			System.out.println("fail");
-			result = "fail";
-		}
-		*/
-			return JSonUtil.toJson(ctvtList);
+		ArrayList<Object> objectList = new ArrayList<Object>();
+		long sizevt = ctvtDAO.size();
+		ArrayList<CTVatTu> ctvatTuList = (ArrayList<CTVatTu>) ctvtDAO.limit((page - 1) * 10, 10);
+		objectList.add(ctvatTuList);
+		objectList.add((sizevt - 1)/10);
+		ctvtDAO.disconnect();
+		return JSonUtil.toJson(objectList);
 	}
 	
 }

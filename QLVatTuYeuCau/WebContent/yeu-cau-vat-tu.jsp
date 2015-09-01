@@ -203,6 +203,12 @@
 					<%}%>
 				</table>
 				</div>
+<<<<<<< HEAD
+				</div>
+			</form>
+					<div id = "paging" >
+								<%
+=======
 				</div>
 
 			</form>
@@ -210,6 +216,7 @@
 				<div id = "paging" >
 									<%
 
+>>>>>>> e3f62190466dbd472b9df6990d4a15dbcbc7dc10
 										String str = "";
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
@@ -219,6 +226,14 @@
 									if (pageNum > 10)
 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
 									out.println(str);	
+<<<<<<< HEAD
+								%>
+<!-- 									<input type="button" value="Next>>"></td> -->
+
+					</div>
+			</div>
+			
+=======
 								%>
 
 <!-- 									<input type="button" value="Next>>"></td> -->
@@ -231,6 +246,7 @@
 			</form>
 			
 
+>>>>>>> e3f62190466dbd472b9df6990d4a15dbcbc7dc10
 			<form id="main-form">
 			<div class="form-title">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
