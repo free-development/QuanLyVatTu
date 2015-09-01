@@ -86,12 +86,14 @@ public class NdController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String addNd(@RequestParam("msnv") String msnv, @RequestParam("chucdanh") String chucdanh, @RequestParam("matkhau") String matkhau
 	 , @RequestParam("hoten") String hoten, @RequestParam("sdt") String sdt,@RequestParam("email") String email, @RequestParam("diachi") String diachi){
+		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		CTNguoiDungDAO ctNguoiDungDAO = new CTNguoiDungDAO();
 		String result = "";
 		//System.out.println("MA: "+msnv);
-		if((new NguoiDungDAO().getNguoiDung(msnv)==null)&&(new CTNguoiDungDAO().getCTNguoiDung(msnv)==null))
+		if((nguoiDungDAO.getNguoiDung(msnv)==null)&&(ctNguoiDungDAO.getCTNguoiDung(msnv)==null))
 		{
-			new NguoiDungDAO().addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh)));
-			new CTNguoiDungDAO().addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau)));
+			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh)));
+			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau)));
 			
 //			System.out.println("success");
 			result = "success";	
@@ -102,6 +104,8 @@ public class NdController extends HttpServlet {
 //			s
 			result = "fail";
 		}
+		nguoiDungDAO.disconnect();
+		ctNguoiDungDAO.disconnect();
 			return JSonUtil.toJson(result);
 			
 	}
@@ -111,6 +115,7 @@ public class NdController extends HttpServlet {
 	 public @ResponseBody String preUpdateNd(@RequestParam("clMa") String clMa) {
 		ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
 		ChatLuong cl = chatLuongDAO.getChatLuong(clMa);
+		chatLuongDAO.disconnect();
 		return JSonUtil.toJson(cl);
 	}
 	
@@ -119,16 +124,17 @@ public class NdController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String changePass(@RequestParam("msnv") String msnv, @RequestParam("passOld") String passOld
 			, @RequestParam("passNew") String passNew) {
-
+		CTNguoiDungDAO ctNguoiDungDAO = new CTNguoiDungDAO();
 		String result = "";
-		if (new CTNguoiDungDAO().login(msnv, StringUtil.encryptMD5(passOld))) {
-			new CTNguoiDungDAO().updateCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(passNew)));
+		if (ctNguoiDungDAO.login(msnv, StringUtil.encryptMD5(passOld))) {
+			ctNguoiDungDAO.updateCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(passNew)));
 			result = "success";
 		}
 		else
 		{
 			result = "fail";
 		}
+		ctNguoiDungDAO.disconnect();
 		return JSonUtil.toJson(result);
 	}
 	@RequestMapping("/login")
@@ -142,10 +148,13 @@ public class NdController extends HttpServlet {
 		if (check) {
 			NguoiDung nguoiDung =  ndDAO. getNguoiDung(msnv);
 			session.setAttribute("nguoiDung", nguoiDung);
+			ctndDAO.disconnect();
+			ndDAO.disconnect();
 			return new ModelAndView("index");
 		} else {
 			return new ModelAndView("login", "status", "fail");
 		}
+		
 	}
 /*	
 	@RequestMapping(value="/login", method=RequestMethod.GET, 

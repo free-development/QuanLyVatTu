@@ -185,10 +185,7 @@ public class CTVatTuDAO {
 		
 		session.getTransaction().commit();
 		return list;
-<<<<<<< HEAD
 
-=======
->>>>>>> c1ea4db2fa7ee76e5f1418b5b6f369b057a67560
 	}
 	public ArrayList<CTVatTu> searchVtTen(String i) {
 		session.beginTransaction();

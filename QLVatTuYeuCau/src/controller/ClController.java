@@ -74,6 +74,7 @@ public class ClController extends HttpServlet {
 	 public @ResponseBody String preUpdateCl(@RequestParam("clMa") String clMa) {
 		ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
 		ChatLuong cl = chatLuongDAO.getChatLuong(clMa);
+		chatLuongDAO.disconnect();
 		return JSonUtil.toJson(cl);
 	}
 	@RequestMapping(value="/deleteCl", method=RequestMethod.GET, 
@@ -85,6 +86,7 @@ public class ClController extends HttpServlet {
 		for(String clMa : str) {
 			clDAO.deleteChatLuong(clMa);
 		}
+		clDAO.disconnect();
 		return JSonUtil.toJson(clList);
 	}
 
@@ -93,9 +95,10 @@ public class ClController extends HttpServlet {
 	 public @ResponseBody String addCl(@RequestParam("clMa") String clMa, @RequestParam("clTen") String clTen) {
 		String result = "";
 		System.out.println("MA: "+clMa);
-		if((new ChatLuongDAO().getChatLuong(clMa)==null) || (new ChatLuongDAO().getChatLuong(clMa)!=null && new ChatLuongDAO().getChatLuong(clMa).getDaXoa() == 1))
+		ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
+		if((chatLuongDAO.getChatLuong(clMa)==null) || (chatLuongDAO.getChatLuong(clMa)!=null && chatLuongDAO.getChatLuong(clMa).getDaXoa() == 1))
 		{
-			new ChatLuongDAO().addOrUpdateChatLuong(new ChatLuong(clMa,clTen,0));
+			chatLuongDAO.addOrUpdateChatLuong(new ChatLuong(clMa,clTen,0));
 			System.out.println("success");
 			result = "success";
 			
@@ -106,6 +109,7 @@ public class ClController extends HttpServlet {
 			System.out.println("fail");
 			result = "fail";
 		}
+		chatLuongDAO.disconnect();
 			return JSonUtil.toJson(result);
 			
 	}
@@ -117,6 +121,7 @@ public class ClController extends HttpServlet {
 		System.out.println(clTenUpdate);
 		ChatLuong cl = new ChatLuong(clMaUpdate, clTenUpdate,0);
 		new ChatLuongDAO().updateChatLuong(cl);
+		
 		return JSonUtil.toJson(cl);
 	}
 	@RequestMapping(value="/loadPageCl", method=RequestMethod.GET, 
@@ -141,6 +146,7 @@ public class ClController extends HttpServlet {
 			result = "fail";
 		}
 		*/
+		clDAO.disconnect();
 			return JSonUtil.toJson(clList);
 	}
 }

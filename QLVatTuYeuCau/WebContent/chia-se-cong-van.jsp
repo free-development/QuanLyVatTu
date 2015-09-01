@@ -235,7 +235,10 @@
 							<i class="fa fa-pencil fa-fw"></i>&nbsp;sửa
 						</button>
 						<button type="reset" class="button" type="button">
-							<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Bỏ qua
+							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Bỏ qua
+						</button>
+						<button type="button" class="button" id="sendMail" onclick="">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Gửi mail
 						</button>
 					</div>
 				</form>
@@ -252,6 +255,29 @@
 				<button type="button" class="button" id="updateCs">Lưu lại</button> 
 				</div>
 			</div>
-		</div>
+<!-- 			<div id="view-mail"> -->
+			<form id="mail-form" action="" style="display:none;">  
+			<table style="margin: 0 auto;">
+					<tr>
+						<td>Đến:</td>
+						<td><input type="text" name="den" class="text"/></td>
+					</tr>
+					<tr>
+						<td>Chủ đề:</td>
+						<td><input type="text" name="chuDe" class="text"></td> 
+					</tr>
+					<tr>
+						<td>Nội dung:</td>
+						<td><textarea rows="6" cols="40" name="noiDung"class="text"></textarea></td>
+					</tr>
+			</table>
+			<div class="group-button">
+						<button type="button" class="button" onclick="">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Gửi
+						</button>
+					</div>
+			</form>  
+			</div>
+<!-- 		</div> -->
 </body>
 </html>

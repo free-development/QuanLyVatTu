@@ -208,6 +208,14 @@
 	
 	
 }
+#mail-form {
+	margin: 0 auto;
+	display:none;
+}
+#mail-form table{
+	margin: 0 auto;
+	border-spacing: 0px;
+}
 #update-form table{
 	margin: 0 auto;
 	border-spacing: 0px;
