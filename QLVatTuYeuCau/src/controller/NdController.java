@@ -131,6 +131,7 @@ public class NdController extends HttpServlet {
 		}
 		return JSonUtil.toJson(result);
 	}
+	/*
 	@RequestMapping("/login")
 	public ModelAndView login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -147,7 +148,7 @@ public class NdController extends HttpServlet {
 			return new ModelAndView("login", "status", "fail");
 		}
 	}
-/*	
+	*/
 	@RequestMapping(value="/login", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String login(@RequestParam("msnv") String msnv, @RequestParam("matkhau") String matkhau)
@@ -156,7 +157,8 @@ public class NdController extends HttpServlet {
 		String result = "";
 		if (new CTNguoiDungDAO().login(msnv, StringUtil.encryptMD5(matkhau))) {
 			result = "success";
-			
+			HttpServletResponse response;
+			response.sendRedirect("home.jsp");
 		}
 		else {
 			result = "fail";
@@ -164,5 +166,4 @@ public class NdController extends HttpServlet {
 		return JSonUtil.toJson(result);
 	}
 	
-*/
 }

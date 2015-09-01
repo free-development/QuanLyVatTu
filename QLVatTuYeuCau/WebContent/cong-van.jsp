@@ -156,12 +156,19 @@
 <!-- 						</ol> -->
 <!-- 					</div> -->
 				<div id="Link-vbd">
-						<div class="vbd-column">--Văn bản đến--</div><br>
-						<div class="tt-column">
-						<a href="" >Chưa giải quyết</a><br>
-						<a href="">Đang giải quyết</a><br>
-						<a href="">Đã giải quyết</a>
-						</div>
+<!-- 						<div class="vbd-column">--Văn bản đến--</div><br> -->
+<!-- 						<div class="tt-column"> -->
+<!-- 						<a href="" >Chưa giải quyết</a><br> -->
+<!-- 						<a href="">Đang giải quyết</a><br> -->
+<!-- 						<a href="">Đã giải quyết</a> -->
+<!-- 						</div> -->
+					<div class="vbd-column">--Văn bản đến--</div><br>
+					<select id = "ttFilter" class="select" name="trangThai">
+						<option value = "" style="text-align: center;">Tất cả</option>
+						<option value = "CGQ" style="text-align: center;">Chưa giải quyết</option>
+						<option value = "DGQ" style="text-align: center;">Đang giải quyết</option>
+						<option value = "DaGQ" style="text-align: center;">Đã giải quyết</option>
+					</select>
 				</div>
 					<br> <br>
 					
@@ -171,18 +178,20 @@
 						<div id="title-table">
 						<table>
 							<tr>
-								<td class="column-loc">Chỉ tiêu lọc dữ liệu:</td>
-								<td><select class="select">
-										<option selected disabled>-- Chỉ tiêu lọc --</option>
-										<option>Ngày đến</option>
-										<option>Số đến</option>
-										<option>Mục đích nhận</option>
-										<option>Nơi gửi</option>
-										<option>Trích yếu</option>
-										<option>Bút phê</option>
-										<option>Nơi GQ chính</option>
+								<td class="column-loc">Tìm kiếm: </td>
+								<td><select class="select" name="filter" id="filter">
+										<option value =""> Tất cả </option>
+<!-- 										<option>Ngày đến</option> -->
+										<option value="soDen">Số đến</option>
+										<option value="mucDich">Mục đích nhận</option>
+<!-- 										<option>Nơi gửi</option> -->
+										<option value="trichYeu">Trích yếu</option>
+										<option value="butPhe">Bút phê</option>
+<!-- 										<option>Nơi GQ chính</option> -->
 
-								</select></td>
+								</select>
+								<div id="requireFilter"></div>
+								</td>
 								<td>&nbsp;&nbsp;</td>
 								<!--<td>
                                  <select class="select" >
@@ -195,13 +204,14 @@
 								<td>
 									<!--                                 <div class="search-form">-->
 									<span class="search-text"> <!--								&nbsp;--> <input
-										type="search" class="text" name="search_box" name="search"
+										type="search" class="text" name="filterValue" id="filterValue" readonly style="background: #D1D1E0;"
 										placeholder="Nội dung tìm kiếm" />
 								</span> <span class="search-button">
-										<button class="btn-search">
+										<button class="btn-search" id = "buttonSearch" type="button">
 											<i class="fa fa-search"></i>
 										</button>
 								</span> <!--                                 </did="test"iv>-->
+								<div id="requireFilterValue"></div>
 								</td>
 								<!--
                             <td>
@@ -222,68 +232,57 @@
                      	for(CongVan congVan : congVanList) {
                      		count ++;
                      %>
-					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : Blush;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
-								<tr >
-									<td class="column-check" rowspan="7">
-										<input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
-									</td>
-									<td class="left-column-soden">Số đến: &nbsp;&nbsp;</td>
-									<td class="column-so-den" style="text-align: left"><%=congVan.getSoDen() %></td>
-
-									<td class="left-column-socv">Số công văn: &nbsp;&nbsp;</td>
-									<td class="column-socv" style="text-align: left;color:red;"><%=congVan.getCvSo() %></td>
-									
-									<td class="left-column-first" >Ngày đến: &nbsp;&nbsp;</td>
-
-									<td class="column-date"style="text-align: left"><%=congVan.getCvNgayNhan() %></td>
-									
-								</tr>
-								<tr>
-
-									<td class="left-column-first">Mục đích: &nbsp;&nbsp;</td>
-
-									<td class="column-color" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
-
-									<td class="left-column-ngdi">Ngày công văn đi:&nbsp;&nbsp;</td>
-									<td class="column-date" style="text-align: left"><%=congVan.getCvNgayDi()%></td>
-									
-								</tr>
-								<tr>
-
-									<td class="left-column-first">Nơi gửi: &nbsp;&nbsp;</td>
-									<td class="column-color" colspan="6" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
-									
-								</tr>
-								<tr>
-
-									<td class="left-column-first">Trích yếu: &nbsp;&nbsp;</td>
-									<td class="column-color"colspan="6" style="text-align: left"><%= congVan.getTrichYeu()%></td>
-								</tr>
-								<tr>
-
-									<td class="left-column-first">Bút phê: &nbsp;&nbsp;</td>
-
-									<td class="column-color" colspan="6"><%= congVan.getButPhe()%></td>
-								</tr>
-								<tr>
-
-									<td class="left-column-first">Nơi GQ chính</td>
-
-									<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
-									<td colspan="3" style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
-								<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
-							</button></td>
-								</tr>
-								
-								
-								<tr>
-								<td class="left-column-first">Link file công văn: </td>
-								<td colspan="6"><a
-												href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
-												<div class="mo-ta"><%=fileHash.get(congVan.getCvId()).getMoTa() %></div>
-											</a></td>
-								</tr>
-							</table>
+					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : #FFFFFF;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
+						<tr >
+							<td class="column-check" rowspan="7">
+								<input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
+							</td>
+							<td class="left-column-soden">Số đến: &nbsp;&nbsp;</td>
+							<td class="column-so-den" style="text-align: left"><%=congVan.getSoDen() %></td>
+							<td class="left-column-socv">Số công văn: &nbsp;&nbsp;</td>
+							<td class="column-socv" style="text-align: left;color:red;"><%=congVan.getCvSo() %></td>
+							<td class="left-column-first" >Ngày đến: &nbsp;&nbsp;</td>
+							<td class="column-date"style="text-align: left"><%=congVan.getCvNgayNhan() %></td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Mục đích: &nbsp;&nbsp;</td>
+							<td class="column-color" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
+							<td class="left-column-ngdi">Ngày công văn đi:&nbsp;&nbsp;</td>
+							<td class="column-date" style="text-align: left"><%=congVan.getCvNgayDi()%></td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Nơi gửi: &nbsp;&nbsp;</td>
+							<td class="column-color" colspan="3" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
+							<td colspan="1">Trạng thái</td>
+							<td colspan="1"><%=congVan.getTrangThai().getTtTen() %></td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Trích yếu: &nbsp;&nbsp;</td>
+							<td class="column-color"colspan="6" style="text-align: left"><%= congVan.getTrichYeu()%></td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Bút phê: &nbsp;&nbsp;</td>
+							<td class="column-color" colspan="6"><%= congVan.getButPhe()%></td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Nơi GQ chính</td>
+							<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
+							<td colspan="3" style="float: right;">
+								<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
+									<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
+								</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Xem công văn: </td>
+							<td colspan="5">
+								<a href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
+									<div class="mo-ta"><%=fileHash.get(congVan.getCvId()).getMoTa() %></div>
+								</a>
+							</td>
+							
+						</tr>
+					</table>
 <!-- 							<div class="chi-tiet"> -->
 <!-- 								<a -->
 <%-- 									href="<%=siteMap.ycvtManage + "action=manageYcvt&congVan="+congVan.getCvId()%>">*Xem --%>
@@ -292,7 +291,19 @@
 							<%} %>
 
 						</div>
-						
+						<div id="paging">
+						<%
+							long pageNum = size / 3;
+							long p = (size <= 10 ? pageNum : 10);
+							for (int i = 0; i < p; i++) {
+						%>
+						<input type="button" name = "page" class="page" value = "<%=i+1 %>" onclick = "loadPage(<%=i%>)">
+						<%}
+							if(pageNum > 10) {
+						%>
+							<input type="button" name = "page" class="page" value = "Sau" onclick = "loadPage('Next')";>
+						<%}%>	
+						</div>
 						
 						<div class="group-button">
 							<input type="hidden" name="action" value="update-yeu-cau">

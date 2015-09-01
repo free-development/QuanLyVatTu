@@ -326,8 +326,8 @@ function loadPageCtvtYc(pageNumber) {
 	}
 	else if (pageNumber == 'Previous') {
 		var firstPage = document.getElementsByClassName('page')[0].value;
-		p = (firstPage - 1) / 5;
-		page =  p * 5 - 1;
+		p = (firstPage -1) / 5;
+		page =  (p * 5) - 1;
 	}
 	else {
 		page = pageNumber;
@@ -385,7 +385,7 @@ function loadPageCtvtYc(pageNumber) {
 					}
 	  	}
 	});
-}
+};
 /*
  * keypress event 
  */

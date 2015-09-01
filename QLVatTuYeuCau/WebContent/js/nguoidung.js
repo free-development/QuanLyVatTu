@@ -34,7 +34,7 @@ function checkPassword()
 		alert(msnv + matkhau);
 			$.ajax({
 				url: "/QLVatTuYeuCau/login.html",	
-			  	type: "GET",
+			  	type: "POST",
 			  	dateType: "JSON",
 			  	data: { "msnv": msnv, "matkhau": matkhau},
 			  	contentType: 'application/json',

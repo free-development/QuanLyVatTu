@@ -206,10 +206,6 @@
 				</div>
 			</form>
 			<div id = "paging" >
-							<table style ="border-style: none;">
-								<tr>
-									<td>
-									
 										<%
 										String str = "";
 										String pages = ""; 
@@ -223,8 +219,6 @@
 									out.println(str);	
 								%>
 <!-- 									<input type="button" value="Next>>"></td> -->
-								</tr>
-							</table>
 			</div>
 			<form id="main-form">
 			<div class="form-title">Yêu cầu vật tư đã cập nhật</div> 

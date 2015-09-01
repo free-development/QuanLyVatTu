@@ -4,16 +4,19 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.jasper.tagplugins.jstl.core.Set;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.type.Type;
 
 import model.CongVan;
 import model.DonVi;
@@ -60,7 +63,7 @@ public class CongVanDAO {
 	}
 	public long size() {
 		session.beginTransaction();
-		String sql = "select count(cvId) from CongVan";
+		String sql = "select count(cvId) from CongVan where daXoa = 0";
 		Query query =  session.createQuery(sql);
 		long size = (long) query.list().get(0);
 		session.getTransaction().commit();
@@ -224,17 +227,100 @@ public class CongVanDAO {
 		session.getTransaction().commit();
 		return congVanList;
 	}
-	/*
-	public  ArrayList<CongVan> search(Integer year, Integer month, Integer date, String ttMa, Map<String, String> filter) {
+	public ArrayList<CongVan> search(HashMap<String, Object> conditions,  HashMap<String, Boolean> orderBy) {
 		session.beginTransaction();
-		String sql = "from CongVan where daXoa = 0 and year(cvNgayNhan) = :year";
-		Query query = session.createQuery(sql);
-		query.setParameter("year", year);
-		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) query.list();
+		SqlUtil sqlUtil = new SqlUtil();
+		sqlUtil.createQuery("CongVan");
+		if (conditions != null && conditions.size() > 0) {
+			for (String key : conditions.keySet()) {
+				Object object = conditions.get(key);
+				if (object instanceof Integer)
+					sqlUtil.addCondition(key + " = "+ object);
+				else
+					sqlUtil.addCondition(key + " = '" + object +"'");
+			}
+		}
+		if (orderBy.size() > 0 && orderBy != null)
+			sqlUtil.orderBy(orderBy);
+		Query query = session.createQuery(sqlUtil.getQuery());
+		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) query.list(); 
+		session.getTransaction().commit();
+		return congVanList;
+	}
+	/* use Query
+	public ArrayList<CongVan> searchLimit(HashMap<String, Object> conditions,  HashMap<String, Boolean> orderBy, int first, int limit) {
+		session.beginTransaction();
+		SqlUtil sqlUtil = new SqlUtil();
+		sqlUtil.createQuery("CongVan");
+		String sql = "select a from CongVan a join a.mucDich b join a.donVi c ";
+		sqlUtil.setQuery(sql);
+//		conditions.put("a.mucDich.mdMa", "b.mdMa");
+//		conditions.put("a.donVi.dvMa", "c.dvMa");
+		if (conditions != null && conditions.size() > 0) {
+			for (String key : conditions.keySet()) {
+				Object object = conditions.get(key);
+				if (object instanceof Integer)
+					sqlUtil.addCondition(key + " = "+ object);
+				else
+					sqlUtil.addCondition(key + " = '" + object +"'");
+			}
+		}
+		String s = sqlUtil.getQuery();
+		s += " and a.mucDich.mdMa = b.mdMa and a.donVi.dvMa = c.dvMa"; 
+		conditions.put("a.mucDich.mdMa", "b.mdMa");
+		conditions.put("a.donVi.dvMa", "c.dvMa");
+		sqlUtil.setQuery(s);
+		if (orderBy.size() > 0 && orderBy != null)
+			sqlUtil.orderBy(orderBy);
+		System.out.println(sqlUtil.getQuery());
+		Query query = session.createQuery(sqlUtil.getQuery());
+		query.setFirstResult(first);
+		query.setMaxResults(limit);
+		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) query.list(); 
 		session.getTransaction().commit();
 		return congVanList;
 	}
 	*/
+
+	// use Criteria
+	
+	public ArrayList<CongVan> searchLimit(HashMap<String, Object> conditions,  HashMap<String, Boolean> orderBy, int first, int limit) {
+		session.beginTransaction();
+//		conditions.put("a.mucDich.mdMa", "b.mdMa");
+//		conditions.put("a.donVi.dvMa", "c.dvMa");
+		Criteria cr = session.createCriteria(CongVan.class);
+//		cr.setProjection(Projections.groupProperty("extract(year from cvNgayNhan)"));
+		
+		if (conditions != null) {
+			for (String key : conditions.keySet()) {
+				Object object = conditions.get(key);
+				if (object instanceof Integer && !key.equals("soDen")) {
+					//if (key.equals("soDen"))
+						//cr.add(Restrictions.eq(key, object));
+					//else
+						cr.add(Restrictions.sqlRestriction(key.toUpperCase() + "(cvNgayNhan) = " + conditions.get(key)));
+				}
+				else
+					cr.add(Restrictions.eq(key, conditions.get(key)));
+			}
+		}
+		cr.add(Restrictions.eq("daXoa", 0));
+		if (orderBy != null) {
+			for (String key : orderBy.keySet()) {
+				if (orderBy.get(key))
+					cr.addOrder(Order.desc(key));
+				else 
+					cr.addOrder(Order.asc(key));
+			}
+		}
+		cr.setFirstResult(first);
+		cr.setMaxResults(limit);
+		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) cr.list(); 
+		session.getTransaction().commit();
+		return congVanList;
+	}
+	
+//	}
 	public void close() {
 		if(session.isOpen())
 			session.close();
@@ -244,20 +330,36 @@ public class CongVanDAO {
 			session.disconnect();
 	}
 	public static void main(String[] args) {
-		ArrayList<CongVan> congVanList = new CongVanDAO().searchByYear(2015);
-		for (CongVan congVan :  congVanList) {
-			System.out.println(congVan.getCvId());
-		}
-		SqlUtil sqlUtil = new SqlUtil();
+//		ArrayList<CongVan> congVanList = new CongVanDAO().searchByYear(2015);
+//		for (CongVan congVan :  congVanList) {
+//			System.out.println(congVan.getCvId());
+//		}
+//		SqlUtil sqlUtil = new SqlUtil();
 //		System.out.println("create table: " + sqlUtil.createQuery("CongVan"));
 //		System.out.println("add condition: " + sqlUtil.addCondition("year(cvNgayNhan) = " + 2015));
 //		System.out.println("add condition: " + sqlUtil.addCondition("month(cvNgayNhan) = " + 8));
-//		System.out.println("add condition: " + sqlUtil.addCondition("DAY(cvNgayNhan) = " + 8));
-		sqlUtil.createQuery("CongVan");
-		sqlUtil.addCondition("year(cvNgayNhan) = " + 2015);
-		sqlUtil.addCondition("DAY(cvNgayNhan) = " + 8);
-		sqlUtil.addCondition("DAY(cvNgayNhan) = " + 8);
+//		System.out.println("add condition : " + sqlUtil.addCondition("DAY(cvNgayNhan) = " + 8));
+//		sqlUtil.createQuery("CongVan");
+//		sqlUtil.addCondition("year(cvNgayNhan) = " + 2015);
+//		sqlUtil.addCondition("DAY(cvNgayNhan) = " + 8);
+//		sqlUtil.addCondition("DAY(cvNgayNhan) = " + 8);
 		
-		System.out.println("add condition: " + sqlUtil.orderBy("month(cvNgayNhan) ", false));
+//		System.out.println("add condition: " + sqlUtil.orderBy("month(cvNgayNhan) ", false));
+		HashMap<String, Object> conditions = new HashMap<String, Object>();
+		conditions.put("year", 2015);
+		conditions.put("month", 11);
+		conditions.put("trangThai.ttMa", "CGQ");
+		HashMap<String, Boolean> orderBy = new HashMap<String, Boolean> ();
+		orderBy.put("cvNgayNhan", true);
+//		orderBy.put("year", true);
+//		orderBy.put("month(cvNgayNhan)", true);
+//		orderBy.put("day(cvNgayNhan)", true);
+//		orderBy.put("cvId", true);
+		
+		CongVanDAO congVanDAO = new CongVanDAO();
+		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(null, null, 0, 5);
+		for (CongVan congVan : congVanList)
+			System.out.println(congVan.getCvNgayNhan());
+		
 	}
 }
