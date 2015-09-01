@@ -71,7 +71,24 @@ input.text {
 	height: 25px;
 	font-size: 16px;
 	padding-left: 20px;
+	margin-bottom: 10px;
 
+	/*	margin: 5px;*/
+	/*    margin-bottom: 10px;*/
+}
+textarea.text {
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(189, 195, 199);
+	border-radius: 5px;
+	background-color: rgb(255, 255, 255);
+	/*	opacity: 1;*/
+	/*	left: 12px;*/
+	/*	top: 25px;*/
+	height: 80px;
+	font-size: 16px;
+	padding-left: 20px;
+	margin-bottom: 10px;
 	/*	margin: 5px;*/
 	/*    margin-bottom: 10px;*/
 }

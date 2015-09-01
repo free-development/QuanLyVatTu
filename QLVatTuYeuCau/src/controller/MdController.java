@@ -72,6 +72,7 @@ public class MdController extends HttpServlet {
 		MucDichDAO mucDichDAO = new MucDichDAO();
 		MucDich md = mucDichDAO.getMucDich(mdMa);
 		//System.out.println("****" + clMa + "****");
+		mucDichDAO.disconnect();
 		return JSonUtil.toJson(md);
 	}
 	@RequestMapping(value="/deleteMd", method=RequestMethod.GET, 
@@ -83,6 +84,7 @@ public class MdController extends HttpServlet {
 		for(String mdMa : str) {
 			mdDAO.deleteMucDich(mdMa);
 		}
+		mdDAO.disconnect();
 		return JSonUtil.toJson(mdList);
 	}
 	
@@ -91,10 +93,11 @@ public class MdController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String addMd(@RequestParam("mdMa") String mdMa, @RequestParam("mdTen") String mdTen) {
 		String result = "";
+		MucDichDAO mucDichDAO = new MucDichDAO();
 		System.out.println("MA: "+mdMa);
-		if((new MucDichDAO().getMucDich(mdMa)==null) || (new MucDichDAO().getMucDich(mdMa)!=null && new MucDichDAO().getMucDich(mdMa).getDaXoa()==1))
+		if((mucDichDAO.getMucDich(mdMa)==null) || (mucDichDAO.getMucDich(mdMa)!=null && mucDichDAO.getMucDich(mdMa).getDaXoa()==1))
 		{
-			new MucDichDAO().addOrUpdateMucDich(new MucDich(mdMa,mdTen,0));
+			mucDichDAO.addOrUpdateMucDich(new MucDich(mdMa,mdTen,0));
 			System.out.println("success");
 			result = "success";
 			
@@ -105,6 +108,7 @@ public class MdController extends HttpServlet {
 			System.out.println("fail");
 			result = "fail";
 		}
+		mucDichDAO.disconnect();
 			return JSonUtil.toJson(result);
 	}
 	
@@ -113,8 +117,10 @@ public class MdController extends HttpServlet {
 	 public @ResponseBody String updateMd(@RequestParam("mdMaUpdate") String mdMaUpdate, @RequestParam("mdTenUpdate") String mdTenUpdate) {
 		System.out.println(mdMaUpdate);
 		System.out.println(mdTenUpdate);
+		MucDichDAO mucDichDAO = new MucDichDAO();
 		MucDich md = new MucDich(mdMaUpdate, mdTenUpdate,0);
-		new MucDichDAO().updateMucDich(md);
+		mucDichDAO.updateMucDich(md);
+		mucDichDAO.disconnect();
 		return JSonUtil.toJson(md);
 	}
 	@RequestMapping(value="/loadPageMd", method=RequestMethod.GET, 
@@ -139,6 +145,7 @@ public class MdController extends HttpServlet {
 			result = "fail";
 		}
 		*/
+		mdDAO.disconnect();
 			return JSonUtil.toJson(mdList);
 	}
 }
