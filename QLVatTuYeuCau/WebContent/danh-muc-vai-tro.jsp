@@ -1,4 +1,5 @@
-﻿<%@page import="model.VaiTro"%>
+﻿<%@page import="model.NguoiDung"%>
+<%@page import="model.VaiTro"%>
 <%@page import="map.siteMap"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
@@ -41,9 +42,25 @@
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
 </head>
 <body>
+	<%
+   		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+   		if (authentication == null) {
+   			request.setAttribute("url", siteMap.vtManage + "?action=manageVt");
+   			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
+   			dispatcher.forward(request, response);
+   			return;
+   		}
+   	%>
 
 	<%
     		ArrayList<VaiTro> listVaiTro = (ArrayList<VaiTro>) request.getAttribute("vaiTroList");
+			if (listVaiTro ==  null) {
+				int index = siteMap.vtManage.lastIndexOf("/");
+				String url = siteMap.vtManage.substring(index);
+				RequestDispatcher dispatcher =  request.getRequestDispatcher(url + "?action=manageVt");
+				dispatcher.forward(request, response);
+				return;
+			}
 			Long size = (Long) request.getAttribute("size");
     	%>
 	<div class="wrapper">
@@ -77,9 +94,11 @@
 		</div>
 			<div class="main_menu">
 					<ul>
-						<li><a href="">Trang chủ</a></li>
-						<li><a href="">Danh mục</a>
-							<ul>
+				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
+				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				
+				<li><a>Danh mục</a>
+					<ul>
 								<li><a href="<%=siteMap.nsxManage + "?action=manageNsx"%>">Danh
 										mục nơi sản xuất</a></li>
 								<li><a href="<%=siteMap.clManage + "?action=manageCl"%>">Danh
@@ -99,21 +118,31 @@
 								
 							</ul>
 				</li>
+				<%} %>
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-				<li><a href="<%=siteMap.bcManage +  "?action=manageBc"%>">Báo cáo</a>
+				<li><a>Báo cáo</a>
 					<ul>
 						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<li><a href="">Quản lý người dùng</a>
+				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
-						<li><a href=""/>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
+						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
 					</ul>
 				</li>
-				<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
-				</ul>
+				<%} %>
+				<li><a>Tài khoản</a>
+					<ul>
+						<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
+					</ul>
+				</li>		
+			</ul>
 					<div class="clear"></div>
 				</div>
 

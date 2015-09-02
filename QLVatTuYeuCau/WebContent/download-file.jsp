@@ -1,3 +1,4 @@
+<%@page import="model.NguoiDung"%>
 <%@page import="model.CongVan"%>
 <%@page import="model.File"%>
 <%@page import="map.siteMap"%>
@@ -13,13 +14,21 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%
+   		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+   		if (authentication == null) {
+   			request.setAttribute("url", siteMap.bcbdnManage+ "?action=manageBcbdn");
+   			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
+   			dispatcher.forward(request, response);
+   		}
+   	%>
 <%
 // 	GstFormsAttachFile gstFormFile = (GstFormsAttachFile) request.getAttribute("gstFormFile"); 
 	
 	response.setContentType("APPLICATION/OCTET-STREAM");   
 	java.io.File file = (java.io.File) request.getAttribute("file");
 // 		java.io.File file = new java.io.File(gstFormFile.getPath());
-	response.setHeader("Content-Disposition","attachment; filename=\"" + FileUtil.getNameFile(file) + "." + FileUtil.getExtension(file) + "\"");
+	response.setHeader("Content-Disposition","attachment; filename=\"" + FileUtil.getNameFile(file) + "." + FileUtil.getExtension(file));
 	
 	java.io.FileInputStream fileInputStream=new java.io.FileInputStream(file);  
 	          

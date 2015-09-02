@@ -109,17 +109,17 @@
 .left-column-socv{
 	
 	text-align: left;
-	width: 100px;
+	width: 110px;
 }
 .column-so-den {
 	
 	
 	text-align: left;
-	width: 100px;
+	width: 120px;
 	
 }
 .left-column-first {
-	width: 150px;
+	width: 120px;
 	text-align: left;
 	
 }
@@ -130,17 +130,19 @@
 }
 
 .left-column {
-	width: 90px;
+	width: 110px;
 	text-align: left;
 }
 
 .column-socv{
-	width: 100px;
+	width: 110px;
 	text-align: left;
 	color:#CC3300;
 	font-weight: bold;
 }
 
+.column-date {
+	width: 140px;}
 .column-md{
 	width: 100px;
 	text-align: left;
@@ -216,7 +218,7 @@
 }
 
 .scroll_content {
-	height: 330px;
+	height: 500px;
 	width: 810px;
 	display: auto;
 	font-size: 16px;
@@ -235,9 +237,9 @@
 .column-check{
 	width: 20px;
 	text-align: right;
-	margin-right: 20px;
-	margin-left: 20px;
-	padding: 30px;
+	/* margin-right: 20px; */
+	/* margin-left: 20px;*/
+	padding: 10px;
 }
 
 .form-title {
@@ -402,6 +404,7 @@
 
 #update-form {
 	display: none;
+	width: 66%;1111
 	width: 63%;
 	/*    height: 36%*/
 	position: absolute;
@@ -583,4 +586,10 @@
 
 .a {
 	float: right;
+}
+#paging {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin: 0 auto;
 }

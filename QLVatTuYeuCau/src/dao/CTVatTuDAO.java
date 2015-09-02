@@ -186,6 +186,7 @@ public class CTVatTuDAO {
 		session.getTransaction().commit();
 		return list;
 	}
+
 	public ArrayList<CTVatTu> searchVtTen(String i) {
 		session.beginTransaction();
 		String sql = "from CTVatTu where vtMa in (select * from VatTu where vtTen LIKE :vtTen)";

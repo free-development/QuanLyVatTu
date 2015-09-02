@@ -93,16 +93,20 @@ public class ClController extends HttpServlet {
 	@RequestMapping(value="/addCl", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String addCl(@RequestParam("clMa") String clMa, @RequestParam("clTen") String clTen) {
-		String result = "";
-		System.out.println("MA: "+clMa);
+		String result = "success";
 		ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
-		if((chatLuongDAO.getChatLuong(clMa)==null) || (chatLuongDAO.getChatLuong(clMa)!=null && chatLuongDAO.getChatLuong(clMa).getDaXoa() == 1))
+		ChatLuong cl = chatLuongDAO.getChatLuong(clMa);
+		if(cl == null) 
 		{
-			chatLuongDAO.addOrUpdateChatLuong(new ChatLuong(clMa,clTen,0));
+			chatLuongDAO.addChatLuong(new ChatLuong(clMa, clTen,0));
 			System.out.println("success");
-			result = "success";
-			
-			
+			result = "success";	
+		}
+		else if(cl !=null && cl.getDaXoa()== 1){
+			cl.setClMa(clMa);
+			cl.setClTen(clTen);
+			cl.setDaXoa(0);
+			chatLuongDAO.updateChatLuong(cl);
 		}
 		else
 		{

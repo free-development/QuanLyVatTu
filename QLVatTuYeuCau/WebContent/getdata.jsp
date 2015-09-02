@@ -1,6 +1,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="dao.VatTuDAO"%>
+
 <%
 	VatTuDAO vatTuDAO = new VatTuDAO();
 

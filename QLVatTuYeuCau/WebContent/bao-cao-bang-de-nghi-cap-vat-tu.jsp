@@ -1,4 +1,5 @@
-﻿<%@page import="model.DonVi"%>
+﻿<%@page import="model.NguoiDung"%>
+<%@page import="model.DonVi"%>
 <%@page import="model.CongVan"%>
 <%@page import="model.YeuCau"%>
 <%@page import="model.TrangThai"%>
@@ -39,7 +40,24 @@
 </head>
 <body>
 	<%
+    		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+    		if (nguoiDung == null) {
+    			request.setAttribute("url", siteMap.bcbdnManage+ "?action=manageBcbdn");
+    			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
+    			dispatcher.forward(request, response);
+    			return;
+    		}
+    	%>
+	<%
+	
 	ArrayList<DonVi> listDonVi = (ArrayList<DonVi>) session.getAttribute("donViList");
+	if (listDonVi ==  null) {
+		int index = siteMap.bcbdnManage.lastIndexOf("/");
+		String url = siteMap.cvManage.substring(index);
+		RequestDispatcher dispatcher =  request.getRequestDispatcher(url + "?action=manageBcbdn");
+		dispatcher.forward(request, response);
+		return;
+	}
 	ArrayList<TrangThai> listTrangThai = (ArrayList<TrangThai>) session.getAttribute("trangThaiList");
 	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");
 	HashMap<Integer, ArrayList<YeuCau>> yeuCauHash = (HashMap<Integer, ArrayList<YeuCau>>) session.getAttribute("yeuCau");
@@ -65,9 +83,11 @@
 		</div>
 		<div class="main_menu">
 			<ul>
-				<li><a href="">Trang chủ</a></li>
-				<li><a href="">Danh mục</a>
-							<ul>
+				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
+				<%if ("admin".equalsIgnoreCase(nguoiDung.getChucDanh().getCdTen())) {%>
+				
+				<li><a>Danh mục</a>
+					<ul>
 								<li><a href="<%=siteMap.nsxManage + "?action=manageNsx"%>">Danh
 										mục nơi sản xuất</a></li>
 								<li><a href="<%=siteMap.clManage + "?action=manageCl"%>">Danh
@@ -87,20 +107,30 @@
 								
 							</ul>
 				</li>
+				<%} %>
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-				<li><a href="<%=siteMap.bcManage +  "?action=manageBc"%>">Báo cáo</a>
+				<li><a>Báo cáo</a>
 					<ul>
 						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<li><a href="">Quản lý người dùng</a>
+				<%if ("admin".equalsIgnoreCase(nguoiDung.getChucDanh().getCdTen())) {%>
+				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
-						<li><a href=""/>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
+						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
 					</ul>
 				</li>
-				<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+				<%} %>
+				<li><a>Tài khoản</a>
+					<ul>
+						<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
+					</ul>
+				</li>		
 			</ul>
 			<div class="clear"></div>
 		</div>

@@ -5,21 +5,23 @@ package model;
 
 import java.io.Serializable;
 
+
+
 /**
  * @author QUOI
  *
  */
-public class MucDich implements Serializable{
+public class MucDich implements Serializable {
 	private String mdMa;
 	private String mdTen;
 	private int daXoa;
-	
+
 	public MucDich() {
 		this.mdMa = "";
 		this.mdTen = "";
 		this.daXoa = 0;
 	}
-	
+
 	/**
 	 * @param mdMa
 	 * @param mdTen
@@ -27,16 +29,15 @@ public class MucDich implements Serializable{
 	public MucDich(String mdMa) {
 		this.mdMa = mdMa;
 	}
-	
+
 	/**
 	 * @param mdMa
 	 * @param mdTen
 	 */
-	public MucDich(String mdMa, String mdTen,int daXoa) {
+	public MucDich(String mdMa, String mdTen, int daXoa) {
 		this.mdMa = mdMa;
 		this.mdTen = mdTen;
 	}
-	
 
 	/**
 	 * @return the mdMa
@@ -54,7 +55,8 @@ public class MucDich implements Serializable{
 	}
 
 	/**
-	 * @param mdMa the mdMa to set
+	 * @param mdMa
+	 *            the mdMa to set
 	 */
 	public void setMdMa(String mdMa) {
 		this.mdMa = mdMa;
@@ -68,11 +70,11 @@ public class MucDich implements Serializable{
 	}
 
 	/**
-	 * @param mdTen the mdTen to set
+	 * @param mdTen
+	 *            the mdTen to set
 	 */
 	public void setMdTen(String mdTen) {
 		this.mdTen = mdTen;
 	}
-	
-	
+
 }

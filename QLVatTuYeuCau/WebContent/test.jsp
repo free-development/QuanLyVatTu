@@ -62,11 +62,13 @@
 		out.println(request.getRealPath("/") + "<br>");
 		out.println(request.getServletPath() + "<br>");
 		out.println(request.getRequestURI() + "<br>");
+		out.println(request.getRequestURI() + "<br>");
+		out.println(request.getContextPath() + "<br>");
 // 		System.out.println(request.get);
-		NoiSanXuatDAO chatLuongDAO = new NoiSanXuatDAO();
+		//NoiSanXuatDAO chatLuongDAO = new NoiSanXuatDAO();
 // 		chatLuongDAO.addChatLuong(new ChatLuong("TTT","Tốt",0));
-		NoiSanXuat cl = chatLuongDAO.getNoiSanXuat("AFC");
-		out.println(cl.getNsxTen());
+		//NoiSanXuat cl = chatLuongDAO.getNoiSanXuat("AFC");
+// 		out.println(cl.getNsxTen());
 		
 		
 		

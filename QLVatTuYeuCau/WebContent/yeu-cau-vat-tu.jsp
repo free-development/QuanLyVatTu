@@ -1,3 +1,4 @@
+<%@page import="model.NguoiDung"%>
 <%@page import="javax.persistence.criteria.CriteriaBuilder.In"%>
 <%@page import="model.YeuCau"%>
 <%@page import="model.NoiSanXuat"%>
@@ -43,7 +44,23 @@
 </head>
 <body>
 	<%
+   		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+   		if (authentication == null) {
+   			request.setAttribute("url", siteMap.cvManage+ "?action=manageCv");
+   			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
+   			dispatcher.forward(request, response);
+   			return;
+   		}
+   	%>
+	<%
     	ArrayList<CTVatTu> ctVatTuList = (ArrayList<CTVatTu>) request.getAttribute("ctVatTuList");
+		if (ctVatTuList ==  null) {
+			int index = siteMap.cvManage.lastIndexOf("/");
+    		String url = siteMap.cvManage.substring(index);
+    		RequestDispatcher dispatcher =  request.getRequestDispatcher(url+"?action=manageCv");
+    		dispatcher.forward(request, response);
+			return;
+		}
 		ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) request.getAttribute("yeuCauList");
 		ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) request.getAttribute("nsxList");
 		ArrayList<ChatLuong> chatLuongList = (ArrayList<ChatLuong>) request.getAttribute("chatLuongList");
@@ -84,9 +101,11 @@
 		</div>
 		<div class="main_menu">
 			<ul>
-				<li><a href="">Trang chủ</a></li>
-				<li><a href="">Danh mục</a>
-							<ul>
+				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
+				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				
+				<li><a>Danh mục</a>
+					<ul>
 								<li><a href="<%=siteMap.nsxManage + "?action=manageNsx"%>">Danh
 										mục nơi sản xuất</a></li>
 								<li><a href="<%=siteMap.clManage + "?action=manageCl"%>">Danh
@@ -100,25 +119,36 @@
 								<li><a href="<%=siteMap.mdManage + "?action=manageMd"%>">Danh
 										mục mục đích</a></li>
 								<li><a href="<%=siteMap.vtManage + "?action=manageVt"%>">Danh mục vai trò</a></li>
+								<li><a href="<%=siteMap.dvtManage + "?action=manageDvt"%>">Danh mục đơn vị tính</a></li>
 								<li><a href="<%=siteMap.cdManage + "?action=manageCd"%>">Danh
 										mục chức danh</a></li>
 								
 							</ul>
 				</li>
+				<%} %>
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-				<li><a href="<%=siteMap.bcManage +  "?action=manageBc"%>">Báo cáo</a>
+				<li><a>Báo cáo</a>
 					<ul>
 						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<li><a href="">Quản lý người dùng</a>
+				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
-						<li><a href=""/>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
+						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
 					</ul>
 				</li>
-				<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+				<%} %>
+				<li><a>Tài khoản</a>
+					<ul>
+						<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
+					</ul>
+				</li>		
 			</ul>
 			<div class="clear"></div>
 		</div>
@@ -202,13 +232,28 @@
 						</tr>
 					<%}%>
 				</table>
+				</div>
+				</div>
 <<<<<<< HEAD
-				</div>
-				</div>
 			</form>				
 				<div id = "paging" >
 									<%
 										String str = "";
+=======
+			</form>
+					<div id = "paging" >
+<<<<<<< HEAD
+									<%
+
+
+										String str = "";
+
+=======
+								<%
+									
+										String str = "";
+>>>>>>> fb366e5dc7d3d3aa73d58197218f58d16162b9e4
+>>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
 									for(int i = 0; i < p; i++) {
@@ -216,13 +261,34 @@
 									}
 									if (pageNum > 10)
 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
+<<<<<<< HEAD
 									out.println(str);	
+=======
+<<<<<<< HEAD
+
+									out.println(str);	
+
+
+=======
+									out.println(str);	
+>>>>>>> fb366e5dc7d3d3aa73d58197218f58d16162b9e4
+>>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
 								%>
 <!-- 									<input type="button" value="Next>>"></td> -->
 
 					</div>
+<<<<<<< HEAD
 			</div>
 					</div>
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> fb366e5dc7d3d3aa73d58197218f58d16162b9e4
+			</div>
+					</div>
+
+>>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
 			<form id="main-form">
 			<div class="form-title" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">

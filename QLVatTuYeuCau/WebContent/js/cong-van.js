@@ -204,15 +204,17 @@ function chiaSeCv() {
 		   
 		});  
 }
-function loadMonth(year) {
+function loadByYear(year) {
 	$.ajax({
-		url: "/QLVatTuYeuCau/loadMonth.html",	
+		url: "/QLVatTuYeuCau/loadByYear.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "year": year},
 	  	contentType: 'application/json',
 	    mimeType: 'application/json',
-	    success: function(monthList) {
+	    success: function(objectList) {
+	    	// load month 
+	    	var monthList = objectList[2];
 	    	var content = '';
 	    	var length = monthList.length;
 	    	var monthLi = '';
@@ -220,45 +222,172 @@ function loadMonth(year) {
 	    	for(var i = 0; i< length; i++) {
 	    		monthLi += 	'<li id = \"month' + monthList[i] + '\">' 
 							+ '<label for="m' + monthList[i] + '\">' + 'Tháng ' + monthList[i]  + '</label>' 
-							+' <input type="checkbox" class=\"month\" id=\"m' + monthList[i] + '\" onchange="loadDate(' + monthList[i] + '); ' + '\"/>' 
+							+' <input type="checkbox" class=\"month\" id=\"m' + monthList[i] + '\" onchange="loadByMonth(' + monthList[i] + '); ' + '\"/>' 
 							+ '<ol></ol> </li>'; 
 	    	}
 	    	var yearLi = '';
 	    	$('#year'+year + ' ol').html(monthLi);
+	    	// load congVan
+	    	var congVanList = objectList[0];
+	    	var fileList = objectList[1];
+	    	loadCongVan(congVanList, fileList);
 	    } 
 	});  
 }
-function loadDate(month) {
+function loadByMonth(month) {
 	$.ajax({
-		url: "/QLVatTuYeuCau/loadDate.html",	
+		url: "/QLVatTuYeuCau/loadByMonth.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "month": month},
 	  	contentType: 'application/json',
 	    mimeType: 'application/json',
-	    success: function(dateList) {
+	    success: function(objectList) {
 	    	var content = '';
+	    	var dateList = objectList[2];
 	    	var length = dateList.length;
 	    	var dateLi = '';
 	    	var dateOl = '';
 	    	for(var i = 0; i< length; i++) {
 	    		dateLi += 	'<li id = \"date' + dateList[i] + '\">' 
 							+ '<label for="d' + dateList[i] + '\">' + 'Ngày ' + dateList[i]  + '</label>' 
-							+' <input type="button" class=\"date\" id=\"d' + dateList[i] +'\" value =\"' + dateList[i] + '\" onclick=\"showMesseage(' + dateList[i] + ');' + '\"/>' 
+							+' <input type="button" class=\"date\" id=\"d' + dateList[i] +'\" value =\"' + dateList[i] + '\" onclick=\"loadByDate(' + dateList[i] + ');' + '\"/>' 
 							+ '</li>'; 
 	    	}
 	    	$('#month'+month + ' ol').html(dateLi);
+	    	// load Cong van
+	    	var congVanList = objectList[0];
+	    	var fileList = objectList[1];
+	    	loadCongVan(congVanList, fileList);
 	    } 
 	});  
 }
-function showMesseage(date) {
-	alert(date);
+function loadCongVan(congVanList, fileList) {
+	$('.tableContent').remove();
+	var length = congVanList.length;
+	var tables = '';
+	if(length > 0) {
+		for (var i = 0; i < length; i++) {
+			var style = 'style=';
+			
+			var congVan = congVanList[i];
+			var file = fileList[i];
+			if (i % 2 == 0)
+				style += '\"background : #CCFFFF;\"';
+			else
+				style += 'style=\"background : #FFFFFF; ';
+			style += ' font-size: 16px; width: 900px;\"';
+			tables +=     '<table class=\"tableContent\" ' + style + ' class=\"border-congvan\">'
+						+ '<tr >'
+						+ '<td class=\"column-check\" rowspan=\"7\">'
+						+ '<input title=\"Click để chọn công văn\" type=\"checkbox\" name=\"cvId\" value=\"' + congVan.cvId + '\">'
+						+ '</td>'
+						+ '<td class=\"left-column-soden\">Số đến: &nbsp;&nbsp;</td>'
+						+ '<td class=\"column-so-den\" style=\"text-align: left\">' + congVan.soDen + '</td>'
+						+ '<td class=\"left-column-socv\">Số công văn: &nbsp;&nbsp;</td>'
+						+ '<td class=\"column-socv\" style=\"text-align: left;color:red;\">' + congVan.cvSo + '</td>'
+						+ '<td class=\"left-column-first\" >Ngày đến: &nbsp;&nbsp;</td>'
+						+ '<td class=\"column-date\"style=\"text-align: left\">' + congVan.cvNgayNhan + '</td>'
+						+ '</tr>'
+						+ '<tr>'
+						+ '<td class=\"left-column-first\">Mục đích: &nbsp;&nbsp;</td>'
+						+ '<td class=\"column-color\" colspan=\"3\" style=\"text-align: left\">' + congVan.mucDich.mdTen + '</td>'
+						+ '<td class=\"left-column-ngdi\">Ngày công văn đi:&nbsp;&nbsp;</td>'
+						+ '<td class=\"column-date\" style=\"text-align: left\">' + congVan.cvNgayDi+ '</td>'
+						+ '</tr>'
+						+ '<tr>'
+						+ '<td class=\"left-column-first\">Nơi gửi: &nbsp;&nbsp;</td>'
+						+ '<td class=\"column-color\" colspan=\"3\" style=\"text-align: left\">' +  congVan.donVi.dvTen + '</td>'
+						+ '<td class=\"left-column-first\">Link xem công văn: </td>'
+						+ '<td colspan=\"1\">'
+						+ '<a href=\"' + '/QLVatTuYeuCau/cvManage.html' + '?action=download&file=' + congVan.cvId + '\">'
+						+ 
+						'<div class=\"mo-ta\">' + file.moTa + '</div>'
+						+ '</a> '
+						+ '</td>'
+						+ '</tr>'
+						+ '<tr>'
+						+ '<td class=\"left-column-first\">Trích yếu: &nbsp;&nbsp;</td>'
+						+ '<td class=\"column-color\"colspan=\"6\" style=\"text-align: left\">' +  congVan.trichYeu + '</td>'
+						+ '</tr>'
+						+ '<tr>'
+						+ '<td class=\"left-column-first\">Bút phê: &nbsp;&nbsp;</td>'
+						+ '<td class=\"column-color\" colspan=\"6\">' +  congVan.butPhe + '</td>'
+						+ '</tr>'
+						+ '<tr>'
+						+ '<td class=\"left-column-first\">Nơi GQ chính</td>'
+						+ '<td class=\"column-color\"colspan=\"3\">' + congVan.donVi.dvTen + '</td>'
+						+ '<td colspan=\"3\" style=\"float: right;\">'
+						+ '<button  class=\"button\" type=\"button\" style=\"width: 170px; height: 30px;\" onclick=\"location.href=\"' + '/QLVatTuYeuCau/cscvManage.html ' + '?action=chiaSeCv&congVan=' + congVan.cvId + '\">'
+						+ '<i class=\"fa fa-spinner\"></i>&nbsp;&nbsp;Chia sẻ công văn'
+						+ '</button>'
+						+ '</td>'
+						+ '</tr>'
+						+ '<tr>'
+						+ '<td>Trạng thái</td>'
+						+ '<td colspan="5">' + congVan.trangThai.ttTen + '</td>'
+						+ '</tr>'
+						+ '</table>';
+			
+		}
+	} else {
+		alert('Không tồn tại công văn');
+	}
+	$('.scroll_content').html(tables);
 }
+function loadByDate(date) {
+	$.ajax({
+		url: "/QLVatTuYeuCau/loadByDate.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: { "date": date},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	    success: function(objectList) {
+	    	var congVanList = objectList[0];
+	    	var fileList = objectList[1];
+	    	loadCongVan(congVanList, fileList);
+	    } 
+	});
+};
+function filterData(filter, filterValue) {
+
+	$.ajax({
+		url: "/QLVatTuYeuCau/filter.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: {"filter": filter, "filterValue": filterValue},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	    success: function(objectList) {
+	    	var congVanList = objectList[0];
+	    	var fileList = objectList[1];
+	    	loadCongVan(congVanList, fileList);
+	    } 
+	});
+}
+function searchByTrangThai(trangThai) {
+
+	$.ajax({
+		url: "/QLVatTuYeuCau/searchByTrangThai.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: { "trangThai": trangThai},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	    success: function(objectList) {
+	    	var congVanList = objectList[0];
+	    	var fileList = objectList[1];
+	    	loadCongVan(congVanList, fileList);
+	    } 
+	});
+}
+/*
 $(document).ready(function() {
 	  	$('.page').click(function(){
 		var pageNumber = $(this).val();
 	    	$.ajax({
-				url: "/QLVatTuYeuCau/loadPageCv.html",	
+				url: "/QLVatTuYeuCau/loadPageCongVan.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "pageNumber": pageNumber},
@@ -294,8 +423,61 @@ $(document).ready(function() {
 			  	}
 			});
 	    });	
-	})   
-
+	}) ; 
+	*/
+function loadPage(pageNumber) {
+	
+//	var page = 0;
+//	var p = 0;
+	if (pageNumber == 'Next') {
+		var lastPage = document.getElementsByClassName('page')[9].value;
+		var p = (lastPage) / 5;
+		var page = lastPage;
+	} else if (pageNumber == 'Previous') {
+		var firstPage = document.getElementsByClassName('page')[0].value;
+		var p = (firstPage -1) / 5;
+		var page =  firstPage - 1;
+	} else {
+		var page = pageNumber;
+	}
+	$.ajax({
+		url: "/QLVatTuYeuCau/loadPageCongVan.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: { "pageNumber": page},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	  	success: function(objectList) {
+	  		var size = objectList[2];
+	  		var congVanList = objectList[0];
+	  		var fileList = objectList[1];
+	  		loadCongVan(congVanList, fileList);
+					var button = '';
+					if(pageNumber == 'Next') {
+						for (var i = 0; i < 10; i++) {
+							var t = ((p - 1) * 5 + i + 1);
+							button += '<input type=\"button\" value=\"' + t + '\" class=\"page\" onclick= \"loadPage(' + ((p -1)*5 + i)  +')\">&nbsp;';
+							if (t == size)
+								break;
+						}
+						button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPage(\'Previous\')\">&nbsp;'  + button;
+						if ((p + 1) * 5 < size)
+							button += '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
+						$('#paging').html(button);
+					} else if (pageNumber == 'Previous'){
+						if (p > 0)
+							p = p -1;
+						for (var i = 0; i < 10; i++)
+							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPage(' + (p * 5 + i)  +')\">&nbsp;';
+						
+						button = button + '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
+						if (p >= 1)
+							button = '<input type=\"button\" value=\"<<Trước\" onclick= \"loadPage(\'Previous\')\">&nbsp;' + button;
+						$('#paging').html(button);	
+					}
+	  	}
+	});
+};
 //function addCongVan() {
 //	var nsxMa = $('#add-form input:text[name=nsxMa]').val();
 //	var nsxTen = $('#add-form input:text[name=nsxTen]').val();
@@ -344,23 +526,54 @@ $(document).ready(function() {
 //}
 $(document).ready(function(){
 	$('.year').change(function(){
-//		alert($(this).val());
 		var year = $(this).val();
-		loadMonth(year);
+		loadByYear(year);
 	});
 });
 $(document).ready(function(){
 	$('.month').change(function(){
-//		alert($(this).val());
 		var month = $(this).val();
-		loadDate(month);
+		loadByMonth(month);
 	});
 });	
 $(document).ready(function(){
 	$('.date').click(function(){
-//		alert($(this).val());
 		var date = $(this).val();
-//		loadDate(month);
-		alert(date);
+		loadByDate(date);
+	});
+});	
+$(document).ready(function(){
+	$('#ttFilter').change(function(){
+//		alert($(this).val());
+		var trangThai = $(this).val();
+//		alert(trangThai);
+		searchByTrangThai(trangThai);
+	});
+});	
+$(document).ready(function(){
+	$('#buttonSearch').click(function(){
+//		alert($(this).val());
+		var filterValue = $('#filterValue').val()+'';
+		var filter = $('#filter').val();
+
+//		alert(trangThai);
+		//if (filterValue == '')
+		
+		filterData(filter, filterValue);
+	});
+});
+$(document).ready(function(){
+	$('#filter').change(function(){
+		var filter = $(this).val();
+		if (filter == '') {
+			$('#filterValue').val('');
+			$('#filterValue').prop('readonly', true);
+			$('#filterValue').css('background-color', '#D1D1E0');
+			filterData('','');
+		}
+		else {
+			$('#filterValue').prop('readonly', false);
+			$('#filterValue').css('background-color', '#FFFFFF');
+		}
 	});
 });	

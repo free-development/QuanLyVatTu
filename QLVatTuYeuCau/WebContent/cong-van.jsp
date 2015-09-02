@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<%@page import="model.NguoiDung"%>
 <%@page import="model.TrangThai"%>
 <%@page import="model.MucDich"%>
 <%@page import="model.DonVi"%>
@@ -31,6 +32,15 @@
 </head>
 <body>
 	<%
+   		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+   		if (authentication == null) {
+   			request.setAttribute("url", siteMap.cvManage+ "?action=manageCv");
+   			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
+   			dispatcher.forward(request, response);
+   			return;
+   		}
+   	%>
+	<%
 		request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -39,6 +49,14 @@
 		if(error != null)
 			out.println("<script>alert('Số công văn đã tồn tại. Vui lòng nhập lại!!!')</script>");
     	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList");
+    	if (congVanList ==  null) {
+    		int index = siteMap.cvManage.lastIndexOf("/");
+    		String url = siteMap.cvManage.substring(index);
+    		RequestDispatcher dispatcher =  request.getRequestDispatcher(url+"?action=manageCv");
+    		dispatcher.forward(request, response);
+    		return;
+    	}
+    		
     	HashMap<Integer, File> fileHash = (HashMap<Integer, File>) request.getAttribute("fileHash");
     	ArrayList<DonVi> donViList = (ArrayList<DonVi>) request.getAttribute("donViList");
     	ArrayList<MucDich> mucDichList = (ArrayList<MucDich>) request.getAttribute("mucDichList");
@@ -78,9 +96,11 @@
 		</div>
 		<div class="main_menu">
 			<ul>
-				<li><a href="">Trang chủ</a></li>
-				<li><a href="">Danh mục</a>
-							<ul>
+				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
+				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				
+				<li><a>Danh mục</a>
+					<ul>
 								<li><a href="<%=siteMap.nsxManage + "?action=manageNsx"%>">Danh
 										mục nơi sản xuất</a></li>
 								<li><a href="<%=siteMap.clManage + "?action=manageCl"%>">Danh
@@ -100,21 +120,30 @@
 								
 							</ul>
 				</li>
+				<%} %>
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-				<li><a href="<%=siteMap.bcManage +  "?action=manageBc"%>">Báo cáo</a>
+				<li><a>Báo cáo</a>
 					<ul>
 						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<li><a href="">Quản lý người dùng</a>
+				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
-						<li><a href=""/>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
+						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
 					</ul>
 				</li>
-				<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
-<!-- 				<li><a href="login.html">Đăng xuất</a></li> -->
+				<%} %>
+				<li><a>Tài khoản</a>
+					<ul>
+						<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
+					</ul>
+				</li>		
 			</ul>
 			<div class="clear"></div>
 		</div>
@@ -123,7 +152,6 @@
 		<div id="main-content">
 			<div id="content-form">
 			<div id="title-content">Công văn</div>
-			<div id="main-content">
 				<!--            <form id="main-form">-->
 				<div class="left-content" >
 					<div id="scroll_time">
@@ -156,12 +184,19 @@
 <!-- 						</ol> -->
 <!-- 					</div> -->
 				<div id="Link-vbd">
-						<div class="vbd-column">--Văn bản đến--</div><br>
-						<div class="tt-column">
-						<a href="" >Chưa giải quyết</a><br>
-						<a href="">Đang giải quyết</a><br>
-						<a href="">Đã giải quyết</a>
-						</div>
+<!-- 						<div class="vbd-column">--Văn bản đến--</div><br> -->
+<!-- 						<div class="tt-column"> -->
+<!-- 						<a href="" >Chưa giải quyết</a><br> -->
+<!-- 						<a href="">Đang giải quyết</a><br> -->
+<!-- 						<a href="">Đã giải quyết</a> -->
+<!-- 						</div> -->
+					<div class="vbd-column">--Văn bản đến--</div><br>
+					<select id = "ttFilter" class="select" name="trangThai">
+						<option value = "" style="text-align: center;">Tất cả</option>
+						<option value = "CGQ" style="text-align: center;">Chưa giải quyết</option>
+						<option value = "DGQ" style="text-align: center;">Đang giải quyết</option>
+						<option value = "DaGQ" style="text-align: center;">Đã giải quyết</option>
+					</select>
 				</div>
 					<br> <br>
 					
@@ -171,18 +206,20 @@
 						<div id="title-table">
 						<table>
 							<tr>
-								<td class="column-loc">Chỉ tiêu lọc dữ liệu:</td>
-								<td><select class="select">
-										<option selected disabled>-- Chỉ tiêu lọc --</option>
-										<option>Ngày đến</option>
-										<option>Số đến</option>
-										<option>Mục đích nhận</option>
-										<option>Nơi gửi</option>
-										<option>Trích yếu</option>
-										<option>Bút phê</option>
-										<option>Nơi GQ chính</option>
+								<td class="column-loc">Tìm kiếm: </td>
+								<td><select class="select" name="filter" id="filter">
+										<option value =""> Tất cả </option>
+<!-- 										<option>Ngày đến</option> -->
+										<option value="soDen">Số đến</option>
+										<option value="mucDich">Mục đích nhận</option>
+<!-- 										<option>Nơi gửi</option> -->
+										<option value="trichYeu">Trích yếu</option>
+										<option value="butPhe">Bút phê</option>
+<!-- 										<option>Nơi GQ chính</option> -->
 
-								</select></td>
+								</select>
+								<div id="requireFilter"></div>
+								</td>
 								<td>&nbsp;&nbsp;</td>
 								<!--<td>
                                  <select class="select" >
@@ -195,13 +232,14 @@
 								<td>
 									<!--                                 <div class="search-form">-->
 									<span class="search-text"> <!--								&nbsp;--> <input
-										type="search" class="text" name="search_box" name="search"
+										type="search" class="text" name="filterValue" id="filterValue" readonly style="background: #D1D1E0;"
 										placeholder="Nội dung tìm kiếm" />
 								</span> <span class="search-button">
-										<button class="btn-search">
+										<button class="btn-search" id = "buttonSearch" type="button">
 											<i class="fa fa-search"></i>
 										</button>
 								</span> <!--                                 </did="test"iv>-->
+								<div id="requireFilterValue"></div>
 								</td>
 								<!--
                             <td>
@@ -222,49 +260,59 @@
                      	for(CongVan congVan : congVanList) {
                      		count ++;
                      %>
-					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : Blush;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
-								<tr >
-									<td class="column-check" rowspan="7">
-										Chọn&nbsp;&nbsp;
-										<br>
-										<input style="text-align: center;" title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
-									</td>
-									<td class="left-column-soden">Số đến: &nbsp;&nbsp;</td>
-									<td class="column-so-den" style="text-align: left"><%=congVan.getSoDen() %></td>
+					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : #FFFFFF;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
+						<tr >
+							<td class="column-check" rowspan="7">
+								<input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
+							</td>
+							<td class="left-column-soden">Số đến: &nbsp;&nbsp;</td>
+							<td class="column-so-den" style="text-align: left"><%=congVan.getSoDen() %></td>
+							<td class="left-column-socv">Số công văn: &nbsp;&nbsp;</td>
+							<td class="column-socv" style="text-align: left;color:red;"><%=congVan.getCvSo() %></td>
+							<td class="left-column-first" >Ngày đến: &nbsp;&nbsp;</td>
+							<td class="column-date"style="text-align: left"><%=congVan.getCvNgayNhan() %></td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Mục đích: &nbsp;&nbsp;</td>
+							<td class="column-color" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
+							<td class="left-column-ngdi">Ngày công văn đi:&nbsp;&nbsp;</td>
+							<td class="column-date" style="text-align: left"><%=congVan.getCvNgayDi()%></td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Nơi gửi: &nbsp;&nbsp;</td>
+							<td class="column-color" colspan="3" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
+							<td colspan="1">Trạng thái</td>
+							<td colspan="1"><%=congVan.getTrangThai().getTtTen() %></td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Trích yếu: &nbsp;&nbsp;</td>
+							<td class="column-color"colspan="6" style="text-align: left"><%= congVan.getTrichYeu()%></td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Bút phê: &nbsp;&nbsp;</td>
+							<td class="column-color" colspan="6"><%= congVan.getButPhe()%></td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Nơi GQ chính</td>
+							<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
+							<td colspan="3" style="float: right;">
+								<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
+									<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
+								</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="left-column-first">Xem công văn: </td>
+							<td colspan="5">
+								<a href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
+									<div class="mo-ta"><%=fileHash.get(congVan.getCvId()).getMoTa() %></div>
+								</a>
+							</td>
+							
+						</tr>
+					</table>
 
-									<td class="left-column-socv">Số công văn: &nbsp;&nbsp;</td>
-									<td class="column-socv" style="text-align: left;color:red;"><%=congVan.getCvSo() %></td>
-									
-									<td class="left-column-first" >Ngày đến: &nbsp;&nbsp;</td>
-
-									<td class="column-date-den"style="text-align: left"><%=congVan.getCvNgayNhan() %></td>
-									
-								</tr>
-								<tr>
-
-									<td class="left-column-first">Mục đích: &nbsp;&nbsp;</td>
-
-									<td class="column-md" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
-
-									<td class="left-column-ngdi">Ngày công văn đi:&nbsp;&nbsp;</td>
-									<td class="column-date-di" style="text-align: left"><%=congVan.getCvNgayDi()%></td>
-									
-								</tr>
-								<tr>
-
-									<td class="left-column-first">Nơi gửi: &nbsp;&nbsp;</td>
-									<td class="column-ng" colspan="6" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
-									
-								</tr>
-								<tr>
-
-									<td class="left-column-first">Trích yếu: &nbsp;&nbsp;</td>
-									<td class="column-ty"colspan="6" style="text-align: left"><%= congVan.getTrichYeu()%></td>
-								</tr>
-								<tr>
-
-									<td class="left-column-first">Bút phê: &nbsp;&nbsp;</td>
-
+<<<<<<< HEAD
 									<td class="column-bp" colspan="6"><%= congVan.getButPhe()%></td>
 								</tr>
 								<tr>
@@ -290,10 +338,24 @@
 <%-- 									href="<%=siteMap.ycvtManage + "action=manageYcvt&congVan="+congVan.getCvId()%>">*Xem --%>
 <!-- 									chi tiết</a> -->
 <!-- 							</div> -->
+=======
+>>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
 							<%} %>
 
 						</div>
-						
+						<div id="paging">
+						<%
+							long pageNum = size / 3;
+							long p = (size <= 10 ? pageNum : 10);
+							for (int i = 0; i < p; i++) {
+						%>
+						<input type="button" name = "page" class="page" value = "<%=i+1 %>" onclick = "loadPage(<%=i%>)">
+						<%}
+							if(pageNum > 10) {
+						%>
+							<input type="button" name = "page" class="page" value = "Sau" onclick = "loadPage('Next')";>
+						<%}%>	
+						</div>
 						
 						<div class="group-button">
 							<input type="hidden" name="action" value="update-yeu-cau">
@@ -322,7 +384,7 @@
 					</form>
 				</div>
 
-				</div>
+<!-- 				</div> -->
 
 				<!--    		</form>  -->
 				<!--                add-form-->
@@ -382,7 +444,7 @@
 							<tr>
 						</table>
 					</div>
-					<div class="group-button">
+					<div class="button-group">
 						<input type="hidden" name="action" value="addCongVan">
 						<button class="button" type="submit"
 							onclick="return checkAdd();">
@@ -478,240 +540,9 @@
 						</button>
 					</div>
 				</form>
-				<!--    update-vat-tu    -->
-				<form id="update-yc-vat-tu">
-					<div class="input-table-vt">
-						<table>
-							<div class="form-title">Cập nhật yêu cầu vật tư</div>
-							<table>
-								<tr>
-									<th class="a-column">Chọn</th>
-									<th class="b-column">Mã vật tư</th>
-									<th class="c-column">Tên vật tư</th>
-
-									<th class="e-column">Nơi sản xuất</th>
-									<th class="f-column">Chất lượng</th>
-									<th class="d-column">Số lượng</th>
-									<th class="g-column">Đvt</th>
-								</tr>
-								<tr>
-									<td class="a-column"><input type="checkbox" name=""></td>
-									<td class="b-column">315422050</td>
-									<td class="c-column">Cáp đòng bọc hạ áp CV 50m...</td>
-									<td class="d-column">Viet Nam</td>
-									<td class="e-column">Hàng thu hồi</td>
-									<td class="f-column">17</td>
-									<td class="g-column">m</td>
-								</tr>
-								<tr>
-									<td class="a-column"><input type="checkbox" name=""></td>
-									<td class="b-column">31582025</td>
-									<td class="c-column">Cáp đồng bọc 24KV CX(CR)...</td>
-									<td class="d-column">5</td>
-									<td class="e-column">51091.313</td>
-									<td class="f-column">255457</td>
-									<td class="g-column">m</td>
-								</tr>
-								<tr>
-									<td class="a-column"><input type="checkbox" name=""></td>
-									<td class="b-column">32084025</td>
-									<td class="c-column">Đầu cosse ép đồng 25cm2</td>
-									<td class="d-column">1</td>
-									<td class="e-column">19200</td>
-									<td class="f-column">19200</td>
-									<td class="g-column">cái</td>
-								</tr>
-								<tr>
-									<td class="a-column"><input type="checkbox" name=""></td>
-									<td class="b-column">32084050</td>
-									<td class="c-column">Đầu cosse ép đồng 50cm2</td>
-									<td class="d-column">4</td>
-									<td class="e-column">23500</td>
-									<td class="f-column">23500</td>
-									<td class="g-column">cái</td>
-								</tr>
-								<tr>
-									<td class="a-column"><input type="checkbox" name=""></td>
-									<td class="b-column">32005814</td>
-									<td class="c-column">Nối ép WR 259</td>
-									<td class="d-column">4</td>
-									<td class="e-column">11200</td>
-									<td class="f-column">44800</td>
-									<td class="g-column">cái</td>
-								</tr>
-							</table>
-							</div>
-							<div class="group-button">
-								<button type="button" class="button"
-									onclick="showForm('update-yc-vat-tu', 'add-form-ycvt', true)">
-									<i class="fa fa-plus-circle"></i>&nbsp;Thêm mới
-								</button>
-								<button type="button" class="button"
-									onclick="showForm('update-yc-vat-tu','update-form-ycvt', true)">
-									<i class="fa fa-pencil fa-fw"></i>&nbsp;Sửa
-								</button>
-								<button class="button" onclick="return confirmDelete()">
-									<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa
-								</button>
-								<button type="reset" class="button">
-									<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
-								</button>
-								<button type="button" class="button"
-									onclick="showForm('main-form', 'update-yc-vat-tu',false)">
-									<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
-								</button>
-							</div>
-							</div>
-							</div>
-							</form>
-
-							<form id="add-form-ycvt">
-								<div class="input-table">
-									<table>
-										<div class="form-title" style="padding: 10px">Thêm yêu
-											cầu vật tư</div>
-										<tr>
-											<th style="text-align: left"><label for="TKM">Tìm
-													kiếm mã</label></th>
-											<td><input name="" type="text" class="text" required
-												autofocus size="2" maxlength="3" pattern="[a-zA-Z0-9]{3}"
-												title="Mã mục đích chỉ gồm 3 ký tự, không chứ khoảng trắng và ký tự đặc biệt"></td>
-											<td class="name" style="text-align: right"><input
-												type="checkbox" name=""></td>
-											<th style="text-align: left"><label for="TT">Theo
-													tên</label></th>
-										</tr>
-										<tr>
-											<th style="text-align: left"><label for="MVT">Mã
-													vật tư</label></th>
-											<td><input name="" size="3px" class="text" align=right
-												type="text" class="text" required
-												title="Mã vật tư không được để trống"></td>
-										</tr>
-										<tr>
-											<th style="text-align: left"><label for="MVT">Nơi
-													sản xuất</label></th>
-											<td><select required
-												title="Nơi sản xuất không được để trống">
-													<option selected disabled></option>
-													<option>aaaaaaaaaaaaaaa</option>
-											</select></td>
-										</tr>
-										<tr>
-											<th style="text-align: left"><label for="DVT">Chất
-													lượng</label></th>
-											<td><select required
-												title="Nơi sản xuất không được để trống">
-													<option selected disabled></option>
-													<option>aaaaa</option>
-											</select></td>
-
-										</tr>
-										<tr>
-											<th style="text-align: left">Số lượng</th>
-											<td><input class="text" type="text" size="2px"></td>
-										</tr>
-										<tr>
-											<th style="text-align: left"><label for="DVT">Đơn
-													vị tính</label></th>
-											<td><select required
-												title="Nơi sản xuất không được để trống">
-													<option selected disabled></option>
-													<option>aaaaa</option>
-											</select></td>
-
-										</tr>
-									</table>
-								</div>
-								<div class="group-button">
-									<button class="button">
-										<i class="fa fa-plus-circle"></i>&nbsp;Thêm
-									</button>
-									<button type="reset" class="button">
-										<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
-									</button>
-									<button type="button" class="button"
-										onclick="showForm('update-yc-vat-tu','add-form-ycvt', false)">
-										<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
-									</button>
-								</div>
-							</form>
-							<form id="update-form-ycvt">
-								<div class="input-table">
-									<table>
-										<div class="form-title" style="padding: 10px">Cập nhật
-											yêu cầu vật tư</div>
-										<tr>
-											<th style="text-align: left"><label for="TKM">Tìm
-													kiếm mã</label></th>
-											<td><input name="" type="text" class="text" required
-												autofocus size="2" maxlength="3" pattern="[a-zA-Z0-9]{3}"
-												title="Mã mục đích chỉ gồm 3 ký tự, không chứ khoảng trắng và ký tự đặc biệt"></td>
-											<td class="name" style="text-align: right"><input
-												type="checkbox" name=""></td>
-											<th style="text-align: left"><label for="TT">Theo
-													tên</label></th>
-										</tr>
-										<tr>
-											<th style="text-align: left"><label for="MVT">Mã
-													vật tư</label></th>
-											<td><input name="" size="3px" align=right class="text"
-												type="text" class="text" required
-												title="Mã vật tư không được để trống"></td>
-										</tr>
-										<tr>
-											<th style="text-align: left"><label for="MVT">Nơi
-													sản xuất</label></th>
-											<td><select required
-												title="Nơi sản xuất không được để trống">
-													<option selected disabled></option>
-													<option>aaaaaaaaaaaaaaa</option>
-											</select></td>
-										</tr>
-										<tr>
-											<th style="text-align: left"><label for="DVT">Chất
-													lượng</label></th>
-											<td><select required
-												title="Nơi sản xuất không được để trống">
-													<option selected disabled></option>
-													<option>aaaaa</option>
-											</select></td>
-
-										</tr>
-										<tr>
-											<th style="text-align: left">Số lượng</th>
-											<td><input class="text" type="text" size="2px"></td>
-										</tr>
-										<tr>
-											<th style="text-align: left"><label for="DVT">Đơn
-													vị tính</label></th>
-											<td><select required
-												title="Nơi sản xuất không được để trống">
-													<option selected disabled></option>
-													<option>aaaaa</option>
-											</select></td>
-
-										</tr>
-									</table>
-								</div>
-								<div class="group-button">
-									<button class="button">
-										<i class="fa fa-floppy-o"></i>&nbsp;Lưu lại
-									</button>
-									<button type="reset" class="button">
-										<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
-									</button>
-									<button type="button" class="button"
-										onclick="showForm('update-yc-vat-tu', 'update-form-ycvt',false)">
-										<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
-									</button>
-								</div>
-							</form>
-						</table>
+				
 						</div>
-						</form>
-						</div>
-						</div>
-						</div>		
+			</div>
+		</div>		
 </body>
 </html>

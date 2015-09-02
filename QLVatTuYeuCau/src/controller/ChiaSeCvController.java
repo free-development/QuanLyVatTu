@@ -30,8 +30,10 @@ import dao.VaiTroDAO;
 import map.siteMap;
 import model.CTVatTu;
 import model.CongVan;
+//import model.Mailer;
 import model.NguoiDung;
 import model.NoiSanXuat;
+import model.SendEmail;
 import model.VTCongVan;
 import model.VaiTro;
 import util.JSonUtil;
@@ -98,11 +100,15 @@ public class ChiaSeCvController extends HttpServlet {
 			VaiTroDAO vaiTroDAO =  new VaiTroDAO();
 			
 			//String[] msnv = new String[vaiTro.length];
-			int cvId = congVan.getCvId();			
+			int cvId = congVan.getCvId();		
 			vtCongVanDAO.deleteByCvId(cvId);
 			for (String vtMa : vaiTro) {
 				String[] str = vtMa.split("\\#");
 				NguoiDung nguoiDung = nguoiDungDAO.getNguoiDung(str[0]);
+				SendEmail send =  new SendEmail();
+//				String subject = "Công văn được chia sẻ";
+//				String message = "Bạn được chia sẻ từ công văn";
+//				mailer.send(nguoiDung.getEmail(), subject, message);
 				VTCongVan vtCongVan = new VTCongVan();
 				vtCongVan.setCvId(cvId);
 				vtCongVan.setMsnv(str[0]);
@@ -191,6 +197,17 @@ public class ChiaSeCvController extends HttpServlet {
 	   vaiTroDAO.disconnect();
 		return JSonUtil.toJson(objectList);
 	}
+   
+   
+//   @RequestMapping(value="/sendMail", method=RequestMethod.GET, 
+//			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	 public @ResponseBody String sendMail(@RequestParam("email") String email,@RequestParam("chude") String chude,@RequestParam("noidung") String noidung) {
+//	   Mailer mailer = new Mailer();
+//	   mailer.send(email, chude, noidung);
+//	   ArrayList<Object> objectList = new ArrayList<Object>();
+//	   objectList.add(mailer);
+//			return JSonUtil.toJson(objectList);
+//	}
    
    @RequestMapping(value="/loadPageCscv", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
