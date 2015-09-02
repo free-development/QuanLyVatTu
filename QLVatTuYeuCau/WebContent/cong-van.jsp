@@ -269,13 +269,7 @@
 								</tr>
 								<tr>
 
-<<<<<<< HEAD
 									<td class="left-column-first">Nơi GQ chính</td>
-
-=======
-									<td class="left-column-first">Nơi GQ chính</td>
->>>>>>> d096ffdb787a6c02eeeeeadc7c06d7e0304f58e7
-
 									<td class="column-nql"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
 									<td colspan=3 style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
 

@@ -13,13 +13,10 @@
 		<property name="daXoa" type="int">
 			<column name="DAXOA" />
 		</property>
-<<<<<<< HEAD
+
 
 		<many-to-one name="dvt"  class="model.DonViTinh" fetch="join" >
 
-=======
-		<many-to-one name="dvt"  class="model.DonViTinh" fetch="join" >
->>>>>>> d096ffdb787a6c02eeeeeadc7c06d7e0304f58e7
 			<column name="DVTID"></column>
 		</many-to-one>
 	</class>
