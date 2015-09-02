@@ -50,7 +50,6 @@
    	%>
 	<%
     		ArrayList<DonViTinh> listDonViTinh = (ArrayList<DonViTinh>) request.getAttribute("donViTinhList");
-<<<<<<< HEAD
 			if (listDonViTinh ==  null) {
 				int index = siteMap.dvtManage.lastIndexOf("/");
 				String url = siteMap.dvtManage.substring(index);
@@ -59,9 +58,7 @@
 				return;
 			}
 			Long size = (Long) request.getAttribute("size");
-=======
 			long pageNum = (Long) request.getAttribute("size")/10;
->>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
     	%>
 	<div class="wrapper">
 		<div class="header">

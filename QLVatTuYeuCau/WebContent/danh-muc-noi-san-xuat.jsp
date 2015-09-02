@@ -41,7 +41,6 @@
     	response.setCharacterEncoding("UTF-8");
     	
     		ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) request.getAttribute("noiSanXuatList");
-<<<<<<< HEAD
     		if (listNoiSanXuat ==  null) {
 				int index = siteMap.nsxManage.lastIndexOf("/");
 				String url = siteMap.nsxManage.substring(index);
@@ -50,9 +49,7 @@
 				return;
 			}
     		Long size = (Long) request.getAttribute("size");
-=======
     		long pageNum = (Long) request.getAttribute("size")/10;
->>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
     	%>
 	<div class="wrapper">
 		<div class="header">

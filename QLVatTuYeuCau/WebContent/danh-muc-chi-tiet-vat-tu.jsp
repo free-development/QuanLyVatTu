@@ -52,7 +52,6 @@
 	<%
     
     	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) session.getAttribute("ctVatTuList");
-<<<<<<< HEAD
 		if (listCTVatTu ==  null) {
 			int index = siteMap.ctvtManage.lastIndexOf("/");
 			String url = siteMap.ctvtManage.substring(index);
@@ -61,9 +60,7 @@
 			return;
 		}
 		Long size = (Long) request.getAttribute("page");
-=======
 		Long pageNum = (Long) request.getAttribute("size")/10;
->>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
    		
     %>
 	<div class="wrapper">

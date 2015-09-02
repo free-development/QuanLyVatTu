@@ -160,15 +160,12 @@ public class NdController extends HttpServlet {
 		if (check) {
 			NguoiDung nguoiDung =  ndDAO. getNguoiDung(msnv);
 			session.setAttribute("nguoiDung", nguoiDung);
-<<<<<<< HEAD
 			String url = (String) request.getAttribute("url");
 			String forward = (url != null ? url : "index");
 			return new ModelAndView(forward);
-=======
-			ctndDAO.disconnect();
-			ndDAO.disconnect();
-			return new ModelAndView("index");
->>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
+//			ctndDAO.disconnect();
+//			ndDAO.disconnect();
+//			return new ModelAndView("index");
 		} else {
 			return new ModelAndView("login", "status", "fail");
 		}

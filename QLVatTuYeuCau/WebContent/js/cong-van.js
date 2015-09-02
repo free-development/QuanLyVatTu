@@ -541,7 +541,6 @@ $(document).ready(function(){
 		var date = $(this).val();
 		loadByDate(date);
 	});
-<<<<<<< HEAD
 });	
 $(document).ready(function(){
 	$('#ttFilter').change(function(){
@@ -578,6 +577,3 @@ $(document).ready(function(){
 		}
 	});
 });	
-=======
-});	
->>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f

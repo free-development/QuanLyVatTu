@@ -141,13 +141,10 @@
 	font-weight: bold;
 }
 
-<<<<<<< HEAD
 .column-date {
-	width: 140px;
-=======
+	width: 140px;}
 .column-md{
 	width: 100px;
->>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
 	text-align: left;
 
 }
@@ -407,11 +404,8 @@
 
 #update-form {
 	display: none;
-<<<<<<< HEAD
 	width: 66%;1111
-=======
 	width: 63%;
->>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
 	/*    height: 36%*/
 	position: absolute;
 	left: 17%;
