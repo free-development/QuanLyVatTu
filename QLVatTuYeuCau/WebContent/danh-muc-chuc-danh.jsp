@@ -179,7 +179,7 @@
 			
 
 			<form id="add-form" method="get"
-				action="<%=siteMap.clManage + "?action=manageCd" %>">
+				action="<%=siteMap.cdManage + "?action=manageCd" %>">
 				<div class="input-table">
 					<table>
 						<div class="form-title">Thêm chức danh</div>

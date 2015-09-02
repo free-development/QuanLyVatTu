@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 import model.CTVatTu;
 import model.ChatLuong;
+import model.ChucDanh;
 import model.NoiSanXuat;
 import model.VaiTro;
 import model.VatTu;
@@ -27,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import util.JSonUtil;
 import dao.ChatLuongDAO;
+import dao.ChucDanhDAO;
 import dao.DonViDAO;
 import dao.NoiSanXuatDAO;
 import dao.VatTuDAO;
@@ -107,18 +109,22 @@ public class VattuController extends HttpServlet {
 		}
 	@RequestMapping(value="/addVattu", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String addVattu(@RequestParam("vtMa") String vtMa, @RequestParam("vtTen") String vtTen, @RequestParam("dvt") String dvt) {
-		String result = "";
-		System.out.println("MA: "+vtMa);
-		int id = Integer.parseInt(dvt);
+	 public @ResponseBody String addVattu(@RequestParam("vtMa") String vtMa, @RequestParam("vtTen") String vtTen, @RequestParam("dvt") DonViTinh dvt) {
+		String result = "success";
 		VatTuDAO vatTuDAO = new VatTuDAO();
-		if(vatTuDAO.getVatTu(vtMa) == null)
+		VatTu vt = vatTuDAO.getVatTu(vtMa);
+		if(vt == null) 
 		{
-			vatTuDAO.addOrUpdateVatTu(new VatTu(vtMa, vtTen, new DonViTinh(id),0));
+			vatTuDAO.addVatTu(new VatTu(vtMa, vtTen,dvt,0));
 			System.out.println("success");
-			result = "success";
-			
-			
+			result = "success";	
+		}
+		else if(vt !=null && vt.getDaXoa()== 1){
+			vt.setVtMa(vtMa);
+			vt.setVtTen(vtTen);
+			vt.setDvt(dvt);
+			vt.setDaXoa(0);
+			vatTuDAO.updateVatTu(vt);
 		}
 		else
 		{
