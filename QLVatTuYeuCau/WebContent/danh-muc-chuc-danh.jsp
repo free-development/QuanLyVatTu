@@ -179,7 +179,7 @@
 			
 
 			<form id="add-form" method="get"
-				action="<%=siteMap.clManage + "?action=manageCd" %>">
+				action="<%=siteMap.cdManage + "?action=manageCd" %>">
 				<div class="input-table">
 					<table>
 						<div class="form-title">Thêm chức danh</div>
@@ -199,7 +199,7 @@
 				</div>
 				<div class="button-group">
 					<!-- 				<input type="hidden" name="action" value = "AddCd">   -->
-					<button class="button" onclick="addCd();" type="button">
+					<button class="button" onclick="addCd()" type="button">
 						<i class="fa fa-plus-circle"></i>&nbsp;Thêm
 					</button>
 					<button type="reset" class="button">

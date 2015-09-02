@@ -4,6 +4,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page language="java" pageEncoding="utf-8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,16 +21,11 @@
 	type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/noi-san-xuat.js"></script>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
 </head>
 <body>
 	<%
-    	request.getCharacterEncoding();
-    	response.getCharacterEncoding();
-    	request.setCharacterEncoding("UTF-8");
-    	response.setCharacterEncoding("UTF-8");
-    	
     		ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) request.getAttribute("noiSanXuatList");
     		long pageNum = (Long) request.getAttribute("size")/10;
     	%>
@@ -123,7 +119,7 @@
 							int count = 0;
 							for(NoiSanXuat noiSanXuat : listNoiSanXuat) { count++ ;%>
 						<tr class="rowContent" 
-							<%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>>
+							<%if (count % 2 == 1) out.println("style=\"background : #CCFFFF;\"");%>>
 							<td class="left-column"><input type="checkbox" name="nsxMa" value="<%=noiSanXuat.getNsxMa() %>" class="checkbox"></td>
 							<td class="col"><%=noiSanXuat.getNsxMa() %></td>
 							<td class="col"><%=noiSanXuat.getNsxTen() %></td>

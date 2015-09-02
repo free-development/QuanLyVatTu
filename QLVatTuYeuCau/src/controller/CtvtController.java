@@ -134,10 +134,10 @@ public class CtvtController extends HttpServlet {
 			ctVatTuDAO.addOrUpdateCTVatTu(ctvt);
 			System.out.println("success");
 
-			int id = ctVatTuDAO.getLastInsert()-1;
-			CTVatTu ctVatTu = ctVatTuDAO.getCTVatTuById(id);
-			ctVatTuDAO.disconnect();
-			return JSonUtil.toJson(ctVatTu);
+			//int id = ctVatTuDAO.getLastInsert()-1;
+			//CTVatTu ctVatTu = ctVatTuDAO.getCTVatTuById(id);
+			//ctVatTuDAO.disconnect();
+			return JSonUtil.toJson(ctvt);
 		
 		}
 		else

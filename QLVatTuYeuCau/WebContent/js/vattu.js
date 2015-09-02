@@ -353,16 +353,15 @@
     
     
     function loadPageVatTu(pageNumber){
- 		var page = 0;
- 		var p = 0;
+ 		
  		if (pageNumber == 'Next') {
  			var lastPage = document.getElementsByClassName('page')[9].value;
- 			p = (lastPage) / 5;
- 			page = p * 5;
+ 			var p = (lastPage) / 5;
+ 			var page = lastPage;
  		}
  		else if (pageNumber == 'Previous') {
  			var firstPage = document.getElementsByClassName('page')[0].value;
- 			p = (firstPage - 1) / 5;
+ 			var p = (firstPage - 1) / 5;
  			page =  p * 5 - 1;
  		}
  		else {

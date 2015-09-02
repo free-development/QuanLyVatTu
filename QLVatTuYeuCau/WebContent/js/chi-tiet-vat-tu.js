@@ -57,7 +57,7 @@
 							+ vtTen +'</td><td class=\"col\">'
 							+ ctvt.noiSanXuat.nsxTen +'</td><td class=\"col\">' 				
 							+ ctvt.chatLuong.clTen +'</td><td class=\"col\">'
-							+ ctvt.vattu.dvt.dvtTen +'</td><td class=\"col\">'
+							+ dvt +'</td><td class=\"col\">'
 							+ dinhMuc +'</td><td class=\"col\">'
 							+ soLuongTon +'</td></tr>');
 			  		
@@ -238,7 +238,7 @@
  	}
 
     $(document).ready(function() {
-        $('#view-table-chi-tiet .checkAll').click(function(event) {  //on click 
+        $('#view-table-chi-tiet .checkAllCT').click(function(event) {  //on click 
             if(this.checked) { // check select status
                 $('#view-table-chi-tiet .checkbox').each(function() { //loop through each checkbox
                     this.checked = true;  //select all checkboxes with class "checkbox1"    

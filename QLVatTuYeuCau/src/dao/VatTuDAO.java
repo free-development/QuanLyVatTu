@@ -98,7 +98,8 @@ public class VatTuDAO {
 		query.executeUpdate();
 		session.getTransaction().commit();
 	}
-public ArrayList<String> startWith(String i) {
+
+public ArrayList<String> startWithTen(String i) {
 		session.beginTransaction();
 
 		String sql = "select vtTen from VatTu where vtTen LIKE :vtTen";
@@ -127,8 +128,6 @@ public ArrayList<VatTu> searchVtTen(String i) {
 	session.getTransaction().commit();
 	return list;
 }
-
-
  public ArrayList<String> startWithMa(String i) {
 	session.beginTransaction();
 	String sql = "select vtMa from VatTu where vtMa LIKE :vtMa";

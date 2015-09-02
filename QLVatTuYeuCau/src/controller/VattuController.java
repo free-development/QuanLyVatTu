@@ -136,7 +136,6 @@ public class VattuController extends HttpServlet {
 		System.out.println("Ten goi qua " + vtTen);
 		if(vtMa != ""){
 			ArrayList<VatTu> vtList = (ArrayList<VatTu>) vatTuDAO.searchVtMa(vtMa);
-			//System.out.println("MA: "+vtMa);
 			vatTuDAO.disconnect();
 			return JSonUtil.toJson(vtList);
 		}
@@ -147,6 +146,7 @@ public class VattuController extends HttpServlet {
 			vatTuDAO.disconnect();
 			return JSonUtil.toJson(vtList);
 		}
+		
 	}
 	@RequestMapping(value="/updateVattu", method=RequestMethod.GET, 
 		produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -26,6 +26,14 @@
 #print_button{
 display:none;
 }
+@page 
+        {
+            size: auto A4 landscape;
+        	color: black; background: white; }
+	   table 
+	   { 
+	   		font-size: 70%; 
+	   			 }
 </style>
 </head>
 <body>
