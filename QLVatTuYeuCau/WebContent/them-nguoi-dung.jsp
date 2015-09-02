@@ -110,6 +110,7 @@
 						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
 					</ul>
 				</li>
+<<<<<<< HEAD
 				<%} %>
 				<li><a>Tài khoản</a>
 					<ul>
@@ -117,6 +118,9 @@
 						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
 					</ul>
 				</li>		
+=======
+				<li><a href="<%=siteMap.changePass + "?action=changePass"%>">Đổi mật khẩu</a></li>
+>>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
 			</ul>
 			<div class="clear"></div>
 		</div>
@@ -128,32 +132,32 @@
 						<div class="form-title">Tạo tài khoản</div>
 						<tr>
 						<td class="input"><label for="msnv">Mã số nhân viên</label></td>
-						<td><input type="text" autofocus required size="10"
-							maxlength="10"
+						<td><input type="text" autofocus required size="12"
+							maxlength="10" placeholder="Mã số nhân viên"
 							title="Mã số nhân viên đủ 10 ký tự, không chứa ký tự đặc biệt"
-							pattern="[a-zA-Z0-9]*" class="text" id="msnv" name="msnv"></td>
+							pattern="[a-zA-Z0-9]*" class="text" id="msnv" name="msnv" onkeypress="changeMsnv();"><div id="requireMsnv" style="color: red"></div></td>
 					</tr>
 
 					<tr>
 						<td class="input"><label for="matkhau">Mật khẩu</label></td>
-						<td><input type="password" required size="20" maxlength="20"
+						<td><input type="password" required size="20" maxlength="20" placeholder="Mật khẩu"
 							title="Mật khẩu phải hơn 7 ký tự và nhỏ hơn 21" pattern=".{8,20}"
-							class="text" id="matkhau" name="matkhau"></td>
+							class="text" id="matkhau" name="matkhau" onkeypress="changeMatkhau();"><div id="requireMatkhau" style="color: red"></div></td>
 					</tr>
 
 					<tr>
 						<td class="input"><label for="re-matkhau">Nhập lại
 								mật khẩu</label></td>
-						<td><input type="password" required size="20" maxlength="20"
+						<td><input type="password" required size="20" maxlength="20" placeholder="Mật khẩu"
 							title="Mật khẩu phải hơn 7 ký tự và nhỏ hơn 21" pattern=".{8,20}"
-							class="text" id="nlmatkhau" name="nlmatkhau"></td>
+							class="text" id="nlmatkhau" name="nlmatKhau" onkeypress="changeNlmatkhau();"><div id="requireNlmatkhau" style="color: red"></div></td>
 					</tr>
 
 					<tr>
 						<td class="input"><label for="chucdanh">Chức danh</label></td>
 						<td><select required title="Chức danh phải được chọn"
-							class="select" id="chucdanh" name="chucdanh">
-								<option disabled selected value="">-- Chọn chức danh --</option>
+							class="select" id="chucdanh" name="chucdanh" placeholder="Chọn chức danh" onchange="changeChucdanh();">
+								<option disabled selected value="">--Chọn chức danh--</option>
 								<%
 							
 									int count = 0;
@@ -162,40 +166,39 @@
 								<option value=<%=chucDanh.getCdMa()%>><%=chucDanh.getCdTen()%></option>
 								<%}
 								%>
-						</select></td>
+						</select><div id="requireChucdanh" style="color: red"></div></td>
 					</tr>
 
 					<tr>
 						<td class="input"><label for="hoten">Họ tên</label></td>
-						<td><input type="text" required size="20" maxlength="50"
+						<td><input type="text" required size="20" maxlength="50" placeholder="Họ tên"
 							title="Họ tên không được chứa chữ số và ký tự đặc biệt"
-							pattern="[a-zA-Z]*" class="text" id="hoten" name="hoten"></td>
+							pattern="[a-zA-Z]*" class="text" id="hoten" name="hoten" onkeypress="changeHoten();"><div id="requireHoten" style="color: red"></div></td>
 					</tr>
 
 					<tr>
 						<td class="input"><label for="sdt">Số điện thoại</label></td>
-						<td><input type="text" required size="11" maxlength="11"
+						<td><input type="text" required size="11" maxlength="11" placeholder="Số điện thoại"
 							title="Phải nhập đúng định dạng. Ví dụ: 01234567890"
-							pattern="[0-9]{10,11}" class="text" id="sdt" name="sdt"></td>
+							pattern="[0-9]{10,11}" class="text" id="sdt" name="sdt" onkeypress="changeSdt();"><div id="requireSdt" style="color: red"></div></td>
 					</tr>
 
 					<tr>
 						<td class="input"><label for="email">Email</label></td>
-						<td><input type="text" required size="20" maxlength="50"
-							title="Email phải được nhập" class="text" id="email" name="email"></td>
+						<td><input type="text" required size="20" maxlength="50" placeholder="Email"
+							title="Email phải được nhập" class="text" id="email" name="email" onkeypress="changeEmail();"><div id="requireEmail" style="color: red"></div></td>
 					</tr>
 
 					<tr>
 						<td class="input"><label for="diachi">Địa chỉ</label></td>
-						<td><input type="text" required size="20" maxlength="50"
+						<td><input type="text" required size="20" maxlength="50" placeholder="Địa chỉ"
 							title="Địa chỉ phải được nhập" class="text" name="diachi"
-							id="diachi"></td>
+							id="diachi" onkeypress="changeDiachi();"><div id="requireDiachi" style="color: red"></div></td>
 					</tr>
 					</table>
 				</div>
 				<div class="button-group">
-<!-- 					<input type="hidden" name="action" value="AddNd"> -->
-					<button class="button" type="button" onclick="checkPassword();">
+					<button class="button" type="button" onclick="checkNd();">
 						<i class="fa fa-plus-circle"></i>&nbsp;Tạo mới
 					</button>
 					&nbsp;

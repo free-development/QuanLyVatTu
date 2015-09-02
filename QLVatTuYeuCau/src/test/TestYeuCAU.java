@@ -162,12 +162,12 @@ public class TestYeuCAU {
 		
 		
 
-		CongVan congVan = new CongVan(1, DateUtil.convertToSqlDate(new java.util.Date()), "123", DateUtil.convertToSqlDate(new java.util.Date()), "Khong co trich yeu", "Khong co bu phe", mucDich, new TrangThai("CGQ", "Chua giai quyet"), donVi,0);
+	//	CongVan congVan = new CongVan(1, DateUtil.convertToSqlDate(new java.util.Date()), "123", DateUtil.convertToSqlDate(new java.util.Date()), "Khong co trich yeu", "Khong co bu phe", mucDich, new TrangThai("CGQ", "Chua giai quyet"), donVi,0);
 		//CongVan congVan5 = new CongVan(5, DateUtil.convertToSqlDate(new java.util.Date()), "123", DateUtil.convertToSqlDate(new java.util.Date()), "Khong co trich yeu", "Khong co bu phe", mucDich2, new TrangThai("DGQ", "Dang giai quyet"), donVi,0);
 		
 		
 		
-		new CongVanDAO().addCongVan(congVan);
+		//new CongVanDAO().addCongVan(congVan);
 		//new CongVanDAO().addCongVan(congVan5);
 	
 		

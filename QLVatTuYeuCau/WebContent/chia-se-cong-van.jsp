@@ -54,6 +54,7 @@
 	CongVan congVan = (CongVan) session.getAttribute("congVan");
 	HashMap<String,NguoiDung> vtNguoiDungHash = (HashMap<String,NguoiDung>) request.getAttribute("vtNguoiDungHash");
 	HashMap<String, HashMap<Integer, VaiTro>> vaiTroHash = (HashMap<String, HashMap<Integer, VaiTro>>) request.getAttribute("vaiTroHash");
+	//Long pageNum = (Long) request.getAttribute("page");
 	%>
 	<div class="wrapper">
 		<div class="header">
@@ -138,12 +139,12 @@
 			<div class="clear"></div>
 		</div>
 		<div id="main-content">
-			<div id="title-content">Chia sẻ công văn</div>
 				<form id="main-form" action="<%=siteMap.updateChiaSeCv%>" method="get">
-					<div id="input-table" style="width: 75%; margin-left: 25px;">
+				<div id="title-content">Chia sẻ công văn</div>
+					<div id="input-table" style="width: 960px; margin-left: 25px;margin-bottom: 10px;">
 						<table>
 							<tr>
-								<th style="text-align: ce"">Số công văn:</th>
+								<th style="text-align: left">Số công văn:</th>
 								<td class="b-column"><%=congVan.getCvSo() %></td>
 								<th class="c-column">Ngày đến:</th>
 								<td class="b-column"><%=congVan.getCvNgayNhan() %></td>
@@ -154,8 +155,8 @@
 					</div>
 <!-- 					<br /> -->
 <%-- 					<form action="<%=siteMap.chiaSeCv%>" method="get"> --%>
-					<div id="view-table" >
-						<table style="margin: 0 auto; margin-top:10px; max-height: 420px;width: 960px;display: auto;margin: 0 auto;overflow: scroll;" > 
+					<div id="view-table" class="scroll-chia-se">
+						<table> 
 							<tr style="background-color: #199e5e;">
 
 								<th style="width: 100px;">Mã nhân viên</th>
@@ -172,7 +173,7 @@
 								count ++;
 								String msnv = nguoiDung.getMsnv();
 							%>
-							<tr <% if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%> id="<%=nguoiDung.getMsnv() %>">
+							<tr id="row" class = "rowContent" <% if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%> id="<%=nguoiDung.getMsnv() %>">
 								<td class="tbody-nguoidung"><%=nguoiDung.getMsnv() %></td>
 								<td class="tbody-nguoidung"><%=nguoiDung.getHoTen() %></td>
 								<% for(VaiTro vaiTro : vaiTroList) {
@@ -190,6 +191,19 @@
 							<%} %>
 						</table>
 					</div>
+<!-- 					<div id = "paging" > -->
+<%-- 									<% --%>
+<!-- // 										String str = ""; -->
+<!-- // 										String pages = "";  -->
+<!-- // 										long p = (pageNum < 10 ? pageNum : 10); -->
+<!-- // 									for(int i = 0; i < p; i++) { -->
+<!-- // 										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCscv(" + i +")\">&nbsp;"; -->
+<!-- // 									} -->
+<!-- // 									if (pageNum > 10) -->
+<!-- // 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCscv(\'Next\');\">"; -->
+<!-- // 									out.println(str);	 -->
+<%-- 								%> --%>
+<!-- 					</div> -->
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">
 						<button class="btn">
@@ -198,8 +212,8 @@
 						<button type="reset" class="btn">
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Bỏ qua
 						</button>
-						<button type="button" class="btn" onclick="showForm('main-form')">
-							<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
+						<button type="button" class="button" onclick="location.href='<%=siteMap.home%>'">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 						</button>
 					</div>
 				</form>
@@ -209,13 +223,12 @@
 				<%
 					if (vtNguoiDungHash.size() != 0 || vtNguoiDungHash == null) {
 				%>
-				<div id="title-content">Công việc đã chia sẽ</div>
-				<div id="view-table-chia-se">
-				<form>
+				<div id="title-content">Công việc đã chia sẻ</div>
+				<div id="view-table-chia-se" class="scroll-cs">
 					<table >
 						<tr bgcolor= "#199e5e">
-						<th style="text-align: center;"><input type = "checkbox" class="checkAll" name=""></th>
-							</th><th>Msnv</th><th>Họ tên</th><th>Vai trò</th>
+						<th style="text-align: center;">Chọn</th>
+						<th>Msnv</th><th>Họ tên</th><th>Vai trò</th>
 						</tr>
 						<%
 							int i = 0;
@@ -231,46 +244,70 @@
 							<td><%=hoTen %></td>
 							<td id="vaiTro<%=msnv%>">
 								<%
-									StringBuilder str = new StringBuilder("");
+									StringBuilder str1 = new StringBuilder("");
 									for(Integer vtId : vtHash.keySet()) {
 										VaiTro vaiTro = vtHash.get(vtId);
-										str.append(vaiTro.getVtTen() + "<br>");
+										str1.append(vaiTro.getVtTen() + "<br>");
 									}
-									int end = str.length();
-									str.delete(end - 4, end);
-									out.println(str.toString());
+									int end = str1.length();
+									str1.delete(end - 4, end);
+									out.println(str1.toString());
 								%>
 								
 							</td>
 						</tr>
 						<%}%>
 					</table>
+					</div>
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">
 						<button class="button" id="update" type="button">
 							<i class="fa fa-pencil fa-fw"></i>&nbsp;sửa
 						</button>
 						<button type="reset" class="button" type="button">
-							<i class="fa fa-trash-o"></i>&nbsp;&nbsp;xóa
+							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Bỏ qua
+						</button>
+						<button type="button" class="button" id="sendMail" onclick="">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Gửi mail
 						</button>
 					</div>
-					</form>
-				</div>
-				<div style="color:red; text-align: center;s">
-				<%} else out.println("Chưa chia sẻ công văn");%>
-				</div>
-<!-- 				</div> -->
 				</form>
+				</div>
+				<div style="color: red; text-align: center;">
+				<%}%>
+				</div>
 			</div>
-			<div id="update-form">
-				<table>
-				
-				</table>	
+			<div id="update-form" style="top:60%;position:absolute;width:900px;left:20%;" >
+				<div class="scroll-cs">
+				<table style="width:900px;"></table>
+				</div>
 				<div class="group-button" id="updateButton">
-				<button type="button" class="button" id="updateCs">Luu lai</button> 
-				</div>		
+				<button type="button" class="button" id="updateCs">Lưu lại</button> 
+				</div>
 			</div>
-		</div>
-	</div>
+<!-- 			<div id="view-mail"> -->
+			<form id="mail-form" action="" style="display:none;">  
+			<table style="margin: 0 auto;">
+					<tr>
+						<td>Đến:</td>
+						<td><input type="text" name="den" class="text"/></td>
+					</tr>
+					<tr>
+						<td>Chủ đề:</td>
+						<td><input type="text" name="chuDe" class="text"></td> 
+					</tr>
+					<tr>
+						<td>Nội dung:</td>
+						<td><textarea rows="6" cols="40" name="noiDung"class="text"></textarea></td>
+					</tr>
+			</table>
+			<div class="group-button">
+						<button type="button" class="button" onclick="">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Gửi
+						</button>
+					</div>
+			</form>  
+			</div>
+<!-- 		</div> -->
 </body>
 </html>

@@ -66,7 +66,7 @@
    		ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) request.getAttribute("noiSanXuatList");
    		ArrayList<ChatLuong> listChatLuong = (ArrayList<ChatLuong>) request.getAttribute("chatLuongList");
    		ArrayList<DonViTinh> listDonViTinh = (ArrayList<DonViTinh>) request.getAttribute("donViTinhList");
-   		Long size = (Long) request.getAttribute("size");
+   		Long pageNum = (Long) request.getAttribute("size")/10;
     %>
         <div class="wrapper">
 				<div class="header">
@@ -159,6 +159,8 @@
 <!-- 						<script> -->
 <!--  							$("#country").autocomplete("getdata.jsp"); -->
 <!-- 						</script> -->
+		<div id="main-vattu">
+		<form id="vattu">
 			<table>		
 					<tr>		
 					<th  style="text-align: left; color: black; font-size: 19px;">* Tìm kiếm mã</th>
@@ -170,7 +172,7 @@
 <!-- 												<td  style="text-align: center; color: black; font-size: 19px;">Theo tên</td>&nbsp;&nbsp;&nbsp; -->
 <!-- 											</span> -->
 											
-											<span class="search-text"> &nbsp; <input type="search" id="searchName" class="text" name="vattu"/>						
+											<span> &nbsp; <input type="search" id="searchName" class="text-search" name="vattu"/>						
 														<script>
 														$("#searchName").autocomplete("getdataMa.jsp");
 														$("#searchName").autocomplete("getdata.jsp");
@@ -198,7 +200,7 @@
 				</table>
 			
 			
-			<div id="view-table-vat-tu" >
+			<div id="view-table-vat-tu" style="height: 400px; margin: 0 auto;">
 
 				<table>
 					<tr style="background: #199e5e; height: 30px">
@@ -221,28 +223,43 @@
 						<td class="col" style="text-align: left;" ><%=vatTu.getVtMa() %></td>
 						<td class="col" style="text-align: left;"><%=vatTu.getVtTen() %></td>
 						<td class="col" style="text-align: center;"><%=vatTu.getDvt().getDvtTen() %></td>
-						<td style="text-align: center;"><button type="button" class="button-xem" value="Xem" onclick="showCTVatTu('chitiet',true,'<%=vatTu.getVtMa()%>');">Xem</button></td>
+						<td style="text-align: center;"><button type="button" class="button-xem" value="Xem" onclick="showCTVatTu(<%=vatTu.getVtMa()%>);">Xem</button></td>
 					</tr>
 					<%} }%>
 				</table>
-			</div>
+ 			</div>
 
+<!-- 			<div id = "paging" > -->
+<!-- 							<table style ="border-style: none;"> -->
+<!-- 								<tr> -->
+<!-- 									<td><a href=""> Previous<< </a></td> -->
+<!-- 									<td> -->
+<%-- 										<% --%>
+<!-- // 										long p = (pageNum < 10 ? pageNum : 10); -->
+<%-- 									for(int i = 0; i <= p; i++) { %> --%>
+<%-- 										<input type="button" value="<%=i+1%>" class="page"> --%>
+<%-- 								<%} %> --%>
+<!-- 									</td> -->
+<!-- 									<td><a href="">>>Next </a> </td> -->
+<!-- 								</tr> -->
+<!-- 							</table> -->
+<!-- 						</div> -->
 			<div id = "paging" >
-							<table style ="border-style: none;">
-								<tr>
-									<td><a href=""> Previous<< </a></td>
-									<td>
-										<%
-											long pageNum = size / 10;
-											for(int i = 0; i <= pageNum; i++) { %>
-												<input type="button" value="<%=i+1%>" class="page">
-										<%} %>
-									</td>
-									<td><a href="">>>Next </a> </td>
-								</tr>
-							</table>
-						</div>
-
+								<%
+										String str = "";
+										String pages = ""; 
+										long p = (pageNum < 10 ? pageNum : 10);
+									for(int i = 0; i < p; i++) {
+										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageVatTu(" + i +")\">&nbsp;";
+									}
+									if (pageNum > 10)
+										// str = "<input type=\"button\" value=\"<<Previous\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;"  + str + "<input type=\"button\" value=\"Next>>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
+										str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageVatTu(\'Next\');\">";
+									out.println(str);	
+								%>
+<!-- 									<input type="button" value="Next>>"></td> -->
+					
+			</div>
 			<div class="group-button">
 				<input type="hidden" name="action" value="deleteVatTu">
 				<button type="button" class="button"
@@ -271,7 +288,7 @@
 			</div>
 			</form>
 			
-
+</div>
 					<!-- add-form-->
 			
 			<form id="add-form" method="get" action="<%=siteMap.vattuManage + "?action=manageVattu"%>">
@@ -353,7 +370,7 @@
 							<th style="text-align: left"><label for="MVT">Đơn vị tính</label></th>
 								<td>
 									<select onkeypress="changedvtUp();"
-									title="" class="select" id="donvitinh" name="dvtUpdate" style="margin-top: 10px;">
+									title="" class="select" id="donvitinhUp" name="dvtUpdate" style="margin-top: 10px;">
 										<option disabled selected value="">-- Chọn đơn vị tính --</option>
 										<%						  
 		 								
@@ -370,7 +387,7 @@
 				<div class="group-button">
 					<button type="button" class="button" onclick="confirmUpdateVattu();" ><i class="fa fa-floppy-o"></i>&nbsp;Lưu lại</button> 
 					<button type="button" class="button" onclick="resetUpdateVT();"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại</button>
-					<button type="button" class="button" onclick="showForm('update-form')"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
+					<button type="button" class="button" onclick="showForm('update-form',false)"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
 				</div>
 			</form>
 			
@@ -414,21 +431,21 @@
 				</table>	
 					
 			</div>
-			<div id = "paging" >
-							<table style ="border-style: none;">
-								<tr>
-									<td><a href=""> Previous<< </a></td>
-									<td>
-										<%
-											long  pagenum = size / 10;
-											for(int i = 0; i <= pagenum; i++) { %>
-												<input type="button" value="<%=i+1%>" class="page">
-										<%} %>
-									</td>
-									<td><a href="">>>Next </a> </td>
-								</tr>
-							</table>
-						</div>		
+<!-- 			<div id = "paging" > -->
+<!-- 							<table style ="border-style: none;"> -->
+<!-- 								<tr> -->
+<!-- 									<td><a href=""> Previous<< </a></td> -->
+<!-- 									<td> -->
+<%-- 									<% --%>
+<!-- // 										long p = (pageNum <= 9 ? pageNum : 10); -->
+<%-- 										for(int i = 0; i <= p; i++) { %> --%>
+<%-- 										<input type="button" value="<%=i+1%>" class="page"> --%>
+<%-- 										<%} %> --%>
+<!-- 									</td> -->
+<!-- 									<td><a href="">>>Next </a> </td> -->
+<!-- 								</tr> -->
+<!-- 							</table> -->
+<!-- 						</div>		 -->
 					<div class="group-button">
 				<input type="hidden" name="action" value="deleteVatTu">
 				<button type="button" class="button"
@@ -447,7 +464,7 @@
 					<i class="fa fa-spinner"></i>&nbsp;&nbsp;Bỏ qua
 				</button>
 				&nbsp;
-				<button type="button" class="button" onclick="showForm('chitiet', false)">
+				<button type="button" class="button" onclick="showForm2('vattu' ,'chitiet', false)">
 					<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 				</button>
 			</div>

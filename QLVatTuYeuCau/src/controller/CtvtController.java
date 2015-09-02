@@ -72,15 +72,22 @@ public class CtvtController extends HttpServlet {
 					ctVatTuDAO.deleteCTVatTu(s);
 			}
 			ArrayList<VatTu> vatTuList =  (ArrayList<VatTu>) vatTuDAO.getAllVatTu();
+			vatTuDAO.disconnect();
+			ctVatTuDAO.disconnect();
 			return new ModelAndView("danh-muc-vat-tu", "vatTuList", vatTuList);
 		}
 		if("manageCtvt".equalsIgnoreCase(action)) {
 			long size = ctVatTuDAO.size();
 			ArrayList<CTVatTu> ctVatTuList =  (ArrayList<CTVatTu>) ctVatTuDAO.limit(page - 1, 10);
-			request.setAttribute("page", size/10);
+			request.setAttribute("size", size);
 			session.setAttribute("ctVatTuList", ctVatTuList);
+			ArrayList<CTVatTu> allCTVatTuList =  (ArrayList<CTVatTu>) ctVatTuDAO.getAllCTVatTu();
+			session.setAttribute("allCTVatTuList", allCTVatTuList);
+			ctVatTuDAO.disconnect();
 			return new ModelAndView(siteMap.ctVatu);
 		}
+		vatTuDAO.disconnect();
+		ctVatTuDAO.disconnect();
 		return new ModelAndView("login");
 	}
    @RequestMapping(value="/showCTVatTu", method=RequestMethod.GET,
@@ -88,21 +95,26 @@ public class CtvtController extends HttpServlet {
 	 public @ResponseBody String showCTVatTu(@RequestParam("vtMa")  String vtMa) {
 			
 			CTVatTuDAO ctVatTuDAO = new CTVatTuDAO();
+			VatTuDAO vatTuDAO = new VatTuDAO();
 			ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) ctVatTuDAO.getCTVTu(vtMa);
 			if(listCTVatTu.size() == 0) {
-				VatTu vatTu = new VatTuDAO().getVatTu(vtMa);
+				VatTu vatTu = vatTuDAO.getVatTu(vtMa);
+				vatTuDAO.disconnect();
 				return JSonUtil.toJson(vatTu);
 			}
-			System.out.println(listCTVatTu.get(0).getVatTu().getVtTen());
+			//System.out.println(listCTVatTu.get(0).getVatTu().getVtTen());
+			vatTuDAO.disconnect();
+			ctVatTuDAO.disconnect();
 			return JSonUtil.toJson(listCTVatTu);
 		}
    @RequestMapping(value="/preEditCTVattu", method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String preEditCTVattu(@RequestParam("ctvtId") String ctvtId) {
-			System.out.println("****" + ctvtId + "****");
+			//System.out.println("****" + ctvtId + "****");
 			CTVatTuDAO ctVatTuDAO = new CTVatTuDAO();
 			CTVatTu vt = ctVatTuDAO.getCTVatTuById(Integer.parseInt(ctvtId));
-			System.out.println("****" + vt.getVatTu().getVtMa() + "****");
+			//System.out.println("****" + vt.getVatTu().getVtMa() + "****");
+			ctVatTuDAO.disconnect();
 			return JSonUtil.toJson(vt);
 		}
    
@@ -111,24 +123,27 @@ public class CtvtController extends HttpServlet {
 	 public @ResponseBody String addCTVattu(@RequestParam("vtMa") String vtMa, @RequestParam("vtTen") String vtTen, @RequestParam("noiSanXuat") String noiSanXuat, @RequestParam("chatLuong") String chatLuong, 
 			 @RequestParam("dvt") String dvt, @RequestParam("dinhMuc") String dinhMuc, @RequestParam("soLuongTon") String soLuongTon) {
 		//String result = "";
-		System.out.println("MA: " + vtMa);
-		System.out.println("NSX: " + noiSanXuat);
-		System.out.println("CL: " + chatLuong);
-		if(new CTVatTuDAO().getCTVatTu(vtMa, noiSanXuat, chatLuong) == null)
+//		System.out.println("MA: " + vtMa);
+//		System.out.println("NSX: " + noiSanXuat);
+//		System.out.println("CL: " + chatLuong);
+		CTVatTuDAO ctVatTuDAO = new CTVatTuDAO();
+		if(ctVatTuDAO.getCTVatTu(vtMa, noiSanXuat, chatLuong) == null)
 		{
 			
 			CTVatTu ctvt = new CTVatTu(new VatTu(vtMa) , new NoiSanXuat(noiSanXuat), new ChatLuong(chatLuong), Integer.parseInt(dinhMuc), Integer.parseInt(soLuongTon),0);
-			new CTVatTuDAO().addOrUpdateCTVatTu(ctvt);
+			ctVatTuDAO.addOrUpdateCTVatTu(ctvt);
 			System.out.println("success");
 
-			int id = new CTVatTuDAO().getLastInsert()-1;
-			CTVatTu ctVatTu = new CTVatTuDAO().getCTVatTuById(id);
+			int id = ctVatTuDAO.getLastInsert()-1;
+			CTVatTu ctVatTu = ctVatTuDAO.getCTVatTuById(id);
+			ctVatTuDAO.disconnect();
 			return JSonUtil.toJson(ctVatTu);
 		
 		}
 		else
 		{
 			System.out.println("fail");	
+			ctVatTuDAO.disconnect();
 			return JSonUtil.toJson("");
 		}
 		
@@ -138,9 +153,9 @@ public class CtvtController extends HttpServlet {
 	 public @ResponseBody String updateCTVattu(@RequestParam("vtMaUpdate") String vtMaUpdate,  @RequestParam("nsxUpdate") String nsxUpdate, @RequestParam("clUpdate") String clUpdate, @RequestParam("dinhMucUpdate") String dinhMucUpdate, @RequestParam("soLuongTonUpdate") String soLuongTonUpdate) {
 //		System.out.println(vtMaUpdate + "&" + nsxUpdate + "&" + clUpdate + "&" + dinhMucUpdate + "&" + soLuongTonUpdate);
 		CTVatTuDAO ctvtDAO = new CTVatTuDAO();
-		System.out.println(vtMaUpdate + "&" + nsxUpdate + "&" + clUpdate + "&" + dinhMucUpdate + "&" + soLuongTonUpdate);
+		//System.out.println(vtMaUpdate + "&" + nsxUpdate + "&" + clUpdate + "&" + dinhMucUpdate + "&" + soLuongTonUpdate);
 		CTVatTu ctvt = ctvtDAO.getCTVatTu(vtMaUpdate, nsxUpdate, clUpdate);
-		System.out.println(vtMaUpdate + "&" + nsxUpdate + "&" + clUpdate + "&" + dinhMucUpdate + "&" + soLuongTonUpdate);
+		//System.out.println(vtMaUpdate + "&" + nsxUpdate + "&" + clUpdate + "&" + dinhMucUpdate + "&" + soLuongTonUpdate);
 		// CTVatTu ctvt = new CTVatTu(new VatTu(vtMaUpdate) , new
 		// NoiSanXuat(nsxUpdate), new ChatLuong(clUpdate),
 		// Integer.parseInt(dinhMucUpdate), Integer.parseInt(soLuongTonUpdate));
@@ -155,6 +170,7 @@ public class CtvtController extends HttpServlet {
 			System.out.println("Result  = null");
 		else 
 			System.out.println(ctvt.getCtvtId());
+		ctvtDAO.disconnect();
 		return JSonUtil.toJson(ctvt);
 	}
 
@@ -166,32 +182,22 @@ public class CtvtController extends HttpServlet {
 		for(String ctvtId : str) {
 			ctvtDAO.deleteCTVatTu(ctvtId);
 		}
+		ctvtDAO.disconnect();
 		return JSonUtil.toJson(ctvtList);
 	}
 	
-	@RequestMapping(value="/loadPageCtvt", method=RequestMethod.GET, 
+	@RequestMapping(value="/loadPageCTVatTu", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String loadPageCtvt(@RequestParam("pageNumber") String pageNumber) {
-		String result = "";
-		System.out.println("MA: " + pageNumber);
+	 public @ResponseBody String loadPageVt(@RequestParam("pageNumber") String pageNumber) {
 		CTVatTuDAO ctvtDAO = new CTVatTuDAO();
 		int page = Integer.parseInt(pageNumber);
-		ArrayList<CTVatTu> ctvtList = (ArrayList<CTVatTu>) ctvtDAO.limit((page -1 ) * 10, 10);
-		
-		/*
-		if(new NoiSanXuatDAO().getNoiSanXuat(nsxMa)==null)
-		{
-			new NoiSanXuatDAO().addNoiSanXuat(new NoiSanXuat(nsxMa, nsxTen,0));
-			System.out.println("success");
-			result = "success";	
-		}
-		else
-		{
-			System.out.println("fail");
-			result = "fail";
-		}
-		*/
-			return JSonUtil.toJson(ctvtList);
+		ArrayList<Object> objectList = new ArrayList<Object>();
+		long sizevt = ctvtDAO.size();
+		ArrayList<CTVatTu> ctvatTuList = (ArrayList<CTVatTu>) ctvtDAO.limit((page - 1) * 10, 10);
+		objectList.add(ctvatTuList);
+		objectList.add((sizevt - 1)/10);
+		ctvtDAO.disconnect();
+		return JSonUtil.toJson(objectList);
 	}
 	
 }

@@ -266,7 +266,7 @@
 						<td class="b-column"style="text-align: center;"><%=ctvt.getVatTu().getVtTen() %></td>
 						<td class="c-column"style="text-align: center;"><%=ctvt.getNoiSanXuat().getNsxTen() %></td>
 						<td class="d-column"style="text-align: center;"><%=ctvt.getChatLuong().getClTen() %></td>
-						<td class="e-column"style="text-align: center;"><%=ctvt.getVatTu().getDvt() %></td>
+						<td class="e-column"style="text-align: center;"><%=ctvt.getVatTu().getDvt().getDvtTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
 					</tr>
 					<%} %>

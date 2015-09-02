@@ -9,19 +9,22 @@
 	border-color: dimgray;
 	font-size: 16px;
 }
+.text-search{
+	border-radius: 5px;
+	border-style: solid;
+	border-width: 1px;
+	height: 25px;
+	width: 700px;
+	opacity: 0.9;
+	border-color: dimgray;
+	font-size: 16px;
+}
 
-
-#paging table {
+#paging {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
 	margin: 0 auto;
-	margin-top: 20px;
-	border-style: none;
-}
-#paging table tr td{
-	border-style: none;
-}
-#paging table tr td a {
-	color: blue;
-	font-size: 15px;
 }
 
 #title-content {
@@ -52,7 +55,7 @@
 
 #view-table-vat-tu {
 	margin: 0 auto;
-	width: 800px;
+	width: 900px;
 }
 
 .group-button {
@@ -80,7 +83,7 @@
 	text-align: center;
 }
 #main-vattu {
-	height: 1000px;
+	height: 700px;
 	background-color: while;
 }
 #view-table-vat-tu table tr th {
@@ -115,6 +118,7 @@
 	padding-top: 5px;
 	padding-bottom: 5px;
 	text-align: center;
+	margin-top: 10px;
 }
 
 #view-table-chi-tiet table tr th {
@@ -235,12 +239,14 @@
 	position: absolute;
 	left: 483px;
 	margin-top: 30px;
-	top: 140px;
+	top: 25%;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 20px;
+	border: solid;
+	border-color: #0000FF;
 }
 
 #update-form {
@@ -249,12 +255,14 @@
 	position: absolute;
 	left: 483px;
 	margin-top: 30px;
-	top: 140px;
+	top: 25%;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
-	padding-top: 20px
+	padding-top: 20px;
+	border: solid;
+	border-color: #0000FF;
 }
 .button-xem {
 	border-radius: 5px;
@@ -296,32 +304,38 @@
 }
 #chitiet{
 	display: none;
+	position: absolute;
+	top: 35%;
+	background-color: #DCEAF5;
+	
 }
 #add-chitiet{
 	display: none;
 	width: 450px;
 	position: absolute;
-	left: 483px;
+	left: 550px;
 	margin-top: 30px;
-	top: 140px;
+	top: 200px;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 20px;
-	
+	border: outset;
+	border-color: #0000FF;
 }
 #update-chitiet{
 	display: none;
 	width: 450px;
 	position: absolute;
-	left: 483px;
+	left: 490px;
 	margin-top: 30px;
-	top: 140px;
+	top: 200px;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 20px;
-	
+	border: outset;
+	border-color: #0000FF;
 }

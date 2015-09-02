@@ -141,7 +141,7 @@
 		<div id="main-content">
 
 			<form id="main-form">
-				<div id="view-table">
+				<div id="view-table" style="height: 600px; margin: 0 auto;">
 					<table>
 						<tr style="background-color: #199e5e;">
 							<td class="left-column"><input type="checkbox" name=""
@@ -169,18 +169,18 @@
 				<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td><input type="button" value="<<Previous"></td>
+									<td>Trang</td>
 									<td>
 										<%
-									long pageNum = size / 10;
-									for(int i = 0; i <= pageNum; i++) { %>
-										<input type="button" value="<%=i+1%>" class="page">
-								<%} %>
+											long pageNum = size / 10;
+											for(int i = 0; i <= pageNum; i++) { %>
+												<input type="button" value="<%=i+1%>" class="page">
+										<%} %>
 									</td>
-									<td><input type="button" value="Next>>"></td>
+<!-- 									<td><input type="button" value="Next>>"></td> -->
 								</tr>
-							</table>
-						</div>
+ 							</table> 
+						</div> 
 				<div class="group-button">
 					<input type="hidden" name="action" value="deleteCl">
 					<button type="button" class="button"

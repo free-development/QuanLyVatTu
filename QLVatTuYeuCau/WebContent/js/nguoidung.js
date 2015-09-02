@@ -43,6 +43,8 @@ function checkPassword()
 			  		if(result == "success")
 	 				{
  				  		alert("Xin chào "+ msnv + " bạn đã đăng nhập thành công");	
+ 				  		$('input:text[name=msnv]').val('');
+ 						$('input:password[name=matkhau]').val('');
  				  		window.location.assign("/QLVatTuYeuCau");
  					}
  			  		else{
@@ -53,7 +55,83 @@ function checkPassword()
 			});
 	}
  
+ function checkAdd(){
+	 	var msnv = $('#add-form input:text[name=msnv]').val();
+		var matkhau = $('#add-form input:password[name=matkhau]').val();
+		var nlmatkhau = $('#add-form input:password[name=nlmatkhau]').val();
+		var hoten = $('#add-form input:text[name=hoten]').val();
+		var chucdanh = $('#add-form select[name=chucdanh]').val();
+		var sdt = $('#add-form input:text[name=sdt]').val();
+		var email = $('#add-form input:text[name=email]').val();
+		var diachi = $('#add-form input:text[name=diachi]').val();
+
+		if(msnv == ''){
+			$('#requireMsnv').html('Vui lòng nhập mã số nhân viên ');
+			return false;
+		}
+		else if(matkhau == ''){
+			$('#requireMatkhau').html('Vui lòng nhập mật khẩu');
+			return false;
+		}
+		else if(nlmatkhau == ''){
+			$('#requireNlmatkhau').html('Vui lòng nhập lại mật khẩu');
+			return false;
+		}
+		else if(hoten == ''){
+			$('#requireHoten').html('Vui lòng nhập họ tên');
+			return false;
+		}
+		else if(chucdanh == null){
+			$('#requireChucdanh').html('Vui lòng chọn chức danh');
+			return false;
+		}
+		else if(sdt == ''){
+			$('#requireSdt').html('Vui lòng nhập số điện thoại');
+			return false;
+		}
+		else if(email == ''){
+			$('#requireEmail').html('Vui lòng nhập email');
+			return false;
+		}
+		else if(diachi == ''){
+			$('#requireDiachi').html('Vui lòng nhập địa chỉ');
+			return false;
+		}
+		return true;
+	}
  
+ function changeMsnv(){
+		$('#requireMsnv').html('');
+	} 	
+	function changeMatkhau(){
+		$('#requireMatkhau').html('');
+	} 	
+	function changeNlmatkhau(){
+		$('#requireNlmatkhau').html('');
+	} 	
+	function changeHoten(){
+		$('#requireHoten').html('');
+	} 	
+	function changeChucdanh(){
+		$('#requireChucdanh').html('');
+	} 	
+	function changeSdt(){
+		$('#requireSdt').html('');
+	} 
+	function changeEmail(){
+		$('#requireEmail').html('');
+	} 
+	function changeDiachi(){
+		$('#requireDiachi').html('');
+	} 
+	
+	function checkNd()
+	{
+		if(checkAdd()){
+			checkPassword();
+		}
+	}
+	
  function addNd() {
 		var msnv = $('#add-form input:text[name=msnv]').val();
 		var matkhau = $('#add-form input:password[name=matkhau]').val();
@@ -63,6 +141,7 @@ function checkPassword()
 		var sdt = $('#add-form input:text[name=sdt]').val();
 		var email = $('#add-form input:text[name=email]').val();
 		var diachi = $('#add-form input:text[name=diachi]').val();
+		
 			$.ajax({
 				url: "/QLVatTuYeuCau/addNd.html",	
 			  	type: "GET",
@@ -74,6 +153,14 @@ function checkPassword()
 			  		if(result == "success")
 	 				{
  				  		alert("Tạo người dùng với mã số "+"'"+msnv+"'"+ "thành công");	
+ 				  		$('#add-form input:text[name=msnv]').val('');
+ 						$('#add-form input:password[name=matkhau]').val('');
+ 						$('#add-form input:password[name=nlmatkhau]').val('');
+ 						$('#add-form input:text[name=hoten]').val('');
+ 						$('#add-form select[name=chucdanh]').val('');
+ 						$('#add-form input:text[name=sdt]').val('');
+ 						$('#add-form input:text[name=email]').val('');
+ 						$('#add-form input:text[name=diachi]').val('');
  				  		window.location.assign("home");
  					}
  			  		else{
@@ -81,6 +168,7 @@ function checkPassword()
  			  		}
  			  			
 			  	}
+			  	
 			});
 	}
  

@@ -57,7 +57,7 @@
 							+ vtTen +'</td><td class=\"col\">'
 							+ ctvt.noiSanXuat.nsxTen +'</td><td class=\"col\">' 				
 							+ ctvt.chatLuong.clTen +'</td><td class=\"col\">'
-							+ ctvt.dvt.dvtTen +'</td><td class=\"col\">'
+							+ ctvt.vattu.dvt.dvtTen +'</td><td class=\"col\">'
 							+ dinhMuc +'</td><td class=\"col\">'
 							+ soLuongTon +'</td></tr>');
 			  		
@@ -250,46 +250,79 @@
             }
         });
         
-    }); 
-    
-    
-    $(document).ready(function() {
- 	  	$('.page').click(function(){
- 		var pageNumber = $(this).val();
+    });   
+ 	    function loadPageCTVatTu(pageNumber){
+ 		var page = 0;
+ 		var p = 0;
+ 		if (pageNumber == 'Next') {
+ 			var lastPage = document.getElementsByClassName('page')[9].value;
+ 			p = (lastPage) / 5;
+ 			page = p * 5;
+ 		}
+ 		else if (pageNumber == 'Previous') {
+ 			var firstPage = document.getElementsByClassName('page')[0].value;
+ 			p = (firstPage - 1) / 5;
+ 			page =  p * 5 - 1;
+ 		}
+ 		else {
+ 			page = pageNumber;
+ 		}
  	    	$.ajax({
- 				url: "/QLVatTuYeuCau/loadPageCtvt.html",	
+ 				url: "/QLVatTuYeuCau/loadPageCTVatTu.html",	
  			  	type: "GET",
  			  	dateType: "JSON",
- 			  	data: { "pageNumber": pageNumber},
+ 			  	data: { "pageNumber": page},
  			  	contentType: 'application/json',
  			    mimeType: 'application/json',
  			  	
- 			  	success: function(ctvtList) {
- 			  		$('#view-table table .rowContent').remove();
- 					if(ctvtList.length>0){
- 						for(i = 0;i < ctvtList.length; i++ ) {
- 							var ctvt = ctvtList[i] ;
- 							var style = '';	
+ 			  	success: function(objectList) {
+ 			  		var size = objectList[1];
+ 			  		var ctvtList = objectList[0];
+ 			  		var length = ctvtList.length;
+ 			  		$('#view-table-chi-tiet table .rowContent').remove();
+ 						for(i = 0;i < length; i++ ) {
+ 							var ctvt = ctvtList[i];
+ 							var cells = '';
+ 							var style = '';
  							if (i % 2 == 0)
  								style = 'style=\"background : #CCFFFF;\"';
- 							var str = '';
- 							str = '<tr class=\"rowContent\" ' + style + '>'
- 								+ '<td class=\"left-column\"><input type=\"checkbox\" name=\"ctvtId\" value=\"' 
- 								+ ctvt.ctvtId +'\" class=\"checkbox\"></td>'
- 								+ '<td class=\"col\">' + ctvt.ctvtId + '</td>'
- 								+ '<td class=\"col\">' + ctvt.noiSanXuat.nsxMa+ '</td>'
- 								+ '<td class=\"col\">' + ctvt.chatLuong.clMa+ '</td>'
- 								+ '<td class=\"col\">' + ctvt.vatTu.vtMa+ '</td>'
- 								+ '<td class=\"col\">' + ctvt.dinhMuc+ '</td>'
- 								+ '<td class=\"col\">' + ctvt.soLuongTon+ '</td>'
- 								+ '</tr>';
- 							$('#view-table table tr:first').after(str);
+		 					cells = '<td class=\"col\">' + ctvt.vatTu.vtMa + '</td>'
+		 							+'<td class=\"col\" style=\"text-align: left;\">' + ctvt.vatTu.vtTen + '</td>'
+	 								+ '<td class=\"col\">' + ctvt.noiSanXuat.nsxTen+ '</td>'
+	 								+ '<td class=\"col\">' + ctvt.chatLuong.clTen+ '</td>'
+	 								+ '<td class=\"col\">' + ctvt.vatTu.dvt.dvtTen+ '</td>'
+	 								+ '<td class=\"col\">' + ctvt.dinhMuc+ '</td>'
+	 								+ '<td class=\"col\">' + ctvt.soLuongTon+ '</td>'
+		 					var row = '<tr class=\"rowContent\" ' + style + '>' + cells + '</tr>';
+		 					$('#view-table-chi-tiet table tr:first').after(row);
  						}
- 					}
+ 					var button = '';
+					if(pageNumber == 'Next') {
+						for (var i = 0; i < 10; i++) {
+							var t = ((p -1) * 5 + i + 1);
+							
+							button += '<input type=\"button\" value=\"' + ((p -1) * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageCTVatTu(' + ((p -1)*5 + i)  +')\">&nbsp;';
+							if (t > size)
+								break;
+						}
+						button = '<input type=\"button\" value=\"<<Trước\" onclick= \"loadPageCTVatTu(\'Previous\')\">&nbsp;'  + button;
+						if ((p + 1) * 5 < size)
+							button += '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPageCTVatTu(\'Next\');\">';
+						$('#paging').html(button);
+					} else if (pageNumber == 'Previous'){
+						if (p > 0)
+							p = p -1;
+						for (var i = 0; i < 10; i++)
+							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageCTVatTu(' + (p * 5 + i)  +')\">&nbsp;';
+						
+						button = button + '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageCTVatTu(\'Next\');\">';
+						if (p >= 1)
+							button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageCTVatTu(\'Previous\')\">&nbsp;' + button;
+						$('#paging').html(button);	
+					}
  			  	}
  			});
- 	    });	
- 	})   
+    }
  	$(document).ready(function() {
 	$('#add-form').keypress(function(e) {
 	 var key = e.which;

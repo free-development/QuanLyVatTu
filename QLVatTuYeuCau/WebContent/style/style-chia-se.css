@@ -13,7 +13,10 @@
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
-
+#main-content {
+	height: 800px;
+	background-color: while;
+}
 #content {
 	margin: 0 auto;
 	width: 100%;
@@ -23,10 +26,12 @@
 	margin: 0 auto;
 	/* width: 100%; */
 	
+	
 }
 
 #view-table table {
 	border-spacing: 0px;
+	width:900px;
 }
 
 #view-table table tr td {
@@ -170,6 +175,14 @@
 	margin: 0 auto;
 	overflow: scroll;
 }
+.scroll-cs {
+	max-height: 200px;
+	/*height: 300px;*/
+	width: 900px;
+	display: auto;
+	margin: 0 auto;
+	overflow: scroll;
+}
 #view-table-chia-se table{
 	border-spacing: 0px;
 	margin: 0 auto;
@@ -194,6 +207,14 @@
 	padding-right: 10px;
 	
 	
+}
+#mail-form {
+	margin: 0 auto;
+	display:none;
+}
+#mail-form table{
+	margin: 0 auto;
+	border-spacing: 0px;
 }
 #update-form table{
 	margin: 0 auto;

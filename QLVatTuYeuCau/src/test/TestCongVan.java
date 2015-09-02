@@ -29,7 +29,7 @@ public class TestCongVan {
 //		MucDich mucDich = new MucDich("SCL", "Sua chua lon",0);
 
 		File file = new File("~/study/linux command", "File hoc linux command can ban", 1);
-		CongVan congVan = new CongVan(1, DateUtil.convertToSqlDate(new java.util.Date()), "123", DateUtil.convertToSqlDate(new java.util.Date()), "Khong co trich yeu", "Khong co bu phe", mucDich, new TrangThai("DGQ", "Dang giai quyet"), donVi,0);
-		new CongVanDAO().addCongVan(congVan);
+	//	CongVan congVan = new CongVan(1, DateUtil.convertToSqlDate(new java.util.Date()), "123", DateUtil.convertToSqlDate(new java.util.Date()), "Khong co trich yeu", "Khong co bu phe", mucDich, new TrangThai("DGQ", "Dang giai quyet"), donVi,0);
+	//	new CongVanDAO().addCongVan(congVan);
 	}
 }

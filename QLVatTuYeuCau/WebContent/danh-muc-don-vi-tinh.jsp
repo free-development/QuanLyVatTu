@@ -10,16 +10,6 @@
 <link rel="stylesheet" href="style/style-giao-dien-chinh.css"
 	type="text/css">
 
-<!-- <link rel="stylesheet" href="style/style-noi-vai-tro.css" -->
-<!-- 	type="text/css"> -->
-<!-- <link rel="stylesheet" href="style/style-noi-san-xuat.css" -->
-<!-- 	type="text/css"> -->
-
-<link rel="stylesheet" href="style/style-vai-tro.css"
-	type="text/css">
-<link rel="stylesheet" href="style/style-noi-san-xuat.css"
-	type="text/css">
-
 <link rel="stylesheet" href="style/style.css" type="text/css">
 <link href="style/don-vi-tinh.css" type="text/css" rel="stylesheet">
 
@@ -60,6 +50,7 @@
    	%>
 	<%
     		ArrayList<DonViTinh> listDonViTinh = (ArrayList<DonViTinh>) request.getAttribute("donViTinhList");
+<<<<<<< HEAD
 			if (listDonViTinh ==  null) {
 				int index = siteMap.dvtManage.lastIndexOf("/");
 				String url = siteMap.dvtManage.substring(index);
@@ -68,6 +59,9 @@
 				return;
 			}
 			Long size = (Long) request.getAttribute("size");
+=======
+			long pageNum = (Long) request.getAttribute("size")/10;
+>>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -141,6 +135,7 @@
 						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
 					</ul>
 				</li>
+<<<<<<< HEAD
 				<%} %>
 				<li><a>Tài khoản</a>
 					<ul>
@@ -153,11 +148,17 @@
 			</div>
 
 		<div id="main-content">
+=======
+				<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+				</ul>
+					<div class="clear"></div>
+				</div>
+>>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
 			<div id="title-content">Danh mục đơn vị tính</div>
 			<div id="main-content">
 
 				<form id="main-form">
-					<div id="view-table">
+					<div id="view-table" style="height: 600px; margin: 0 auto;">
 						<table>
 							<tr style="background: #199e5e">
 								<th class="left-column"><input type="checkbox"
@@ -183,15 +184,15 @@
 					<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td><a href=""> Previous<< </a></td>
+								<td>Trang</td>
 									<td>
 										<%
-											long pageNum = size / 10;
+ 											//long pageNum = size / 10;
 											for(int i = 0; i <= pageNum; i++) { %>
 												<input type="button" value="<%=i+1%>" class="page">
 										<%} %>
 									</td>
-									<td><a href="">>>Next </a> </td>
+<!-- 									<td><input type="button" value=">>"></td> -->
 								</tr>
 							</table>
 						</div>
@@ -278,6 +279,5 @@
 				</form>
 			</div>
 		</div>
-	</div>
 </body>
 </html>

@@ -680,13 +680,13 @@
 	margin: 0 auto;
 }
 #add-so-luong-form,#update-so-luong-form,#cap-so-luong-form  {
-	width:70%;
-	height: 22%;
+	width:65%;
+	height: 23%;
 	border-radius: 10px;
 	background-color: #dceaf5;
 	display: none;
-	top: 39%;
-	left: 15%;
+	top: 40%;
+	left: 18%;
 	position: absolute;
 	margin: 0 auto;
 }/*
@@ -715,7 +715,7 @@
 
 */
 #main-content {
-	height: 2000px;
+	height: 630px;
 	background-color: while;
 }
 #paging {

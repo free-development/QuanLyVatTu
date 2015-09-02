@@ -46,6 +46,7 @@ public class NsxController extends HttpServlet {
 			String nsxTen = request.getParameter("nsxTen");
 			noiSanXuatDAO.addNoiSanXuat(new NoiSanXuat(nsxMa,nsxTen,0));
 			ArrayList<NoiSanXuat> noiSanXuatList =  (ArrayList<NoiSanXuat>) noiSanXuatDAO.getAllNoiSanXuat();
+			noiSanXuatDAO.disconnect();
 			return new ModelAndView("danh-muc-noi-san-xuat", "noiSanXuatList", noiSanXuatList);
 		}
 		if("deleteNsx".equalsIgnoreCase(action)) {
@@ -55,14 +56,17 @@ public class NsxController extends HttpServlet {
 			}
 			
 			ArrayList<NoiSanXuat> noiSanXuatList =  (ArrayList<NoiSanXuat>) noiSanXuatDAO.getAllNoiSanXuat();
+			noiSanXuatDAO.disconnect();
 			return new ModelAndView("danh-muc-noi-san-xuat", "noiSanXuatList", noiSanXuatList);
 		}
 		if("manageNsx".equalsIgnoreCase(action)) {
 			long size = noiSanXuatDAO.size();
 			ArrayList<NoiSanXuat> noiSanXuatList =  (ArrayList<NoiSanXuat>) noiSanXuatDAO.limit(page - 1, 10);
 			request.setAttribute("size", size);
+			noiSanXuatDAO.disconnect();
 			return new ModelAndView("danh-muc-noi-san-xuat", "noiSanXuatList", noiSanXuatList);
 		}
+		noiSanXuatDAO.disconnect();
 		return new ModelAndView("login");
 	}
 	
@@ -74,6 +78,7 @@ public class NsxController extends HttpServlet {
 		NoiSanXuatDAO noiSanXuatDAO = new NoiSanXuatDAO();
 		NoiSanXuat nsx = noiSanXuatDAO.getNoiSanXuat(nsxMa);
 		System.out.println(nsx.getNsxMa());
+		noiSanXuatDAO.disconnect();
 		return JSonUtil.toJson(nsx);
 		/*ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) new NoiSanXuatDAO().getAllNoiSanXuat();
 		return toJson(nsxList);*/
@@ -82,10 +87,11 @@ public class NsxController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String addNsx(@RequestParam("nsxMa") String nsxMa, @RequestParam("nsxTen") String nsxTen) {
 		String result = "";
-		System.out.println("MA: "+nsxMa);
-		if(new NoiSanXuatDAO().getNoiSanXuat(nsxMa)==null)
+		//System.out.println("MA: "+nsxMa);
+		NoiSanXuatDAO noiSanXuatDAO = new NoiSanXuatDAO();
+		if((noiSanXuatDAO.getNoiSanXuat(nsxMa)==null) || (noiSanXuatDAO.getNoiSanXuat(nsxMa)!=null && noiSanXuatDAO.getNoiSanXuat(nsxMa).getDaXoa()==1) )
 		{
-			new NoiSanXuatDAO().addNoiSanXuat(new NoiSanXuat(nsxMa, nsxTen,0));
+			noiSanXuatDAO.addOrUpdateNoiSanXuat(new NoiSanXuat(nsxMa, nsxTen,0));
 			System.out.println("success");
 			result = "success";	
 		}
@@ -94,6 +100,7 @@ public class NsxController extends HttpServlet {
 			System.out.println("fail");
 			result = "fail";
 		}
+		noiSanXuatDAO.disconnect();
 			return JSonUtil.toJson(result);
 	}
 	@RequestMapping(value="/updateNsx", method=RequestMethod.GET, 
@@ -102,8 +109,10 @@ public class NsxController extends HttpServlet {
 
 		System.out.println(nsxMaUpdate);
 		System.out.println(nsxTenUpdate);
+		NoiSanXuatDAO noiSanXuatDAO = new NoiSanXuatDAO();
 		NoiSanXuat nsx = new NoiSanXuat(nsxMaUpdate, nsxTenUpdate,0);
-		new NoiSanXuatDAO().updateNoiSanXuat(nsx);
+		noiSanXuatDAO.updateNoiSanXuat(nsx);
+		noiSanXuatDAO.disconnect();
 		return JSonUtil.toJson(nsx);
 	}
 	@RequestMapping(value="/deleteNsx", method=RequestMethod.GET, 
@@ -116,12 +125,13 @@ public class NsxController extends HttpServlet {
 //		ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) new NoiSanXuatDAO().getAllNoiSanXuat();
 		String[] str = nsxList.split("\\, ");
 		
-		NoiSanXuatDAO nsxDAO =  new NoiSanXuatDAO();
+		NoiSanXuatDAO noiSanXuatDAO =  new NoiSanXuatDAO();
 		for(String nsxMa : str) {
-			nsxDAO.deleteNoiSanXuat(nsxMa);
+			noiSanXuatDAO.deleteNoiSanXuat(nsxMa);
 		}
 //		System.out.println(JSonUtil.toJson(nsxMa));
 //		return toJson(nsxList);
+		noiSanXuatDAO.disconnect();
 		return JSonUtil.toJson(nsxList);
 	}
 	/*private String toJson(String nsxMa) {
@@ -159,9 +169,9 @@ public class NsxController extends HttpServlet {
 	 public @ResponseBody String loadPageNsx(@RequestParam("pageNumber") String pageNumber) {
 		String result = "";
 		System.out.println("MA: " + pageNumber);
-		NoiSanXuatDAO nsxDAO = new NoiSanXuatDAO();
+		NoiSanXuatDAO noiSanXuatDAO = new NoiSanXuatDAO();
 		int page = Integer.parseInt(pageNumber);
-		ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) nsxDAO.limit((page -1 ) * 10, 10);
+		ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) noiSanXuatDAO.limit((page -1 ) * 10, 10);
 		
 		/*
 		if(new NoiSanXuatDAO().getNoiSanXuat(nsxMa)==null)
@@ -176,6 +186,7 @@ public class NsxController extends HttpServlet {
 			result = "fail";
 		}
 		*/
+		noiSanXuatDAO.disconnect();
 			return JSonUtil.toJson(nsxList);
 	}
 }

@@ -18,10 +18,80 @@ function confirmDelete(){
 //	});
 //});
 
+
+function loadPageCscv(pageNumber) {
+	
+	var page = 0;
+	var p = 0;
+	if (pageNumber == 'Next') {
+		var lastPage = document.getElementsByClassName('page')[9].value;
+		p = (lastPage) / 5;
+		page = p * 5;
+	}
+	else if (pageNumber == 'Previous') {
+		var firstPage = document.getElementsByClassName('page')[0].value;
+		p = (firstPage - 1) / 5;
+		page =  p * 5 - 1;
+	}
+	else {
+		page = pageNumber;
+	}
+	$.ajax({
+		url: "/QLVatTuYeuCau/loadPageCscv.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: { "pageNumber": page},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	  	success: function(objectList) {
+	  		var size = objectList[1];
+	  		var ndList = objectList[0];
+	  		var length = ndList.length;
+	  			$('#view-table table .rowContent').remove();
+				for(i = 0; i < length; i++ ) {
+					var nd = ndList[i];
+					var cells = '';
+					var style = '';
+					if (i % 2 == 0)
+						style = 'style=\"background : #CCFFFF;\"';
+					cells =   '<td>' + nd.nguoiDung.msnv + '</td>'
+								+ '<td>' + nd.nguoiDung.hoTen + '</td>'
+								+ '<td>' + nd.vaiTro.vtTen + '</td>'
+					var row = '<tr ' +style + 'class = \"rowContent\">' + cells + '</tr>';
+					 $('#view-table table tr:first').after(row);
+				}
+					var button = '';
+					if(pageNumber == 'Next') {
+						for (var i = 0; i < 10; i++) {
+							var t = ((p -1) * 5 + i + 1);
+							
+							button += '<input type=\"button\" value=\"' + ((p -1) * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageCscv(' + ((p -1)*5 + i)  +')\">&nbsp;';
+							if (t > size)
+								break;
+						}
+						button = '<input type=\"button\" value=\"<<\" onclick= \"loadPageCscv(\'Previous\')\">&nbsp;'  + button;
+						if ((p + 1) * 5 < size)
+							button += '<input type=\"button\" value=\">>\" onclick= \"loadPageCscv(\'Next\');\">';
+						$('#paging').html(button);
+					} else if (pageNumber == 'Previous'){
+						if (p > 0)
+							p = p -1;
+						for (var i = 0; i < 10; i++)
+							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageCscv(' + (p * 5 + i)  +')\">&nbsp;';
+						
+						button = button + '<input type=\"button\" value=\">>\" onclick= \"loadPageCscv(\'Next\');\">';
+						if (p >= 1)
+							button = '<input type=\"button\" value=\"<<\" onclick= \"loadPageCscv(\'Previous\')\">&nbsp;' + button;
+						$('#paging').html(button);	
+					}
+	  	}
+	});
+}
+
 $(document).ready(function() {
 	$('#update').click(function() {
 		var msnv = $('#view-chia-se input:checkbox[name=msnv]:checked').val();
-		alert(msnv);
+		//alert(msnv);
 		var msnvList = [];
 		$.each($('#view-chia-se input:checkbox[name=msnv]:checked'), function(){            
 			msnvList.push($(this).val());
@@ -58,8 +128,8 @@ $(document).ready(function() {
 			  		var button = '<button type=\"button\" class=\"button\" id=\"updateCs\">Luu lai</button>';
 			  		
 			  		$('#update-form table').html(head + content + button);
-			  		//$('#updateButton').html(button);
-			  		alert(vtCongVanList.length);
+			  	//	$('#updateButton').html(button);
+//			  		alert(vtCongVanList.length);
 			  		for (var i = 0; i < vtCongVanList.length; i++) {
 //			  			alert('#update #'+vtCongVanList[i].vtId);
 			  			$('#'+vtCongVanList[i].vtId).prop('checked',true);
@@ -101,7 +171,7 @@ $(document).ready(function() {
 			  		else {
 			  			
 			  			var content = '';
-			  			alert('#' + msnv + ' input:checkbox[name=vaiTro]');
+			  			//alert('#' + msnv + ' input:checkbox[name=vaiTro]');
 			  			$('#' + msnv +' input:checkbox').prop('checked',false);
 				  		for (var i = 0; i < vaiTroList.length; i++) {
 				  			content += vaiTroList[i].vtTen + '<br>';

@@ -261,6 +261,7 @@
                      	for(CongVan congVan : congVanList) {
                      		count ++;
                      %>
+<<<<<<< HEAD
 					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : #FFFFFF;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
 						<tr >
 							<td class="column-check" rowspan="7">
@@ -312,6 +313,75 @@
 							
 						</tr>
 					</table>
+=======
+					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : Blush;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
+								<tr >
+									<td class="column-check" rowspan="7">
+										Chọn&nbsp;&nbsp;
+										<br>
+										<input style="text-align: center;" title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
+									</td>
+									<td class="left-column-soden">Số đến: &nbsp;&nbsp;</td>
+									<td class="column-so-den" style="text-align: left"><%=congVan.getSoDen() %></td>
+
+									<td class="left-column-socv">Số công văn: &nbsp;&nbsp;</td>
+									<td class="column-socv" style="text-align: left;color:red;"><%=congVan.getCvSo() %></td>
+									
+									<td class="left-column-first" >Ngày đến: &nbsp;&nbsp;</td>
+
+									<td class="column-date-den"style="text-align: left"><%=congVan.getCvNgayNhan() %></td>
+									
+								</tr>
+								<tr>
+
+									<td class="left-column-first">Mục đích: &nbsp;&nbsp;</td>
+
+									<td class="column-md" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
+
+									<td class="left-column-ngdi">Ngày công văn đi:&nbsp;&nbsp;</td>
+									<td class="column-date-di" style="text-align: left"><%=congVan.getCvNgayDi()%></td>
+									
+								</tr>
+								<tr>
+
+									<td class="left-column-first">Nơi gửi: &nbsp;&nbsp;</td>
+									<td class="column-ng" colspan="6" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
+									
+								</tr>
+								<tr>
+
+									<td class="left-column-first">Trích yếu: &nbsp;&nbsp;</td>
+									<td class="column-ty"colspan="6" style="text-align: left"><%= congVan.getTrichYeu()%></td>
+								</tr>
+								<tr>
+
+									<td class="left-column-first">Bút phê: &nbsp;&nbsp;</td>
+
+									<td class="column-bp" colspan="6"><%= congVan.getButPhe()%></td>
+								</tr>
+								<tr>
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa300c46bcdf020c77865a5c1b4aee82c7310d61
+									<td class="left-column-first">Nơi GQ chính</td>
+									<td class="column-nql"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
+									<td colspan=3 style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
+
+								<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
+							</button></td>
+								</tr>
+								
+								
+								<tr>
+								<td class="left-column-first">Link file công văn: </td>
+								<td colspan="6" class="column-lcv"><a
+												href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
+												<div class="mo-ta"><%=fileHash.get(congVan.getCvId()).getMoTa() %></div>
+											</a></td>
+								</tr>
+							</table>
+>>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
 <!-- 							<div class="chi-tiet"> -->
 <!-- 								<a -->
 <%-- 									href="<%=siteMap.ycvtManage + "action=manageYcvt&congVan="+congVan.getCvId()%>">*Xem --%>
@@ -376,32 +446,31 @@
 <!-- 							</tr> -->
 							<tr style="margin-bottom: 20px;">
 								<th style="text-align: left" colspan="1"> <label for="soDen" style="text-align: left">Số công văn: </label></th>
-								<td colspan="3"><input type="text" class="text" name="cvSo" id="cvSo"></td>
+								<td colspan="3"><input type="text" class="text" name="cvSo" id="cvSo" onkeypress="changeSoCv();"><div id="requireSoCv" style="color: red"></div></td>
 							</tr>	
 							<tr style="margin-bottom: 20px;">	
 								<th style="text-align: left"><label for="ngayGoi" class="input">Ngày gởi: </label></th>
-								<td><input type="date" class="text" name="ngayGoi" id="ngayGoi" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %>></td>
+								<td><input type="date" class="text" name="ngayGoi" id="ngayGoi" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %> ></td>
 								<th style="text-align: left"><label for="ngayNhan" class="input">Ngày nhận: </label></th>
-								<td><input type="date" class="text" name="ngayNhan" id="ngayNhan" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %>>
-								</td>
+								<td><input type="date" class="text" name="ngayNhan" id="ngayNhan" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %> onkeypress="changeNgayNhan();"><div id="requireNgayNhan" style="color: red"></div></td>
 							</tr>
 							<tr>
 								<th style="text-align: left"><label for="mucDich" class="input">Mục
 										đích</label></th>
-								<td><select class="select" name="mucDich" id="mucDich">
+								<td><select class="select" name="mucDich" id="mucDich" onchange="changeMucDich();">
 										<option disabled selected value="">Chọn mục đích</option>
 										<%for(MucDich mucDich : mucDichList) {%>
 										<option value="<%=mucDich.getMdMa()%>" name="mucDich"><%=mucDich.getMdTen()%></option>
 										<%} %>
-								</select></td>
+								</select><div id="requireMucDich" style="color: red"></div></td>
 								<th style="text-align: left;"><label
 									for="noiGoi" class="input">Nơi gửi</label></th>
-								<td><select class="select" name="donVi" id="noiGoi">
+								<td><select class="select" name="donVi" id="noiGoi" onchange="changeDonVi();">
 										<option selected disabled value="">Chọn nơi gởi</option>
 										<%for(DonVi donVi : donViList) {%>
 										<option value="<%=donVi.getDvMa()%>" ><%=donVi.getDvTen() %></option>
 										<%} %>
-								</select></td>
+								</select><div id="requireDonVi" style="color: red"></div></td>
 							<tr>
 								<th style="text-align: left;" colspan="1"><label id="trichYeu" class="input">Trích yếu</label>
 								<td colspan="3"><textarea class="txtarea" name="trichYeu"></textarea></td>
@@ -413,19 +482,19 @@
 							</tr>
 								<th  style="text-align: left;"><label
 										for="file" class="input" name="file">Đính kèm công văn: </label></th>
-								<td colspan="3"><input type="file" id="file" name="file">
+								<td colspan="3"><input type="file" id="file" name="file" onchange="changeFile();"><div id="requireFile" style="color: red"></div></td>
 							<tr>	
 							</tr>
 								<th  style="text-align: left;"><label
 										for="moTa" class="input" >Mô tả file: </label></th>
-								<td colspan="3"><textarea class="txtarea" name="moTa"></textarea></td>
+								<td colspan="3"><textarea class="txtarea" name="moTa" onkeypress="changeMoTa();"></textarea><div id="requireMoTa" style="color: red"></div></td>
 							<tr>
 						</table>
 					</div>
 					<div class="group-button">
 						<input type="hidden" name="action" value="addCongVan">
-						<button class="button"
-							onclick="showForm('main-form', 'add-form', true)">
+						<button class="button" type="submit"
+							onclick="return checkAdd();">
 							<i class="fa fa-plus-circle"></i>&nbsp;Lưu lại
 						</button>
 						<button type="reset" class="button">
@@ -455,26 +524,26 @@
 								<th style="text-align: left"><label for="ngayGoi" class="input">Ngày gởi: </label></th>
 								<td><input type="date" class="text" name="ngayGoiUpdate" id="ngayGoi" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %>></td>
 								<th style="text-align: left"><label for="ngayNhan" class="input">Ngày nhận: </label></th>
-								<td><input type="date" class="text" name="ngayNhanUpdate" id="ngayNhan" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %>>
-								</td>
+								<td><input onchange="changeNgayNhanUp();" type="date" class="text" name="ngayNhanUpdate" id="ngayNhan" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %>>
+								<div id="requireNgayNhanUp" style="color: red"></div></td>
 							</tr>
 							<tr>
 								<th style="text-align: left"><label for="mucDich" class="input">Mục
 										đích</label></th>
-								<td><select class="select" name="mucDichUpdate" id="mucDich">
+								<td><select class="select" name="mucDichUpdate" id="mucDich" onchange="changeMucDichUp();">
 										<option disabled selected value="">Chọn mục đích</option>
 										<%for(MucDich mucDich : mucDichList) {%>
 										<option value="<%=mucDich.getMdMa()%>" name="mucDich"><%=mucDich.getMdTen()%></option>
 										<%} %>
-								</select></td>
+								</select><div id="requireMucDichUp" style="color: red"></div></td>
 								<th style="text-align: left;"><label
 									for="noiGoi" class="input">Nơi gửi</label></th>
-								<td><select class="select" name="donViUpdate" id="noiGoi">
+								<td><select class="select" name="donViUpdate" id="noiGoi" onchange="changeDonViUp();">
 										<option selected disabled value="">Chọn nơi gởi</option>
 										<%for(DonVi donVi : donViList) {%>
 										<option value="<%=donVi.getDvMa()%>" ><%=donVi.getDvTen() %></option>
 										<%} %>
-								</select></td>
+								</select><div id="requireDonViUp" style="color: red"></div></td>
 							<tr>
 								<th style="text-align: left;" colspan="1"><label id="trichYeu" class="input">Trích yếu</label>
 								<td colspan="3"><textarea class="txtarea" name="trichYeuUpdate"></textarea></td>
@@ -486,17 +555,17 @@
 							<tr>
 								<th style="text-align: left;"><label
 									for="file" class="input" name="file">Tệp đính kèm: </label></th>
-								<td><input type="file" id="file" name="file">
+								<td><input type="file" id="file" name="file" onchange="changeFileUp();"><div id="requireFileUp" style="color: red"></div></td>
 							</tr>
 							<tr>
 								<th style="text-align: left"><label for="TT">Trạng
 										thái</label></th>
 								<td style="text-align: right; padding-left: 10px;">
 									<% for (TrangThai trangThai : trangThaiList) {%>
-									<input type="radio" name="ttMaUpdate" value="<%=trangThai.getTtMa()%>" id="<%=trangThai.getTtMa()%>"> 
+									<input type="radio" name="ttMaUpdate" value="<%=trangThai.getTtMa()%>" id="<%=trangThai.getTtMa()%>" onchange="changeTrangThaiUp();"> 
 									<label for="<%=trangThai.getTtMa()%>"><%=trangThai.getTtTen()%></label>&nbsp;&nbsp;&nbsp;
 									<%}%>
-								</td>
+								<div id="requireTrangThaiUp" style="color: red"></div></td>
 							</tr>	
 						</table>
 						
@@ -504,7 +573,9 @@
 						
 					</div>
 					<div class="group-button">
-						<button class="button">
+						<input type="hidden" name="action" value="updateCv">
+						<button class="button" type="submit"
+							onclick="return checkUp();">
 							<i class="fa fa-floppy-o"></i>&nbsp;Lưu lại
 						</button>
 						<button type="reset" class="button">

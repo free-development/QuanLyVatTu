@@ -29,7 +29,12 @@
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
 	type="text/css" rel="stylesheet">
 <meta charset="utf-8">
-<title></title>
+<title>Xuất chi tiết vật tư</title>
+<style type="text/css" media="print">
+#print_button{
+display:none;
+}
+</style>
 </head>
 <body>
 	<%
@@ -41,20 +46,34 @@
    		}
    	%>
 		<% 
-    	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) session.getAttribute("ctVatTuList");
-// 	Long pageNum = (Long) request.getAttribute("page");
-
-	       %>
-	     <% 
+    	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) session.getAttribute("allCTVatTuList");
 		String exportToExcel = request.getParameter("exportToExel");
 	        response.setCharacterEncoding("UTF-8");
 	        request.setCharacterEncoding("UTF-8");
 	        if (exportToExcel != null && exportToExcel.toString().equalsIgnoreCase("YES")) {
 	            response.setContentType("application/vnd.ms-excel");
-	            response.setHeader("Content-Disposition", "inline; filename=" + "excel.xls");
+	            response.setHeader("Content-Disposition", "inline; filename=" + "Chitietvattu.xls");
 	            
 	        }
 		%>
+		<div class="group-button" style="position: fixed; right: 10px;">
+					<%
+        				if (exportToExcel == null) {
+   				 	 %>
+   				 	 <button class="button" id="print_button" type="button" onclick="window.print();">
+						<i class="fa fa-print"></i>&nbsp;&nbsp;In
+					</button>
+					&nbsp;&nbsp;
+					<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.xuatCTVatTu+".jsp"+ "?exportToExel=YES" %>'">
+						<i class="fa fa-print"></i>&nbsp;&nbsp;Tải file
+					</button>
+					&nbsp;&nbsp;
+					<button type="button" id="print_button" class="button"  onclick="location.href='<%=siteMap.ctvtManage + "?action=manageCtvt"%>'">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
+					</button>
+					<% } %>
+					 
+				</div>
 		<table style = "margin: 0 auto;width:960px;">
 		<tr>
 			<td style="text-align: left; width: 500px;">TỔNG CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>
@@ -76,61 +95,42 @@
 			
 		</tr>
 		</table>
-		<div style="text-align: center;font-size: 20px;font-weight: bold;color: #199e5e;margin-top:20px;">Báo cáo chi tiết vật tư</div>
+		<div style="text-align: center;font-size: 40px;font-weight: bold;color: #199e5e;margin-top:20px;">Báo cáo chi tiết vật tư</div>
 			
-		<div style="margin-right: 20px;padding-left: 900px;">Ngày in:&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
+		<div style="margin-right: 10px;padding-left: 800px;">Ngày in:&nbsp;&nbsp;&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
 			<div id="view-table-bao-cao">
-					<table style="text-align: center;margin: 0 auto; color: black;border: solid 1px black;width:960px;">
+					<table  style="border: solid 1px black;width:960px;">
 					<thead>
-						<tr bgcolor="#199e5e"  style= "border-style: solid;border-color:black;">
-						<th class="four-column">Mã vật tư</th>
-						<th class="six-column">Tên vật tư</th>
-						<th class="three-column">Nơi sản xuất</th>
-						<th class="a-column">Chất lượng</th>
-						<th class="four-column">Đơn vị tính</th>
-						<th class="five-column">Định mức</th>
-						<th class="seven-column">Số lượng tồn</th>
+						<tr bgcolor="#199e5e" style="border: 1px solid black;">
+						<th style="border: 1px solid black;" class="four-column">Mã vật tư</th>
+						<th style="border: 1px solid black;" class="six-column">Tên vật tư</th>
+						<th style="border: 1px solid black;" class="three-column">Nơi sản xuất</th>
+						<th style="border: 1px solid black;" class="a-column">Chất lượng</th>
+						<th style="border: 1px solid black;" class="four-column">Đơn vị tính</th>
+						<th style="border: 1px solid black;" class="five-column">Định mức</th>
+						<th style="border: 1px solid black;" class="seven-column">Số lượng tồn</th>
 							
 						</tr>
 						</thead>
 									<tbody>
 									<%
 								if(listCTVatTu != null) {
-								int count = 0;
-								for(CTVatTu ctVatTu : listCTVatTu) { count++;%>
+								for(CTVatTu ctVatTu : listCTVatTu) { %>
 	
-										<tr class="rowContent"
-											<%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>>
-											<td class="col"><%=ctVatTu.getVatTu().getVtMa() %></td>
-											<td class="col"><%=ctVatTu.getVatTu().getVtTen() %></td>
-											<td class="col"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
-											<td class="col"><%=ctVatTu.getChatLuong().getClTen() %></td>
-											<td class="col"><%=ctVatTu.getVatTu().getDvt().getDvtTen() %></td>
-											<td class="col"><%=ctVatTu.getDinhMuc() %></td>
-											<td class="col"><%=ctVatTu.getSoLuongTon() %></td>
+										<tr style= "border-style: solid;border-color:black;" class="rowContent">
+											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getVatTu().getVtMa() %></td>
+											<td style="border: 1px solid black;" class="col" style="text-align: left"><%=ctVatTu.getVatTu().getVtTen() %></td>
+											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
+											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getChatLuong().getClTen() %></td>
+											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getVatTu().getDvt().getDvtTen() %></td>
+											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getDinhMuc() %></td>
+											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getSoLuongTon() %></td>
 					
 										</tr>
 										<%} }%>
 							</tbody>
 				</table>
 				</div>
-				<div class="group-button">
-					<%
-        				if (exportToExcel == null) {
-   				 	 %>
-   				 	 <button class="button" type="button" onclick="window.print();">
-						<i class="fa fa-print"></i>&nbsp;&nbsp;In
-					</button>
-					&nbsp;&nbsp;
-					<button class="button" type="button" onclick="location.href='<%=siteMap.xuatCTVatTu+".jsp"+ "?exportToExel=YES" %>'">
-						<i class="fa fa-print"></i>&nbsp;&nbsp;Tải file
-					</button>
-					&nbsp;&nbsp;
-					<button type="button" class="button"  onclick="location.href='<%=siteMap.ctvtManage + "?action=manageCtvt"%>'">
-						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
-					</button>
-					<% } %>
-					 
-				</div>
+				
 		</body>
 		</html>

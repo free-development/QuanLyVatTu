@@ -52,6 +52,7 @@
 	<%
     
     	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) session.getAttribute("ctVatTuList");
+<<<<<<< HEAD
 		if (listCTVatTu ==  null) {
 			int index = siteMap.ctvtManage.lastIndexOf("/");
 			String url = siteMap.ctvtManage.substring(index);
@@ -60,6 +61,9 @@
 			return;
 		}
 		Long size = (Long) request.getAttribute("page");
+=======
+		Long pageNum = (Long) request.getAttribute("size")/10;
+>>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
    		
     %>
 	<div class="wrapper">
@@ -148,7 +152,7 @@
 		<div id="main-content">
 			<div id="title-content">Danh mục chi tiết vật tư</div>
 			<form id="main-form">
-					<div id="view-table-chi-tiet">
+					<div id="view-table-chi-tiet" style="height: 480px; margin: 0 auto;">
 						<table>
 							<tr style="background: #199e5e">
 <!-- 								<th class="left-column"><input type="checkbox" -->
@@ -171,7 +175,7 @@
 <!-- 								<td class="left-column"><input type="checkbox" name="vtMa" -->
 <%-- 									value="<%=ctVatTu.getVatTu().getVtMa() %>" class="checkbox"></td> --%>
 								<td class="col"><%=ctVatTu.getVatTu().getVtMa() %></td>
-								<td class="col"><%=ctVatTu.getVatTu().getVtTen() %></td>
+								<td class="col" style="text-align: left;"><%=ctVatTu.getVatTu().getVtTen() %></td>
 								<td class="col"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
 								<td class="col"><%=ctVatTu.getChatLuong().getClTen() %></td>
 								<td class="col"><%=ctVatTu.getVatTu().getDvt().getDvtTen() %></td>
@@ -185,23 +189,22 @@
 								
 									
 					</div>
-						<div id = "paging" style="text-align: center;">
-									<table style ="border-style: none;" >
-										<tr>
-											<td><input type="button" value="Previous"></td>
-											<td>
-												<%
-													long pageNum = size / 10;
-													for(int i = 0; i <= pageNum; i++) { %>
-														<input type="button" value="<%=i+1%>" class="page">
-												<%} %>
-											</td>
-											<td><input type="button" value="Next"></td>
-										</tr>
-									</table>
-								</div>
-								<div class="group-button" style="text-align: center;">
-		
+			<div id = "paging" >
+								<%
+										String str = "";
+										String pages = ""; 
+										long p = (pageNum < 10 ? pageNum : 10);
+									for(int i = 0; i < p; i++) {
+										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCTVatTu(" + i +")\">&nbsp;";
+									}
+									if (pageNum > 10)
+										// str = "<input type=\"button\" value=\"<<Previous\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;"  + str + "<input type=\"button\" value=\"Next>>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
+										str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageCTVatTu(\'Next\');\">";
+									out.println(str);	
+								%>
+					
+			</div>
+						<div class="group-button" style="text-align: center;">		
  						<button type="button" class="button" 
 							onclick="showForm('import-form', true)"> 
 							<i class="fa fa-pencil fa-fw"></i>&nbsp;Import 
@@ -209,12 +212,6 @@
 						
 						<button class="button" type="button" onclick="location.href='<%=siteMap.xuatCTVatTu+".jsp"%>'">
 							<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xuất File
-						</button>
-						&nbsp;
-		
-						&nbsp;
-						<button class="button" type="button">
-							<i class="fa fa-print"></i>&nbsp;&nbsp;In
 						</button>
 						&nbsp;
 						<button type="button" class="button" onclick="location.href='<%=siteMap.home%>'">
@@ -225,8 +222,9 @@
 				</div>
 						<form id="import-form" action="<%=siteMap.readExcel %>" method="post" enctype="multipart/form-data" >
 								<input type="file" name="file" accept=".xls, .xlsx" class="text" style="padding-left: 0px;">
-								<input value="uploadFile" name="action" type="submit" class="button">
+<div class="button-group" style="margin-top: -40px;"><input value="uploadFile" name="action" type="submit" class="button">
 								<input value="Thoát" onclick="showForm('import-form',false);" type="button" class="button">
+								</div>
 						</form>
 				
 	

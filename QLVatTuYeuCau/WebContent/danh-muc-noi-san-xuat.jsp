@@ -21,14 +21,6 @@
 	type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/noi-san-xuat.js"></script>
-<script type="text/javascript">
-// $(document).ready(function() {
-// 	  	$('.page').click(function(){
-// 	    	var page = $(this).val();
-// 	    	alert(page);
-// 	    });	
-// 	});
-</script>
 <meta charset="UTF-8">
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
 </head>
@@ -49,6 +41,7 @@
     	response.setCharacterEncoding("UTF-8");
     	
     		ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) request.getAttribute("noiSanXuatList");
+<<<<<<< HEAD
     		if (listNoiSanXuat ==  null) {
 				int index = siteMap.nsxManage.lastIndexOf("/");
 				String url = siteMap.nsxManage.substring(index);
@@ -57,6 +50,9 @@
 				return;
 			}
     		Long size = (Long) request.getAttribute("size");
+=======
+    		long pageNum = (Long) request.getAttribute("size")/10;
+>>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -148,7 +144,7 @@
 		<div id="main-content">
 			
 			<form id="main-form">
-				<div id="view-table">
+				<div id="view-table" style="height: 600px; margin: 0 auto;">
 					<table>
 						<tr style="background:#199e5e">
 							<th class="left-column"><input type="checkbox" class="checkAll"></th>
@@ -181,15 +177,14 @@
 				<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td><input type="button" value="<<Previous"></td>
-									<td>
-										<%
-									long pageNum = size / 10;
-									for(int i = 0; i <= pageNum; i++) { %>
-										<input type="button" value="<%=i+1%>" class="page">
-								<%} %>
-									</td>
-									<td><input type="button" value="Next>>"></td>
+										<td>Trang</td>
+										<td>
+												<%
+												for(int i = 0; i <= pageNum; i++) { %>
+												<input type="button" value="<%=i+1%>" class="page">
+												<%} %>
+										</td>
+									
 								</tr>
 							</table>
 						</div>

@@ -146,7 +146,7 @@
 			<div id="title-content">Danh mục bộ phận sử dụng</div>
 
 				<form id="main-form">
-					<div id="view-table-bo-phan">
+					<div id="view-table-bo-phan" style="height: 600px; margin: 0 auto;">
 						<table>
 							<tr>
 								<th class="left-column"><input type="checkbox"
@@ -178,7 +178,7 @@
 					<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td><input type="button" value="<<Previous"></td>
+									<td>Trang</td>
 									<td>
 										<%
 											long pageNum = size / 10;
@@ -186,7 +186,6 @@
 												<input type="button" value="<%=i+1%>" class="page">
 										<%} %>
 									</td>
-									<td><input type="button" value="Next>>ss"></td>
 								</tr>
 							</table>
 						</div>

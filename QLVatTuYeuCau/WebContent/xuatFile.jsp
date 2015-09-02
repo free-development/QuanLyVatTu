@@ -23,6 +23,11 @@
 	type="text/css" rel="stylesheet">
 <meta charset="utf-8">
 <title></title>
+<style type="text/css" media="print">
+#print_button{
+display:none;
+}
+</style>
 </head>
 <body>
 	<%
@@ -80,22 +85,22 @@
 			
 		</tr>
 		</table>
-			<div style="text-align: center;font-size: 20px;font-weight: bold;color: #199e5e;">Báo cáo chi tiết vật tư thiếu</div>
+			<div style="text-align: center;font-size: 30px;font-weight: bold;color: #199e5e;">Báo cáo chi tiết vật tư thiếu</div>
 		<% if((ngaybd!=null)&&(ngaykt!=null)){%>
 		<div style="text-align: center;">Từ ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaybd)%>&nbsp;&nbsp;đến ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaykt)%></div>
 		<% }%>
-		<div style="margin-right: 20px;padding-left: 900px;">Ngày in:&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
+		<div style="margin-right: 10px;padding-left: 800px;">Ngày in:&nbsp;&nbsp;&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
 				<div id="view-table-bao-cao" >
 					<table  style="border: solid 1px black;width:960px;">
 						<thead >
-							<tr bgcolor="#199e5e" >
+							<tr bgcolor="#199e5e" style="border: 1px solid black;" >
 								<th style="border: 1px solid black;" class="one-column">Số đến</th>
 								<th style="border: 1px solid black;" class="three-column">Ngày nhận</th>
-								<th style="border: 1px solid black;" class="two-column">Mã vật tư</th>
-								<th style="border: 1px solid black;" class="three-column">Tên vật tư</th>
+								<th style="border: 1px solid black;" class="three-column" style="text-align: center;">Mã vật tư</th>
+								<th style="border: 1px solid black;" class="two-column">Tên vật tư</th>
 								<th style="border: 1px solid black;" class="three-column">Nơi sản xuất</th>
 								<th style="border: 1px solid black;" class="three-column">Chất lượng</th>
-								<th style="border: 1px solid black;" class="six-column">Đơn vị tính</th>
+								<th style="border: 1px solid black;" class="three-column">Đơn vị tính</th>
 								<th style="border: 1px solid black;" class="one-column">Số lượng thiếu</th>
 								
 							</tr>
@@ -113,16 +118,16 @@
 										for (YeuCau yeuCau : yeuCauList) {count++;
 									%>
 												
-									<tr
+									<tr style= "border-style: solid;border-color:black;"
 										<%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>>
-										<td class="a-column"><%=congVan.getSoDen() %></td>
-										<td class="b-column"><%=congVan.getCvNgayNhan() %></td>
-										<td class="a-column"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
-										<td class="b-column"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
-										<td class="c-column"><%=yeuCau.getCtVatTu().getNoiSanXuat().getNsxTen() %></td>
-										<td class="d-column"><%=yeuCau.getCtVatTu().getChatLuong().getClTen() %></td>
-										<td class="e-column"><%=yeuCau.getCtVatTu().getVatTu().getDvt().getDvtTen() %></td>
-										<td class="e-column"><%=yeuCau.getYcSoLuong() %></td>
+										<td style="border: 1px solid black;" class="a-column"><%=congVan.getSoDen() %></td>
+										<td style="border: 1px solid black;" class="b-column"><%=congVan.getCvNgayNhan() %></td>
+										<td style="border: 1px solid black;" class="a-column"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
+										<td style="border: 1px solid black;" class="b-column"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
+										<td style="border: 1px solid black;" class="c-column"><%=yeuCau.getCtVatTu().getNoiSanXuat().getNsxTen() %></td>
+										<td style="border: 1px solid black;" class="d-column"><%=yeuCau.getCtVatTu().getChatLuong().getClTen() %></td>
+										<td style="border: 1px solid black;" class="e-column"><%=yeuCau.getCtVatTu().getVatTu().getDvt().getDvtTen() %></td>
+										<td style="border: 1px solid black;" class="e-column"><%=yeuCau.getYcSoLuong() %></td>
 									</tr>	
 								<%}} %>
 						</tbody>
@@ -135,16 +140,16 @@
 					 <%
         				if (exportToExcel == null) {
    				 	 %>
-   				 	 <button class="button" type="button" onclick="window.print();">
+   				 	 <button class="button" id="print_button" type="button" onclick="window.print();">
 						<i class="fa fa-print"></i>&nbsp;&nbsp;In
 					</button>
 					&nbsp;
-					<button class="button" type="button" onclick="location.href='<%=siteMap.xuatFile+".jsp"+ "?exportToExel=YES" %>'">
+					<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.xuatFile+".jsp"+ "?exportToExel=YES" %>'">
 						<i class="fa fa-print"></i>&nbsp;&nbsp;Xuất file
 					</button>
 					<% } %>
 					&nbsp;
-					<button type="button" class="button" onclick="location.href='<%=siteMap.baoCaoVatTuThieu+".jsp" %>'">
+					<button type="button" id="print_button" class="button" onclick="location.href='<%=siteMap.baoCaoVatTuThieu+".jsp" %>'">
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
 				</div>
@@ -176,17 +181,16 @@
 		<% if((ngaybd!=null)&&(ngaykt!=null)){%>
 		<div style="text-align: center;">Từ ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaybd)%>&nbsp;&nbsp;đến ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaykt)%></div>
 		<% }%>
-		<div style="margin-right: 20px;padding-left: 900px;">Ngày in:&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
+		<div style="margin-right: 10px;padding-left: 800px;">Ngày in:&nbsp;&nbsp;&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
 			<div id="view-table-bao-cao" >
-				<table style="width:960px;" >
-					<tr bgcolor="#199e5e"  style="border: solid 1px black;" >
-						<th style="border: 1px solid black;" class="two-column"style="text-align: center;">Mã vật tư</th>
-						<th style="border: 1px solid black;" class="three-column">Tên vật tư</th>
+				<table style="border: solid 1px black;width:960px;">
+					<tr bgcolor="#199e5e"  style= "border-style: solid;border-color:black;">
+						<th style="border: 1px solid black;" class="three-column" style="text-align: center;">Mã vật tư</th>
+						<th style="border: 1px solid black;" class="two-column">Tên vật tư</th>
 						<th style="border: 1px solid black;" class="three-column">Nơi sản xuất</th>
 						<th style="border: 1px solid black;" class="three-column">Chất lượng</th>
 						<th style="border: 1px solid black;" class="six-column">Đơn vị tính</th>
-						<th style="border: 1px solid black;" class="one-column">Tổng số lượng thiếu</th>
-						
+						<th style="border: 1px solid black;" class="one-column">Tổng số lượng thiếu</th>					
 					</tr>
 								<%
 								int count = 0;
@@ -196,35 +200,34 @@
 // 							for (YeuCau yeuCau : yeuCauList) {
 							%>
 									
-					<tr <%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%> >
-						<td class="a-column"><%=ctvt.getVatTu().getVtMa() %></td>
-						<td class="b-column"><%=ctvt.getVatTu().getVtTen() %></td>
-						<td class="c-column"><%=ctvt.getNoiSanXuat().getNsxTen() %></td>
-						<td class="d-column"><%=ctvt.getChatLuong().getClTen() %></td>
-						<td class="e-column"><%=ctvt.getVatTu().getDvt() %></td>
-						<td class="e-column"><%=yeuCauHash.get(key) %></td>
+					<tr <%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%> 
+					style= "border-style: solid;border-color:black black black black;">
+						<td style="border: 1px solid black;" class="a-column"><%=ctvt.getVatTu().getVtMa() %></td>
+						<td style="border: 1px solid black;" class="b-column"><%=ctvt.getVatTu().getVtTen() %></td>
+						<td style="border: 1px solid black;" class="c-column"><%=ctvt.getNoiSanXuat().getNsxTen() %></td>
+						<td style="border: 1px solid black;" class="d-column"><%=ctvt.getChatLuong().getClTen() %></td>
+						<td style="border: 1px solid black;" class="e-column"><%=ctvt.getVatTu().getDvt().getDvtTen() %></td>
+						<td style="border: 1px solid black;" class="e-column"><%=yeuCauHash.get(key) %></td>
 					</tr>
 					<%} %>
 				</table>
-			</div>
-
-			
+			</div>		
 				 <%
         			if (exportToExcel == null) {
    				 %>
    				 <div class="group-button">
-				<button class="button" type="button"onclick="window.print();">
+				<button class="button" type="button" id="print_button" onclick="window.print()">
 					<i class="fa fa-print"></i>&nbsp;&nbsp;In
 				</button>
 				&nbsp;
 <!--     <a href="excel.jsp?exportToExcel=YES">Export to Excel</a> -->
 
-				<button class="button" type="button" onclick="location.href='<%=siteMap.xuatFile+".jsp"+ "?exportToExel=YES" %>'">
+				<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.xuatFile+".jsp"+ "?exportToExel=YES" %>'">
 					<i class="fa fa-print"></i>&nbsp;&nbsp;Tải file
 				</button>
 				    
 				&nbsp;
-				<button type="button" class="button" onclick="location.href='<%=siteMap.baoCaoVatTuThieu+".jsp" %>'">
+				<button type="button" id="print_button" class="button" onclick="location.href='<%=siteMap.baoCaoVatTuThieu+".jsp" %>'">
 					<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 				</button>
 			</div>

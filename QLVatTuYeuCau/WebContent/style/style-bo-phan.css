@@ -1,6 +1,7 @@
 #view-table-bo-phan {
 	margin: 0 auto;
 	width: 950px;
+	max-height: 350px;
 }
 
 #view-table-bo-phan table {
@@ -96,6 +97,8 @@
 	padding-top: 20px;
 	margin-top: 1px;
 	z-index: 20px;
+	border: outset;
+	border-color: #0000FF;
 }
 
 #update-form {
@@ -111,7 +114,9 @@
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
-	padding-top: 20px
+	padding-top: 20px;
+	border: outset;
+	border-color: #0000FF;
 }
 
 #title-content {

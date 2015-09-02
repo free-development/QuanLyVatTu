@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import util.JSonUtil;
 import dao.DonViTinhDAO;
+import dao.VaiTroDAO;
 
 
 @Controller
@@ -40,6 +41,7 @@ public class DvtController extends HttpServlet {
 			donViTinhDAO.addOrUpdateDonViTinh(new DonViTinh(dvtTen,0));
 			
 			ArrayList<DonViTinh> donViTinhList =  (ArrayList<DonViTinh>) donViTinhDAO.getAllDonViTinh();
+			donViTinhDAO.disconnect();
 			return new ModelAndView("danh-muc-don-vi-tinh", "donViTinhList", donViTinhList);
 		}
 		
@@ -50,14 +52,17 @@ public class DvtController extends HttpServlet {
 				donViTinhDAO.deleteDonViTinh(dvtId);
 			}
 			ArrayList<DonViTinh> donViTinhList =  (ArrayList<DonViTinh>) donViTinhDAO.getAllDonViTinh();
+			donViTinhDAO.disconnect();
 			return new ModelAndView("danh-muc-don-vi-tinh", "donViTinhList", donViTinhList);
 		}
 		if("manageDvt".equalsIgnoreCase(action)) {
 			long size = donViTinhDAO.size();
 			ArrayList<DonViTinh> donViTinhList =  (ArrayList<DonViTinh>) donViTinhDAO.limit(page - 1, 10);
 			request.setAttribute("size", size);
+			donViTinhDAO.disconnect();
 			return new ModelAndView("danh-muc-don-vi-tinh", "donViTinhList", donViTinhList);
 		}
+		donViTinhDAO.disconnect();
 		return new ModelAndView("login");
 	}
 	@RequestMapping(value="/preEditdvt", method=RequestMethod.GET,
@@ -73,41 +78,60 @@ public class DvtController extends HttpServlet {
 		}
 	@RequestMapping(value="/adddvt", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String adddvt(@RequestParam("dvtTen") String dvt) {
-		String result = "";
-		System.out.println("Ten: "+dvt);
+	 public @ResponseBody String adddvt(@RequestParam("dvtTen") String dvtTen) {
+		String result = "success";
+		System.out.println("Ten: "+dvtTen);
 //		int dvtId = Integer.parseInt(dvt);
-		if(new DonViTinhDAO().getDonViTinhByTen(dvt)==null)
+		DonViTinhDAO dvtDAO = new DonViTinhDAO();
+		DonViTinh dvt = dvtDAO.getDonViTinhByTen(dvtTen);
+		if(dvt == null)
 		{
-			new DonViTinhDAO().addOrUpdateDonViTinh(new DonViTinh(dvt,0));
+			dvtDAO.addDonViTinh(new DonViTinh(dvtTen,0));
 			System.out.println("success");
 			result = "success";
 		}
-		else
+		else if(dvt!=null && dvt.getDaXoa() == 1){
+			dvt.setDvtTen(dvtTen);
+			dvt.setDaXoa(0);
+			dvtDAO.updateDonViTinh(dvt);
+			result = "success";
+		}
+		else 
 		{
 			System.out.println("fail");
 			result = "fail";
 		}
+		dvtDAO.disconnect();
 			return JSonUtil.toJson(result);
 	}
 	@RequestMapping(value="/updatedvt", method=RequestMethod.GET, 
 		produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String updatedvt(@RequestParam("dvtTenUpdate") String dvtTenUpdate) {
 		//JOptionPane.showMessageDialog(null, dvtOld);
-		DonViTinh dvt = new DonViTinhDAO().getDonViTinhByTen(dvtOld);
+		DonViTinhDAO dvtDAO = new DonViTinhDAO();
+		DonViTinh dvt = dvtDAO.getDonViTinhByTen(dvtOld);
 		//JOptionPane.showMessageDialog(null, dvt.getDvtTen() + dvt.getDvtId());
 		dvt.setDvtTen(dvtTenUpdate);
 		dvt.setDaXoa(0);
-		new DonViTinhDAO().updateDonViTinh(dvt);
+		dvtDAO.updateDonViTinh(dvt);
+		dvtDAO.disconnect();
 		return JSonUtil.toJson(dvt);
 	}
 	@RequestMapping(value="/deletedvt", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String deleteDvt(@RequestParam("dvtId") String dvtTen) {
-		DonViTinhDAO donViTinhDAO = new DonViTinhDAO();
-		DonViTinh donViTinh = donViTinhDAO.getDonViTinhByTen(dvtTen);
-		new DonViTinhDAO().deleteDonViTinh(donViTinh.getDvtId());
-		return JSonUtil.toJson(dvtTen);
+	 public @ResponseBody String deletedvt(@RequestParam("dvtList") String dvtList) {
+//		DonViTinhDAO donViTinhDAO = new DonViTinhDAO();
+//		DonViTinh donViTinh = donViTinhDAO.getDonViTinhByTen(dvtTen);
+//		new DonViTinhDAO().deleteDonViTinh(donViTinh.getDvtId());
+//		return JSonUtil.toJson(dvtTen);
+		String[] str = dvtList.split("\\, ");
+		
+		DonViTinhDAO dvtDAO =  new DonViTinhDAO();
+		for(String dvtTen : str) {
+			dvtDAO.deleteDonViTinhTen(dvtTen);
+		}
+		dvtDAO.disconnect();
+		return JSonUtil.toJson(dvtList);
 	}
 	@RequestMapping(value="/loadPagedvt", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -116,6 +140,7 @@ public class DvtController extends HttpServlet {
 		DonViTinhDAO dvtDAO = new DonViTinhDAO();
 		int page = Integer.parseInt(pageNumber);
 		ArrayList<DonViTinh> dvtList = (ArrayList<DonViTinh>) dvtDAO.limit((page -1 ) * 10, 10);
+		dvtDAO.disconnect();
 			return JSonUtil.toJson(dvtList);
 	}
 }

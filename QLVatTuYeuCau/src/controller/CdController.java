@@ -67,7 +67,9 @@ public class CdController extends HttpServlet {
 	 public @ResponseBody String preUpdateCd(@RequestParam("cdMa") String cdMa) {
 		ChucDanhDAO chucDanhDAO = new ChucDanhDAO();
 		ChucDanh cd = chucDanhDAO.getChucDanh(cdMa);
+		chucDanhDAO.disconnect();
 		return JSonUtil.toJson(cd);
+		
 	}
 	
 	@RequestMapping(value="/deleteCd", method=RequestMethod.GET, 
@@ -79,16 +81,18 @@ public class CdController extends HttpServlet {
 		for(String cdMa : str) {
 			cdDAO.deleteChucDanh(cdMa);
 		}
+		cdDAO.disconnect();
 		return JSonUtil.toJson(cdList);
 	}
 	@RequestMapping(value="/addCd", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String addCd(@RequestParam("cdMa") String cdMa, @RequestParam("cdTen") String cdTen) {
 		String result = "";
+		ChucDanhDAO chucDanhDAO = new ChucDanhDAO();
 		System.out.println("MA: "+cdMa);
-		if(new ChucDanhDAO().getChucDanh(cdMa)==null)
+		if((chucDanhDAO.getChucDanh(cdMa)==null) || (chucDanhDAO.getChucDanh(cdMa)!=null && chucDanhDAO.getChucDanh(cdMa).getDaXoa() == 1 ))
 		{
-			new ChucDanhDAO().addChucDanh(new ChucDanh(cdMa,cdTen,0));
+			chucDanhDAO.addOrUpdateChucDanh(new ChucDanh(cdMa,cdTen,0));
 			System.out.println("success");
 			result = "success";
 			
@@ -99,16 +103,19 @@ public class CdController extends HttpServlet {
 			System.out.println("fail");
 			result = "fail";
 		}
+		chucDanhDAO.disconnect();
 			return JSonUtil.toJson(result);
 	}
 	
 	@RequestMapping(value="/updateCd", method=RequestMethod.GET, 
 	produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String updateCd(@RequestParam("cdMaUpdate") String cdMaUpdate, @RequestParam("cdTenUpdate") String cdTenUpdate) {
+		ChucDanhDAO chucDanhDAO = new ChucDanhDAO();
 		System.out.println(cdMaUpdate);
 		System.out.println(cdTenUpdate);
 		ChucDanh cd = new ChucDanh(cdMaUpdate, cdTenUpdate,0);
-		new ChucDanhDAO().updateChucDanh(cd);
+		chucDanhDAO.updateChucDanh(cd);
+		chucDanhDAO.disconnect();
 		return JSonUtil.toJson(cd);
 	}
 	
@@ -134,6 +141,7 @@ public class CdController extends HttpServlet {
 			result = "fail";
 		}
 		*/
+		cdDAO.disconnect();
 			return JSonUtil.toJson(cdList);
 	}
 }

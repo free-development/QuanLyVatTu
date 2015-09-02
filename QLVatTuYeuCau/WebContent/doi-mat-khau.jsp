@@ -128,19 +128,19 @@
 						<td><input type="text" autofocus required size="10"
 							maxlength="10"
 							title="Mã số nhân viên đủ 10 ký tự, không chứa ký tự đặc biệt"
-							pattern="[a-zA-Z0-9]*" class="text" id="msnv" name="msnv"></td>
+							pattern="[a-zA-Z0-9]*" class="text" id="msnv" name="msnv" onkeypress="changeMsnv();"><div id="requireMsnv" style="color: red"></div></td>
 					</tr>
 					<tr>
 						<td class="input"><label for="matkhau">Mật khẩu cũ</label></td>
 						<td><input type="password" required size="20" maxlength="20"
 							title="Mật khẩu phải hơn 7 ký tự và nhỏ hơn 21" pattern=".{8,20}"
-							class="text" id="matkhau" name="passOld"></td>
+							class="text" id="matkhau" name="passOld" onkeypress="changePassOld();"><div id="requirePassOld" style="color: red"></div></td>
 					</tr>
 					<tr>
 						<td class="input"><label for="matkhau">Mật khẩu mới</label></td>
 						<td><input type="password" required size="20" maxlength="20"
 							title="Mật khẩu phải hơn 7 ký tự và nhỏ hơn 21" pattern=".{8,20}"
-							class="text" id="matkhau" name="passNew"></td>
+							class="text" id="matkhau" name="passNew" onkeypress="changePassNew();"><div id="requirePassNew" style="color: red"></div></td>
 					</tr>
 
 					<tr>
@@ -148,12 +148,12 @@
 								mật khẩu mới</label></td>
 						<td><input type="password" required size="20" maxlength="20"
 							title="Mật khẩu phải hơn 7 ký tự và nhỏ hơn 21" pattern=".{8,20}"
-							class="text" id="rePassNew" name="rePassNew"></td>
+							class="text" id="rePassNew" name="rePassNew" onkeypress="changeRePassNew();"><div id="requireRePassNew" style="color: red"></div></td>
 					</tr>
 					</table>
 				</div>
 				<div class="button-group">
-					<button class="button" type="submit" onclick="checkPassword()">
+					<button class="button" type="button" onclick="checkPassword()">
 						<i class="fa fa-plus-circle"></i>&nbsp;Lưu lại
 					</button>
 					&nbsp;

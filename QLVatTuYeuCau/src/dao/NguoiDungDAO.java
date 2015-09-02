@@ -3,12 +3,18 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.CTVatTu;
+import model.CongVan;
 import model.NguoiDung;
+import model.YeuCau;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import util.HibernateUtil;
@@ -59,6 +65,32 @@ public class NguoiDungDAO {
 		session.delete(nguoiDung);
 		session.getTransaction().commit();
 	}
+	
+	public ArrayList<NguoiDung> limit(int first, int limit) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(NguoiDung.class, "nd");
+		cr.createAlias("nd.msnv", "msnv");
+		cr.createAlias("nd.hoTen", "hoTen");
+		cr.createAlias("nd.vaiTro", "vaiTro");
+		cr.createAlias("vaiTro.vtMa", "vtMa");
+		cr.addOrder(Order.asc("nd.msnv"));
+		cr.setFirstResult(first);
+		cr.setMaxResults(limit);
+		ArrayList<NguoiDung> list = (ArrayList<NguoiDung>) cr.list();
+		session.getTransaction().commit();
+		return list;
+	}
+	
+	public long size() {
+		session.beginTransaction();
+		String sql = "select count(msnv) from NguoiDung";
+		Query query =  session.createQuery(sql);
+		long size = (long) query.list().get(0);
+		session.getTransaction().commit();
+		return size;
+		
+	}
+	
 	public ArrayList<String> startWith(String i) {
 		session.beginTransaction();
 //		session.createCriteria(NguoiDung.class, "hoTen");

@@ -152,7 +152,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào Nguyễn Văn An</div>
+		<div id="greeting"></div>
 
 		<div id="main-content">
 			
@@ -232,30 +232,64 @@
 						</tr>
 					<%}%>
 				</table>
+<<<<<<< HEAD
 				</div>
 				</div>
 			</form>
+					<div id = "paging" >
+								<%
+									String str = "";
+=======
+				</div>
+
+				</div>
+			</form>
+<<<<<<< HEAD
 			<div id = "paging" >
 										<%
+=======
+				
+					
+				<div id = "paging" >
+									<%
+
+
+>>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
 										String str = "";
+>>>>>>> aa300c46bcdf020c77865a5c1b4aee82c7310d61
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
 									for(int i = 0; i < p; i++) {
 										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCtvtYc(" + i +")\">&nbsp;";
 									}
 									if (pageNum > 10)
-										// str = "<input type=\"button\" value=\"<<Previous\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;"  + str + "<input type=\"button\" value=\"Next>>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
-										str += "<input type=\"button\" value=\"Sau>>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
+								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
+<<<<<<< HEAD
 									out.println(str);	
+=======
+									out.println(str);	
+
+>>>>>>> aa300c46bcdf020c77865a5c1b4aee82c7310d61
 								%>
 <!-- 									<input type="button" value="Next>>"></td> -->
+<<<<<<< HEAD
+=======
+
+					</div>
+<<<<<<< HEAD
+>>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
 			</div>
+					</div>
+			
+
+=======
+>>>>>>> aa300c46bcdf020c77865a5c1b4aee82c7310d61
 			<form id="main-form">
-			<div class="form-title">Yêu cầu vật tư đã cập nhật</div> 
+			<div class="form-title" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
 							<table style= "width:960px; margin: 0 auto;s" >
 								<tr>
-									<th class="a-column"style= "text-align: center;"><input type="checkbox" name="checkAll" class="checkAll"></th>
+									<th class="a-column"style= "text-align: center;">Chọn</th>
 									<th class="b-column" style="text-align: center;">Mã vật tư</th>
 									<th class="c-column"style="text-align: center;">Tên vật tư</th>
 									<th class="e-column"style="text-align: center;">Nơi sản xuất</th>

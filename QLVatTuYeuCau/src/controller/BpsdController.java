@@ -47,6 +47,7 @@ public class BpsdController extends HttpServlet {
 			String email = request.getParameter("email");
 			donViDAO.addDonVi(new DonVi(dvMa, dvTen, sdt, diaChi, email,0 ));			
 			ArrayList<DonVi> donViList =  (ArrayList<DonVi>) donViDAO.getAllDonVi();
+			donViDAO.disconnect();
 			return new ModelAndView("danh-muc-bo-phan", "donViList", donViList);
 		}
 		
@@ -58,6 +59,7 @@ public class BpsdController extends HttpServlet {
 				}
 			}
 			ArrayList<DonVi> donViList =  (ArrayList<DonVi>) donViDAO.getAllDonVi();
+			donViDAO.disconnect();
 			return new ModelAndView("danh-muc-bo-phan", "donViList", donViList);
 		}
 		
@@ -65,8 +67,10 @@ public class BpsdController extends HttpServlet {
 			long size = donViDAO.size();
 			ArrayList<DonVi> donViList =  (ArrayList<DonVi>) donViDAO.limit(page - 1, 10);
 			request.setAttribute("size", size);
+			donViDAO.disconnect();
 			return new ModelAndView("danh-muc-bo-phan", "donViList", donViList);
 		}
+		donViDAO.disconnect();
 		return new ModelAndView("login");
 	}
 	@RequestMapping(value="/preEditBp", method=RequestMethod.GET,
@@ -75,6 +79,7 @@ public class BpsdController extends HttpServlet {
 	//		System.out.println("****" + vtId + "****");
 			DonViDAO donViDAO = new DonViDAO();
 			DonVi dv = donViDAO.getDonVi(dvMa);
+			donViDAO.disconnect();
 			return JSonUtil.toJson(dv);
 		}
 	@RequestMapping(value="/addBp", method=RequestMethod.GET, 
@@ -82,10 +87,11 @@ public class BpsdController extends HttpServlet {
 	 public @ResponseBody String addBp(@RequestParam("dvMa") String dvMa, @RequestParam("dvTen") String dvTen, 
 			 @RequestParam("sdt") String sdt, @RequestParam("diaChi") String diaChi, @RequestParam("email") String email ) {
 		String result = "";
-		System.out.println("MA: "+dvMa);
-		if(new DonViDAO().getDonVi(dvMa)==null)
+	//	System.out.println("MA: "+dvMa);
+		DonViDAO donViDAO = new DonViDAO();
+		if((donViDAO.getDonVi(dvMa)==null) || (donViDAO.getDonVi(dvMa)!=null &&donViDAO.getDonVi(dvMa).getDaXoa() == 1))
 		{
-			new DonViDAO().addDonVi(new DonVi(dvMa, dvTen, sdt, diaChi, email,0 ));
+			donViDAO.addOrUpdateDonVi(new DonVi(dvMa, dvTen, sdt, diaChi, email,0 ));
 			System.out.println("success");
 			result = "success";	
 		}
@@ -94,6 +100,7 @@ public class BpsdController extends HttpServlet {
 			System.out.println("fail");
 			result = "fail";
 		}
+		donViDAO.disconnect();
 			return JSonUtil.toJson(result);
 //		DonVi dv = new DonVi(dvMa, dvTen,sdt, diaChi, email);
 //		new DonViDAO().addDonVi(dv);
@@ -103,9 +110,10 @@ public class BpsdController extends HttpServlet {
 		produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String updateBp(@RequestParam("dvMaUpdate") String dvMaUpdate, @RequestParam("dvTenUpdate") String dvTenUpdate, 
 			 @RequestParam("sdtUpdate") String sdtUpdate, @RequestParam("diaChiUpdate") String diaChiUpdate, @RequestParam("emailUpdate") String emailUpdate ) {
-
+		DonViDAO donViDAO = new DonViDAO();
 		DonVi dv = new DonVi(dvMaUpdate, dvTenUpdate, sdtUpdate, diaChiUpdate, emailUpdate,0);
-		new DonViDAO().updateDonVi(dv);
+		donViDAO.updateDonVi(dv);
+		donViDAO.disconnect();
 		return JSonUtil.toJson(dv);
 	}
 	@RequestMapping(value="/deleteBp", method=RequestMethod.GET, 
@@ -117,6 +125,7 @@ public class BpsdController extends HttpServlet {
 		for(String dvMa : str) {
 			dvDAO.deleteDonVi(dvMa);
 		}
+		dvDAO.disconnect();
 		return JSonUtil.toJson(dvList);
 	}
 	
@@ -127,9 +136,8 @@ public class BpsdController extends HttpServlet {
 		System.out.println("MA: " + pageNumber);
 		DonViDAO dvDAO = new DonViDAO();
 		int page = Integer.parseInt(pageNumber);
-		ArrayList<DonVi> dvList = (ArrayList<DonVi>) dvDAO.limit((page -1 ) * 10, 10);
-		
-
+		ArrayList<DonVi> dvList = (ArrayList<DonVi>) dvDAO.limit((page -1 ) * 10, 10);		
+		dvDAO.disconnect();
 			return JSonUtil.toJson(dvList);
 	}
 }
