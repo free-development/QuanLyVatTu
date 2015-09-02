@@ -20,14 +20,6 @@
 	type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/noi-san-xuat.js"></script>
-<script type="text/javascript">
-// $(document).ready(function() {
-// 	  	$('.page').click(function(){
-// 	    	var page = $(this).val();
-// 	    	alert(page);
-// 	    });	
-// 	});
-</script>
 <meta charset="UTF-8">
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
 </head>
@@ -39,7 +31,7 @@
     	response.setCharacterEncoding("UTF-8");
     	
     		ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) request.getAttribute("noiSanXuatList");
-    		Long size = (Long) request.getAttribute("size");
+    		long pageNum = (Long) request.getAttribute("size")/10;
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -152,15 +144,14 @@
 				<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td>Trang</td>
-									<td>
-										<%
-									long pageNum = size / 10;
-									for(int i = 0; i <= pageNum; i++) { %>
-										<input type="button" value="<%=i+1%>" onclick="window.document.bgColor = 'blue'; " class="page">
-								<%} %>
-									</td>
-<!-- 									<td><input type="button" value=">>"></td> -->
+										<td>Trang</td>
+										<td>
+												<%
+												for(int i = 0; i <= pageNum; i++) { %>
+												<input type="button" value="<%=i+1%>" class="page">
+												<%} %>
+										</td>
+									
 								</tr>
 							</table>
 						</div>

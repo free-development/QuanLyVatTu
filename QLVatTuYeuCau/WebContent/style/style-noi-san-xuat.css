@@ -65,16 +65,10 @@
 	padding-bottom: 20px;
 }
 #paging table {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 5px;
 	margin: 0 auto;
-	margin-top: 20px;
-	border-style: none;
-}
-#paging table tr td{
-	border-style: none;
-}
-#paging table tr td a {
-	color: blue;
-	font-size: 15px;
 }
 .scroll-nsx {
 	max-height: 420px;

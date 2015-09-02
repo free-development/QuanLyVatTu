@@ -404,6 +404,7 @@
 							var t = ((p -1) * 5 + i + 1);
 							
 							button += '<input type=\"button\" value=\"' + ((p -1) * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageVatTu(' + ((p -1)*5 + i)  +')\">&nbsp;';
+							
 							if (t > size)
 								break;
 						}

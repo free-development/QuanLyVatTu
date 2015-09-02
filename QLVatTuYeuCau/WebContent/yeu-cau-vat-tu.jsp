@@ -221,23 +221,11 @@
 
 					</div>
 			</div>
-			
-=======
-								%>
-
-<!-- 									<input type="button" value="Next>>"></td> -->
-
-								</tr>
-							</table>
 					</div>
-
-			</div>
-			</form>
 			
 
->>>>>>> e3f62190466dbd472b9df6990d4a15dbcbc7dc10
 			<form id="main-form">
-			<div class="form-title">Yêu cầu vật tư đã cập nhật</div> 
+			<div class="form-title" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
 							<table style= "width:960px; margin: 0 auto;s" >
 								<tr>
