@@ -31,11 +31,11 @@
 		<many-to-one name="mucDich" class="model.MucDich" fetch="join">
 			<column name="MDMA" />
 		</many-to-one>
-		<many-to-one name="trangThai" class="model.TrangThai"
+		<many-to-one name="trangThai" class="model.TrangThai" access="field"
 			fetch="join">
 			<column name="TTMA" />
 		</many-to-one>
-		<many-to-one name="donVi" class="model.DonVi" fetch="join">
+		<many-to-one name="donVi" class="model.DonVi" fetch="join" access="field" >
 			<column name="DVMA" />
 		</many-to-one>
 		<!-- <many-to-one name="file" class="model.File" fetch="select"> -->
