@@ -1,4 +1,5 @@
 
+<%@page import="model.NguoiDung"%>
 <%@page import="util.DateUtil"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -31,6 +32,14 @@
 <title></title>
 </head>
 <body>
+	<%
+   		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+   		if (authentication == null) {
+   			request.setAttribute("url", siteMap.bcbdnManage+ "?action=manageBcbdn");
+   			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
+   			dispatcher.forward(request, response);
+   		}
+   	%>
 		<% 
     	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) session.getAttribute("ctVatTuList");
 // 	Long pageNum = (Long) request.getAttribute("page");

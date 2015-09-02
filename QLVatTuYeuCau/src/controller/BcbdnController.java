@@ -33,30 +33,43 @@ public class BcbdnController extends HttpServlet {
 	@RequestMapping("/manageBcbdn")
 	protected ModelAndView manageBcbdn(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		YeuCauDAO yeuCauDAO = new YeuCauDAO();
-		String action = request.getParameter("action");
 
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("nguoiDung") == null)
+			response.sendRedirect("login.jsp");
+
+		String action = request.getParameter("action");
+		
+		YeuCauDAO yeuCauDAO = new YeuCauDAO();
+		TrangThaiDAO trangThaiDAO = new TrangThaiDAO();
+		DonViDAO donViDAO = new DonViDAO();
+		CongVanDAO congVanDAO = new CongVanDAO();
 		if ("manageBcbdn".equalsIgnoreCase(action)) {
-			ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) new TrangThaiDAO().getAllTrangThai();
-			ArrayList<DonVi> donViList = (ArrayList<DonVi>) new DonViDAO().getAllDonVi();
-			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getAllCongVan();
+			
+			
+			ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) trangThaiDAO.getAllTrangThai();
+			ArrayList<DonVi> donViList = (ArrayList<DonVi>) donViDAO.getAllDonVi();
+			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.getAllCongVan();
 			HashMap<Integer, ArrayList<YeuCau>> yeuCauHash = new HashMap<Integer, ArrayList<YeuCau>>();
 			for (CongVan congVan : congVanList) {
 				int cvId = congVan.getCvId();
 				ArrayList<YeuCau> yeuCau = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
 				yeuCauHash.put(cvId, yeuCau);
 			}
-
+			yeuCauDAO.disconnect();
+			congVanDAO.disconnect();
+			donViDAO.disconnect();
+			
 			session.setAttribute("donViList", donViList);
 			session.setAttribute("trangThaiList", trangThaiList);
 			session.setAttribute("congVanList", congVanList);
 			session.setAttribute("yeuCau", yeuCauHash);
+			
 			return new ModelAndView(siteMap.baoCaoBangDeNghi);
 		}
 		if ("baocaobdn".equalsIgnoreCase(action)) {
-			ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) new TrangThaiDAO().getAllTrangThai();
-			ArrayList<DonVi> donViList = (ArrayList<DonVi>) new DonViDAO().getAllDonVi();
+			ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) trangThaiDAO.getAllTrangThai();
+			ArrayList<DonVi> donViList = (ArrayList<DonVi>) donViDAO.getAllDonVi();
 			String ngaybd = request.getParameter("ngaybd");
 			String ngaykt = request.getParameter("ngaykt");
 			String donvi = request.getParameter("donvi");
@@ -64,7 +77,7 @@ public class BcbdnController extends HttpServlet {
 			System.out.println(ngaykt);
 			System.out.println(donvi);
 			System.out.println(trangthai);
-			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getTrangThai(ngaybd, ngaykt, donvi,
+			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.getTrangThai(ngaybd, ngaykt, donvi,
 					trangthai);
 			HashMap<Integer, ArrayList<YeuCau>> yeuCauHash = new HashMap<Integer, ArrayList<YeuCau>>();
 			for (CongVan congVan : congVanList) {
@@ -72,6 +85,10 @@ public class BcbdnController extends HttpServlet {
 				ArrayList<YeuCau> yeuCau = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
 				yeuCauHash.put(cvId, yeuCau);
 			}
+			yeuCauDAO.disconnect();
+			congVanDAO.disconnect();
+			donViDAO.disconnect();
+			
 			session.setAttribute("ngaybd", DateUtil.parseDate(ngaybd));
 			session.setAttribute("ngaykt", DateUtil.parseDate(ngaykt));
 			session.setAttribute("donViList", donViList);

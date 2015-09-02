@@ -46,6 +46,10 @@ public class NdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@RequestMapping("/ndManage")
 	public ModelAndView ndManage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session.getAttribute("nguoiDung") == null)
+			response.sendRedirect("login.jsp");
+		
 		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 		ChucDanhDAO chucDanhDAO = new ChucDanhDAO();
 		CTNguoiDungDAO ctNguoiDungDAO = new CTNguoiDungDAO();
@@ -131,7 +135,13 @@ public class NdController extends HttpServlet {
 		}
 		return JSonUtil.toJson(result);
 	}
-	/*
+	@RequestMapping(value="/logout")
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		session.removeAttribute("nguoiDung");
+		response.sendRedirect("login.jsp");
+	}
+	
 	@RequestMapping("/login")
 	public ModelAndView login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -140,17 +150,21 @@ public class NdController extends HttpServlet {
 		CTNguoiDungDAO ctndDAO = new CTNguoiDungDAO();
 		NguoiDungDAO ndDAO = new NguoiDungDAO();
 		boolean check = ctndDAO.login(msnv, StringUtil.encryptMD5(matKhau));
+		ctndDAO.disconnect();
 		if (check) {
 			NguoiDung nguoiDung =  ndDAO. getNguoiDung(msnv);
 			session.setAttribute("nguoiDung", nguoiDung);
-			return new ModelAndView("index");
+			String url = (String) request.getAttribute("url");
+			String forward = (url != null ? url : "index");
+			return new ModelAndView(forward);
 		} else {
 			return new ModelAndView("login", "status", "fail");
 		}
 	}
-	*/
-	@RequestMapping(value="/login", method=RequestMethod.GET, 
-			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	
+	/*
+	@RequestMapping(value="/login", method=RequestMethod.POST) 
+//			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String login(@RequestParam("msnv") String msnv, @RequestParam("matkhau") String matkhau)
 	{
 //		HttpSession session =  
@@ -158,12 +172,12 @@ public class NdController extends HttpServlet {
 		if (new CTNguoiDungDAO().login(msnv, StringUtil.encryptMD5(matkhau))) {
 			result = "success";
 			HttpServletResponse response;
-			response.sendRedirect("home.jsp");
+//			response.sendRedirect("home.jsp");
 		}
 		else {
 			result = "fail";
 		}
 		return JSonUtil.toJson(result);
 	}
-	
+	*/
 }

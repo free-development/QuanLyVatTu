@@ -32,6 +32,7 @@ import model.CongVan;
 import model.DonVi;
 import model.File;
 import model.MucDich;
+import model.NguoiDung;
 import model.TrangThai;
 import util.DateUtil;
 import util.FileUtil;
@@ -55,24 +56,28 @@ public class CvController extends HttpServlet {
     private String columnValue = "";
     
     public ModelAndView getCongvan( HttpServletRequest request) {
-//    	session = request.getSession(false);
+    	session = request.getSession(false);
+    	NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+    	String msnv = nguoiDung.getMsnv();
     	
     	MucDichDAO mucDichDAO =  new MucDichDAO();
     	DonViDAO donViDAO =  new DonViDAO();
     	TrangThaiDAO trangThaiDAO =  new TrangThaiDAO();
     	CongVanDAO congVanDAO =  new CongVanDAO();
     	FileDAO fileDAO =  new FileDAO();
-    	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(null, null, 0, 3);
+    	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(msnv, null, null, 0, 3);
 		HashMap<Integer, File> fileHash = new HashMap<Integer, File>();
 		ArrayList<DonVi> donViList = (ArrayList<DonVi>) donViDAO.getAllDonVi();
 		ArrayList<MucDich> mucDichList = (ArrayList<MucDich>) mucDichDAO.getAllMucDich();
 		ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) trangThaiDAO.getAllTrangThai();
-		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(5);
-		long size = congVanDAO.size();
+		CongVanDAO congVanDAO2 =  new CongVanDAO();
+		CongVanDAO congVanDAO3 =  new CongVanDAO();
+		long size = congVanDAO.size(msnv);
 		for(CongVan congVan : congVanList) {
 			int cvId = congVan.getCvId();
 			fileHash.put(cvId, fileDAO.getByCongVanId(cvId));
 		}
+		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnv,5);
 		request.setAttribute("congVanList", congVanList);
 		request.setAttribute("fileHash", fileHash);
 		request.setAttribute("mucDichList", mucDichList);
@@ -80,11 +85,8 @@ public class CvController extends HttpServlet {
 		request.setAttribute("trangThaiList", trangThaiList);
 		request.setAttribute("yearList", yearList);
 		request.setAttribute("size", size);
-//		congVanDAO.close();
-//		donViDAO.close();
-//		trangThaiDAO.close();
-//		mucDichDAO.close();
-//		fileDAO.close();
+		congVanDAO3.disconnect();
+		congVanDAO2.disconnect();
 		congVanDAO.disconnect();
 		donViDAO.disconnect();
 		trangThaiDAO.disconnect();
@@ -99,13 +101,17 @@ public class CvController extends HttpServlet {
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-    	
+		HttpSession session = request.getSession(false);
+		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+		if (nguoiDung == null)
+			response.sendRedirect("login.jsp");
+		
 		String action = request.getParameter("action");
 		if("manageCv".equalsIgnoreCase(action)) {
 			FileDAO fileDAO = new FileDAO();
 	    	CongVanDAO congVanDAO = new CongVanDAO();
 	    	
-			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(null, null, 0, 3);
+			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(nguoiDung.getMsnv() ,null, null, 0, 3);
 			HashMap<Integer, File> fileHash = new HashMap<Integer, File>();
 			for(CongVan congVan : congVanList) {
 				int cvId = congVan.getCvId();
@@ -211,7 +217,6 @@ public class CvController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String changePass(@RequestParam("cvId") int cvId) {
     	CongVanDAO congVanDAO = new CongVanDAO();
-		System.out.println("OK");
 		CongVan congVan = congVanDAO.getCongVan(cvId);
 		return JSonUtil.toJson(congVan);
 	}
@@ -227,7 +232,6 @@ public class CvController extends HttpServlet {
     	// 
     	MultipartRequest multipartRequest = new MultipartRequest(request, tempPath, maxSize);
 		String action = multipartRequest.getParameter("action");
-//		int soDen = Integer.parseInt(multipartRequest.getParameter("soDen"));
 		String soDen = multipartRequest.getParameter("soDen");
 		String cvSo = multipartRequest.getParameter("cvSo");
 		
@@ -243,7 +247,6 @@ public class CvController extends HttpServlet {
 		String fileName = "";
 		while(listFileName.hasMoreElements()) {
 			fileFullName = multipartRequest.getFilesystemName(listFileName.nextElement().toString());
-			//int i = fileName.lastIndexOf("."); 
 			java.io.File file = new java.io.File(tempPath + fileFullName);
 			fileName = FileUtil.getNameFile(file);
 			String fileExtension = FileUtil.getExtension(file);
@@ -289,17 +292,6 @@ public class CvController extends HttpServlet {
 		return JSonUtil.toJson(cvId);
 	}
 	
-	@RequestMapping(value="/loadPageCv", method=RequestMethod.GET, 
-			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String loadPageCv(@RequestParam("pageNumber") String pageNumber) {
-		String result = "";
-		System.out.println("MA: " + pageNumber);
-		CongVanDAO cvDAO = new CongVanDAO();
-		int page = Integer.parseInt(pageNumber);
-		ArrayList<CongVan> cvList = (ArrayList<CongVan>) cvDAO.limit((page -1 ) * 10, 10);
-		
-		return JSonUtil.toJson(cvList);
-	}
 	@RequestMapping(value="/preUpdateCv", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String preUpdateCv(@RequestParam("congVan") String congVan) {
@@ -312,10 +304,13 @@ public class CvController extends HttpServlet {
 	@RequestMapping(value="/loadByYear", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String loadByYear(@RequestParam("year") String yearRequest) {
+		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+    	String msnv = nguoiDung.getMsnv();
+		
 		CongVanDAO congVanDAO = new CongVanDAO();
 		FileDAO fileDAO = new FileDAO();
 		year = Integer.parseInt(yearRequest);
-		ArrayList<Integer> monthList = congVanDAO.groupByMonth(year);
+		ArrayList<Integer> monthList = congVanDAO.groupByMonth(msnv, year);
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
 		month = 0;
@@ -331,7 +326,7 @@ public class CvController extends HttpServlet {
 				conditions.put(column, columnValue);
 		}
 		orderBy.put("cvNgayNhan", true);
-		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(conditions, orderBy, 0, 3);
+		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnv, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
 		for (CongVan congVan : congVanList) {
 			File file = fileDAO.getByCongVanId(congVan.getCvId());
@@ -348,10 +343,13 @@ public class CvController extends HttpServlet {
 	@RequestMapping(value="/loadByMonth", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String loadByMonth(@RequestParam("month") String monthRequest) {
+		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+    	String msnv = nguoiDung.getMsnv();
+		
 		month = Integer.parseInt(monthRequest);
 		CongVanDAO congVanDAO = new CongVanDAO();
 		FileDAO fileDAO = new FileDAO();
-		ArrayList<Integer> dateList = congVanDAO.groupByDate(year, month);
+		ArrayList<Integer> dateList = congVanDAO.groupByDate(msnv, year, month);
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
 		if (year != 0)
@@ -367,7 +365,7 @@ public class CvController extends HttpServlet {
 				conditions.put(column, columnValue);
 		}
 		orderBy.put("cvNgayNhan", true);
-		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(conditions, orderBy, 0, 3);
+		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnv, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
 		for (CongVan congVan : congVanList) {
 			File file = fileDAO.getByCongVanId(congVan.getCvId());
@@ -384,6 +382,9 @@ public class CvController extends HttpServlet {
 	@RequestMapping(value="/loadByDate", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String loadByDate(@RequestParam("date") String dateRequest) {
+		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+    	String msnv = nguoiDung.getMsnv();
+		
 		date = Integer.parseInt(dateRequest);
 		CongVanDAO congVanDAO = new CongVanDAO();
 		FileDAO fileDAO = new FileDAO();
@@ -404,7 +405,7 @@ public class CvController extends HttpServlet {
 				conditions.put(column, columnValue);
 		}
 		orderBy.put("cvNgayNhan", true);
-		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(conditions, orderBy, 0, 3);
+		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnv, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
 		for (CongVan congVan : congVanList) {
 			File file = fileDAO.getByCongVanId(congVan.getCvId());
@@ -420,6 +421,9 @@ public class CvController extends HttpServlet {
 	@RequestMapping(value="/searchByTrangThai", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String searchByTrangThai(@RequestParam("trangThai") String trangThai) {
+		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+    	String msnv = nguoiDung.getMsnv();
+		
 		ttMa = trangThai;
 		CongVanDAO congVanDAO = new CongVanDAO();
 		FileDAO fileDAO = new FileDAO();
@@ -442,7 +446,7 @@ public class CvController extends HttpServlet {
 			
 		orderBy.put("cvNgayNhan", true);
 		orderBy.put("soDen", true);
-		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(conditions, orderBy, 0, 3);
+		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnv, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
 		for (CongVan congVan : congVanList) {
 			File file = fileDAO.getByCongVanId(congVan.getCvId());
@@ -458,6 +462,9 @@ public class CvController extends HttpServlet {
 	@RequestMapping(value="/filter", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String filter(@RequestParam("filter") String filter, @RequestParam("filterValue") String filterValue) {
+		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+    	String msnv = nguoiDung.getMsnv();
+		
 		column = filter;
 		columnValue = filterValue;
 		CongVanDAO congVanDAO = new CongVanDAO();
@@ -480,7 +487,7 @@ public class CvController extends HttpServlet {
 		}
 			
 		orderBy.put("cvNgayNhan", true);
-		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(conditions, orderBy, 0, 3);
+		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnv, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
 		for (CongVan congVan : congVanList) {
 			File file = fileDAO.getByCongVanId(congVan.getCvId());
@@ -499,6 +506,9 @@ public class CvController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String loadPageCongVan(@RequestParam("pageNumber") String pageNumber) {
 		try { 
+			NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+	    	String msnv = nguoiDung.getMsnv();
+			
 			page = Integer.parseInt(pageNumber);
 			CongVanDAO congVanDAO = new CongVanDAO();
 			FileDAO fileDAO = new FileDAO();
@@ -521,13 +531,13 @@ public class CvController extends HttpServlet {
 				
 			orderBy.put("cvNgayNhan", true);
 			orderBy.put("soDen", true);
-			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(conditions, orderBy, (page) *3, 3);
+			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnv, conditions, orderBy, (page) *3, 3);
 			ArrayList<File> fileList = new ArrayList<File>();
 			for (CongVan congVan : congVanList) {
 				File file = fileDAO.getByCongVanId(congVan.getCvId());
 				fileList.add(file);
 			}
-			long size = congVanDAO.size();
+			long size = congVanDAO.size(msnv);
 			congVanDAO.disconnect();
 			fileDAO.disconnect();
 			ArrayList<Object> objectList = new ArrayList<Object>(); 

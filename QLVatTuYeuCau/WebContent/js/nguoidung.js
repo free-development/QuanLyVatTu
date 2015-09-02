@@ -31,7 +31,6 @@ function checkPassword()
  function login() {
 		var msnv = $('input:text[name=msnv]').val();
 		var matkhau = $('input:password[name=matkhau]').val();
-		alert(msnv + matkhau);
 			$.ajax({
 				url: "/QLVatTuYeuCau/login.html",	
 			  	type: "POST",
@@ -85,4 +84,11 @@ function checkPassword()
 			});
 	}
  
- 	
+ // click event
+ /*
+$(document).ready(function(){
+	$('#login').click(function(){
+		login();
+	});
+}) ;
+*/ 	

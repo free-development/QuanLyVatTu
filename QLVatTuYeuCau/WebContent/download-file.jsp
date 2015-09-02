@@ -1,3 +1,4 @@
+<%@page import="model.NguoiDung"%>
 <%@page import="model.CongVan"%>
 <%@page import="model.File"%>
 <%@page import="map.siteMap"%>
@@ -13,6 +14,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%
+   		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+   		if (authentication == null) {
+   			request.setAttribute("url", siteMap.bcbdnManage+ "?action=manageBcbdn");
+   			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
+   			dispatcher.forward(request, response);
+   		}
+   	%>
 <%
 // 	GstFormsAttachFile gstFormFile = (GstFormsAttachFile) request.getAttribute("gstFormFile"); 
 	

@@ -40,6 +40,16 @@ public class siteMap {
 //	public static final String loGin = home +  "loGin.html";
 	public static final String deleteNd = home +  "deleteNd.html";
 	
+	public static final String lockNguoiDung = home +  "lockNguoiDung.html";
+	public static final String logout = home +  "logout.html";
+	public static final String updateNguoiDung = home +  "updateNguoiDung.html";
+	public static final String resetPassword = home +  "resetPassword.html";
+	
+	public static final String changePassPage = "change-pass";
+	public static final String lockNguoiDungPage = "lock-nguoi-dung";
+	public static final String updateNguoiDungPage = "update-nguoi-dung";
+	public static final String resetPasswordPage = "reset-password";
+	
 	// map danh muc chuc danh
 	public static final String cdManage = home +  "manageCd.html";
 	public static final String chucDanh = "danh-muc-chuc-danh";
@@ -92,4 +102,8 @@ public class siteMap {
 	public static final String readExcel = home + "readExcel.html";
 	//xuat chi tiet vat tu
 	public static final String  xuatCTVatTu = "xuat-chi-tiet-vat-tu";
+	
+	// map home page
+	public static final String homePageManage = "manageHome.html";
+	public static final String homePage = "index";
 }

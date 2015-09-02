@@ -1,3 +1,4 @@
+<%@page import="model.NguoiDung"%>
 <%@page import="util.DateUtil"%>
 <%@page import="java.util.Date"%>
 <%@page import="model.YeuCau"%>
@@ -24,6 +25,14 @@
 <title></title>
 </head>
 <body>
+	<%
+   		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+   		if (authentication == null) {
+   			request.setAttribute("url", siteMap.bcbdnManage+ "?action=manageBcbdn");
+   			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
+   			dispatcher.forward(request, response);
+   		}
+   	%>
 		<%
 		java.sql.Date ngaybd = (java.sql.Date)session.getAttribute("ngaybd");
 		java.sql.Date ngaykt = (java.sql.Date)session.getAttribute("ngaykt");

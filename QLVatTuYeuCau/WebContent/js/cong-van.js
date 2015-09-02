@@ -333,7 +333,7 @@ function loadPage(pageNumber) {
 	if (pageNumber == 'Next') {
 		var lastPage = document.getElementsByClassName('page')[9].value;
 		var p = (lastPage) / 5;
-		var page = lastPage - 1;
+		var page = lastPage;
 	} else if (pageNumber == 'Previous') {
 		var firstPage = document.getElementsByClassName('page')[0].value;
 		var p = (firstPage -1) / 5;
@@ -371,9 +371,9 @@ function loadPage(pageNumber) {
 						for (var i = 0; i < 10; i++)
 							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPage(' + (p * 5 + i)  +')\">&nbsp;';
 						
-						button = button + '<input type=\"button\" value=\"Next>>\" onclick= \"loadPage(\'Next\');\">';
+						button = button + '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
 						if (p >= 1)
-							button = '<input type=\"button\" value=\"<<Previous\" onclick= \"loadPage(\'Previous\')\">&nbsp;' + button;
+							button = '<input type=\"button\" value=\"<<Trước\" onclick= \"loadPage(\'Previous\')\">&nbsp;' + button;
 						$('#paging').html(button);	
 					}
 	  	}

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<%@page import="model.NguoiDung"%>
 <%@page import="model.TrangThai"%>
 <%@page import="model.MucDich"%>
 <%@page import="model.DonVi"%>
@@ -31,6 +32,15 @@
 </head>
 <body>
 	<%
+   		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+   		if (authentication == null) {
+   			request.setAttribute("url", siteMap.cvManage+ "?action=manageCv");
+   			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
+   			dispatcher.forward(request, response);
+   			return;
+   		}
+   	%>
+	<%
 		request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -39,6 +49,14 @@
 		if(error != null)
 			out.println("<script>alert('Số công văn đã tồn tại. Vui lòng nhập lại!!!')</script>");
     	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList");
+    	if (congVanList ==  null) {
+    		int index = siteMap.cvManage.lastIndexOf("/");
+    		String url = siteMap.cvManage.substring(index);
+    		RequestDispatcher dispatcher =  request.getRequestDispatcher(url+"?action=manageCv");
+    		dispatcher.forward(request, response);
+    		return;
+    	}
+    		
     	HashMap<Integer, File> fileHash = (HashMap<Integer, File>) request.getAttribute("fileHash");
     	ArrayList<DonVi> donViList = (ArrayList<DonVi>) request.getAttribute("donViList");
     	ArrayList<MucDich> mucDichList = (ArrayList<MucDich>) request.getAttribute("mucDichList");
@@ -78,9 +96,11 @@
 		</div>
 		<div class="main_menu">
 			<ul>
-				<li><a href="">Trang chủ</a></li>
-				<li><a href="">Danh mục</a>
-							<ul>
+				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
+				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				
+				<li><a>Danh mục</a>
+					<ul>
 								<li><a href="<%=siteMap.nsxManage + "?action=manageNsx"%>">Danh
 										mục nơi sản xuất</a></li>
 								<li><a href="<%=siteMap.clManage + "?action=manageCl"%>">Danh
@@ -100,21 +120,30 @@
 								
 							</ul>
 				</li>
+				<%} %>
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-				<li><a href="<%=siteMap.bcManage +  "?action=manageBc"%>">Báo cáo</a>
+				<li><a>Báo cáo</a>
 					<ul>
 						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<li><a href="">Quản lý người dùng</a>
+				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
-						<li><a href=""/>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
+						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
 					</ul>
 				</li>
-				<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
-<!-- 				<li><a href="login.html">Đăng xuất</a></li> -->
+				<%} %>
+				<li><a>Tài khoản</a>
+					<ul>
+						<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
+					</ul>
+				</li>		
 			</ul>
 			<div class="clear"></div>
 		</div>

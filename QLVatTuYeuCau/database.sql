@@ -778,14 +778,14 @@ insert into VAITRO values(4,'Lap phieu xuat', 0);
 insert into VAITRO values(5,'Nhap vat tu', 0);
 
 
-insert into CHUCDANH values ('GD', 'Giam doc', 0);
-insert into CHUCDANH values ('GD1', 'Giam doc', 0);
-insert into CHUCDANH values ('GD2', 'Giam doc', 0);
-insert into CHUCDANH values ('GD3', 'Giam doc', 0);
-insert into CHUCDANH values ('TP', 'Truong phong', 0);
-insert into CHUCDANH values ('NV', 'Nhan vien', 0);
-insert into CHUCDANH values ('TK', 'Thu ky', 0);
-insert into CHUCDANH values ('VT', 'Van thu', 0);
+	insert into CHUCDANH values ('GD', 'Giam doc', 0);
+	insert into CHUCDANH values ('GD1', 'Giam doc', 0);
+	insert into CHUCDANH values ('GD2', 'Giam doc', 0);
+	insert into CHUCDANH values ('GD3', 'Giam doc', 0);
+	insert into CHUCDANH values ('TP', 'Truong phong', 0);
+	insert into CHUCDANH values ('NV', 'Nhan vien', 0);
+	insert into CHUCDANH values ('TK', 'Thu ky', 0);
+	insert into CHUCDANH values ('VT', 'Van thu', 0);
 >>>>>>> e0abe376de28b5ffd1b0577a294d9994bc1ffe19
 
 

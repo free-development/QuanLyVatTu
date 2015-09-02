@@ -38,7 +38,9 @@ public class NguoiDungDAO {
 	}
 	public List<NguoiDung> getAllNguoiDung() {
 		session.beginTransaction();
-		List<NguoiDung> nguoiDungList = (List<NguoiDung>) session.createCriteria(NguoiDung.class).list();
+		Criteria cr = session.createCriteria(NguoiDung.class, "nguoiDung");
+		cr.add(Restrictions.not(Restrictions.in("nguoiDung.chucDanh.cdTen", new String[]{"admin"})));
+		List<NguoiDung> nguoiDungList = (List<NguoiDung>) cr.list();
 		session.getTransaction().commit();
 		return nguoiDungList;
 	}
