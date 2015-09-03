@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<%@page import="model.ConfigParam"%>
 <%@page import="model.NguoiDung"%>
 <%@page import="model.TrangThai"%>
 <%@page import="model.MucDich"%>
@@ -32,9 +32,12 @@
 </head>
 <body>
 	<%
+		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
+		String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
+		String adminMa = request.getServletContext().getInitParameter("adminMa");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
-   			request.setAttribute("url", siteMap.cvManage+ "?action=manageCv");
+   			session.setAttribute("url", siteMap.cvManage+ "?action=manageCv");
    			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
    			dispatcher.forward(request, response);
    			return;
@@ -64,36 +67,36 @@
     	ArrayList<Integer> yearList = (ArrayList<Integer>) request.getAttribute("yearList");
     	Long size = (Long) request.getAttribute("size");
     %>
+    
 	<div class="wrapper">
-		<div class="header">
-			<!--
-					<img src="img/logo.png" alt="" id="logo" width=80 height=80/><br/>
-					<img src="img/textlogo.png" alt="" id="logo" width=80 height=20/>
-	-->
-			<div id="top_title">Văn phòng điện tử</div>
-			<div id="bottom-title">Công ty điện lực cần thơ</div>
-			<div class="search_form" id="search">
-				<form action="" method="post">
-					<!--
-							<span class="search-select">
-								<select name="" ><option disabled selected>--Tùy chọn kiếm kiềm--</option></select>
-								<option value=""></option>
-							</span>
--->
-					<!--							<span class="bg-search">-->
-					<span class="search-text"> &nbsp; <input type="search"
-						class="search" name="search_box" name="search"
-						placeholder="Tìm kiếm" />
-					</span> <span class="search-button"> &nbsp;
-						<button class="btn-search">
-							<i class="fa fa-search"></i>
-						</button>
-					</span>
-					<!--                            </span>-->
-				</form>
-			</div>
+		<jsp:include page="header.jsp" /> 
+<!-- 		<div class="header"> -->
+<!-- 			<!-- -->
+<!-- 					<img src="img/logo.png" alt="" id="logo" width=80 height=80/><br/> -->
+<!-- 					<img src="img/textlogo.png" alt="" id="logo" width=80 height=20/> -->
+<!-- 			<div id="top_title">Văn phòng điện tử</div> -->
+<!-- 			<div id="bottom-title">Công ty điện lực cần thơ</div> -->
+<!-- 			<div class="search_form" id="search"> -->
+<!-- 				<form action="" method="post"> -->
+<!-- 					
+<!-- 							<span class="search-select"> -->
+<!-- 								<select name="" ><option disabled selected>--Tùy chọn kiếm kiềm--</option></select> -->
+<!-- 								<option value=""></option> -->
+<!-- 							</span> -->
+<!-- 												<span class="bg-search"> -->
+<!-- 					<span class="search-text"> &nbsp; <input type="search" -->
+<!-- 						class="search" name="search_box" name="search" -->
+<!-- 						placeholder="Tìm kiếm" /> -->
+<!-- 					</span> <span class="search-button"> &nbsp; -->
+<!-- 						<button class="btn-search"> -->
+<!-- 							<i class="fa fa-search"></i> -->
+<!-- 						</button> -->
+<!-- 					</span> -->
+<!-- 					                           </span> -->
+<!-- 				</form> -->
+<!-- 			</div> -->
 
-		</div>
+<!-- 		</div> -->
 		<div class="main_menu">
 			<ul>
 				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
@@ -128,7 +131,7 @@
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
 				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
@@ -147,7 +150,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào Nguyễn Văn An</div>
+		<div id="greeting"><%=authentication.getHoTen() %></div>
 
 		<div id="main-content">
 			<div id="content-form">
@@ -254,7 +257,7 @@
 						</div>
 					</form>	
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
-                     <div class="scroll_content">
+                     <div style="height: 500px; width: 810px; overflow:auto">
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {
@@ -296,9 +299,13 @@
 							<td class="left-column-first">Nơi GQ chính</td>
 							<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
 							<td colspan="3" style="float: right;">
+							<%
+								String chucDanh =  authentication.getChucDanh().getCdMa();
+							if (truongPhongMa.equalsIgnoreCase(chucDanh)) {%>
 								<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
 									<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
 								</button>
+								<%} %>
 							</td>
 						</tr>
 						<tr>
@@ -318,19 +325,24 @@
 						<div id="paging">
 						<%
 							long pageNum = size / 3;
-							long p = (size <= 10 ? pageNum : 10);
+							long p = (pageNum <= 10 ? pageNum : 10);
 							for (int i = 0; i < p; i++) {
 						%>
 						<input type="button" name = "page" class="page" value = "<%=i+1 %>" onclick = "loadPage(<%=i%>)">
 						<%}
 							if(pageNum > 10) {
 						%>
-							<input type="button" name = "page" class="page" value = "Sau" onclick = "loadPage('Next')";>
+							<input type="button" class="pageMove" value = "Sau >>" onclick = "loadPage('Next')";>
+							
 						<%}%>	
 						</div>
-						
+						<script type="text/javascript">$('.page')[0].focus();</script>
 						<div class="group-button">
 							<input type="hidden" name="action" value="update-yeu-cau">
+							<%
+								String chucDanh =  authentication.getChucDanh().getCdMa();
+								if (vanThuMa.equalsIgnoreCase(chucDanh)) {
+							%>
 							<button type="button" class="button" onclick="loadDataCv();">
 								<i class="fa fa-plus-circle"></i>&nbsp;Thêm mới
 							</button>
@@ -341,14 +353,20 @@
 							<button class="button" type="button" onclick="confirmDelete();">
 								<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa
 							</button>
+							<%} %>
 <!-- 							<button class="button" "> -->
 <!-- 								<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa -->
 <!-- 							</button> -->
 							&nbsp;
+							<%
+// 								String chucDanh =  authentication.getChucDanh().getCdMa();
+								if (!vanThuMa.equalsIgnoreCase(chucDanh)) {
+							%>
 							<button class="button" onclick="return checkCongVan();">
 								<i class="fa fa-spinner"></i>&nbsp;&nbsp;Cập nhật yêu cầu vật tư
 							</button>
 							&nbsp;
+							<%} %>
 							<button type="button" class="button" onclick="location.href='<%=siteMap.home%>'">
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
