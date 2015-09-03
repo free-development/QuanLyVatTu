@@ -32,6 +32,7 @@
     </head>
     <body>
     	<%
+    		String adminMa = request.getServletContext().getInitParameter("adminMa");
     		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     		if (nguoiDung == null) {
     			request.setAttribute("url", "index");
@@ -72,7 +73,7 @@
 				<div class="main_menu">
 					<ul>
 						<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-						<%if ("admin".equalsIgnoreCase(nguoiDung.getChucDanh().getCdTen())) {%>
+						<%if (adminMa.equalsIgnoreCase(nguoiDung.getChucDanh().getCdMa())) {%>
 						
 						<li><a>Danh mục</a>
 							<ul>
@@ -103,7 +104,7 @@
 								<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 							</ul>
 						</li>
-						<%if ("admin".equalsIgnoreCase(nguoiDung.getChucDanh().getCdTen())) {%>
+						<%if (adminMa.equalsIgnoreCase(nguoiDung.getChucDanh().getCdMa())) {%>
 						<li><a>Quản lý người dùng</a>
 							<ul>
 								<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
@@ -122,7 +123,7 @@
 					</ul>
 					<div class="clear"></div>
 				</div>
-	
+				<div id="greeting"><%=nguoiDung.getHoTen() %></div>
 				<div id="main-content">
 					
 				</div>

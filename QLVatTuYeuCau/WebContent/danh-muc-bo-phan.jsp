@@ -41,6 +41,7 @@
 </head>
 <body>
 	<%
+		String adminMa = request.getServletContext().getInitParameter("adminMa");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
    			request.setAttribute("url", siteMap.bcbdnManage + "?action=manageBpsd");
@@ -61,38 +62,11 @@
 			Long size = (Long) request.getAttribute("size");
     	%>
 	<div class="wrapper">
-		<div class="header">
-			<!--
-					<img src="img/logo.png" alt="" id="logo" width=80 height=80/><br/>
-					<img src="img/textlogo.png" alt="" id="logo" width=80 height=20/>
-	-->
-			<div id="top_title">Văn phòng điện tử</div>
-			<div id="bottom-title">Công ty điện lực cần thơ</div>
-			<div class="search_form" id="search">
-				<form action="" method="post">
-					<!--
-							<span class="search-select">
-								<select name="" ><option disabled selected>--Tùy chọn kiếm kiềm--</option></select>
-								<option value=""></option>
-							</span>
--->
-
-					<span class="search-text"> &nbsp; <input type="search"
-						class="search" name="search_box" name="search"
-						placeholder="Tìm kiếm" />
-					</span> <span class="search-button"> &nbsp;
-						<button class="btn-search">
-							<i class="fa fa-search"></i>
-						</button>
-					</span>
-				</form>
-			</div>
-
-		</div>
+		<jsp:include page="header.jsp" /> 
 		<div class="main_menu">
 			<ul>
 				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
 				
 				<li><a>Danh mục</a>
 					<ul>
@@ -123,7 +97,7 @@
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<%if (adminMa .equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
 				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>

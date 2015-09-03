@@ -69,7 +69,9 @@
 // 		chatLuongDAO.addChatLuong(new ChatLuong("TTT","Tốt",0));
 		//NoiSanXuat cl = chatLuongDAO.getNoiSanXuat("AFC");
 // 		out.println(cl.getNsxTen());
-		
+		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
+		String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
+		String adminMa = request.getServletContext().getInitParameter("adminMa");
 		
 		
 	%>

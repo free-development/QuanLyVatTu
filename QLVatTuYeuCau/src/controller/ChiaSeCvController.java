@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
+import org.apache.tomcat.dbcp.pool.impl.GenericKeyedObjectPool.Config;
 import org.hibernate.type.descriptor.sql.VarbinaryTypeDescriptor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -58,7 +61,10 @@ public class ChiaSeCvController extends HttpServlet {
 			
 			CongVan congVan = congVanDAO.getCongVan(cvId);
 			ArrayList<VaiTro> vaiTroList = (ArrayList<VaiTro>) vaiTroDAO.getAllVaiTro();
-			ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung();
+			ArrayList<String> ignoreList = new ArrayList<String>();
+			ignoreList.add("TP");
+			ignoreList.add("AD");
+			ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(ignoreList);
 			VTCongVanDAO vtCongVanDAO = new VTCongVanDAO();
 
 			HashMap<String,NguoiDung> vtNguoiDungHash = vtCongVanDAO.getNguoiXuLy(cvId);
@@ -87,6 +93,7 @@ public class ChiaSeCvController extends HttpServlet {
    @RequestMapping("/chiaSeCv")
 	protected ModelAndView chiaSeCv(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		
 		if ("save".equalsIgnoreCase(action)) {
 //			session = request.getSession(false);
 			session = request.getSession(false);

@@ -65,6 +65,7 @@ display:none;
 	            
 	        }
 		%>
+		<div id="greeting"><%=authentication.getHoTen() %></div>
 		<table style = "margin: 0 auto;width:960px;">
 		<tr>
 			<td></td>

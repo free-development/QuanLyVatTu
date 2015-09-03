@@ -82,7 +82,8 @@ public class CongVanDAO {
 				return null;
 			}
 		}
-//		
+//		cr.
+		cr.add(Restrictions.eq("daXoa", 0));
 		session.getTransaction().commit();
 		return cr;
 	}
@@ -134,7 +135,6 @@ public class CongVanDAO {
 			id += idOld + 1;
 		else
 			id++;
-		
 		session.getTransaction().commit();
 		return id;
 	}
@@ -161,13 +161,25 @@ public class CongVanDAO {
 	}
 	public ArrayList<CongVan> getTrangThai(Date ngaybd, Date ngaykt){
 		session.beginTransaction();
-		Criteria cr = session.createCriteria(CongVan.class);
-		Criterion tt1 = Restrictions.eq("trangThai",new TrangThai("DGQ", ""));
-		Criterion tt2 = Restrictions.eq("trangThai",new TrangThai("CGQ", ""));
+		Criteria cr = session.createCriteria(CongVan.class, "congVan");
+		cr.createAlias("congVan.trangThai", "trangThai");
+//		cr.createAlias("", arg1)
+		Criterion tt1 = Restrictions.eq("trangThai.ttMa","DGQ");
+		Criterion tt2 = Restrictions.eq("trangThai.ttMa","CGQ");
 		LogicalExpression andExp = Restrictions.or(tt1, tt2);
-		Criterion ngay = Restrictions.between("cvNgayNhan", ngaybd, ngaykt);
-		LogicalExpression andNgay = Restrictions.and(andExp, ngay);
-		cr.add(andNgay);
+		cr.add(tt1);
+		cr.add(andExp);
+		if (!(ngaybd == null && ngaybd == null)) {
+			if (ngaybd == null)
+				ngaybd = ngaykt;
+			else
+				ngaykt = ngaybd;
+			Criterion ngay = Restrictions.between("cvNgayNhan", ngaybd, ngaykt);
+//			LogicalExpression andNgay = Restrictions.and(andExp, ngay);
+			cr.add(ngay);
+		}
+		
+		
 		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) cr.list();
 		session.getTransaction().commit();
 		return congVanList;
@@ -215,32 +227,49 @@ public class CongVanDAO {
 		session.getTransaction().commit();
 		return congVan;
 	}
-	public ArrayList<Integer> groupByYearLimit(String msnv, int limit){
+	public ArrayList<Integer> getCvIdByMsnv(String msnv) {
 		session.beginTransaction();
-		ArrayList<Integer> cvIdList = (ArrayList<Integer>) session.createQuery("select distinct(b.cvId) from VTCongVan b where msnv = '" + msnv + "'").list();
+		String sqlNd = "select distinct(b.cvId) from VTCongVan b";
+		if (msnv != null)
+			sqlNd += " where msnv = '" + msnv + "'";
+		
+		ArrayList<Integer> cvIdList = (ArrayList<Integer>) session.createQuery(sqlNd).list();
+		session.getTransaction().commit();
+		return cvIdList;
+	}
+	public ArrayList<Integer> groupByYearLimit(String msnv, int limit){
+		
+		
+		ArrayList<Integer> cvIdList = getCvIdByMsnv(msnv);
+				
 		if (cvIdList.size() == 0) {
-			session.getTransaction().commit();
 			return new ArrayList<Integer>();
 			
 		}
+		session.beginTransaction();
 		String sql = "select distinct YEAR(a.cvNgayNhan) from CongVan a where a.daXoa = 0 and a.cvId in"
-					+ " (select distinct(b.cvId) from VTCongVan b where msnv = :msnv) order by cvNgayNhan DESC";
+					+ " (select distinct(b.cvId) from VTCongVan b";
+		if (msnv != null)
+				sql	+= " where msnv = '" + msnv + "'";
+		sql += ") order by cvNgayNhan DESC";
 		Query query = session.createQuery(sql);
-		query.setParameter("msnv", msnv);
 		query.setMaxResults(limit);
 		ArrayList<Integer> yearList = (ArrayList<Integer>) query.list();
 		session.getTransaction().commit();
 		return yearList;
 	}
 	public ArrayList<Integer> groupByMonth(final String msnv, final int year){
-		session.beginTransaction();
-		ArrayList<Integer> cvIdList = (ArrayList<Integer>) session.createQuery("select distinct(b.cvId) from VTCongVan b where msnv = '" + msnv + "'").list();
+		ArrayList<Integer> cvIdList = getCvIdByMsnv(msnv);
 		if (cvIdList.size() == 0)
 			return new ArrayList<Integer>();
+			
+		session.beginTransaction();
 		String sql = "select distinct MONTH(a.cvNgayNhan) from CongVan a where a.daXoa = 0 and YEAR(cvNgayNhan) = :year and a.cvId in"
-				+ " (select distinct(b.cvId) from VTCongVan b where msnv = :msnv) order by cvNgayNhan DESC";
+					+ " (select distinct(b.cvId) from VTCongVan b";
+		if (msnv != null)
+				sql	+= " where msnv = '" + msnv + "'";
+		sql += ") order by cvNgayNhan DESC";
 		Query query = session.createQuery(sql);
-		query.setParameter("msnv", msnv);
 		query.setParameter("year", year);
 		
 		ArrayList<Integer> monthList = (ArrayList<Integer>) query.list();
@@ -248,15 +277,18 @@ public class CongVanDAO {
 		return monthList;
 	}
 	public ArrayList<Integer> groupByDate(final String msnv, final int year, final int month){
-		session.beginTransaction();
-		ArrayList<Integer> cvIdList = (ArrayList<Integer>) session.createQuery("select distinct(b.cvId) from VTCongVan b where msnv = '" + msnv + "'").list();
+		ArrayList<Integer> cvIdList = getCvIdByMsnv(msnv);
 		if (cvIdList.size() == 0)
 			return new ArrayList<Integer>();
+		
+		session.beginTransaction();
 		String sql = "select distinct DAY(a.cvNgayNhan) from CongVan a where a.daXoa = 0 and YEAR(cvNgayNhan) = :year and MONTH(cvNgayNhan) = :month and a.cvId in"
-				+ " (select distinct(b.cvId) from VTCongVan b where msnv = :msnv) order by cvNgayNhan DESC";
+					+ " (select distinct(b.cvId) from VTCongVan b";
+		if (msnv != null)
+				sql	+= " where msnv = '" + msnv + "'";
+		sql += ") order by cvNgayNhan DESC";
 		Query query = session.createQuery(sql);
 		
-		query.setParameter("msnv", msnv);
 		query.setParameter("year", year);
 		query.setParameter("month", month);
 		ArrayList<Integer> dateList = (ArrayList<Integer>) query.list();
@@ -306,7 +338,7 @@ public class CongVanDAO {
 				Object object = conditions.get(key);
 				if (object instanceof Integer && !key.equals("soDen")) {
 					cr.add(Restrictions.sqlRestriction(key.toUpperCase() + "(cvNgayNhan) = " + conditions.get(key)));
-				} else { 
+				} else if (conditions.get(key) != null){ 
 					cr.add(Restrictions.eq(key, conditions.get(key)));
 				}
 			}
@@ -340,8 +372,8 @@ public class CongVanDAO {
 	}
 	public static void main(String[] args) {
 		System.out.println(new CongVanDAO().size("b1203959"));
-		ArrayList<Integer> yearList = new CongVanDAO().groupByYearLimit("b1203959", 5);
-		for(Integer year : yearList)
+		ArrayList<CongVan> yearList =  new CongVanDAO().getTrangThai(null, null);
+		for(CongVan year : yearList)
 			System.out.println(year);
 		
 	}

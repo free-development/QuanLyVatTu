@@ -40,9 +40,6 @@
 </head>
 <body>
 	<%
-			String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
-			String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
-			String adminMa = request.getServletContext().getInitParameter("adminMa");
     		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     		if (nguoiDung == null) {
     			request.setAttribute("url", siteMap.bcbdnManage+ "?action=manageBcbdn");
@@ -87,7 +84,7 @@
 		<div class="main_menu">
 			<ul>
 				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-				<%if (adminMa.equalsIgnoreCase(nguoiDung.getChucDanh().getCdMa())) {%>
+				<%if ("admin".equalsIgnoreCase(nguoiDung.getChucDanh().getCdTen())) {%>
 				
 				<li><a>Danh mục</a>
 					<ul>
@@ -118,7 +115,7 @@
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<%if (adminMa.equalsIgnoreCase(nguoiDung.getChucDanh().getCdMa())) {%>
+				<%if ("admin".equalsIgnoreCase(nguoiDung.getChucDanh().getCdTen())) {%>
 				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>

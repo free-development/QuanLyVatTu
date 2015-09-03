@@ -72,13 +72,13 @@ public class NdController extends HttpServlet {
 			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh)));
 			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau)));
 			
-			ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung();
+			ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(new ArrayList<String>());
 			return new ModelAndView("them-nguoi-dung", "nguoiDungList", nguoiDungList);
 			
 		}
 		if("manageNd".equalsIgnoreCase(action)) {
 			ArrayList<ChucDanh> chucDanhList = (ArrayList<ChucDanh>) new ChucDanhDAO().getAllChucDanh();
-			ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung();
+			ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(new ArrayList<String>());
 			request.setAttribute("chucDanhList", chucDanhList);
 			return new ModelAndView("them-nguoi-dung", "nguoiDungList", nguoiDungList);
 		}
@@ -160,8 +160,15 @@ public class NdController extends HttpServlet {
 		if (check) {
 			NguoiDung nguoiDung =  ndDAO. getNguoiDung(msnv);
 			session.setAttribute("nguoiDung", nguoiDung);
-			String url = (String) request.getAttribute("url");
-			String forward = (url != null ? url : "index");
+//			int index = siteMap.cvManage.lastIndexOf("/");
+//    		String url = siteMap.cvManage.substring(index);
+			String forward = "index";
+//			String url = (String) session.getAttribute("url");
+//			if (url != null) {
+//				int index = url.lastIndexOf("/");
+//				String page = url.substring(index);
+//				forward = page;
+//			}
 			return new ModelAndView(forward);
 //			ctndDAO.disconnect();
 //			ndDAO.disconnect();
