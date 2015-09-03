@@ -227,7 +227,7 @@
 				</div>
 				<div class="button-group">
 					<!-- 				<input type="hidden" name="action" value = "AddCd">   -->
-					<button class="button" onclick="addCd();" type="button">
+					<button class="button" onclick="addCd()" type="button">
 						<i class="fa fa-plus-circle"></i>&nbsp;Thêm
 					</button>
 					<button type="reset" class="button">

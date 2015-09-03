@@ -12,6 +12,9 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 		<property name="prefix" value="/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+       <property name="contentType" value="text/html;charset=UTF-8" />
+	</bean>
 	<bean class = "org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
     <property name="messageConverters">
         <array>

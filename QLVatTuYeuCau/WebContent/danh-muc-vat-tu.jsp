@@ -393,11 +393,12 @@
 			
 			
 	<form id="chitiet">
+	<div style="height:400px;width: 1024px; overflow:auto">
 				<div id="view-table-chi-tiet">
 
 				<table>
 					<tr style="background: #199e5e">
-						<th class="left-column"><input type="checkbox" class="checkAll"></th>
+						<th class="left-column"><input type="checkbox" class="checkAllCT"></th>
 						<th class="four-column">Mã vật tư</th>
 						<th class="three-col">Tên vật tư</th>
 						<th class="six-column">Nơi sản xuất</th>
@@ -430,6 +431,7 @@
 					<%} }%>
 				</table>	
 					
+			</div>
 			</div>
 <!-- 			<div id = "paging" > -->
 <!-- 							<table style ="border-style: none;"> -->

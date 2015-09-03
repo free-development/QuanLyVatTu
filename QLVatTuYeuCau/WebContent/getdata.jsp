@@ -7,7 +7,7 @@
 
 	String query = request.getParameter("q");
 	
-	ArrayList<String> vatTuList = vatTuDAO.startWith(query);
+	ArrayList<String> vatTuList = vatTuDAO.startWithTen(query);
 	/*
 	Iterator<String> iterator = countries.iterator();
 	while(iterator.hasNext()) {
