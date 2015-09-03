@@ -44,6 +44,7 @@
 </head>
 <body>
 	<%
+		String adminMa = request.getServletContext().getInitParameter("adminMa");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
    			request.setAttribute("url", siteMap.cvManage+ "?action=manageCv");
@@ -102,7 +103,7 @@
 		<div class="main_menu">
 			<ul>
 				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
 				
 				<li><a>Danh mục</a>
 					<ul>
@@ -133,7 +134,7 @@
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
 				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
@@ -152,7 +153,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting"></div>
+		<div id="greeting"><%=authentication.getHoTen() %></div>
 
 		<div id="main-content">
 			
@@ -232,26 +233,41 @@
 						</tr>
 					<%}%>
 				</table>
+				</div>
+				</div>
 <<<<<<< HEAD
-				</div>
-				</div>
 			</form>				
 				</div>
 				<div id = "paging" >
 									<%
 										String str = "";
+=======
+
+			</form>					
+				<div id = "paging" >
+									<%
+										String str = "";
+
+>>>>>>> 7f0e867fdefa4fff6edb0d5c920da168f6dee3d0
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
 									for(int i = 0; i < p; i++) {
 										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCtvtYc(" + i +")\">&nbsp;";
 									}
 									if (pageNum > 10)
+<<<<<<< HEAD
 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
 									out.println(str);	
 								%>
 
 					</div>
 
+=======
+								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
+									out.println(str);	
+								%>
+			</div>
+>>>>>>> 7f0e867fdefa4fff6edb0d5c920da168f6dee3d0
 			<form id="main-form">
 			<div class="form-title" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
@@ -366,5 +382,4 @@
 			</div>
 			</form>
 </body>
-</html>
-s
+</html>ss

@@ -24,6 +24,8 @@ public class NguoiDungDAO {
 	private SessionFactory template;  
 	private Session session;
 	
+	private String truongPhongMa = "TP";
+	private String adminMa = "AD";
 	public NguoiDungDAO() {
 		template = HibernateUtil.getSessionFactory();
 		session = template.openSession();
@@ -32,7 +34,7 @@ public class NguoiDungDAO {
 	public NguoiDung getNguoiDung(final String msnv) {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(NguoiDung.class, "nguoiDung");
-		cr.createAlias("nguoiDung.chucDanh", "chucDanh");
+		
 		cr.add(Restrictions.eq("nguoiDung.msnv", msnv));
 		NguoiDung nguoiDung = null;
 		
@@ -42,10 +44,12 @@ public class NguoiDungDAO {
 		session.getTransaction().commit();
 		return nguoiDung;
 	}
-	public List<NguoiDung> getAllNguoiDung() {
+	public List<NguoiDung> getAllNguoiDung(ArrayList<String> ignoreList) {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(NguoiDung.class, "nguoiDung");
-		cr.add(Restrictions.not(Restrictions.in("nguoiDung.chucDanh.cdTen", new String[]{"admin"})));
+		cr.createAlias("nguoiDung.chucDanh", "chucDanh");
+//		cr.createAlias("chucDanh.cdTen", "cdTen");
+		cr.add(Restrictions.not(Restrictions.in("chucDanh.cdMa", ignoreList)));
 		List<NguoiDung> nguoiDungList = (List<NguoiDung>) cr.list();
 		session.getTransaction().commit();
 		return nguoiDungList;
@@ -65,6 +69,8 @@ public class NguoiDungDAO {
 		session.delete(nguoiDung);
 		session.getTransaction().commit();
 	}
+	
+	
 	
 	public ArrayList<NguoiDung> limit(int first, int limit) {
 		session.beginTransaction();
@@ -102,13 +108,6 @@ public class NguoiDungDAO {
 		session.getTransaction().commit();
 		return list;
 	}
-	public static void main(String[] args) {
-		ArrayList<String> list = new NguoiDungDAO().startWith("TRUONG TRUNG");
-		if(list.size() > 0) {
-			for(String hoTen : list)
-				System.out.println(hoTen);
-		}
-	}
 	public void close() {
 		if(session.isOpen())
 			session.close();
@@ -117,5 +116,7 @@ public class NguoiDungDAO {
 		if (session.isConnected())
 			session.disconnect();
 	}
-
+	public static void main(String[] args) {
+		System.out.println(new NguoiDungDAO().getAllNguoiDung(new ArrayList<String>()));
+	}
 }
