@@ -40,6 +40,7 @@
 </head>
 <body>
 	<%
+		String adminMa = request.getServletContext().getInitParameter("adminMa");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
    			request.setAttribute("url", siteMap.dvtManage + "?action=manageDvt");
@@ -92,7 +93,7 @@
 			<div class="main_menu">
 				<ul>
 				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
 				
 				<li><a>Danh mục</a>
 					<ul>
@@ -123,7 +124,7 @@
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
 				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
@@ -132,7 +133,6 @@
 						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
 					</ul>
 				</li>
-<<<<<<< HEAD
 				<%} %>
 				<li><a>Tài khoản</a>
 					<ul>
@@ -143,14 +143,12 @@
 			</ul>
 				<div class="clear"></div>
 			</div>
-
+		<div id="greeting"><%=authentication.getHoTen() %></div>
 		<div id="main-content">
-=======
 				<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
 				</ul>
 					<div class="clear"></div>
 				</div>
->>>>>>> a90e0b277e0186188878f4d4fa43cf0a52a5b35f
 			<div id="title-content">Danh mục đơn vị tính</div>
 			<div id="main-content">
 

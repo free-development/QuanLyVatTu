@@ -65,6 +65,7 @@ display:none;
 	            
 	        }
 		%>
+		<div id="greeting"><%=authentication.getHoTen() %></div>
 		<div class="group-button" style="position: fixed; right: 10px;">
 					<%
         				if (exportToExcel == null) {

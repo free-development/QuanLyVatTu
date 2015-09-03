@@ -431,12 +431,14 @@ function loadPage(pageNumber) {
 //	var p = 0;
 	if (pageNumber == 'Next') {
 		var lastPage = document.getElementsByClassName('page')[9].value;
+//		var pageNext = lastPage
+		
 		var p = (lastPage) / 5;
 		var page = lastPage;
 	} else if (pageNumber == 'Previous') {
 		var firstPage = document.getElementsByClassName('page')[0].value;
 		var p = (firstPage -1) / 5;
-		var page =  firstPage - 1;
+		var page =  firstPage - 2;
 	} else {
 		var page = pageNumber;
 	}
@@ -460,20 +462,22 @@ function loadPage(pageNumber) {
 							if (t == size)
 								break;
 						}
-						button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPage(\'Previous\')\">&nbsp;'  + button;
+						button = '<input type=\"button\" class=\"pageMove\"  value=\"<< Trước\" onclick= \"loadPage(\'Previous\')\">&nbsp;'  + button;
 						if ((p + 1) * 5 < size)
-							button += '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
+							button += '<input type=\"button\" class=\"pageMove\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
 						$('#paging').html(button);
+						$('.page')[5].focus();
 					} else if (pageNumber == 'Previous'){
 						if (p > 0)
 							p = p -1;
 						for (var i = 0; i < 10; i++)
 							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPage(' + (p * 5 + i)  +')\">&nbsp;';
 						
-						button = button + '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
+						button = button + '<input type=\"button\" class=\"pageMove\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
 						if (p >= 1)
-							button = '<input type=\"button\" value=\"<<Trước\" onclick= \"loadPage(\'Previous\')\">&nbsp;' + button;
-						$('#paging').html(button);	
+							button = '<input type=\"button\" class=\"pageMove\" value=\"<<Trước\" onclick= \"loadPage(\'Previous\')\">&nbsp;' + button;
+						$('#paging').html(button);
+						$('.page')[4].focus();
 					}
 	  	}
 	});

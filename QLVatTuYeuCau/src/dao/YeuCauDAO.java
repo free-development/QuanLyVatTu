@@ -101,8 +101,9 @@ public class YeuCauDAO {
 			Criteria cr = session.createCriteria(YeuCau.class);
 			Criterion expCv = Restrictions.eq("cvId", cvId);
 			Criterion xoaYc = Restrictions.eq("daXoa", 0);
-			LogicalExpression andExp = Restrictions.and(expCv, xoaYc);
-			cr.add(andExp);
+//			LogicalExpression andExp = Restrictions.and(expCv, xoaYc);
+			cr.add(expCv);
+			cr.add(xoaYc);
 			ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) cr.list(); 
 			session.getTransaction().commit();
 			return yeuCauList;

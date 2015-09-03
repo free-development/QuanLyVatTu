@@ -36,29 +36,35 @@ public class BcvttController extends HttpServlet {
     @RequestMapping("/manageBcvtt")
 	public ModelAndView manageBcvtt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	YeuCauDAO yeuCauDAO = new YeuCauDAO();
-    	CTVatTuDAO ctVatTu = new CTVatTuDAO();
+    	
+    	CongVanDAO congVanDAO = new CongVanDAO();
     	HttpSession session = request.getSession(false);
     	
     	String action = request.getParameter("action");
     	if ("manageBcvtt".equalsIgnoreCase(action)) {
-		return new ModelAndView(siteMap.baoCaoVatTuThieu);
+    		return new ModelAndView(siteMap.baoCaoVatTuThieu);
 		}
     	if("chitiet".equalsIgnoreCase(action)){
 //    		String loaiBc = new String(action);
     		String ngaybd = request.getParameter("ngaybd");
     		String ngaykt = request.getParameter("ngaykt");
-    			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
+    			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
         		HashMap<Integer, ArrayList<YeuCau>> yeuCauHash = new HashMap<Integer, ArrayList<YeuCau>>();
         			for(CongVan congVan: congVanList){
         				int cvId = congVan.getCvId();
         				ArrayList<YeuCau> yeuCau = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
         				yeuCauHash.put(cvId,yeuCau);
         			}
+        			if ((Integer)congVanList.get(0).getCvId() != null)
+        				System.out.println(yeuCauHash.size() + "*" + congVanList.get(0).getCvId());
         			session.setAttribute("ngaybd", DateUtil.parseDate(ngaybd));
         			session.setAttribute("ngaykt", DateUtil.parseDate(ngaykt));
         			session.setAttribute("action", action);
         			session.setAttribute("congVanList", congVanList);
         			session.setAttribute("yeuCau", yeuCauHash);
+        			
+        			congVanDAO.disconnect();
+        			yeuCauDAO.disconnect();
         			return new ModelAndView(siteMap.baoCaoVatTuThieu);
     		}
     	else if ("tonghop".equalsIgnoreCase(action)){
@@ -86,6 +92,8 @@ public class BcvttController extends HttpServlet {
         			session.setAttribute("ctvtHash", ctvtHash);
         			session.setAttribute("action", action);
         			session.setAttribute("yeuCau", yeuCauHash);
+        			congVanDAO.disconnect();
+        			yeuCauDAO.disconnect();
         			return new ModelAndView(siteMap.baoCaoVatTuThieu);
     	}
     	else

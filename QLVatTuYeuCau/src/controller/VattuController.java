@@ -109,22 +109,26 @@ public class VattuController extends HttpServlet {
 		}
 	@RequestMapping(value="/addVattu", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String addVattu(@RequestParam("vtMa") String vtMa, @RequestParam("vtTen") String vtTen, @RequestParam("dvt") DonViTinh dvt) {
+	 public @ResponseBody String addVattu(@RequestParam("vtMa") String vtMa, @RequestParam("vtTen") String vtTen, @RequestParam("dvt") String dvt) {
 		String result = "success";
 		VatTuDAO vatTuDAO = new VatTuDAO();
 		VatTu vt = vatTuDAO.getVatTu(vtMa);
+		DonViTinhDAO dvtDAO = new DonViTinhDAO();
+		DonViTinh dVT = dvtDAO.getDonViTinhByTen(dvt);
 		if(vt == null) 
 		{
-			vatTuDAO.addVatTu(new VatTu(vtMa, vtTen,dvt,0));
+			vatTuDAO.addVatTu(new VatTu(vtMa, vtTen,dVT,0));
 			System.out.println("success");
 			result = "success";	
 		}
 		else if(vt !=null && vt.getDaXoa()== 1){
 			vt.setVtMa(vtMa);
 			vt.setVtTen(vtTen);
-			vt.setDvt(dvt);
+			vt.setDvt(dVT);
 			vt.setDaXoa(0);
 			vatTuDAO.updateVatTu(vt);
+			System.out.println("success");
+			result = "success";	
 		}
 		else
 		{
@@ -193,4 +197,5 @@ public class VattuController extends HttpServlet {
 		vatTuDAO.disconnect();
 		return JSonUtil.toJson(objectList);
 	}
+
 }
