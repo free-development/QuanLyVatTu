@@ -64,6 +64,7 @@ public class MdController extends HttpServlet {
 			request.setAttribute("page", size/10);
 			return new ModelAndView("danh-muc-muc-dich", "mucDichList", mucDichList);
 		}
+		mucDichDAO.disconnect();
 		return new ModelAndView("login");
 	}
 	@RequestMapping(value="/preUpdateMd", method=RequestMethod.GET, 

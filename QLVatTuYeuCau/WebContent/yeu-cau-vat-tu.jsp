@@ -234,19 +234,10 @@
 				</table>
 				</div>
 				</div>
-			</form>
-					<div id = "paging" >
-<<<<<<< HEAD
+			</form>				
+				<div id = "paging" >
 									<%
-
-
 										String str = "";
-
-=======
-								<%
-									
-										String str = "";
->>>>>>> fb366e5dc7d3d3aa73d58197218f58d16162b9e4
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
 									for(int i = 0; i < p; i++) {
@@ -254,25 +245,13 @@
 									}
 									if (pageNum > 10)
 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
-<<<<<<< HEAD
-
 									out.println(str);	
-
-
-=======
-									out.println(str);	
->>>>>>> fb366e5dc7d3d3aa73d58197218f58d16162b9e4
 								%>
 <!-- 									<input type="button" value="Next>>"></td> -->
 
 					</div>
-<<<<<<< HEAD
-
-=======
->>>>>>> fb366e5dc7d3d3aa73d58197218f58d16162b9e4
 			</div>
 					</div>
-
 			<form id="main-form">
 			<div class="form-title" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
@@ -373,7 +352,7 @@
 			<div class = "form-title"style="margin-top: 10px;">Cấp phát vật tư</div>
 			<div id="view-table-cap" class="scroll-vat-tu">
 			<table style= "width:900px; margin: 0 auto;" >
-				<tr><th >Mã vật tư</th><th >Tên vật tư</th><th >Nơi sản xuất</th><th >Chất lượng</th><th >Đơn vị tính</th><th >Số lượng</th></tr>
+				<tr><th >Mã vật tư</th><th>Tên vật tư</th><th>Nơi sản xuất</th><th >Chất lượng</th><th >Đơn vị tính</th><th>Số lượng</th></tr>
 				<tr>
 					<td><div id="vtMaCap"></div></td>
 					<td><div id="vtTenCap"></div></td>
@@ -386,10 +365,6 @@
 			</table>
 			</div>
 			</form>
-			
-
-							</div>
-
-							</div>
 </body>
 </html>
+s

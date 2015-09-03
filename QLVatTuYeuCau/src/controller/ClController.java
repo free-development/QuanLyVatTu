@@ -66,6 +66,7 @@ public class ClController extends HttpServlet {
 			request.setAttribute("size", size);
 			return new ModelAndView("danh-muc-chat-luong", "chatLuongList", chatLuongList);
 		}
+		chatLuongDAO.disconnect();
 		return new ModelAndView("login");
 	}
 
