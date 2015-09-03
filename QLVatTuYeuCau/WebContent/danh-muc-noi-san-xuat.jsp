@@ -27,8 +27,7 @@
 </head>
 <body>
 	<%
-<<<<<<< HEAD
-=======
+
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
    			request.setAttribute("url", siteMap.nsxManage + "?action=manageNsx");
@@ -43,7 +42,7 @@
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
     	
->>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
+
     		ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) request.getAttribute("noiSanXuatList");
     		if (listNoiSanXuat ==  null) {
 				int index = siteMap.nsxManage.lastIndexOf("/");

@@ -14,8 +14,9 @@ a {
 }
 
 body {
-	/*	background-image: url(../img/background.jpg)*/
+	background: url('./background.jpg');
 	background-color: aliceblue;
+	background-repeat: no-repeat;
 }
 
 .clear {

@@ -312,34 +312,6 @@
 						</tr>
 					</table>
 
-<<<<<<< HEAD
-									<td class="column-bp" colspan="6"><%= congVan.getButPhe()%></td>
-								</tr>
-								<tr>
-									<td class="left-column-first">Nơi GQ chính</td>
-									<td class="column-nql"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
-									<td colspan=3 style="float: right;"><button  class="button" type="button" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
-
-								<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
-							</button></td>
-								</tr>
-								
-								
-								<tr>
-								<td class="left-column-first">Link file công văn: </td>
-								<td colspan="6" class="column-lcv"><a
-												href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
-												<div class="mo-ta"><%=fileHash.get(congVan.getCvId()).getMoTa() %></div>
-											</a></td>
-								</tr>
-							</table>
-<!-- 							<div class="chi-tiet"> -->
-<!-- 								<a -->
-<%-- 									href="<%=siteMap.ycvtManage + "action=manageYcvt&congVan="+congVan.getCvId()%>">*Xem --%>
-<!-- 									chi tiết</a> -->
-<!-- 							</div> -->
-=======
->>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
 							<%} %>
 
 						</div>
