@@ -59,6 +59,7 @@ public class CdController extends HttpServlet {
 			request.setAttribute("size", size);
 			return new ModelAndView("danh-muc-chuc-danh", "chucDanhList", chucDanhList);
 		}
+		chucDanhDAO.disconnect();
 		return new ModelAndView("login");
 	}
 	
