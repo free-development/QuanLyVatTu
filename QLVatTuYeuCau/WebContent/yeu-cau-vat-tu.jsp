@@ -235,37 +235,12 @@
 				</table>
 				</div>
 				</div>
-<<<<<<< HEAD
+
 			</form>					
 				<div id = "paging" >
 									<%
 										String str = "";
-=======
-			</form>				
-				<div id = "paging" >
-=======
-				</div>
-				</div>
-			</form>				
-				<div id = "paging" >
-									<%
-										String str = "";
-<<<<<<< HEAD
-=======
-=======
-			</form>
-					<div id = "paging" >
-<<<<<<< HEAD
->>>>>>> origin/master
-									<%
-										String str = "";
-<<<<<<< HEAD
-=======
->>>>>>> fb366e5dc7d3d3aa73d58197218f58d16162b9e4
->>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
->>>>>>> origin/master
->>>>>>> bc9abe692dab02b30d8a3d7415bab1c5f87716b2
->>>>>>> origin/master
+
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
 									for(int i = 0; i < p; i++) {
@@ -273,43 +248,9 @@
 									}
 									if (pageNum > 10)
 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> origin/master
 									out.println(str);	
 								%>
-<!-- 									<input type="button" value="Next>>"></td> -->
-
-					</div>
-<<<<<<< HEAD
-			
-<!-- 									<input type="button" value="Next>>"></td> -->
-
-		
-=======
 			</div>
-					</div>
-=======
-<<<<<<< HEAD
->>>>>>> bc9abe692dab02b30d8a3d7415bab1c5f87716b2
-									out.println(str);	
-								%>
-<!-- 									<input type="button" value="Next>>"></td> -->
-
-					</div>
-			</div>
-					</div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
->>>>>>> origin/master
->>>>>>> bc9abe692dab02b30d8a3d7415bab1c5f87716b2
->>>>>>> origin/master
 			<form id="main-form">
 			<div class="form-title" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">

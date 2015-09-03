@@ -27,11 +27,9 @@
 </head>
 <body>
 	<%
-<<<<<<< HEAD
 
-=======
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
->>>>>>> origin/master
+
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
    			request.setAttribute("url", siteMap.nsxManage + "?action=manageNsx");
@@ -46,10 +44,7 @@
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
     	
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
     		ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) request.getAttribute("noiSanXuatList");
     		if (listNoiSanXuat ==  null) {
 				int index = siteMap.nsxManage.lastIndexOf("/");
