@@ -268,9 +268,7 @@
 						<button type="reset" class="button" type="button">
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Bỏ qua
 						</button>
-						<button type="button" class="button" id="sendMail" onclick="">
-						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Gửi mail
-						</button>
+						
 					</div>
 				</form>
 				</div>
@@ -286,29 +284,36 @@
 				<button type="button" class="button" id="updateCs">Lưu lại</button> 
 				</div>
 			</div>
-<!-- 			<div id="view-mail"> -->
-			<form id="mail-form" action="" style="display:none;">  
-			<table style="margin: 0 auto;">
+			<div id="view-mail">
+			<form id="mail-form">  
+				<table style="margin: 0 auto;">
+				<%
+							
+							for(String msnv :  vtNguoiDungHash.keySet()) {
+								HashMap<Integer, VaiTro> vtHash = vaiTroHash.get(msnv);
+								NguoiDung nguoiDung =  vtNguoiDungHash.get(msnv);
+								
+						%>
 					<tr>
 						<td>Đến:</td>
-						<td><input type="text" name="den" class="text"/></td>
+						<td><input type="text" name="email" class="text"/><%=nguoiDung.getEmail() %></td>
 					</tr>
+					<%}%>
 					<tr>
 						<td>Chủ đề:</td>
-						<td><input type="text" name="chuDe" class="text"></td> 
+						<td><input type="text" name="chude" class="text"></td> 
 					</tr>
 					<tr>
 						<td>Nội dung:</td>
-						<td><textarea rows="6" cols="40" name="noiDung"class="text"></textarea></td>
+						<td><textarea id="myText">
+						    Lorem ipsum...
+						</textarea></td>
 					</tr>
 			</table>
 			<div class="group-button">
-						<button type="button" class="button" onclick="">
-						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Gửi
-						</button>
-					</div>
+					<button class="button" onclick="sendMail();">Gửi</button>
+			</div>
 			</form>  
 			</div>
-<!-- 		</div> -->
 </body>
 </html>

@@ -64,6 +64,7 @@ public class MdController extends HttpServlet {
 			request.setAttribute("page", size/10);
 			return new ModelAndView("danh-muc-muc-dich", "mucDichList", mucDichList);
 		}
+		mucDichDAO.disconnect();
 		return new ModelAndView("login");
 	}
 	@RequestMapping(value="/preUpdateMd", method=RequestMethod.GET, 
@@ -92,16 +93,20 @@ public class MdController extends HttpServlet {
 	@RequestMapping(value="/addMd", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String addMd(@RequestParam("mdMa") String mdMa, @RequestParam("mdTen") String mdTen) {
-		String result = "";
+		String result = "success";
 		MucDichDAO mucDichDAO = new MucDichDAO();
-		System.out.println("MA: "+mdMa);
-		if((mucDichDAO.getMucDich(mdMa)==null) || (mucDichDAO.getMucDich(mdMa)!=null && mucDichDAO.getMucDich(mdMa).getDaXoa()==1))
+		MucDich md = mucDichDAO.getMucDich(mdMa);
+		if(md == null) 
 		{
-			mucDichDAO.addOrUpdateMucDich(new MucDich(mdMa,mdTen,0));
+			mucDichDAO.addMucDich(new MucDich(mdMa, mdTen,0));
 			System.out.println("success");
-			result = "success";
-			
-			
+			result = "success";	
+		}
+		else if(md !=null && md.getDaXoa()== 1){
+			md.setMdMa(mdMa);
+			md.setMdTen(mdTen);
+			md.setDaXoa(0);
+			mucDichDAO.updateMucDich(md);
 		}
 		else
 		{

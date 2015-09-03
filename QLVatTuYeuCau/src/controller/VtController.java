@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.ChucDanh;
 import model.DonVi;
 import model.NoiSanXuat;
 import model.VaiTro;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import util.JSonUtil;
 import dao.CTVatTuDAO;
+import dao.ChucDanhDAO;
 import dao.DonViDAO;
 import dao.NoiSanXuatDAO;
 import dao.VaiTroDAO;
@@ -80,16 +82,20 @@ public class VtController extends HttpServlet {
 	@RequestMapping(value="/addVt", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String addVt(@RequestParam("vtId") int vtId, @RequestParam("vtTen") String vtTen) {
-		String result = "";
-//		System.out.println("MA: "+vtId);
+		String result = "success";
 		VaiTroDAO vaiTroDAO = new VaiTroDAO();
-		if(vaiTroDAO.getVaiTro(vtId)==null)
+		VaiTro vt = vaiTroDAO.getVaiTro(vtId);
+		if(vt == null) 
 		{
-			vaiTroDAO.addVaiTro(new VaiTro(vtId, vtTen,0));;
+			vaiTroDAO.addVaiTro(new VaiTro(vtId, vtTen,0));
 			System.out.println("success");
-			result = "success";
-			
-			
+			result = "success";	
+		}
+		else if(vt !=null && vt.getDaXoa()== 1){
+			vt.setVtId(vtId);
+			vt.setVtTen(vtTen);
+			vt.setDaXoa(0);
+			vaiTroDAO.updateVaiTro(vt);
 		}
 		else
 		{
@@ -98,11 +104,6 @@ public class VtController extends HttpServlet {
 		}
 		vaiTroDAO.disconnect();
 			return JSonUtil.toJson(result);
-//		System.out.println("****" + vtId + "****");
-//
-//		VaiTro vt = new VaiTro(vtId, vtTen);
-//		new VaiTroDAO().addVaiTro(vt);
-//		return JSonUtil.toJson(vt);	
 	}
 	@RequestMapping(value="/updateVt", method=RequestMethod.GET, 
 		produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

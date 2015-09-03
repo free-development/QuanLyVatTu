@@ -34,6 +34,15 @@
 #print_button{
 display:none;
 }
+@page 
+        {
+            size: auto A4 landscape;
+        	color: black; background: white; }
+	   table 
+	   { 
+	   		font-size: 70%; 
+	   			 }
+		
 </style>
 </head>
 <body>
@@ -77,39 +86,39 @@ display:none;
 				</div>
 		<table style = "margin: 0 auto;width:960px;">
 		<tr>
-			<td style="text-align: left; width: 500px;">TỔNG CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>
+			<td style="text-align: left; width: 500px;font-size: 17px;">TỔNG CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>
 			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
-			<td style="text-align: right; width: 350px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
+			<td style="text-align: right; width: 350px;font-size: 17px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
 			
 		<tr>
-			<td style="text-align: left; width: 350px;">Địa chỉ: 06 Nguyễn Trãi, Q.Ninh Kiều, TP.Cần Thơ.</td>
+			<td style="text-align: left; width: 350px;font-size: 17px;">Địa chỉ: 06 Nguyễn Trãi, Q.Ninh Kiều, TP.Cần Thơ.</td>
 			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
-			<td style="text-align: right; width: 350px;">Độc lập - Tự do - Hạnh phúc</td>
+			<td style="text-align: right; width: 350px;font-size: 17px;">Độc lập - Tự do - Hạnh phúc</td>
 			
 		</tr>
 		</table>
-		<div style="text-align: center;font-size: 40px;font-weight: bold;color: #199e5e;margin-top:20px;">Báo cáo chi tiết vật tư</div>
+		<div style="text-align: center;font-size: 40px;font-weight: bold;color: solid black;margin-top:20px;">Báo cáo chi tiết vật tư</div>
 			
-		<div style="margin-right: 10px;padding-left: 800px;">Ngày in:&nbsp;&nbsp;&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
+		<div style="margin-right: 10px;padding-left: 800px;font-size: 17px;">Ngày in:&nbsp;&nbsp;&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
 			<div id="view-table-bao-cao">
-					<table  style="border: solid 1px black;width:960px;">
+					<table  style="border: solid 1px black;width:960px;font-size: 12px;">
 					<thead>
 						<tr bgcolor="#199e5e" style="border: 1px solid black;">
-						<th style="border: 1px solid black;" class="four-column">Mã vật tư</th>
-						<th style="border: 1px solid black;" class="six-column">Tên vật tư</th>
-						<th style="border: 1px solid black;" class="three-column">Nơi sản xuất</th>
-						<th style="border: 1px solid black;" class="a-column">Chất lượng</th>
-						<th style="border: 1px solid black;" class="four-column">Đơn vị tính</th>
-						<th style="border: 1px solid black;" class="five-column">Định mức</th>
-						<th style="border: 1px solid black;" class="seven-column">Số lượng tồn</th>
+						<th style="border: 1px solid black;font-size: 17px;" class="four-column">Mã vật tư</th>
+						<th style="border: 1px solid black;font-size: 17px;" class="six-column">Tên vật tư</th>
+						<th style="border: 1px solid black;font-size: 17px;" class="three-column">Nơi sản xuất</th>
+						<th style="border: 1px solid black;font-size: 17px;" class="a-column">Chất lượng</th>
+						<th style="border: 1px solid black;font-size: 17px;" class="four-column">Đơn vị tính</th>
+						<th style="border: 1px solid black;font-size: 17px;" class="five-column">Định mức</th>
+						<th style="border: 1px solid black;font-size: 17px;" class="seven-column">Số lượng tồn</th>
 							
 						</tr>
 						</thead>
@@ -119,13 +128,13 @@ display:none;
 								for(CTVatTu ctVatTu : listCTVatTu) { %>
 	
 										<tr style= "border-style: solid;border-color:black;" class="rowContent">
-											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getVatTu().getVtMa() %></td>
-											<td style="border: 1px solid black;" class="col" style="text-align: left"><%=ctVatTu.getVatTu().getVtTen() %></td>
-											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
-											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getChatLuong().getClTen() %></td>
-											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getVatTu().getDvt().getDvtTen() %></td>
-											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getDinhMuc() %></td>
-											<td style="border: 1px solid black;" class="col"><%=ctVatTu.getSoLuongTon() %></td>
+											<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getVatTu().getVtMa() %></td>
+											<td style="border: 1px solid black;font-size: 17px;" class="col" style="text-align: left"><%=ctVatTu.getVatTu().getVtTen() %></td>
+											<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
+											<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getChatLuong().getClTen() %></td>
+											<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getVatTu().getDvt().getDvtTen() %></td>
+											<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getDinhMuc() %></td>
+											<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getSoLuongTon() %></td>
 					
 										</tr>
 										<%} }%>

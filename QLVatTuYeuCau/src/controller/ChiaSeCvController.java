@@ -3,9 +3,20 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
 
+<<<<<<< HEAD
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+=======
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+>>>>>>> d9ffec4c7c1343acfc2ac4abc5cf72be1ea070f2
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +44,7 @@ import dao.VaiTroDAO;
 import map.siteMap;
 import model.CTVatTu;
 import model.CongVan;
+//import model.Mailer;
 import model.NguoiDung;
 import model.NoiSanXuat;
 import model.VTCongVan;
@@ -105,11 +117,46 @@ public class ChiaSeCvController extends HttpServlet {
 			VaiTroDAO vaiTroDAO =  new VaiTroDAO();
 			
 			//String[] msnv = new String[vaiTro.length];
-			int cvId = congVan.getCvId();			
+			int cvId = congVan.getCvId();		
 			vtCongVanDAO.deleteByCvId(cvId);
 			for (String vtMa : vaiTro) {
 				String[] str = vtMa.split("\\#");
 				NguoiDung nguoiDung = nguoiDungDAO.getNguoiDung(str[0]);
+				
+				final String username = "evnCanTho@gmail.com";
+				final String password = "evnCanTho2015";
+
+				Properties props = new Properties();
+				props.put("mail.smtp.auth", "true");
+				props.put("mail.smtp.starttls.enable", "true");
+				props.put("mail.smtp.host", "smtp.gmail.com");
+				props.put("mail.smtp.port", "587");
+
+				Session session = Session.getInstance(props,
+				  new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(username, password);
+					}
+				  });
+
+				try {
+
+					Message message = new MimeMessage(session);
+					message.setFrom(new InternetAddress("evnCanTho@gmail.com"));
+					message.setRecipients(Message.RecipientType.TO,
+					//InternetAddress.parse(nguoiDung.getEmail()));
+					InternetAddress.parse("camtien.le1994@gmail.com"));
+					message.setSubject("Công việc được chia sẻ");
+					message.setText("Bạn đã được chia sẻ công việc. Vui lòng vào hệ thống làm việc để kiểm tra.");
+
+					Transport.send(message);
+
+					System.out.println("Done");
+
+				} catch (MessagingException e) {
+					throw new RuntimeException(e);
+				}
+
 				VTCongVan vtCongVan = new VTCongVan();
 				vtCongVan.setCvId(cvId);
 				vtCongVan.setMsnv(str[0]);
@@ -198,6 +245,17 @@ public class ChiaSeCvController extends HttpServlet {
 	   vaiTroDAO.disconnect();
 		return JSonUtil.toJson(objectList);
 	}
+   
+   
+//   @RequestMapping(value="/sendMail", method=RequestMethod.GET, 
+//			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	 public @ResponseBody String sendMail(@RequestParam("email") String email,@RequestParam("chude") String chude,@RequestParam("noidung") String noidung) {
+//	   Mailer mailer = new Mailer();
+//	   mailer.send(email, chude, noidung);
+//	   ArrayList<Object> objectList = new ArrayList<Object>();
+//	   objectList.add(mailer);
+//			return JSonUtil.toJson(objectList);
+//	}
    
    @RequestMapping(value="/loadPageCscv", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

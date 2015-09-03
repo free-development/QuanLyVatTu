@@ -63,12 +63,12 @@ public class VatTu implements Serializable{
 	/**
 	 * @param vtMa
 	 * @param vtTen
-	 * @param dvt
+	 * @param dvt2
 	 */
-	public VatTu(String vtMa, String vtTen, DonViTinh dvt,int daXoa) {
+	public VatTu(String vtMa, String vtTen, DonViTinh dvt2,int daXoa) {
 		this.vtMa = vtMa;
 		this.vtTen = vtTen;
-		this.dvt = dvt;
+		this.dvt = dvt2;
 		this.daXoa = daXoa;
 	}
 

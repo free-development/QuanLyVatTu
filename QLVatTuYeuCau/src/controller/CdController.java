@@ -59,6 +59,7 @@ public class CdController extends HttpServlet {
 			request.setAttribute("size", size);
 			return new ModelAndView("danh-muc-chuc-danh", "chucDanhList", chucDanhList);
 		}
+		chucDanhDAO.disconnect();
 		return new ModelAndView("login");
 	}
 	
@@ -87,16 +88,20 @@ public class CdController extends HttpServlet {
 	@RequestMapping(value="/addCd", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String addCd(@RequestParam("cdMa") String cdMa, @RequestParam("cdTen") String cdTen) {
-		String result = "";
+		String result = "success";
 		ChucDanhDAO chucDanhDAO = new ChucDanhDAO();
-		System.out.println("MA: "+cdMa);
-		if((chucDanhDAO.getChucDanh(cdMa)==null) || (chucDanhDAO.getChucDanh(cdMa)!=null && chucDanhDAO.getChucDanh(cdMa).getDaXoa() == 1 ))
+		ChucDanh cd = chucDanhDAO.getChucDanh(cdMa);
+		if(cd == null) 
 		{
-			chucDanhDAO.addOrUpdateChucDanh(new ChucDanh(cdMa,cdTen,0));
+			chucDanhDAO.addChucDanh(new ChucDanh(cdMa, cdTen,0));
 			System.out.println("success");
-			result = "success";
-			
-			
+			result = "success";	
+		}
+		else if(cd !=null && cd.getDaXoa()== 1){
+			cd.setCdMa(cdMa);
+			cd.setCdTen(cdTen);
+			cd.setDaXoa(0);
+			chucDanhDAO.updateChucDanh(cd);
 		}
 		else
 		{

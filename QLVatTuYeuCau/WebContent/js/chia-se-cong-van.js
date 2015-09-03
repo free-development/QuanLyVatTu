@@ -18,7 +18,15 @@ function confirmDelete(){
 //	});
 //});
 
+function sendMail() {
+    var link = "mailto:camtien.le1994@gmail.com"
+             + "?cc=evncantho@gmail.com"
+             + "&subject=" + escape("This is my subject")
+             + "&body=" + escape(document.getElementById('myText').value)
+    ;
 
+    window.location.href = link;
+}
 function loadPageCscv(pageNumber) {
 	
 	var page = 0;
@@ -187,3 +195,26 @@ $(document).ready(function() {
 			
 	});   
 });
+
+
+//$(document).ready(function() {
+//	$('#sendMail').click(function() {
+//		var email = $('#view-mail input:text[name=email]').val();
+//		var chude = $('#view-mail input:text[name=chude]').val();
+//		var noidung = $('#view-mail textarea[name=noidung]').val();
+//		$.ajax({
+//			url: "/QLVatTuYeuCau/sendMail.html",	
+//		  	type: "GET",
+//		  	dateType: "JSON",
+//		  	data: { "email": email, "chude": chude, "noidung": noidung},
+//		  	contentType: 'application/json',
+//		    mimeType: 'application/json',
+//		  	success: function(result) {
+//		  		alert("OK");	
+//		  	}
+//		});
+//		$('#main-form').hide();
+//		//$('#update-form').hide();
+//		//$('#mail-form').show();
+//	});   
+//});

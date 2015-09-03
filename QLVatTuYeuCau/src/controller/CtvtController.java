@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 import map.siteMap;
 import model.CTVatTu;
@@ -33,7 +34,11 @@ import dao.CTVatTuDAO;
 @Controller
 public class CtvtController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	int page = 1;
+	HttpSession session;  
+	int page =1;
+	private int pageCtvt = 1;
+	private String searchTen = "";
+	private String searchMa = "";
    @RequestMapping("/manageCtvt")
 	protected ModelAndView manageCtvt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		VatTuDAO vatTuDAO = new VatTuDAO();
@@ -134,10 +139,10 @@ public class CtvtController extends HttpServlet {
 			ctVatTuDAO.addOrUpdateCTVatTu(ctvt);
 			System.out.println("success");
 
-			int id = ctVatTuDAO.getLastInsert()-1;
-			CTVatTu ctVatTu = ctVatTuDAO.getCTVatTuById(id);
-			ctVatTuDAO.disconnect();
-			return JSonUtil.toJson(ctVatTu);
+			//int id = ctVatTuDAO.getLastInsert()-1;
+			//CTVatTu ctVatTu = ctVatTuDAO.getCTVatTuById(id);
+			//ctVatTuDAO.disconnect();
+			return JSonUtil.toJson(ctvt);
 		
 		}
 		else
@@ -199,5 +204,4 @@ public class CtvtController extends HttpServlet {
 		ctvtDAO.disconnect();
 		return JSonUtil.toJson(objectList);
 	}
-	
 }

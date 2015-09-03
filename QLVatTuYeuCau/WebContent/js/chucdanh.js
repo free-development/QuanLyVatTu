@@ -132,7 +132,7 @@ function confirmDeleteCd(){
 		}
 	else{
 	$.ajax({
-		url: "/QuanLyVatTuYeuCau/addCd.html",	
+		url: "/QLVatTuYeuCau/addCd.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "cdMa": cdMa, "cdTen": cdTen},

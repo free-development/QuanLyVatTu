@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -38,27 +39,27 @@ public class NsxController extends HttpServlet {
 		request.getCharacterEncoding();
     	response.getCharacterEncoding();
     	request.setCharacterEncoding("UTF-8");
-    	response.setCharacterEncoding("UTF-8");
+    	response.setCharacterEncoding("UTF-8");  
 		
 		String action = request.getParameter("action");
-		if("AddNsx".equalsIgnoreCase(action)) {
-			String nsxMa = request.getParameter("nsxMa");
-			String nsxTen = request.getParameter("nsxTen");
-			noiSanXuatDAO.addNoiSanXuat(new NoiSanXuat(nsxMa,nsxTen,0));
-			ArrayList<NoiSanXuat> noiSanXuatList =  (ArrayList<NoiSanXuat>) noiSanXuatDAO.getAllNoiSanXuat();
-			noiSanXuatDAO.disconnect();
-			return new ModelAndView("danh-muc-noi-san-xuat", "noiSanXuatList", noiSanXuatList);
-		}
-		if("deleteNsx".equalsIgnoreCase(action)) {
-			String[] idList = request.getParameterValues("nsxMa");
-			for(String s : idList) {
-					noiSanXuatDAO.deleteNoiSanXuat(s);
-			}
-			
-			ArrayList<NoiSanXuat> noiSanXuatList =  (ArrayList<NoiSanXuat>) noiSanXuatDAO.getAllNoiSanXuat();
-			noiSanXuatDAO.disconnect();
-			return new ModelAndView("danh-muc-noi-san-xuat", "noiSanXuatList", noiSanXuatList);
-		}
+//		if("AddNsx".equalsIgnoreCase(action)) {
+//			String nsxMa = request.getParameter("nsxMa");
+//			String nsxTen = request.getParameter("nsxTen");
+//			noiSanXuatDAO.addNoiSanXuat(new NoiSanXuat(nsxMa,nsxTen,0));
+//			ArrayList<NoiSanXuat> noiSanXuatList =  (ArrayList<NoiSanXuat>) noiSanXuatDAO.getAllNoiSanXuat();
+//			noiSanXuatDAO.disconnect();
+//			return new ModelAndView("danh-muc-noi-san-xuat", "noiSanXuatList", noiSanXuatList);
+//		}
+//		if("deleteNsx".equalsIgnoreCase(action)) {
+//			String[] idList = request.getParameterValues("nsxMa");
+//			for(String s : idList) {
+//					noiSanXuatDAO.deleteNoiSanXuat(s);
+//			}
+//			
+//			ArrayList<NoiSanXuat> noiSanXuatList =  (ArrayList<NoiSanXuat>) noiSanXuatDAO.getAllNoiSanXuat();
+//			noiSanXuatDAO.disconnect();
+//			return new ModelAndView("danh-muc-noi-san-xuat", "noiSanXuatList", noiSanXuatList);
+//		}
 		if("manageNsx".equalsIgnoreCase(action)) {
 			long size = noiSanXuatDAO.size();
 			ArrayList<NoiSanXuat> noiSanXuatList =  (ArrayList<NoiSanXuat>) noiSanXuatDAO.limit(page - 1, 10);
@@ -86,14 +87,20 @@ public class NsxController extends HttpServlet {
 	@RequestMapping(value="/addNsx", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String addNsx(@RequestParam("nsxMa") String nsxMa, @RequestParam("nsxTen") String nsxTen) {
-		String result = "";
-		//System.out.println("MA: "+nsxMa);
+		String result = "success";
 		NoiSanXuatDAO noiSanXuatDAO = new NoiSanXuatDAO();
-		if((noiSanXuatDAO.getNoiSanXuat(nsxMa)==null) || (noiSanXuatDAO.getNoiSanXuat(nsxMa)!=null && noiSanXuatDAO.getNoiSanXuat(nsxMa).getDaXoa()==1) )
+		NoiSanXuat nsx = noiSanXuatDAO.getNoiSanXuat(nsxMa);
+		if(nsx == null) 
 		{
-			noiSanXuatDAO.addOrUpdateNoiSanXuat(new NoiSanXuat(nsxMa, nsxTen,0));
+			noiSanXuatDAO.addNoiSanXuat(new NoiSanXuat(nsxMa, nsxTen,0));
 			System.out.println("success");
 			result = "success";	
+		}
+		else if(nsx !=null && nsx.getDaXoa()== 1){
+			nsx.setNsxMa(nsxMa);
+			nsx.setNsxTen(nsxTen);
+			nsx.setDaXoa(0);
+			noiSanXuatDAO.updateNoiSanXuat(nsx);
 		}
 		else
 		{
