@@ -236,12 +236,11 @@
   		$('#requireSL').html('');
   		$('#update-chitiet input[name=soLuongTonUpdate]').focus();
  	}
-
     $(document).ready(function() {
-        $('#view-table-chi-tiet .checkAllCT').click(function(event) {  //on click 
+        $('#view-table-chi-tiet .checkCTAll').click(function(event) {  //on click 
             if(this.checked) { // check select status
                 $('#view-table-chi-tiet .checkbox').each(function() { //loop through each checkbox
-                    this.checked = true;  //select all checkboxes with class "checkbox1"    
+                    this.checked = true;  //select all checkboxes with class "checkbox1"               
                 });
             }else{
                 $('#view-table-chi-tiet .checkbox').each(function() { //loop through each checkbox
@@ -250,22 +249,21 @@
             }
         });
         
-    });   
+    }); 
+
  	    function loadPageCTVatTu(pageNumber){
- 		var page = 0;
- 		var p = 0;
  		if (pageNumber == 'Next') {
  			var lastPage = document.getElementsByClassName('page')[9].value;
- 			p = (lastPage) / 5;
- 			page = p * 5;
+ 			var p = (lastPage) / 5;
+ 			var page = p * 5;
  		}
  		else if (pageNumber == 'Previous') {
  			var firstPage = document.getElementsByClassName('page')[0].value;
- 			p = (firstPage - 1) / 5;
- 			page =  p * 5 - 1;
+ 			var p = (firstPage - 1) / 5;
+ 			var page =  firstPage-2;
  		}
  		else {
- 			page = pageNumber;
+ 			var page = pageNumber;
  		}
  	    	$.ajax({
  				url: "/QLVatTuYeuCau/loadPageCTVatTu.html",	
@@ -309,6 +307,7 @@
 						if ((p + 1) * 5 < size)
 							button += '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPageCTVatTu(\'Next\');\">';
 						$('#paging').html(button);
+						$('.page')[5].focus();
 					} else if (pageNumber == 'Previous'){
 						if (p > 0)
 							p = p -1;
@@ -319,6 +318,7 @@
 						if (p >= 1)
 							button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageCTVatTu(\'Previous\')\">&nbsp;' + button;
 						$('#paging').html(button);	
+						$('.page')[4].focus();
 					}
  			  	}
  			});

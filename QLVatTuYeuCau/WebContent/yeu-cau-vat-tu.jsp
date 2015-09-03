@@ -234,26 +234,10 @@
 				</table>
 				</div>
 				</div>
-<<<<<<< HEAD
 			</form>				
 				<div id = "paging" >
 									<%
 										String str = "";
-=======
-			</form>
-					<div id = "paging" >
-<<<<<<< HEAD
-									<%
-
-
-										String str = "";
-
-=======
-								<%
-									
-										String str = "";
->>>>>>> fb366e5dc7d3d3aa73d58197218f58d16162b9e4
->>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
 									for(int i = 0; i < p; i++) {
@@ -261,34 +245,13 @@
 									}
 									if (pageNum > 10)
 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
-<<<<<<< HEAD
 									out.println(str);	
-=======
-<<<<<<< HEAD
-
-									out.println(str);	
-
-
-=======
-									out.println(str);	
->>>>>>> fb366e5dc7d3d3aa73d58197218f58d16162b9e4
->>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
 								%>
 <!-- 									<input type="button" value="Next>>"></td> -->
 
 					</div>
-<<<<<<< HEAD
 			</div>
 					</div>
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> fb366e5dc7d3d3aa73d58197218f58d16162b9e4
-			</div>
-					</div>
-
->>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
 			<form id="main-form">
 			<div class="form-title" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
@@ -402,10 +365,5 @@
 			</table>
 			</div>
 			</form>
-			
-
-							</div>
-
-							</div>
 </body>
 </html>

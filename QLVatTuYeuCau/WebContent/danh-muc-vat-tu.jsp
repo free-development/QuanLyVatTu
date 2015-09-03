@@ -67,6 +67,7 @@
    		ArrayList<ChatLuong> listChatLuong = (ArrayList<ChatLuong>) request.getAttribute("chatLuongList");
    		ArrayList<DonViTinh> listDonViTinh = (ArrayList<DonViTinh>) request.getAttribute("donViTinhList");
    		Long pageNum = (Long) request.getAttribute("size")/10;
+   	
     %>
         <div class="wrapper">
 				<div class="header">
@@ -392,13 +393,55 @@
 			</form>
 			
 			
-	<form id="chitiet">
-	<div style="height:400px;width: 1024px; overflow:auto">
+	<form id="chitiet" >
+	
+			<table>		
+					<tr>		
+						<th  style="text-align: left; color: black; font-size: 19px;">*Mã vật tư</th>
+						<th  style="text-align: left; color: black; font-size: 19px;">*Tên vật tư</th>
+						<th  style="text-align: left; color: black; font-size: 19px;">*Nơi sản xuất</th>
+						<th  style="text-align: left; color: black; font-size: 19px;">*Chất lượng</th>
+											
+					</tr>		
+					<tr>
+						<td><input type="text" class="text" name="Ma"/></td>	
+						<td><input type="text" class="text" name="Ten"/></td>	
+						<td>
+									<select onkeypress="changeNsx();"
+									title="" class="select" id="noisanxuat" name="noiSanXuat" style="margin-top: 10px;">
+										<option disabled selected value="">-- Chọn nơi sản xuất --</option>
+										<%						  
+		 								
+		 								for (NoiSanXuat noiSanXuat : listNoiSanXuat)
+		 								{%>  
+		 								<option value=<%=noiSanXuat.getNsxMa()%>><%=noiSanXuat.getNsxTen()%></option>
+		 								<%}
+		  								%>  
+									</select><div id="requireNsx" style="color: red"></div>
+						</td>
+						<td>
+									<select onkeypress="changeCl();" 
+											title="" class="select" id="chatluong" name="chatLuong" style="margin-top: 10px;">
+												<option disabled selected value="">-- Chọn chất lượng --</option>
+												<%						  
+				 								
+				 								for (ChatLuong chatLuong : listChatLuong)
+				 								{%>
+				 								<option value=<%=chatLuong.getClMa()%>><%=chatLuong.getClTen()%></option> 
+				 								<%}  
+				  								%>  
+									</select><div id="requireCl" style="color: red"></div>
+						</td>
+						<td> <span class="search-button"> &nbsp; <button type="button" class="btn-search" style="background-color: #00A69B;">
+						<i class="fa fa-search"></i></button></span></td>	
+					</tr>			
+				</table>
+			
 				<div id="view-table-chi-tiet">
 
 				<table>
 					<tr style="background: #199e5e">
-						<th class="left-column"><input type="checkbox" class="checkAllCT"></th>
+						<th class="left-column"><input type="checkbox" class="checkCTAll"></th>
 						<th class="four-column">Mã vật tư</th>
 						<th class="three-col">Tên vật tư</th>
 						<th class="six-column">Nơi sản xuất</th>
@@ -432,22 +475,9 @@
 				</table>	
 					
 			</div>
+	
+				<div id = "paging" >
 			</div>
-<!-- 			<div id = "paging" > -->
-<!-- 							<table style ="border-style: none;"> -->
-<!-- 								<tr> -->
-<!-- 									<td><a href=""> Previous<< </a></td> -->
-<!-- 									<td> -->
-<%-- 									<% --%>
-<!-- // 										long p = (pageNum <= 9 ? pageNum : 10); -->
-<%-- 										for(int i = 0; i <= p; i++) { %> --%>
-<%-- 										<input type="button" value="<%=i+1%>" class="page"> --%>
-<%-- 										<%} %> --%>
-<!-- 									</td> -->
-<!-- 									<td><a href="">>>Next </a> </td> -->
-<!-- 								</tr> -->
-<!-- 							</table> -->
-<!-- 						</div>		 -->
 					<div class="group-button">
 				<input type="hidden" name="action" value="deleteVatTu">
 				<button type="button" class="button"
@@ -473,7 +503,7 @@
 		</form>
 		
 			<!-- add-chitiet -->
-			<form id="add-chitiet"  method="get" action="<%=siteMap.vattuManage + "?action=manageVattu"%>">
+			<form id="add-chitiet">
 									<div class="input-table">
 					<table>
 						<div class="form-title" style="padding: 10px">Thêm chi tiết vật tư</div>

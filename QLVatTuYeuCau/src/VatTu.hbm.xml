@@ -12,22 +12,9 @@
 		</property>
 		<property name="daXoa" type="int">
 			<column name="DAXOA" />
-<<<<<<< HEAD
 		</property>
-=======
-<<<<<<< HEAD
-		</property>
-
->>>>>>> 6e40b65e16258c08938e1838873e5c149a505039
 		<many-to-one name="dvt"  class="model.DonViTinh" fetch="join" >
 			<column name="DVTID"></column>
-=======
-		</property>
-
-		<many-to-one name="dvt"  class="model.DonViTinh" fetch="join" >
-			<column name="DVTID"></column>
->>>>>>> fb366e5dc7d3d3aa73d58197218f58d16162b9e4
 		</many-to-one>
-	
 	</class>
 </hibernate-mapping>

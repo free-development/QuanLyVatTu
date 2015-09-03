@@ -269,7 +269,7 @@
 				if(listCTVatTu.vtMa != null) {
 					$('#add-chitiet input:text[name=vtMa]').val(listCTVatTu.vtMa);
 					$('#add-chitiet input:text[name=vtTen]').val(listCTVatTu.vtTen);
-					$('#add-chitiet input:text[name=dvt]').val(listCTVatTu.dvt.dvtTen);
+					$('#add-chitiet input:text[name=dvt]').val(listCTVatTu.vattu.dvt.dvtTen);
 					alert("Không có chi tiết vật tư!");
 				}
 				else {
@@ -346,7 +346,6 @@
         });
         
     }); 
-
     function test1(){
     	$('#test select option[value='+3+']').prop('selected',true);
     }
@@ -362,7 +361,7 @@
  		else if (pageNumber == 'Previous') {
  			var firstPage = document.getElementsByClassName('page')[0].value;
  			var p = (firstPage - 1) / 5;
- 			page =  p * 5 - 1;
+ 			var page =  firstPage-2;
  		}
  		else {
  			page = pageNumber;
@@ -411,6 +410,7 @@
 						if ((p + 1) * 5 < size)
 							button += '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPageVatTu(\'Next\');\">';
 						$('#paging').html(button);
+						$('.page')[5].focus();
 					} else if (pageNumber == 'Previous'){
 						if (p > 0)
 							p = p -1;
@@ -421,6 +421,7 @@
 						if (p >= 1)
 							button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageVatTu(\'Previous\')\">&nbsp;' + button;
 						$('#paging').html(button);	
+						$('.page')[4].focus();
 					}
  			  	}
  			});
