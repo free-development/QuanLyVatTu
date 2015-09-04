@@ -230,13 +230,7 @@
 						</div>
 					</form>	
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
-<<<<<<< HEAD
-                     <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content">
-=======
-
-                     <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
-
->>>>>>> 7e124d9a77e2da305ec6f4c8a9574842d33c5950
+                     <div style="height: 500px; width: 810px; class="scroll_content ">
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {
