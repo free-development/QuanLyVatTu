@@ -284,36 +284,6 @@
 				<button type="button" class="button" id="updateCs">Lưu lại</button> 
 				</div>
 			</div>
-			<div id="view-mail">
-			<form id="mail-form">  
-				<table style="margin: 0 auto;">
-				<%
-							
-							for(String msnv :  vtNguoiDungHash.keySet()) {
-								HashMap<Integer, VaiTro> vtHash = vaiTroHash.get(msnv);
-								NguoiDung nguoiDung =  vtNguoiDungHash.get(msnv);
-								
-						%>
-					<tr>
-						<td>Đến:</td>
-						<td><input type="text" name="email" class="text"/><%=nguoiDung.getEmail() %></td>
-					</tr>
-					<%}%>
-					<tr>
-						<td>Chủ đề:</td>
-						<td><input type="text" name="chude" class="text"></td> 
-					</tr>
-					<tr>
-						<td>Nội dung:</td>
-						<td><textarea id="myText">
-						    Lorem ipsum...
-						</textarea></td>
-					</tr>
-			</table>
-			<div class="group-button">
-					<button class="button" onclick="sendMail();">Gửi</button>
-			</div>
-			</form>  
-			</div>
+			
 </body>
 </html>
