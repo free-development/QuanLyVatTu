@@ -134,7 +134,7 @@
 				<%} %>
 				<li><a>Tài khoản</a>
 					<ul>
-						<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+						<li><a href="<%=siteMap.changePassPage + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
 						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
 					</ul>
 				</li>		

@@ -187,7 +187,7 @@ function deleteCv(cvId) {
 			alert("Cong van da bi xoa");
 	    } 
 	});  
-}
+}	
 function loadDataCv() {
 	showForm('main-form', 'add-form', true);
 }
@@ -230,7 +230,9 @@ function loadByYear(year) {
 	    	// load congVan
 	    	var congVanList = objectList[0];
 	    	var fileList = objectList[1];
+	    	var size = objectList[3];
 	    	loadCongVan(congVanList, fileList);
+	    	loadPageNumber(0, '',size);
 	    } 
 	});  
 }
@@ -259,6 +261,8 @@ function loadByMonth(month) {
 	    	var congVanList = objectList[0];
 	    	var fileList = objectList[1];
 	    	loadCongVan(congVanList, fileList);
+	    	var size = objectList[3];
+	    	loadPageNumber(0, '',size);
 	    } 
 	});  
 }
@@ -347,6 +351,8 @@ function loadByDate(date) {
 	    	var congVanList = objectList[0];
 	    	var fileList = objectList[1];
 	    	loadCongVan(congVanList, fileList);
+	    	var size = objectList[2];
+	    	loadPageNumber(0, '',size);
 	    } 
 	});
 };
@@ -363,6 +369,8 @@ function filterData(filter, filterValue) {
 	    	var congVanList = objectList[0];
 	    	var fileList = objectList[1];
 	    	loadCongVan(congVanList, fileList);
+	    	var size = objectList[2];
+	    	loadPageNumber('',size);
 	    } 
 	});
 }
@@ -379,6 +387,8 @@ function searchByTrangThai(trangThai) {
 	    	var congVanList = objectList[0];
 	    	var fileList = objectList[1];
 	    	loadCongVan(congVanList, fileList);
+	    	var size = objectList[2];
+			 loadPageNumber(0, pageNumber,size)
 	    } 
 	});
 }
@@ -454,34 +464,53 @@ function loadPage(pageNumber) {
 	  		var congVanList = objectList[0];
 	  		var fileList = objectList[1];
 	  		loadCongVan(congVanList, fileList);
-					var button = '';
-					if(pageNumber == 'Next') {
-						for (var i = 0; i < 10; i++) {
-							var t = ((p - 1) * 5 + i + 1);
-							button += '<input type=\"button\" value=\"' + t + '\" class=\"page\" onclick= \"loadPage(' + ((p -1)*5 + i)  +')\">&nbsp;';
-							if (t == size)
-								break;
-						}
-						button = '<input type=\"button\" class=\"pageMove\"  value=\"<< Trước\" onclick= \"loadPage(\'Previous\')\">&nbsp;'  + button;
-						if ((p + 1) * 5 < size)
-							button += '<input type=\"button\" class=\"pageMove\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
-						$('#paging').html(button);
-						$('.page')[5].focus();
-					} else if (pageNumber == 'Previous'){
-						if (p > 0)
-							p = p -1;
-						for (var i = 0; i < 10; i++)
-							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPage(' + (p * 5 + i)  +')\">&nbsp;';
-						
-						button = button + '<input type=\"button\" class=\"pageMove\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
-						if (p >= 1)
-							button = '<input type=\"button\" class=\"pageMove\" value=\"<<Trước\" onclick= \"loadPage(\'Previous\')\">&nbsp;' + button;
-						$('#paging').html(button);
-						$('.page')[4].focus();
-					}
+	  		loadPageNumber(p, pageNumber,size) ;
+					
 	  	}
 	});
 };
+function loadPageNumber(p, pageNumber, size) {
+	var buttons = '';
+	if(pageNumber == 'Next') {
+		for (var i = 0; i < 10; i++) {
+			var t = ((p - 1) * 5 + i + 1);
+			buttons += '<input type=\"button\" value=\"' + t + '\" class=\"page\" onclick= \"loadPage(' + ((p -1)*5 + i)  +')\">&nbsp;';
+			if (t == size)
+				break;
+		}
+		buttons = '<input type=\"button\" class=\"pageMove\"  value=\"<< Trước\" onclick= \"loadPage(\'Previous\')\">&nbsp;'  + buttons;
+		if ((p + 1) * 5 < size)
+			buttons += '<input type=\"button\" class=\"pageMove\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
+		$('#paging').html(buttons);
+		$('.page')[5].focus();
+	} else if (pageNumber == 'Previous'){
+		if (p > 0)
+			p = p -1;
+		for (var i = 0; i < 10; i++)
+			buttons += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPage(' + (p * 5 + i)  +')\">&nbsp;';
+		
+		buttons = buttons + '<input type=\"button\" class=\"pageMove\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
+		if (p >= 1)
+			buttons = '<input type=\"button\" class=\"pageMove\" value=\"<<Trước\" onclick= \"loadPage(\'Previous\')\">&nbsp;' + buttons;
+		$('#paging').html(buttons);
+		$('.page')[4].focus();
+	} else if (pageNumber == '') {
+		var buttons = '';
+		var index = 0;
+		if (size <= 10)
+			index = size;
+		else 
+			index = 10;
+		for (var i = 0; i < index; i++) {
+//			var t = ((p - 1) * 5 + i + 1);
+			buttons += '<input type=\"button\" value=\"' + (i + 1) + '\" class=\"page\" onclick= \"loadPage(' + i  +')\">&nbsp;';
+		}
+		if (size > 10)
+			buttons += '<input type=\"button\" class=\"pageMove\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
+		$('#paging').html(buttons);
+		$('.page')[0].focus();
+	}
+}
 //function addCongVan() {
 //	var nsxMa = $('#add-form input:text[name=nsxMa]').val();
 //	var nsxTen = $('#add-form input:text[name=nsxTen]').val();
@@ -550,7 +579,6 @@ $(document).ready(function(){
 	$('#ttFilter').change(function(){
 //		alert($(this).val());
 		var trangThai = $(this).val();
-//		alert(trangThai);
 		searchByTrangThai(trangThai);
 	});
 });	
