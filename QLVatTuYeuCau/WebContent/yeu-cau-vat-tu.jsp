@@ -146,7 +146,7 @@
 				<%} %>
 				<li><a>Tài khoản</a>
 					<ul>
-						<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+						<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
 						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
 					</ul>
 				</li>		
@@ -225,6 +225,7 @@
 							
 						</tr>
 					<%}%>
+				</div>
 				</table>
 				</div>
 				</div>
@@ -233,7 +234,6 @@
 				<div id = "paging" >
 									<%
 										String str = "";
-										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
 									for(int i = 0; i < p; i++) {
 										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCtvtYc(" + i +")\">&nbsp;";

@@ -48,8 +48,16 @@ public class NguoiDungDAO {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(NguoiDung.class, "nguoiDung");
 		cr.createAlias("nguoiDung.chucDanh", "chucDanh");
-//		cr.createAlias("chucDanh.cdTen", "cdTen");
 		cr.add(Restrictions.not(Restrictions.in("chucDanh.cdMa", ignoreList)));
+		List<NguoiDung> nguoiDungList = (List<NguoiDung>) cr.list();
+		session.getTransaction().commit();
+		return nguoiDungList;
+	}
+	public List<NguoiDung> getTruongPhong(String truongPhongMa) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(NguoiDung.class, "nguoiDung");
+		cr.createAlias("nguoiDung.chucDanh", "chucDanh");
+		cr.add(Restrictions.eq("chucDanh.cdMa", truongPhongMa));
 		List<NguoiDung> nguoiDungList = (List<NguoiDung>) cr.list();
 		session.getTransaction().commit();
 		return nguoiDungList;
@@ -117,6 +125,6 @@ public class NguoiDungDAO {
 			session.disconnect();
 	}
 	public static void main(String[] args) {
-		System.out.println(new NguoiDungDAO().getAllNguoiDung(new ArrayList<String>()));
+		System.out.println(new NguoiDungDAO().getTruongPhong("TP"));
 	}
 }

@@ -16,7 +16,7 @@ public class Mail {
 	public static void main(String[] args) {
 		
 	  
-	 String to="quoipro94@gmail.com";//change accordingly  
+	 String to="quoib1203959@student.ctu.edu.vn";//change accordingly  
 	  
 	  //Get the session object  
 	  Properties props = new Properties(); 

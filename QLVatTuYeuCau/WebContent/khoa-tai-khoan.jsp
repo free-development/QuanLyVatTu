@@ -28,22 +28,23 @@
 	<%
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
-   		if (authentication == null) {
-   			request.setAttribute("url", siteMap.ndManage + "?action=manageNd");
-   			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
-   			dispatcher.forward(request, response);
-   			return;
-   		}
+//    		if (authentication == null) {
+//    			request.setAttribute("url", siteMap.ndManage + "?action=manageNd");
+//    			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
+//    			dispatcher.forward(request, response);
+//    			return;
+//    		}
    	%>
 	<%
     		ArrayList<ChucDanh> listChucDanh = (ArrayList<ChucDanh>) request.getAttribute("chucDanhList");
-			if (listChucDanh ==  null) {
-				int index = siteMap.ndManage.lastIndexOf("/");
-				String url = siteMap.ndManage.substring(index);
-				RequestDispatcher dispatcher =  request.getRequestDispatcher(url + "?action=manageNd");
-				dispatcher.forward(request, response);
-				return;
-			}
+			ArrayList<NguoiDung> listNguoiDung = (ArrayList<NguoiDung>) request.getAttribute("nguoiDungList");
+// 			if (listChucDanh ==  null) {
+// 				int index = siteMap.ndManage.lastIndexOf("/");
+// 				String url = siteMap.ndManage.substring(index);
+// 				RequestDispatcher dispatcher =  request.getRequestDispatcher(url + "?action=manageNd");
+// 				dispatcher.forward(request, response);
+// 				return;
+// 			}
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -71,7 +72,7 @@
 		<div class="main_menu">
 			<ul>
 				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
+				
 				
 				<li><a>Danh mục</a>
 					<ul>
@@ -94,7 +95,7 @@
 								
 							</ul>
 				</li>
-				<%} %>
+				
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
 				<li><a>Báo cáo</a>
 					<ul>
@@ -102,7 +103,7 @@
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
+				
 				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
@@ -111,10 +112,10 @@
 						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
 					</ul>
 				</li>
-				<%} %>
+				
 				<li><a>Tài khoản</a>
 					<ul>
-						<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+						<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
 						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
 					</ul>
 				</li>		
@@ -128,17 +129,33 @@
 					<table>
 						<div class="form-title">Khóa tài khoản</div>
 						<tr>
+						
 						<td class="input"><label for="msnv">Mã số nhân viên</label></td>
-						<td><input type="text" autofocus required size="12"
-							maxlength="10" placeholder="Mã số nhân viên"
-							title="Mã số nhân viên đủ 10 ký tự, không chứa ký tự đặc biệt"
-							pattern="[a-zA-Z0-9]*" class="text" id="msnv" name="msnv" onkeypress="changeMsnv();"><div id="requireMsnv" style="color: red"></div></td>
+						<td><select required title="Mã số nhân viên phải được chọn"
+							class="select" id="msnv" name="msnv" placeholder="Chọn mã số nhân viên" onchange="changeMsnv();">
+								<option disabled selected value="">--Chọn Msnv--</option>
+								<%
+									for(NguoiDung nguoiDung : listNguoiDung)
+									{%>
+								<option value="<%=nguoiDung.getMsnv()%>"><%=nguoiDung.getMsnv()%></option>
+								<%}
+								%>
+							</select><div id="requireMsnv" style="color: red"></div></td>
+					</tr>
+					<tr>
+						<td class="input"><label for="hoten">Họ tên</label></td>
+						<td><input type="text" required size="20" maxlength="50" placeholder="Họ tên"
+							title="Họ tên không được chứa chữ số và ký tự đặc biệt" readonly="readonly"
+							pattern="[a-zA-Z]*" class="text" id="hoten" name="hoten">
+							
+						</td>
+							
 					</tr>
 					</table>
 				</div>
 				<div class="button-group">
 					<button class="button" type="button" onclick="">
-						<i class="fa fa-plus-circle"></i>&nbsp;Lưu lại
+						<i class="fa fa-lock"></i>&nbsp;Khóa
 					</button>
 					&nbsp;
 					<button class="button" type="reset">

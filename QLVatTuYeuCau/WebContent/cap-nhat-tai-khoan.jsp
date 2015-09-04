@@ -71,7 +71,7 @@
 		<div class="main_menu">
 			<ul>
 				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
+				
 				
 				<li><a>Danh mục</a>
 					<ul>
@@ -94,7 +94,7 @@
 								
 							</ul>
 				</li>
-				<%} %>
+				
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
 				<li><a>Báo cáo</a>
 					<ul>
@@ -102,7 +102,7 @@
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
+				
 				<li><a>Quản lý người dùng</a>
 					<ul>
 						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
@@ -111,21 +111,19 @@
 						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
 					</ul>
 				</li>
-				<%} %>
+				
 				<li><a>Tài khoản</a>
 					<ul>
-						<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+						<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
 						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
 					</ul>
 				</li>		
-				<li><a href="<%=siteMap.changePass + "?action=changePass"%>">Đổi mật khẩu</a></li>
 			</ul>
 			<div class="clear"></div>
 		</div>
 		<div id="greeting">Chào:&nbsp;<%=authentication.getHoTen() %></div>
 		<div id="main-content">
-			<form id="add-form" action="" method="post"
-				name="capNhatNguoiDung" >
+			<form id="add-form" action="<%=siteMap.updateNguoiDung%>" >
 				<div class="input-table">
 					<table>
 						<div class="form-title">Cập nhật thông tin</div>
