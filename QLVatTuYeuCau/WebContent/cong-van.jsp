@@ -267,7 +267,7 @@
                      %>
 					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : #FFFFFF;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
 						<tr >
-							<td class="column-check" rowspan="7">
+							<td class="column-check" rowspan="7" style="margin-right: 30px;">
 								<input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
 							</td>
 							<td class="left-column-soden" style="font-weight: bold;">Số đến: &nbsp;&nbsp;</td>
@@ -278,18 +278,21 @@
 							<td class="column-date"style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
 						</tr>
 						<tr>
+							
 							<td class="left-column-first" style="font-weight: bold;">Mục đích: &nbsp;&nbsp;</td>
 							<td class="column-color" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
 							<td class="left-column-ngdi" style="font-weight: bold;">Ngày công văn đi:&nbsp;&nbsp;</td>
 							<td class="column-date" style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayDi())%></td>
 						</tr>
 						<tr>
+							
 							<td class="left-column-first" style="font-weight: bold;">Nơi gửi: &nbsp;&nbsp;</td>
 							<td class="column-color" colspan="3" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
 							<td colspan="1" style="font-weight: bold;">Trạng thái:</td>
 							<td colspan="1" style="color: red;font-weight: bold;font-style: oblique;"><%=congVan.getTrangThai().getTtTen() %></td>
 						</tr>
 						<tr>
+						
 							<td class="left-column-first" style="font-weight: bold;">Trích yếu: &nbsp;&nbsp;</td>
 							<td class="column-color" colspan="6" style="text-align: left;font-weight: bold;"><%= congVan.getTrichYeu()%></td>
 						</tr>
@@ -500,8 +503,7 @@
 								<td colspan="3"><textarea class="txtarea" name="butPheUpdate"></textarea></td>
 							</tr>
 							<tr>
-								<th style="text-align: left;"><label
-									for="file" class="input" name="file">Tệp đính kèm: </label></th>
+								<th style="text-align: left;"><label for="file" class="input" name="file">Tệp đính kèm: </label></th>
 								<td><input type="file" id="file" name="file" onchange="changeFileUp();"><div id="requireFileUp" style="color: red"></div></td>
 							</tr>
 							<tr>

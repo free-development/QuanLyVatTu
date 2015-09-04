@@ -332,6 +332,7 @@ ul:first-child {
 #main-content {
 	margin: 0 auto;
 	width: 1024px;
+	
 }
 
 #title-content {
@@ -339,6 +340,7 @@ ul:first-child {
 	font-size: 25px;
 	color: firebrick;
 	font-weight: bold;
+	
 	/*
     padding-top: 20px;
     padding-bottom: 20px;
