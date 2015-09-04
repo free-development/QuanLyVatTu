@@ -52,7 +52,7 @@
 					  				$('#view-table-vat-tu table tr:first').after('<tr class=\"rowContent\"><td class=\"left-column\"><input type=\"checkbox\" name=\"vtMa\" value=\"' +vattu.vtMa 
 									+ '\"</td><td class=\"col\">'+ vattu.vtMa +'</td><td class=\"col\">' + vattu.vtTen
 									+'</td><td class=\"col\" style=\"text-align: center;\">' + vattu.dvt.dvtTen
-									+'</td><td style=\"text-align: center;\"><button type=\"button\" class=\"button-xem\" value=\"Xem\" onclick=\"showCTVatTu(\'chitiet\',true,\''
+									+'</td><td style=\"text-align: center;\"><button type=\"button\" class=\"button-xem\" value=\"Xem\" onclick=\"showCTVatTu(\''
 									+vattu.vtMa+'\');\">Xem</button></td></tr>');
 						}
  			  		}
@@ -103,9 +103,9 @@
 							$('#add-chitiet input:text[name=vtMa]').val(vtMa);
 							$('#add-chitiet input:text[name=vtTen]').val(vtTen);
 							$('#add-chitiet input:text[name=dvt]').val(dvt);
-							alert("Vật tư "+ vtMa + " đã được thêm ");
+							
 					  		showForm("add-form", false);			
-					  			
+					  		alert("Vật tư "+ vtMa + " đã được thêm ");
 						}
 				  		else{
 				  			alert("Vật tư "+ vtMa + " đã tồn tại ");
@@ -178,13 +178,15 @@
 						  	success: function(vt) {
 						  		$('table tr').has('input[name="vtMa"]:checked').remove();
 						  		$('#view-table-vat-tu table tr:first').after('<tr class=\"rowContent\"><td class=\"left-column\"><input type=\"checkbox\" name=\"vtMa\" value=\"' +vtMaUpdate + '\"</td><td class=\"col\">'+ vtMaUpdate +'</td><td class=\"col\">' + vtTenUpdate+'</td><td class=\"col\">' 
-						  				+ dvtUpdate+'</td><td style=\"text-align: center;\"><button type=\"button\" class=\"button-xem\" value=\"Xem\" onclick=\"showCTVatTu(\'chitiet\',true,\''
+						  				+ dvtUpdate+'</td><td style=\"text-align: center;\"><button type=\"button\" class=\"button-xem\" value=\"Xem\" onclick=\"showCTVatTu(\''
 										+vtMaUpdate+'\');\">Xem</button></td></tr>');
 						  		$('input:text[name=vtMaUpdate]').val('');			 
 						  		$('input:text[name=vtTenUpdate]').val('');
 								$('select[name=dvtUpdate]').val('');
+								
+						  		alert("Thay đổi thành công vật tư có mã "+vtMaUpdate+ " !");
 						  		showForm("update-form", false);	
-						  		alert("Thay đổi thành công vật tư có mã "+vtMaUpdate+ " !")
+						  		
 						  	}
 						});
  			}
@@ -194,29 +196,6 @@
 			$('#update-form select[name=dvtUpdate]').val('');
  		}
  	function confirmDeleteVT(){
- 		vtMa = $('input:checkbox[name=vtMa]:checked').val();	
- 		$.ajax({
- 			url: "/QLVatTuYeuCau/comfirmdeleteVattu.html",	
- 		  	type: "GET",
- 		  	dateType: "JSON",
- 		  	data: { "vtMa": vtMa},
- 		  	contentType: 'application/json',
- 		    mimeType: 'application/json',
- 		    
- 		    
- 		  	success: function(result) {
- 		  		if(result == "success")
- 		  			{
- 		  			if (confirm('Bạn có chắc xóa ' + vtMa))
- 		  	 			deleteVattu(vtMa);  			
- 		  			}
- 		  		else
- 		  			{
- 		  				alert("Không thể xóa!");
- 		  			}
- 		    } 
- 		});  
- 		
  		var vtMa = $('input:checkbox[name=vtMa]:checked').val();
 		var vtMaList = [];
 		$.each($("input[name='vtMa']:checked"), function(){            
@@ -227,7 +206,6 @@
 			alert('Bạn phải chọn 1 hoặc nhiều vật tư để xóa!!');
 		else if (confirm('Bạn có chắc xóa vật tư có mã ' + str))
 			deleteVattu(str);
-
  	}
 	
   	 function deleteVattu(str) {

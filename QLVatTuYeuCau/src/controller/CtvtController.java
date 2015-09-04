@@ -118,7 +118,7 @@ public class CtvtController extends HttpServlet {
 			//System.out.println("****" + ctvtId + "****");
 			CTVatTuDAO ctVatTuDAO = new CTVatTuDAO();
 			CTVatTu vt = ctVatTuDAO.getCTVatTuById(Integer.parseInt(ctvtId));
-			//System.out.println("****" + vt.getVatTu().getVtMa() + "****");
+			System.out.println("****" + vt.getVatTu().getVtMa() + "****");
 			ctVatTuDAO.disconnect();
 			return JSonUtil.toJson(vt);
 		}
@@ -128,9 +128,9 @@ public class CtvtController extends HttpServlet {
 	 public @ResponseBody String addCTVattu(@RequestParam("vtMa") String vtMa, @RequestParam("vtTen") String vtTen, @RequestParam("noiSanXuat") String noiSanXuat, @RequestParam("chatLuong") String chatLuong, 
 			 @RequestParam("dvt") String dvt, @RequestParam("dinhMuc") String dinhMuc, @RequestParam("soLuongTon") String soLuongTon) {
 		//String result = "";
-//		System.out.println("MA: " + vtMa);
-//		System.out.println("NSX: " + noiSanXuat);
-//		System.out.println("CL: " + chatLuong);
+		System.out.println("MA: " + vtMa);
+		System.out.println("NSX: " + noiSanXuat);
+		System.out.println("CL: " + chatLuong);
 		CTVatTuDAO ctVatTuDAO = new CTVatTuDAO();
 		if(ctVatTuDAO.getCTVatTu(vtMa, noiSanXuat, chatLuong) == null)
 		{
@@ -156,9 +156,8 @@ public class CtvtController extends HttpServlet {
 	@RequestMapping(value="/updateCTVattu", method=RequestMethod.GET, 
 		produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String updateCTVattu(@RequestParam("vtMaUpdate") String vtMaUpdate,  @RequestParam("nsxUpdate") String nsxUpdate, @RequestParam("clUpdate") String clUpdate, @RequestParam("dinhMucUpdate") String dinhMucUpdate, @RequestParam("soLuongTonUpdate") String soLuongTonUpdate) {
-//		System.out.println(vtMaUpdate + "&" + nsxUpdate + "&" + clUpdate + "&" + dinhMucUpdate + "&" + soLuongTonUpdate);
+		System.out.println(vtMaUpdate + "&" + nsxUpdate + "&" + clUpdate + "&" + dinhMucUpdate + "&" + soLuongTonUpdate);
 		CTVatTuDAO ctvtDAO = new CTVatTuDAO();
-		//System.out.println(vtMaUpdate + "&" + nsxUpdate + "&" + clUpdate + "&" + dinhMucUpdate + "&" + soLuongTonUpdate);
 		CTVatTu ctvt = ctvtDAO.getCTVatTu(vtMaUpdate, nsxUpdate, clUpdate);
 		//System.out.println(vtMaUpdate + "&" + nsxUpdate + "&" + clUpdate + "&" + dinhMucUpdate + "&" + soLuongTonUpdate);
 		// CTVatTu ctvt = new CTVatTu(new VatTu(vtMaUpdate) , new

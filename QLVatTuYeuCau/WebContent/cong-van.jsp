@@ -275,7 +275,7 @@
 							<td class="left-column-socv" style="font-weight: bold;">Số công văn: &nbsp;&nbsp;</td>
 							<td class="column-socv" style="text-align: left;color:red;font-weight: bold;"><%=congVan.getCvSo() %></td>
 							<td class="left-column-first" style="font-weight: bold;">Ngày đến: &nbsp;&nbsp;</td>
-							<td class="column-date"style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
+							<td class="column-date" style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
 						</tr>
 						<tr>
 							

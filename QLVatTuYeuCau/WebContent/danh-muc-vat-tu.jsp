@@ -272,7 +272,7 @@
 					onclick="preEditVattu('update-form', true);">
 					<i class="fa fa-pencil fa-fw"></i>&nbsp;Thay đổi
 				</button>
-				<button class="button" onclick="confirmDeleteVT();">
+				<button type="button" class="button" onclick="confirmDeleteVT();">
 					<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa
 				</button>
 				&nbsp;
@@ -605,13 +605,13 @@
 						<tr>
 							<th style="text-align: left"><label for="MVT">Nơi sản xuất</label></th>
 							<td><input name="nsxUpdate" size="15px" type="text" readonly style="background-color: #D1D1E0;"
-								class="text"></td>
+							class="text"><input name="maNsx" type="hidden"></td>
 						</tr>
 						
 						<tr>
 							<th style="text-align: left"><label for="DVT">Chất lượng</label></th>
 								<td><input name="clUpdate" size="15px" type="text" readonly style="background-color: #D1D1E0;"
-								class="text"></td>
+								class="text"><input name="maCl" type="hidden"></td>
 						</tr>
 						<tr>
 							<th style="text-align: left"><label for="DM">Định mức</label></th>
