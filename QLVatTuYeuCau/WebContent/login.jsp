@@ -11,9 +11,9 @@
 
 </head>
 <body>
-					<div style="text-align: center;margin: 0 auto;"><img src="./login.png" /></div>
+					<div style="text-align: center;margin: 0 auto;"><img src="./img/login.jpg" /></div>
 				<div class="main-content">
-					<div style="width: 800px; height: 630px;background-image: url('./content.jpg');background-repeat: no-repeat;text-align: center;margin: 0 auto;">
+					<div style="width: 800px; height: 630px;background-image: url('./img/content.jpg');background-repeat: no-repeat;text-align: center;margin: 0 auto;">
 							<div class="module form-module">
 				  				<div class="toggle"><i class="fa fa-times fa-pencil"></i></div>
 						  			<div class="form">
@@ -32,20 +32,6 @@
 								    </form>
 						  			</div>
 				 			 </div>
-				 			 <div style="text-align: center;margin: 0 auto; margin-top: 80px;margin-left: 100px;">
-						 			 <div class="img">
-									 <img src="dien.jpg" width="110" height="90">
-									 </div>
-									 <div class="img">
-									 <img src="dienluc.jpg" width="110" height="90">
-									 </div>
-									 <div class="img">
-									 <img src="nhanvien.jpg" width="110" height="90">
-									 </div>
-									 <div class="img">
-									 <img src="cantho.jpg" width="110" height="90">
-									 </div>
-							</div>
 		 			 </div>
 		  		</div>
 </body>

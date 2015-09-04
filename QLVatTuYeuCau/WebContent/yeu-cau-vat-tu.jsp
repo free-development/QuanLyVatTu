@@ -235,41 +235,23 @@
 				</table>
 				</div>
 				</div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 963e080b20d3f1bc9e8d7a92cfc25460ba461a0d
 			</form>				
 				</div>
 				<div id = "paging" >
 									<%
-<<<<<<< HEAD
 										String str = "";
-=======
-										String str = "";
-
->>>>>>> 963e080b20d3f1bc9e8d7a92cfc25460ba461a0d
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
 									for(int i = 0; i < p; i++) {
 										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCtvtYc(" + i +")\">&nbsp;";
 									}
 									if (pageNum > 10)
-<<<<<<< HEAD
-=======
-
->>>>>>> 963e080b20d3f1bc9e8d7a92cfc25460ba461a0d
 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
 									out.println(str);	
 								%>
-
-<<<<<<< HEAD
 					</div>
 
-=======
 			</div>
-
->>>>>>> 963e080b20d3f1bc9e8d7a92cfc25460ba461a0d
 			<form id="main-form">
 			<div class="form-title" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
