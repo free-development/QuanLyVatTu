@@ -111,6 +111,8 @@
 //					  	$('#noisanxuatUp option[value='+vt.noiSanXuat.nsxMa+']').prop('selected',true);
 //					  	$('#chatluongUp option[value='+vt.chatLuong.clMa+']').prop('selected',true);
 					  	$('#update-chitiet input:text[name=nsxUpdate]').val(vt.noiSanXuat.nsxTen);
+					  	$('#update-chitiet input[name=maNsx]').val(vt.noiSanXuat.nsxMa);
+					  	$('#update-chitiet input[name=maCl]').val(vt.chatLuong.clMa);
 						$('#update-chitiet input:text[name=clUpdate]').val(vt.chatLuong.clTen);
 						$('#update-chitiet input:text[name=dvtUpdate]').val(vt.vatTu.dvt.dvtTen);
 						$('#update-chitiet input[name=dinhMucUpdate]').val(vt.dinhMuc);
@@ -126,8 +128,8 @@
 		function confirmUpdateCTVattu(){
 			var vtMaUpdate = $('#update-chitiet input:text[name=vtMaUpdate]').val();
 			var vtTenUpdate = $('#update-chitiet input:text[name=vtTenUpdate]').val();
-			var nsxUpdate = $('#update-chitiet select[name=nsxUpdate]').val();
-			var clUpdate = $('#update-chitiet select[name=clUpdate]').val();
+			var nsxUpdate = $('#update-chitiet input[name=maNsx]').val();
+			var clUpdate = $('#update-chitiet input[name=maCl]').val();
 			var dvtUpdate = $('#update-chitiet input:text[name=dvtUpdate]').val();
 			var dinhMucUpdate = $('#update-chitiet input[name=dinhMucUpdate]').val();
 			var soLuongTonUpdate = $('#update-chitiet input[name=soLuongTonUpdate]').val();
@@ -167,13 +169,14 @@
 				  				+ soLuongTonUpdate+'</td></tr>');
 				  		$('input:text[name=vtMaUpdate]').val('');			 
 				  		$('input:text[name=vtTenUpdate]').val('');
-				  		$('select[name=nsxUpdate]').val('');
-				  		$('select[name=clUpdate]').val('');
+				  		$('input:text[name=nsxUpdate]').val('');
+				  		$('input:text[name=clUpdate]').val('');
 						$('input:text[name=dvtUpdate]').val('');
 						$('input[name=dinhMucUpdate]').val('');
 						$('input[name=soLuongTonUpdate]').val('');
+						
+				  		alert("Sửa thành công chi tiết vật tư có mã "+ vtMaUpdate+ " !");
 				  		showForm("update-chitiet", false);	
-				  		alert("Sửa thành công chi tiết vật tư có mã "+vtMaUpdate+ " !")
 				  	}
 				});
  	}

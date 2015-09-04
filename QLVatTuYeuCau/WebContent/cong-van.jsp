@@ -230,10 +230,14 @@
 						</div>
 					</form>	
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
+<<<<<<< HEAD
                      <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content">
 
                      <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
 
+=======
+                     <div style="height: 500px; width: 810px; class="scroll_content ">
+>>>>>>> 178568673fe95370a6836675254bcfb3b461469d
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {
@@ -249,7 +253,7 @@
 							<td class="left-column-socv" style="font-weight: bold;">Số công văn: &nbsp;&nbsp;</td>
 							<td class="column-socv" style="text-align: left;color:red;font-weight: bold;"><%=congVan.getCvSo() %></td>
 							<td class="left-column-first" style="font-weight: bold;">Ngày đến: &nbsp;&nbsp;</td>
-							<td class="column-date"style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
+							<td class="column-date" style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
 						</tr>
 						<tr>
 							

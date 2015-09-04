@@ -103,10 +103,12 @@ public class CTVatTuDAO {
 		Criterion expNoiSanXuat = Restrictions.eq("noiSanXuat", new NoiSanXuat(nsxMa));
 		Criterion expChatLuong = Restrictions.eq("chatLuong", new ChatLuong(clMa));
 		Criterion expVatTu = Restrictions.eq("vatTu", new VatTu(vtMa));
-		LogicalExpression andExp = Restrictions.and (expChatLuong, expNoiSanXuat);
-		andExp = Restrictions.and(andExp, expChatLuong);
-		andExp = Restrictions.and(andExp, expVatTu);
-		cr.add(andExp);
+		//LogicalExpression andExp = Restrictions.and (expChatLuong, expNoiSanXuat);
+//		andExp = Restrictions.and(andExp, expChatLuong);
+//		andExp = Restrictions.and(andExp, expVatTu);
+		cr.add(expNoiSanXuat);
+		cr.add(expChatLuong);
+		cr.add(expVatTu);
 		ArrayList<CTVatTu> ctvtList = (ArrayList<CTVatTu>) cr.list();
 		
 		CTVatTu ctVatTu = null;
@@ -327,12 +329,13 @@ public class CTVatTuDAO {
 //				System.out.println("OK");
 //			else 
 //				System.out.println(ctvt.getCtvtId() + "fail");
-		System.out.println(new CTVatTuDAO().searchByCtvtTenLimit("T",0,5).size());
-		System.out.println(new CTVatTuDAO().sizeOfSearchCtvtTen("T"));
-		System.out.println(new CTVatTuDAO().searchByCtvtTenLimit("T", 0, 5).get(0).getVatTu().getVtTen());
-		ArrayList<CTVatTu> ctvtList = new CTVatTuDAO().searchByCtvtMaLimit("121",0,30);
-		for (CTVatTu ctvt : ctvtList) {
-			System.out.println(ctvt.getVatTu().getVtMa());
-		}
+//		System.out.println(new CTVatTuDAO().searchByCtvtTenLimit("T",0,5).size());
+//		System.out.println(new CTVatTuDAO().sizeOfSearchCtvtTen("T"));
+//		System.out.println(new CTVatTuDAO().searchByCtvtTenLimit("T", 0, 5).get(0).getVatTu().getVtTen());
+//		ArrayList<CTVatTu> ctvtList = new CTVatTuDAO().searchByCtvtMaLimit("121",0,30);
+//		for (CTVatTu ctvt : ctvtList) {
+//			System.out.println(ctvt.getVatTu().getVtMa());
+//		}
+		//System.out.println(new CTVatTuDAO().getCTVatTu("", nsxMa, clMa));
 	}
 }
