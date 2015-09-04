@@ -152,7 +152,7 @@
 			</ul>
 					<div class="clear"></div>
 				</div>
-		<div id="greeting"><%=authentication.getHoTen() %></div>
+		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
 		<div id="main-vattu">
 			<div id="title-content">Danh mục vật tư</div>
 <!-- 					<h3>* Tìm kiếm mã</h3> -->

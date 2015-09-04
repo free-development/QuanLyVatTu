@@ -139,6 +139,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
+		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
 		<div id="main-content">
 				<form id="main-form" action="<%=siteMap.updateChiaSeCv%>" method="get">
 				<div id="title-content">Chia sẻ công văn</div>

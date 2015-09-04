@@ -143,7 +143,7 @@
 			</ul>
 				<div class="clear"></div>
 			</div>
-		<div id="greeting"><%=authentication.getHoTen() %></div>
+		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
 		<div id="main-content">
 				<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
 				</ul>

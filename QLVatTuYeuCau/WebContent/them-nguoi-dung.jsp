@@ -122,7 +122,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting"><%=authentication.getHoTen() %></div>
+		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
 		<div id="main-content">
 			<form id="add-form" action="<%=siteMap.ndManage %>?action=addNd" method="post"
 				name="taoTaiKhoan" >

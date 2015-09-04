@@ -5,7 +5,7 @@
   background: #ffffff;
   max-width: 320px;
   width: 100%;
-  border-top: 5px solid #33b5e5;
+  border-top: 5px solid #000099;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
 }
@@ -14,7 +14,7 @@
   position: absolute;
   top: -0;
   right: -0;
-  background: #33b5e5;
+  background: #000099; /*#33b5e5;*/
   width: 30px;
   height: 30px;
   margin: -5px 0 0;
@@ -104,7 +104,7 @@
 div.img {
     margin: 5px;
     padding: 5px;
-    border: 1px solid #0000ff;
+    /*border: 1px solid #0000ff;*/
     height: auto;
     width: auto;
     float: left;
@@ -115,10 +115,6 @@ div.img img {
     display: inline;
     margin: 5px;
     border: 1px solid #ffffff;
-}
-
-div.img a:hover img {
-    border: 1px solid #0000ff;
 }
 
 div.desc {

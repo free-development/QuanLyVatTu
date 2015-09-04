@@ -12,8 +12,8 @@
 </head>
 <body>
 					<div style="text-align: center;margin: 0 auto;"><img src="./login.png" /></div>
-				<div class="main-content" >
-					<div style="width: 800px; height: 630px;background-color: #94B8B8;text-align: center;margin: 0 auto;">
+				<div class="main-content">
+					<div style="width: 800px; height: 630px;background-image: url('./content.jpg');background-repeat: no-repeat;text-align: center;margin: 0 auto;">
 							<div class="module form-module">
 				  				<div class="toggle"><i class="fa fa-times fa-pencil"></i></div>
 						  			<div class="form">
