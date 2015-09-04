@@ -145,10 +145,9 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting"><%=authentication.getHoTen() %></div>
+		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
 		<div id="content">
 			<div id="content-wrapper">
-				<div id="greeting">Chào Nguyễn Văn An</div>
 				<div id="title-content">Danh mục mục đích</div>
 				<div id="main-content">
 

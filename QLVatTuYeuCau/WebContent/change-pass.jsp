@@ -141,6 +141,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
+		<div id="greeting">Chào <%=nguoiDung.getHoTen() %></div>
 		<div id="main-content">
 			<form id="add-form" action="<%=siteMap.changePass %>" method="post"
 				name="taoTaiKhoan" action="/QLVatTuYeuCau/changePass.html">

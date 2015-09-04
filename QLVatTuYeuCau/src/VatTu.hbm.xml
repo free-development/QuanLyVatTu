@@ -13,8 +13,14 @@
 		<property name="daXoa" type="int">
 			<column name="DAXOA" />
 		</property>
+<<<<<<< HEAD
 		<many-to-one name="dvt"  class="model.DonViTinh" fetch="join" >
 			<column name="DVTID"></column>
 		</many-to-one>
+=======
+		<many-to-one name="dvt"  class="model.DonViTinh" fetch="join" >
+			<column name="DVTID"></column>
+		</many-to-one>
+>>>>>>> 7e124d9a77e2da305ec6f4c8a9574842d33c5950
 	</class>
 </hibernate-mapping>

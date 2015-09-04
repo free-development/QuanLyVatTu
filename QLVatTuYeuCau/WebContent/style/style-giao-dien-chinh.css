@@ -14,8 +14,9 @@ a {
 }
 
 body {
-	/*	background-image: url(../img/background.jpg)*/
+	background: url('./background.jpg');
 	background-color: aliceblue;
+	background-repeat: no-repeat;
 }
 
 .clear {
@@ -331,6 +332,7 @@ ul:first-child {
 #main-content {
 	margin: 0 auto;
 	width: 1024px;
+	
 }
 
 #title-content {
@@ -338,6 +340,7 @@ ul:first-child {
 	font-size: 25px;
 	color: firebrick;
 	font-weight: bold;
+	
 	/*
     padding-top: 20px;
     padding-bottom: 20px;

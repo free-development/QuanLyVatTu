@@ -152,7 +152,7 @@
 			</ul>
 					<div class="clear"></div>
 				</div>
-		<div id="greeting"><%=authentication.getHoTen() %></div>
+		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
 		<div id="main-vattu">
 			<div id="title-content">Danh mục vật tư</div>
 <!-- 					<h3>* Tìm kiếm mã</h3> -->
@@ -438,7 +438,7 @@
 					</tr>			
 				</table>
 			
-				<div id="view-table-chi-tiet">
+				<div id="view-table-chi-tiet" style="height: 350px; width: 910px; overflow:auto">
 
 				<table>
 					<tr style="background: #199e5e">

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
+import org.apache.xmlbeans.impl.common.SystemCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -648,7 +649,11 @@ public class CvController extends HttpServlet {
 			if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa)) {
 				msnvTemp = null;
 			}
+<<<<<<< HEAD
 			
+=======
+			long size = congVanDAO.size(msnvTemp);
+>>>>>>> 7e124d9a77e2da305ec6f4c8a9574842d33c5950
 			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, (page) *3, 3);
 			ArrayList<File> fileList = new ArrayList<File>();
 			for (CongVan congVan : congVanList) {

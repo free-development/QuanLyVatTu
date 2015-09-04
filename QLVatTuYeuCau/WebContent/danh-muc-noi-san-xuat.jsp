@@ -27,7 +27,9 @@
 </head>
 <body>
 	<%
+
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
+
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
    			request.setAttribute("url", siteMap.nsxManage + "?action=manageNsx");
@@ -42,6 +44,7 @@
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");
     	
+
     		ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) request.getAttribute("noiSanXuatList");
     		if (listNoiSanXuat ==  null) {
 				int index = siteMap.nsxManage.lastIndexOf("/");
@@ -135,7 +138,7 @@
 			</ul>
 					<div class="clear"></div>
 				</div>
-			<div id="greeting"><%=authentication.getHoTen() %></div>
+			<div id="greeting">Chào <%=authentication.getHoTen() %></div>
 				<div id="main-content">
 					<div id="title-content">
 		 Danh mục nơi sản xuất

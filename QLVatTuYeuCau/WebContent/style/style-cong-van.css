@@ -21,11 +21,14 @@
 
 .right-content {
 	position: relative;
-	left: 0px;
+	position: absolute;
+	top:30%;
+	left:30%;
 	display: table-cell;
 }
 #content-form{
 	background-color: #dceaf5;;
+	height:750px;
 }
 #content {
 	margin: 0 auto;
@@ -198,8 +201,8 @@
 	text-decoration: underline;
 }
 .column-color {
-	color:#3399CC;
-	font-weight: bold;
+	color:blue;
+	/*font-weight: bold;*/
 }
 
 .column-ngden {
@@ -235,11 +238,11 @@
 }
 
 .column-check{
-	width: 20px;
-	text-align: right;
+	width: 70px;
+	text-align: center;
 	/* margin-right: 20px; */
 	/* margin-left: 20px;*/
-	padding: 10px;
+	
 }
 
 .form-title {
@@ -531,7 +534,7 @@
 }
 
 .mo-ta {
-	color:#0000FF;
+	color:red;
 	text-decoration: underline;
 }
 

@@ -286,40 +286,36 @@ function loadCongVan(congVanList, fileList) {
 						+ '<td class=\"column-check\" rowspan=\"7\">'
 						+ '<input title=\"Click để chọn công văn\" type=\"checkbox\" name=\"cvId\" value=\"' + congVan.cvId + '\">'
 						+ '</td>'
-						+ '<td class=\"left-column-soden\">Số đến: &nbsp;&nbsp;</td>'
+						+ '<th class=\"left-column-soden\">Số đến: &nbsp;&nbsp;</th>'
 						+ '<td class=\"column-so-den\" style=\"text-align: left\">' + congVan.soDen + '</td>'
-						+ '<td class=\"left-column-socv\">Số công văn: &nbsp;&nbsp;</td>'
+						+ '<th class=\"left-column-socv\">Số công văn: &nbsp;&nbsp;</th>'
 						+ '<td class=\"column-socv\" style=\"text-align: left;color:red;\">' + congVan.cvSo + '</td>'
-						+ '<td class=\"left-column-first\" >Ngày đến: &nbsp;&nbsp;</td>'
+						+ '<th class=\"left-column-first\" >Ngày đến: &nbsp;&nbsp;</th>'
 						+ '<td class=\"column-date\"style=\"text-align: left\">' + congVan.cvNgayNhan + '</td>'
 						+ '</tr>'
 						+ '<tr>'
-						+ '<td class=\"left-column-first\">Mục đích: &nbsp;&nbsp;</td>'
+						+ '<th class=\"left-column-first\">Mục đích: &nbsp;&nbsp;</th>'
 						+ '<td class=\"column-color\" colspan=\"3\" style=\"text-align: left\">' + congVan.mucDich.mdTen + '</td>'
-						+ '<td class=\"left-column-ngdi\">Ngày công văn đi:&nbsp;&nbsp;</td>'
+						+ '<th class=\"left-column-ngdi\">Ngày công văn đi:&nbsp;&nbsp;</th>'
 						+ '<td class=\"column-date\" style=\"text-align: left\">' + congVan.cvNgayDi+ '</td>'
 						+ '</tr>'
 						+ '<tr>'
-						+ '<td class=\"left-column-first\">Nơi gửi: &nbsp;&nbsp;</td>'
+						+ '<th class=\"left-column-first\">Nơi gửi: &nbsp;&nbsp;</th>'
 						+ '<td class=\"column-color\" colspan=\"3\" style=\"text-align: left\">' +  congVan.donVi.dvTen + '</td>'
-						+ '<td class=\"left-column-first\">Link xem công văn: </td>'
-						+ '<td colspan=\"1\">'
-						+ '<a href=\"' + '/QLVatTuYeuCau/cvManage.html' + '?action=download&file=' + congVan.cvId + '\">'
-						+ 
-						'<div class=\"mo-ta\">' + file.moTa + '</div>'
-						+ '</a> '
-						+ '</td>'
+						+ '<th style=\"text-align: left\">Trạng thái</th>'
+						+ '<td colspan="5" style=\"color:red;font-weight: bold;font-style: oblique;\">' + congVan.trangThai.ttTen + '</td>'
+						
 						+ '</tr>'
 						+ '<tr>'
-						+ '<td class=\"left-column-first\">Trích yếu: &nbsp;&nbsp;</td>'
+						+ '<th class=\"left-column-first\">Trích yếu: &nbsp;&nbsp;</th>'
 						+ '<td class=\"column-color\"colspan=\"6\" style=\"text-align: left\">' +  congVan.trichYeu + '</td>'
 						+ '</tr>'
 						+ '<tr>'
-						+ '<td class=\"left-column-first\">Bút phê: &nbsp;&nbsp;</td>'
+						+ '<th class=\"left-column-first\">Bút phê: &nbsp;&nbsp;</th>'
 						+ '<td class=\"column-color\" colspan=\"6\">' +  congVan.butPhe + '</td>'
 						+ '</tr>'
 						+ '<tr>'
-						+ '<td class=\"left-column-first\">Nơi GQ chính</td>'
+						+ '<th class=\"left-column-first\">Nơi GQ chính</th>'
 						+ '<td class=\"column-color\"colspan=\"3\">' + congVan.donVi.dvTen + '</td>'
 						+ '<td colspan=\"3\" style=\"float: right;\">'
 						+ '<button  class=\"button\" type=\"button\" style=\"width: 170px; height: 30px;\" onclick=\"location.href=\"' + '/QLVatTuYeuCau/cscvManage.html ' + '?action=chiaSeCv&congVan=' + congVan.cvId + '\">'
@@ -328,13 +324,20 @@ function loadCongVan(congVanList, fileList) {
 						+ '</td>'
 						+ '</tr>'
 						+ '<tr>'
-						+ '<td>Trạng thái</td>'
-						+ '<td colspan="5">' + congVan.trangThai.ttTen + '</td>'
+						+ '<th class=\"left-column-first\">Xem công văn: </th>'
+						+ '<td colspan=\"1\">'
+						+ '<a href=\"' + '/QLVatTuYeuCau/cvManage.html' + '?action=download&file=' + congVan.cvId + '\">'
+						+ 
+						'<div class=\"mo-ta\">' + file.moTa + '</div>'
+						+ '</a> '
+						+ '</td>'
 						+ '</tr>'
-						+ '</table>';
+						+ '</table>'
+						+'<br>'
+						+'<hr>';
 			
 		}
-	} else {
+	} else{
 		alert('Không tồn tại công văn');
 	}
 	$('.scroll_content').html(tables);
@@ -452,6 +455,7 @@ function loadPage(pageNumber) {
 	} else {
 		var page = pageNumber;
 	}
+	//alert(page);
 	$.ajax({
 		url: "/QLVatTuYeuCau/loadPageCongVan.html",	
 	  	type: "GET",

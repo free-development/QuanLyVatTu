@@ -159,9 +159,6 @@
 			
 			
 			<form id="add-yeu-cau-form">
-<!-- 			<div class="form-title">Cập nhật yêu cầu vật tư</div> -->
-<!-- 			<fieldset style="width: 70%;margin:0 auto;"> -->
-<!-- 				<legend style="padding-left: 20px; ">Tìm kiếm</legend> -->
 				<div id="yc-table">
 				<table>
 					<tr>
@@ -200,11 +197,7 @@
 					
 				</table>
 				</div>
-<!-- 				<div class="group-button"> -->
-<!-- 					<button class="button" type="button" onclick="searchCtvt();">Tìm kiếm</button> -->
-<!-- 				</div> -->
-<!-- 				</div> -->
-<!-- 			</fieldset> -->
+
 			</form>
 			<form id="danh-sach-vat-tu">
 			<div class="form-title">Danh sách vật tư</div>
@@ -232,18 +225,23 @@
 							
 						</tr>
 					<%}%>
+<<<<<<< HEAD
 				</table>
 				</div>
-				</div>
-			</form>				
-				<div id = "paging" >
 =======
+				</table>
+>>>>>>> 7e124d9a77e2da305ec6f4c8a9574842d33c5950
 				</div>
 				</div>
 			</form>				
+				</div>
 				<div id = "paging" >
 									<%
+<<<<<<< HEAD
 										String str = "";
+=======
+										String str = "";
+>>>>>>> 7e124d9a77e2da305ec6f4c8a9574842d33c5950
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
 									for(int i = 0; i < p; i++) {
@@ -253,11 +251,8 @@
 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
 									out.println(str);	
 								%>
-<!-- 									<input type="button" value="Next>>"></td> -->
-
 					</div>
-			</div>
-					</div>
+<<<<<<< HEAD
 									out.println(str);	
 								%>
 <!-- 									<input type="button" value="Next>>"></td> -->
@@ -265,6 +260,10 @@
 					</div>
 			</div>
 					</div>
+=======
+
+			</div>
+>>>>>>> 7e124d9a77e2da305ec6f4c8a9574842d33c5950
 			<form id="main-form">
 			<div class="form-title" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
@@ -380,4 +379,3 @@
 			</form>
 </body>
 </html>
-s

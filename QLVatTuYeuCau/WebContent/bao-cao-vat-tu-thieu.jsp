@@ -142,7 +142,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-
+		<div id="greeting">Chào <%=nguoiDung.getHoTen() %></div>
 		<div id="main-content">
 			<div id="title-content"style="margin-top: 20px;">Báo cáo vật tư thiếu</div>
 			<br>

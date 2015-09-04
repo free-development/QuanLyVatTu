@@ -118,11 +118,10 @@
 						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
 					</ul>
 				</li>		
-				<li><a href="<%=siteMap.changePass + "?action=changePass"%>">Đổi mật khẩu</a></li>
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting"><%=authentication.getHoTen() %></div>
+		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
 		<div id="main-content">
 			<form id="add-form" action="<%=siteMap.ndManage %>?action=addNd" method="post"
 				name="taoTaiKhoan" >

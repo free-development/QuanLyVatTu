@@ -5,8 +5,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+<<<<<<< HEAD
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+=======
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+
+>>>>>>> 7e124d9a77e2da305ec6f4c8a9574842d33c5950
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -14,6 +21,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7e124d9a77e2da305ec6f4c8a9574842d33c5950
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,10 +66,13 @@ import util.SendMail;
 //@WebServlet("/ChiaSeCvController")
 public class ChiaSeCvController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+<<<<<<< HEAD
 	@Autowired
 	 private   ServletContext context; 
 //	private int pageCscv = 1;
 //	HttpSession session = null;
+=======
+>>>>>>> 7e124d9a77e2da305ec6f4c8a9574842d33c5950
 	HttpSession session;
 	HttpServletResponse res = null;
    @RequestMapping("/cscvManage")
@@ -88,8 +102,6 @@ public class ChiaSeCvController extends HttpServlet {
 				HashMap<Integer, VaiTro> vtHash = vtCongVanDAO.toVaiTro(vtcvList);
 				vaiTroHash.put(msnv, vtHash);
 			}
-			//long sizeCscv = nguoiDungDAO.size();
-	    	//request.setAttribute("page", sizeCscv / 10);
 			request.setAttribute("vaiTroHash", vaiTroHash);
 			request.setAttribute("vtNguoiDungHash", vtNguoiDungHash);
 			
@@ -118,7 +130,6 @@ public class ChiaSeCvController extends HttpServlet {
 			NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 			VaiTroDAO vaiTroDAO =  new VaiTroDAO();
 			
-			//String[] msnv = new String[vaiTro.length];
 			int cvId = congVan.getCvId();		
 			vtCongVanDAO.deleteByCvId(cvId);
 			for (String vtMa : vaiTro) {

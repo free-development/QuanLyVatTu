@@ -123,9 +123,26 @@
 					</ul>
 					<div class="clear"></div>
 				</div>
-				<div id="greeting"><%=nguoiDung.getHoTen() %></div>
+				<div id="greeting">Chào:&nbsp;<%=nguoiDung.getHoTen() %></div>
 				<div id="main-content">
-					
+					<div class="view-tbao">
+						<table>
+						<tr >
+							<td>
+							<i class="fa fa-sign-out"></i>&nbsp;Thông báo
+							</td>
+						</tr>
+						</table>
+					</div>
+					<div class="view-nky">
+						<table>
+						<tr>
+						<td>
+							<a href=""><i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động</a>
+						</td>
+						</tr>
+						</table>
+					</div>
 				</div>
 				
         </div>
