@@ -230,7 +230,11 @@
 						</div>
 					</form>	
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
+<<<<<<< HEAD
                      <div style="height: 500px; width: 810px;" class="scroll_content">
+=======
+                     <div style="height: 500px; width: 810px;" class="scroll_content ">
+>>>>>>> f17c8d62a77d68efd8b683e37da51de91213df9f
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {
@@ -311,8 +315,7 @@
 						<%}
 							if(pageNum > 10) {
 						%>
-							<input type="button" class="pageMove" value = "Sau >>" onclick = "loadPage('Next')";>
-							
+							<input type="button"  class="pageMove" value = "Sau >>" onclick = "loadPage('Next');">
 						<%}%>	
 						</div>
 						<script type="text/javascript">$('.page')[0].focus();</script>
