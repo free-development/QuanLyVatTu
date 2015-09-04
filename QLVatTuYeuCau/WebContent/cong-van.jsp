@@ -70,37 +70,10 @@
     
 	<div class="wrapper">
 		<jsp:include page="header.jsp" /> 
-<!-- 		<div class="header"> -->
-<!-- 			<!-- -->
-<!-- 					<img src="img/logo.png" alt="" id="logo" width=80 height=80/><br/> -->
-<!-- 					<img src="img/textlogo.png" alt="" id="logo" width=80 height=20/> -->
-<!-- 			<div id="top_title">Văn phòng điện tử</div> -->
-<!-- 			<div id="bottom-title">Công ty điện lực cần thơ</div> -->
-<!-- 			<div class="search_form" id="search"> -->
-<!-- 				<form action="" method="post"> -->
-<!-- 					
-<!-- 							<span class="search-select"> -->
-<!-- 								<select name="" ><option disabled selected>--Tùy chọn kiếm kiềm--</option></select> -->
-<!-- 								<option value=""></option> -->
-<!-- 							</span> -->
-<!-- 												<span class="bg-search"> -->
-<!-- 					<span class="search-text"> &nbsp; <input type="search" -->
-<!-- 						class="search" name="search_box" name="search" -->
-<!-- 						placeholder="Tìm kiếm" /> -->
-<!-- 					</span> <span class="search-button"> &nbsp; -->
-<!-- 						<button class="btn-search"> -->
-<!-- 							<i class="fa fa-search"></i> -->
-<!-- 						</button> -->
-<!-- 					</span> -->
-<!-- 					                           </span> -->
-<!-- 				</form> -->
-<!-- 			</div> -->
-
-<!-- 		</div> -->
 		<div class="main_menu">
 			<ul>
 				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-				<%if ("admin".equalsIgnoreCase(authentication.getChucDanh().getCdTen())) {%>
+				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
 				
 				<li><a>Danh mục</a>
 					<ul>
@@ -257,9 +230,13 @@
 						</div>
 					</form>	
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
+<<<<<<< HEAD
+                     <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content">
+=======
 
                      <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
 
+>>>>>>> 7e124d9a77e2da305ec6f4c8a9574842d33c5950
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {

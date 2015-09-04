@@ -25,17 +25,35 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  	<!-- param for admin ma -->
    <context-param>
     	<param-name>truongPhongMa</param-name>
     	<param-value>TP</param-value>
   	</context-param>
+  	<!-- param for van thu ma -->
   	<context-param>
     	<param-name>vanThuMa</param-name>
     	<param-value>VT</param-value>
   	</context-param>
+  	<!-- param for admin ma -->
   	<context-param>
     	<param-name>adminMa</param-name>
     	<param-value>AD</param-value>
+  	</context-param>
+  	<!-- param for email account ma -->
+  	<context-param>
+    	<param-name>account</param-name>
+    	<param-value>evnCanTho@gmail.com</param-value>
+  	</context-param>
+  	<!-- param for email password ma -->
+  	<context-param>
+    	<param-name>password</param-name>
+    	<param-value>evnCanTho2015</param-value>
+  	</context-param>
+  	<!-- param for hosting -->
+  	<context-param>
+    	<param-name>hosting</param-name>
+    	<param-value>http://localhost:8080</param-value>
   	</context-param>
   <jsp-config>
   <jsp-property-group>
