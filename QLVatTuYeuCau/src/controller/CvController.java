@@ -625,8 +625,6 @@ public class CvController extends HttpServlet {
 			HashMap<String, Object> conditions = new HashMap<String, Object>();
 			HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
 			
-			
-			
 			if (year != 0)
 				conditions.put("year", year);
 			if (month != 0)
@@ -649,11 +647,6 @@ public class CvController extends HttpServlet {
 			if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa)) {
 				msnvTemp = null;
 			}
-<<<<<<< HEAD
-			
-=======
-			long size = congVanDAO.size(msnvTemp);
->>>>>>> 7e124d9a77e2da305ec6f4c8a9574842d33c5950
 			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, (page) *3, 3);
 			ArrayList<File> fileList = new ArrayList<File>();
 			for (CongVan congVan : congVanList) {
