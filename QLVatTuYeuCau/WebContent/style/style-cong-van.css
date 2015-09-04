@@ -23,7 +23,7 @@
 	position: relative;
 	position: absolute;
 	top:30%;
-	left:30%;
+	left:29.5%;
 	display: table-cell;
 }
 #content-form{
@@ -226,8 +226,7 @@
 	display: auto;
 	font-size: 16px;
 	border: 1px solid #CCCCCC;
-	margin: 1em 0;
-	overflow: scroll; /*chú ý dòng này*/
+	margin: 0 auto;
 }
 
 .chi-tiet {

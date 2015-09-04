@@ -3,24 +3,20 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.print.attribute.standard.NumberOfInterveningJobs;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import map.siteMap;
 import model.CTNguoiDung;
 import model.ChatLuong;
 import model.ChucDanh;
-import model.DonVi;
-import model.MucDich;
 import model.NguoiDung;
-import model.NoiSanXuat;
-import util.JSonUtil;
-import util.StringUtil;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,21 +25,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import util.JSonUtil;
+import util.StringUtil;
 import dao.CTNguoiDungDAO;
-import dao.CTVatTuDAO;
 import dao.ChatLuongDAO;
 import dao.ChucDanhDAO;
-import dao.DonViDAO;
 import dao.NguoiDungDAO;
-import dao.NoiSanXuatDAO;
-import map.siteMap;
 
-/**
- * Servlet implementation class NdController
- */
+
+
 @Controller
 public class NdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	@Autowired
+	private   ServletContext context;
+	
 	@RequestMapping("/ndManage")
 	public ModelAndView ndManage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -58,9 +54,7 @@ public class NdController extends HttpServlet {
 			ArrayList<ChucDanh> chucDanhList = (ArrayList<ChucDanh>) new ChucDanhDAO().getAllChucDanh();
 			return new ModelAndView("them-nguoi-dung","chucDanhList", chucDanhList);
 		}
-		if ("changePassWord".equalsIgnoreCase(action)) {
-			return new ModelAndView("doi-mat-khau");
-		}
+		
 		if("AddNd".equalsIgnoreCase(action)) {
 			String msnv = request.getParameter("msnv");
 			String chucdanh = request.getParameter("chucdanh");
@@ -80,6 +74,7 @@ public class NdController extends HttpServlet {
 			ArrayList<ChucDanh> chucDanhList = (ArrayList<ChucDanh>) new ChucDanhDAO().getAllChucDanh();
 			ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(new ArrayList<String>());
 			request.setAttribute("chucDanhList", chucDanhList);
+			request.setAttribute("nguoiDungList", nguoiDungList);
 			return new ModelAndView("them-nguoi-dung", "nguoiDungList", nguoiDungList);
 		}
 		
@@ -105,7 +100,7 @@ public class NdController extends HttpServlet {
 		}
 		else
 		{
-//			s
+//			
 			result = "fail";
 		}
 		nguoiDungDAO.disconnect();
@@ -197,4 +192,41 @@ public class NdController extends HttpServlet {
 		return JSonUtil.toJson(result);
 	}
 	*/
+	@RequestMapping("lockNguoiDung")
+	public ModelAndView lockNguoiDung(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		ArrayList<String> ignoreList = new ArrayList<String>();
+		String adminMa = context.getInitParameter("adminMa");
+		NguoiDungDAO ndDAO = new NguoiDungDAO();
+		ignoreList.add(adminMa);
+		ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(ignoreList);
+	
+		request.setAttribute("nguoiDungList", nguoiDungList);
+		nguoiDungDAO.disconnect();
+		return new ModelAndView(siteMap.lockNguoiDungPage, "nguoiDungList", nguoiDungList);
+	}
+	@RequestMapping("updateNguoiDung")
+	public ModelAndView updateNguoiDung(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		ChucDanhDAO chucDanhDAO = new ChucDanhDAO();
+		ArrayList<String> ignoreList = new ArrayList<String>();
+		String adminMa = context.getInitParameter("adminMa");
+		NguoiDungDAO ndDAO = new NguoiDungDAO();
+		ignoreList.add(adminMa);
+		ArrayList<ChucDanh> chucDanhList = (ArrayList<ChucDanh>) chucDanhDAO.getAllChucDanh();
+		request.setAttribute("chucDanhList", chucDanhList);
+		chucDanhDAO.disconnect();
+		return new ModelAndView(siteMap.updateNguoiDungPage, "chucDanhList", chucDanhList);
+	}
+	
+	@RequestMapping(value="/loadHoten", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String loadHoten(@RequestParam("msnv") String msnv) {
+		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		NguoiDung nguoiDung =  nguoiDungDAO.getNguoiDung(msnv);
+		nguoiDungDAO.disconnect();
+		String hoTen=nguoiDung.getHoTen();
+		return JSonUtil.toJson(hoTen);
+	}
 }

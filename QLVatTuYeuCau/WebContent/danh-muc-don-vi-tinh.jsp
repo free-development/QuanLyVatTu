@@ -136,7 +136,7 @@
 				<%} %>
 				<li><a>Tài khoản</a>
 					<ul>
-						<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
+						<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
 						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
 					</ul>
 				</li>		
@@ -145,8 +145,6 @@
 			</div>
 		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
 		<div id="main-content">
-				<li><a href="<%=siteMap.changePass + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
-				</ul>
 					<div class="clear"></div>
 				</div>
 			<div id="title-content">Danh mục đơn vị tính</div>

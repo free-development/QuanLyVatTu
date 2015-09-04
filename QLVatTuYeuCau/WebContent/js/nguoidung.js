@@ -39,7 +39,7 @@ function checkPassword()
 			  	contentType: 'application/json',
 			    mimeType: 'application/json',
 			  	success: function(result) {
-			  		alert("OK1");
+			  		//alert("OK1");
 			  		if(result == "success")
 	 				{
  				  		alert("Xin chào "+ msnv + " bạn đã đăng nhập thành công");	
@@ -101,7 +101,20 @@ function checkPassword()
 	}
  
  function changeMsnv(){
-		$('#requireMsnv').html('');
+	 var msnv = $('#msnv').val();
+	 $.ajax({
+			url: "/QLVatTuYeuCau/loadHoten.html",	
+		  	type: "GET",
+		  	dateType: "JSON",
+		  	data: { "msnv": msnv},
+		  	contentType: 'application/json',
+		    mimeType: 'application/json',
+		  	success: function(hoTen){
+		  		$('#add-form input:text[name=hoten]').val(hoTen);
+		  	}
+		  	
+		});
+	 
 	} 	
 	function changeMatkhau(){
 		$('#requireMatkhau').html('');
