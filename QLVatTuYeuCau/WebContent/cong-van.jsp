@@ -257,7 +257,9 @@
 						</div>
 					</form>	
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
+
                      <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
+
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {
@@ -268,35 +270,35 @@
 							<td class="column-check" rowspan="7">
 								<input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
 							</td>
-							<td class="left-column-soden">Số đến: &nbsp;&nbsp;</td>
-							<td class="column-so-den" style="text-align: left"><%=congVan.getSoDen() %></td>
-							<td class="left-column-socv">Số công văn: &nbsp;&nbsp;</td>
-							<td class="column-socv" style="text-align: left;color:red;"><%=congVan.getCvSo() %></td>
-							<td class="left-column-first" >Ngày đến: &nbsp;&nbsp;</td>
-							<td class="column-date"style="text-align: left"><%=congVan.getCvNgayNhan() %></td>
+							<td class="left-column-soden" style="font-weight: bold;">Số đến: &nbsp;&nbsp;</td>
+							<td class="column-so-den" style="text-align: left;"><%=congVan.getSoDen() %></td>
+							<td class="left-column-socv" style="font-weight: bold;">Số công văn: &nbsp;&nbsp;</td>
+							<td class="column-socv" style="text-align: left;color:red;font-weight: bold;"><%=congVan.getCvSo() %></td>
+							<td class="left-column-first" style="font-weight: bold;">Ngày đến: &nbsp;&nbsp;</td>
+							<td class="column-date"style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
 						</tr>
 						<tr>
-							<td class="left-column-first">Mục đích: &nbsp;&nbsp;</td>
+							<td class="left-column-first" style="font-weight: bold;">Mục đích: &nbsp;&nbsp;</td>
 							<td class="column-color" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
-							<td class="left-column-ngdi">Ngày công văn đi:&nbsp;&nbsp;</td>
-							<td class="column-date" style="text-align: left"><%=congVan.getCvNgayDi()%></td>
+							<td class="left-column-ngdi" style="font-weight: bold;">Ngày công văn đi:&nbsp;&nbsp;</td>
+							<td class="column-date" style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayDi())%></td>
 						</tr>
 						<tr>
-							<td class="left-column-first">Nơi gửi: &nbsp;&nbsp;</td>
+							<td class="left-column-first" style="font-weight: bold;">Nơi gửi: &nbsp;&nbsp;</td>
 							<td class="column-color" colspan="3" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
-							<td colspan="1">Trạng thái</td>
-							<td colspan="1"><%=congVan.getTrangThai().getTtTen() %></td>
+							<td colspan="1" style="font-weight: bold;">Trạng thái:</td>
+							<td colspan="1" style="color: red;font-weight: bold;font-style: oblique;"><%=congVan.getTrangThai().getTtTen() %></td>
 						</tr>
 						<tr>
-							<td class="left-column-first">Trích yếu: &nbsp;&nbsp;</td>
-							<td class="column-color"colspan="6" style="text-align: left"><%= congVan.getTrichYeu()%></td>
+							<td class="left-column-first" style="font-weight: bold;">Trích yếu: &nbsp;&nbsp;</td>
+							<td class="column-color" colspan="6" style="text-align: left;font-weight: bold;"><%= congVan.getTrichYeu()%></td>
 						</tr>
 						<tr>
-							<td class="left-column-first">Bút phê: &nbsp;&nbsp;</td>
+							<td class="left-column-first" style="font-weight: bold;">Bút phê: &nbsp;&nbsp;</td>
 							<td class="column-color" colspan="6"><%= congVan.getButPhe()%></td>
 						</tr>
 						<tr>
-							<td class="left-column-first">Nơi GQ chính</td>
+							<td class="left-column-first" style="font-weight: bold;">Nơi GQ chính</td>
 							<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
 							<td colspan="3" style="float: right;">
 							<%
@@ -309,7 +311,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="left-column-first">Xem công văn: </td>
+							<td class="left-column-first" style="font-weight: bold;">Xem công văn: </td>
 							<td colspan="5">
 								<a href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
 									<div class="mo-ta"><%=fileHash.get(congVan.getCvId()).getMoTa() %></div>
@@ -318,6 +320,8 @@
 							
 						</tr>
 					</table>
+					<br>
+					<hr>
 
 							<%} %>
 

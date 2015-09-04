@@ -236,7 +236,8 @@
 				</div>
 				</div>
 
-			</form>					
+			</form>				
+				</div>
 				<div id = "paging" >
 									<%
 										String str = "";
@@ -247,10 +248,13 @@
 										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCtvtYc(" + i +")\">&nbsp;";
 									}
 									if (pageNum > 10)
+
 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
 									out.println(str);	
 								%>
+
 			</div>
+
 			<form id="main-form">
 			<div class="form-title" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">

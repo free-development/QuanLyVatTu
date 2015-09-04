@@ -48,7 +48,7 @@ public final class DateUtil {
 	 */
 	public static final String toString(final java.sql.Date date)
 	{
-		String d = date.getDate()+"/"+date.getMonth()+"/"+date.getYear();
+		String d = date.getDate()+"/"+ (date.getMonth() + 1) +"/" + (date.getYear() + 1900);
 		return d;
 	}
 	public static final String toString(final java.util.Date date)

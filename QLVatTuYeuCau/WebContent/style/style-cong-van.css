@@ -198,8 +198,8 @@
 	text-decoration: underline;
 }
 .column-color {
-	color:#3399CC;
-	font-weight: bold;
+	color:blue;
+	/*font-weight: bold;*/
 }
 
 .column-ngden {
@@ -531,7 +531,7 @@
 }
 
 .mo-ta {
-	color:#0000FF;
+	color:red;
 	text-decoration: underline;
 }
 
