@@ -159,9 +159,6 @@
 			
 			
 			<form id="add-yeu-cau-form">
-<!-- 			<div class="form-title">Cập nhật yêu cầu vật tư</div> -->
-<!-- 			<fieldset style="width: 70%;margin:0 auto;"> -->
-<!-- 				<legend style="padding-left: 20px; ">Tìm kiếm</legend> -->
 				<div id="yc-table">
 				<table>
 					<tr>
@@ -200,11 +197,7 @@
 					
 				</table>
 				</div>
-<!-- 				<div class="group-button"> -->
-<!-- 					<button class="button" type="button" onclick="searchCtvt();">Tìm kiếm</button> -->
-<!-- 				</div> -->
-<!-- 				</div> -->
-<!-- 			</fieldset> -->
+
 			</form>
 			<form id="danh-sach-vat-tu">
 			<div class="form-title">Danh sách vật tư</div>
@@ -366,4 +359,4 @@
 			</div>
 			</form>
 </body>
-</html>ss
+</html>

@@ -55,8 +55,6 @@ import util.JSonUtil;
 @WebServlet("/ChiaSeCvController")
 public class ChiaSeCvController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-//	private int pageCscv = 1;
-//	HttpSession session = null;
 	HttpSession session;
 	HttpServletResponse res = null;
    @RequestMapping("/cscvManage")
@@ -86,8 +84,6 @@ public class ChiaSeCvController extends HttpServlet {
 				HashMap<Integer, VaiTro> vtHash = vtCongVanDAO.toVaiTro(vtcvList);
 				vaiTroHash.put(msnv, vtHash);
 			}
-			//long sizeCscv = nguoiDungDAO.size();
-	    	//request.setAttribute("page", sizeCscv / 10);
 			request.setAttribute("vaiTroHash", vaiTroHash);
 			request.setAttribute("vtNguoiDungHash", vtNguoiDungHash);
 			
@@ -116,7 +112,6 @@ public class ChiaSeCvController extends HttpServlet {
 			NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 			VaiTroDAO vaiTroDAO =  new VaiTroDAO();
 			
-			//String[] msnv = new String[vaiTro.length];
 			int cvId = congVan.getCvId();		
 			vtCongVanDAO.deleteByCvId(cvId);
 			for (String vtMa : vaiTro) {
