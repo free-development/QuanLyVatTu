@@ -375,7 +375,7 @@
  			    mimeType: 'application/json',
  			  	
  			  	success: function(objectList) {
- 			  		var size = objectList[1];
+ 			  		var size = objectList[2];
  			  		var vtList = objectList[0];
  			  		var length = vtList.length;
  			  		$('#view-table-vat-tu table .rowContent').remove();

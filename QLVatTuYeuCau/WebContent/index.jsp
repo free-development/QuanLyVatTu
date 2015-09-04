@@ -123,11 +123,7 @@
 					</ul>
 					<div class="clear"></div>
 				</div>
-<<<<<<< HEAD
-				<div id="greeting">Chào <%=nguoiDung.getHoTen() %></div>
-=======
 				<div id="greeting">Chào:&nbsp;<%=nguoiDung.getHoTen() %></div>
->>>>>>> 963e080b20d3f1bc9e8d7a92cfc25460ba461a0d
 				<div id="main-content">
 					<div class="view-tbao">
 						<table>
