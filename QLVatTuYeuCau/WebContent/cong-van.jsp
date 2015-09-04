@@ -230,7 +230,7 @@
 						</div>
 					</form>	
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
-                     <div style="height: 500px; width: 810px; class="scroll_content ">
+                     <div style="height: 500px; width: 810px;" class="scroll_content">
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {
@@ -300,6 +300,7 @@
 							<%} %>
 
 						</div>
+					
 						<div id="paging">
 						<%
 							long pageNum = size / 3;
