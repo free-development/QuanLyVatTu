@@ -277,6 +277,7 @@ public class CvController extends HttpServlet {
     @RequestMapping("updateCongVan")
     public ModelAndView updateCongVan(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //    	request.ge
+    	root =  request.getRealPath("/");
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");

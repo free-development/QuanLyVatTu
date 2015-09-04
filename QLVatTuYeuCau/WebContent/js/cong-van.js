@@ -455,7 +455,7 @@ function loadPage(pageNumber) {
 	} else {
 		var page = pageNumber;
 	}
-	alert(page);
+//	alert(page);
 	$.ajax({
 		url: "/QLVatTuYeuCau/loadPageCongVan.html",	
 	  	type: "GET",
