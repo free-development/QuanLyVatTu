@@ -9,7 +9,7 @@ function showForm(formId1, formId2, check){
     s.opacity = s.MozOpacity = s.KhtmlOpacity = opacity/100;
     s.filter = 'alpha(opacity='+opacity+')';
     for(var i=0; i<f.length; i++) f[i].disabled = check;
-    //document.getElementById('danh-sach-vat-tu').style.display="none";
+   
     
 };
 /*
@@ -311,7 +311,7 @@ function searchCtVt(){
 						}
 						if (size > 10)
 							strPage = '<input type=\"button\" name="\page\" class=\"page\" value=\"<< privious\"> ' +strPage + ' <input type=\"button\" name="\page\" class=\"page\" value=\">> next\">'
-						//$('#paging').html(strPage);
+						
 						
 		  		} else {
 	  				alert("Không tìm thấy vật tư!");
