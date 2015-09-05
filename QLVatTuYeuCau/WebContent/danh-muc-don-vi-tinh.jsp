@@ -145,11 +145,7 @@
 			</div>
 		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
 		<div id="main-content">
-					<div class="clear"></div>
-				</div>
 			<div id="title-content">Danh mục đơn vị tính</div>
-			<div id="main-content">
-
 				<form id="main-form">
 					<div id="view-table" style="height: 600px; margin: 0 auto;">
 						<table>
@@ -271,6 +267,5 @@
 					</div>
 				</form>
 			</div>
-		</div>
 </body>
 </html>
