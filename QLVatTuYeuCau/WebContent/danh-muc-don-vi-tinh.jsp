@@ -144,9 +144,7 @@
 				<div class="clear"></div>
 			</div>
 		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
-		<div id="main-content">
-					<div class="clear"></div>
-				</div>
+		
 			<div id="title-content">Danh mục đơn vị tính</div>
 			<div id="main-content">
 

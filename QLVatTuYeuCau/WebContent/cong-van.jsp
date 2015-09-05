@@ -1,4 +1,3 @@
-<%@page import="model.ConfigParam"%>
 <%@page import="model.NguoiDung"%>
 <%@page import="model.TrangThai"%>
 <%@page import="model.MucDich"%>
@@ -25,13 +24,8 @@
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
 	type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/cong-van.js"></script>
 
-<meta charset="utf-8">
-<link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
-</head>
-<body>
-	<%
+<%
 		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
 		String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
@@ -43,6 +37,20 @@
    			return;
    		}
    	%>
+<script type="text/javascript">
+	function showButton() {
+		var check = '<% if (vanThuMa.equals(authentication.getChucDanh().getCdMa())) out.print("hide");%>';
+		if (check == 'hide')
+			$('.button-chia-se').hide();
+	}
+</script>
+<script type="text/javascript" src="js/cong-van.js"></script>
+<meta charset="utf-8">
+<link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
+
+</head>
+<body>
+	
 	<%
 		request.getCharacterEncoding();
 		response.getCharacterEncoding();
@@ -134,7 +142,7 @@
 						<ol class="tree">
 						<% for (Integer year : yearList) {%>
 							<li id="year<%=year%>"><label for="y<%=year%>"><%=year %></label> <input
-									type="checkbox" id="y<%=year %>" value=<%=year %> class="year" name="year"/>
+									type="checkbox" id="y<%=year %>" value=<%=year %> class="year" name="year" onchange="propCheckYear('y<%=year %>');"/>
 									<ol>
 									</ol>
 <!-- 								<div class="month">	 -->

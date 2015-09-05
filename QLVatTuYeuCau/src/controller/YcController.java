@@ -139,9 +139,11 @@ public class YcController extends HttpServlet {
 			ycDAO.disconnect();
 			return JSonUtil.toJson("fail");
 		}
+		YeuCauDAO ycDAO2 = new YeuCauDAO();
 		yeuCau.setYcSoLuong(sl);
-		ycDAO.updateYeuCau(yeuCau);
+		ycDAO2.updateYeuCau(yeuCau);
 		ycDAO.disconnect();
+		ycDAO2.disconnect();
 		return JSonUtil.toJson(yeuCau.getYcId());
 	}
 	@RequestMapping(value="/preCapVatTu", method=RequestMethod.GET, 
