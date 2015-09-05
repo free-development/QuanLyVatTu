@@ -142,7 +142,8 @@
 						<ol class="tree">
 						<% for (Integer year : yearList) {%>
 							<li id="year<%=year%>"><label for="y<%=year%>"><%=year %></label> <input
-									type="checkbox" id="y<%=year %>" value=<%=year %> class="year" name="year" onchange="propCheckYear('y<%=year %>');"/>
+									type="checkbox" id="y<%=year %>" value=<%=year %> class="year" name="year" />
+<%-- 									onchange="propCheckYear('y<%=year %>');" --%>
 									<ol>
 									</ol>
 <!-- 								<div class="month">	 -->
@@ -237,13 +238,8 @@
 						</table>
 						</div>
 					</form>	
-<<<<<<< HEAD
-                     <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
-                     <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
-=======
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
                      <div style="height: 500px; width: 810px;" class="scroll_content">
->>>>>>> d0782c837d724026f521e52dcf376abe2684a4aa
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {

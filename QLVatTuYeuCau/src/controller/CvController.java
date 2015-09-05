@@ -408,13 +408,13 @@ public class CvController extends HttpServlet {
 	}
 	@RequestMapping(value="/loadByMonth", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String loadByMonth(@RequestParam("month") String monthRequest) {
+	 public @ResponseBody String loadByMonth(@RequestParam("year") String yearRequest, @RequestParam("month") String monthRequest) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
 		
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
-		
+		year = Integer.parseInt(yearRequest);
 		month = Integer.parseInt(monthRequest);
 		date = 0;
 		CongVanDAO congVanDAO = new CongVanDAO();
@@ -461,13 +461,14 @@ public class CvController extends HttpServlet {
 	}
 	@RequestMapping(value="/loadByDate", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String loadByDate(@RequestParam("date") String dateRequest) {
+	 public @ResponseBody String loadByDate(@RequestParam("year") String yearRequest, @RequestParam("month") String monthRequest, @RequestParam("date") String dateRequest) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
 		
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
-		
+    	year = Integer.parseInt(yearRequest);
+		month = Integer.parseInt(monthRequest);
 		date = Integer.parseInt(dateRequest);
 		CongVanDAO congVanDAO = new CongVanDAO();
 		FileDAO fileDAO = new FileDAO();

@@ -220,7 +220,7 @@ function loadByYear(year) {
 	    	for(var i = 0; i< length; i++) {
 	    		monthLi += 	'<li id = \"month' + monthList[i] + '\">' 
 							+ '<label for="m' + monthList[i] + '\">' + 'Tháng ' + monthList[i]  + '</label>' 
-							+' <input type="checkbox" class=\"month\" id=\"m' + monthList[i] + '\" onchange="loadByMonth(' + monthList[i] + '); ' + '\"/>' 
+							+' <input type="checkbox" class=\"month\" id=\"m' + monthList[i] + '\" onchange="loadByMonth(' + year + ', ' + monthList[i] + '); ' + '\"/>' 
 							+ '<ol></ol> </li>'; 
 	    	}
 	    	var yearLi = '';
@@ -234,12 +234,12 @@ function loadByYear(year) {
 	    } 
 	});  
 }
-function loadByMonth(month) {
+function loadByMonth(year, month) {
 	$.ajax({
 		url: "/QLVatTuYeuCau/loadByMonth.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
-	  	data: { "month": month},
+	  	data: { "year": year, "month": month },
 	  	contentType: 'application/json',
 	    mimeType: 'application/json',
 	    success: function(objectList) {
@@ -251,7 +251,7 @@ function loadByMonth(month) {
 	    	for(var i = 0; i< length; i++) {
 	    		dateLi += 	'<li id = \"date' + dateList[i] + '\">' 
 							+ '<label for="d' + dateList[i] + '\">' + 'Ngày ' + dateList[i]  + '</label>' 
-							+' <input type="button" class=\"date\" id=\"d' + dateList[i] +'\" value =\"' + dateList[i] + '\" onclick=\"loadByDate(' + dateList[i] + ');' + '\"/>' 
+							+' <input type="button" class=\"date\" id=\"d' + dateList[i] +'\" value =\"' + dateList[i] + '\" onclick=\"loadByDate(' + year + ', ' + month  + ', ' + dateList[i] + ');' + '\"/>' 
 							+ '</li>'; 
 	    	}
 	    	$('#month'+month + ' ol').html(dateLi);
@@ -342,12 +342,12 @@ function loadCongVan(congVanList, fileList) {
 	$('.scroll_content').html(tables);
 	showButton();
 }
-function loadByDate(date) {
+function loadByDate(year, month, date) {
 	$.ajax({
 		url: "/QLVatTuYeuCau/loadByDate.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
-	  	data: { "date": date},
+	  	data: { "year": year, "month": month, "date": date},
 	  	contentType: 'application/json',
 	    mimeType: 'application/json',
 	    success: function(objectList) {
@@ -455,10 +455,7 @@ function loadPage(pageNumber) {
 	} else {
 		var page = pageNumber;
 	}
-<<<<<<< HEAD
-=======
-//	alert(page);
->>>>>>> 1850c2876f57bc6666a62b9ea0660b473cf98968
+
 	$.ajax({
 		url: "/QLVatTuYeuCau/loadPageCongVan.html",	
 	  	type: "GET",
