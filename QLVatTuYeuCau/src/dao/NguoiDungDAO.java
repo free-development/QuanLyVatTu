@@ -85,8 +85,49 @@ public class NguoiDungDAO {
 		query.executeUpdate();
 		session.getTransaction().commit();
 	}
+	public ArrayList<String> startWithMa(String i) {
+		session.beginTransaction();
+		String sql = "select msnv from NguoiDung where msnv LIKE :msnv";
+		Query query = session.createQuery(sql);
+		query.setParameter("msnv", i+"%");
+		ArrayList<String> list = (ArrayList<String>) query.list();
+		session.getTransaction().commit();
+		return list;
+	}
+	public ArrayList<String> startWithTen(String i) {
+		session.beginTransaction();
+
+		String sql = "select hoten from NguoiDung where hoten LIKE :hoten";
+		Query query = session.createQuery(sql);
+		query.setParameter("hoten", i+"%");
+		ArrayList<String> list = (ArrayList<String>) query.list();
+		
+		session.getTransaction().commit();
+		return list;
+	}
+	public ArrayList<NguoiDung> searchHoten(String i) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(NguoiDung.class);
+		cr.add(Restrictions.like("hoten", i+"%"));
+		ArrayList<NguoiDung> list = (ArrayList<NguoiDung>) cr.list();
+		session.getTransaction().commit();
+		return list;
+	}
 	
-	
+	public ArrayList<NguoiDung> searchMsnv(String i) {
+		session.beginTransaction();
+//		String sql = "select E.vtMa, E.vtTen, E.dvt, E.daXoa from VatTu E where E.vtMa LIKE :vtMa";
+		Criteria cr = session.createCriteria(NguoiDung.class);
+		cr.add(Restrictions.like("msnv", i+"%"));
+//		Restrictions.
+//		Query query = session.createQuery(sql);
+		
+//		query.setParameter("vtMa", i+"%");
+//		ArrayList<VatTu> list = (ArrayList<VatTu>) query.list();
+		ArrayList<NguoiDung> list = (ArrayList<NguoiDung>) cr.list();
+		session.getTransaction().commit();
+		return list;
+	}
 	public List<NguoiDung> limit(int first, int limit) {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(NguoiDung.class);

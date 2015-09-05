@@ -123,7 +123,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
+		<div id="greeting">Chào:&nbsp;<%=authentication.getHoTen() %></div>
 
 		<div id="main-content">
 			<div id="content-form">
@@ -229,13 +229,10 @@
 						</table>
 						</div>
 					</form>	
-<<<<<<< HEAD
+
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
                      <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
-=======
-                     <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
-                     <div style="height: 500px; width: 810px;" class="scroll_content">
->>>>>>> d0782c837d724026f521e52dcf376abe2684a4aa
+                     
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {

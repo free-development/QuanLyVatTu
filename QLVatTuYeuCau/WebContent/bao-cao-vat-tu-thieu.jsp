@@ -216,7 +216,7 @@
 										<td class="d-column"style="text-align: center;"><%=yeuCau.getCtVatTu().getChatLuong().getClTen() %></td>
 										<td class="e-column"style="text-align: center;"><%=yeuCau.getCtVatTu().getVatTu().getDvt().getDvtTen() %></td>
 										<td class="e-column"style="text-align: center;"><%=yeuCau.getYcSoLuong() %></td>
-										<td style="text-align: center;"><a style="color: blue;" href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">Xem</td>
+										<td style="text-align: center;"><a style="color: blue;text-decoration: underline;" href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">Xem</td>
 									</tr>	
 								<%}} }%>			
 					</table>

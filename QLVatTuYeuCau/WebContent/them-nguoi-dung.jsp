@@ -163,7 +163,7 @@
 						<td class="input"><label for="hoten">Họ tên</label></td>
 						<td><input type="text" required size="20" maxlength="50"
 							title="Họ tên không được chứa chữ số và ký tự đặc biệt"
-							pattern="[a-zA-Z]*" class="text" id="hoten" name="hoten"></td>
+							pattern="[a-zA-Z]*" class="text" id="hoten" name="hoten"style="margin-top: 5px;"></td>
 					</tr>
 
 					<tr>

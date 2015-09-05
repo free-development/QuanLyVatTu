@@ -163,7 +163,7 @@
 <!-- 						</script> -->
 		
 		<form id="vattu">
-			<table>		
+			<table style="margin-left:60px;">		
 					<tr>		
 					<th  style="text-align: left; color: black; font-size: 19px;">* Tìm kiếm mã</th>
 								<td>
@@ -632,7 +632,6 @@
 					<button type="button" class="button" onclick="showForm('update-chitiet', false)"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
 				</div>
 			</form>
-		</div>
 		</div>
 </body>
 </html>

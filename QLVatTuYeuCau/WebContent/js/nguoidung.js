@@ -362,6 +362,77 @@ $(document).ready(function() {
 			});
 	}
  
+ function timKiemNguoidung(){
+		var hoten = '';
+		var msnv = '';
+		var check = $('#checkTen:checked').val();
+		if (check != null)
+			msnv = $('#search input[name=nguoidung]').val();
+		else 
+			hoten = $('#search input[name=nguoidung]').val();
+		/*
+		alert(check);
+		alert(vtTen);
+		alert(vtMa);
+		*/
+		$.ajax({
+			url: "/QLVatTuYeuCau/timKiemNguoidung.html",	
+		  	type: "GET",
+		  	dateType: "JSON",
+		  	data: { "msnv": msnv, "hoten": hoten},
+		  	contentType: 'application/json',
+		    mimeType: 'application/json',
+		  	
+		  	success: function(ndList){
+		  		
+		  		if(ndList.length>0){
+		  			$('#view-table-chia-se table .rowContent').remove();
+					for(i = 0;i < ndList.length; i++ ) {
+						nd = ndList[i];
+						//alert(vtList[i].vtMa);
+	 			  		
+						str = '<tr class=\"rowContent\" ' + style + '>'
+						+ '<td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
+						+ nd.msnv +'\" class=\"checkbox\"></td>'
+						+ '<td class=\"col\">' + nd.msnv + '</td>'
+						+ '<td class=\"col\">' + nd.hoten + '</td>'
+						+ '<td class=\"col\">' + nd.chucDanh.cdTen + '</td>'
+						+ '<td class=\"col\">' + nd.email + '</td>'
+						+ '<td class=\"col\">' + nd.diachi + '</td>'
+						+ '<td class=\"col\">' + nd.sdt + '</td>'
+						+ '</tr>';
+					}
+		  		}
+		  		else
+		  			{
+		  				alert("Không tìm thấy tài khoản!");
+		  			}
+		  	}
+		});
+		
+	}
+ 
+ $(document).ready(function() {
+		$('#add-form').keypress(function(e) {
+		 var key = e.which;
+		 if(key == 13)  // the enter key code
+		  {
+			 addNd();
+		    return false;  
+		  }
+		});   
+	});   
+	$(document).ready(function() {
+		$('#add-form').keypress(function(e) {
+		 var key = e.which;
+		 if(key == 13)  // the enter key code
+		  {
+		    updateNd();
+		    return false;  
+		  }
+		});   
+	});  
+
  // click event
  /*
 $(document).ready(function(){
