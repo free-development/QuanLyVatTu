@@ -183,7 +183,7 @@ public class VattuController extends HttpServlet {
 	
 	@RequestMapping(value="/loadPageVatTu", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String loadPageVt(@RequestParam("pageNumber") String pageNumber) {
+	 public @ResponseBody String loadPageVatTu(@RequestParam("pageNumber") String pageNumber) {
 //		String result = "";
 //		System.out.println("MA: " + pageNumber);
 		VatTuDAO vatTuDAO = new VatTuDAO();
