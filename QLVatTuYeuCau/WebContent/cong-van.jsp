@@ -229,8 +229,13 @@
 						</table>
 						</div>
 					</form>	
+<<<<<<< HEAD
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
                      <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
+=======
+                     <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
+                     <div style="height: 500px; width: 810px;" class="scroll_content">
+>>>>>>> d0782c837d724026f521e52dcf376abe2684a4aa
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {
@@ -246,7 +251,7 @@
 							<td class="left-column-socv" style="font-weight: bold;">Số công văn: &nbsp;&nbsp;</td>
 							<td class="column-socv" style="text-align: left;color:red;font-weight: bold;"><%=congVan.getCvSo() %></td>
 							<td class="left-column-first" style="font-weight: bold;">Ngày đến: &nbsp;&nbsp;</td>
-							<td class="column-date"style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
+							<td class="column-date" style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
 						</tr>
 						<tr>
 							
@@ -300,6 +305,7 @@
 							<%} %>
 
 						</div>
+					
 						<div id="paging">
 						<%
 							long pageNum = size / 3;
@@ -310,8 +316,7 @@
 						<%}
 							if(pageNum > 10) {
 						%>
-							<input type="button" class="pageMove" value = "Sau >>" onclick = "loadPage('Next')";>
-							
+							<input type="button"  class="pageMove" value = "Sau >>" onclick = "loadPage('Next');">
 						<%}%>	
 						</div>
 						<script type="text/javascript">$('.page')[0].focus();</script>
