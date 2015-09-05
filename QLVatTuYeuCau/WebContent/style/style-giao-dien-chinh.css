@@ -12,9 +12,8 @@ a {
 	color: #FFF;
 	font-size: 18px;
 }
-
-body {
-	background: url('./background.jpg');
+body { 	
+	background: url('./background1.jpg');
 	background-color: aliceblue;
 	background-repeat: no-repeat;
 }

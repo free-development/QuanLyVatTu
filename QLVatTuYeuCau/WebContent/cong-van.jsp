@@ -237,8 +237,13 @@
 						</table>
 						</div>
 					</form>	
+<<<<<<< HEAD
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
-                     <div style="height: 500px; width: 810px;" class="scroll_content ">
+                     <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
+=======
+                     <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
+                     <div style="height: 500px; width: 810px;" class="scroll_content">
+>>>>>>> d0782c837d724026f521e52dcf376abe2684a4aa
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {
@@ -308,6 +313,7 @@
 							<%} %>
 
 						</div>
+					
 						<div id="paging">
 						<%
 							long pageNum = size / 3;

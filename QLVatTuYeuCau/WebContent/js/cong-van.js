@@ -455,6 +455,10 @@ function loadPage(pageNumber) {
 	} else {
 		var page = pageNumber;
 	}
+<<<<<<< HEAD
+=======
+//	alert(page);
+>>>>>>> 1850c2876f57bc6666a62b9ea0660b473cf98968
 	$.ajax({
 		url: "/QLVatTuYeuCau/loadPageCongVan.html",	
 	  	type: "GET",

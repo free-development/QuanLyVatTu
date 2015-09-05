@@ -396,47 +396,47 @@
 			
 	<form id="chitiet" >
 	
-			<table>		
-					<tr>		
-						<th  style="text-align: left; color: black; font-size: 19px;">*Mã vật tư</th>
-						<th  style="text-align: left; color: black; font-size: 19px;">*Tên vật tư</th>
-						<th  style="text-align: left; color: black; font-size: 19px;">*Nơi sản xuất</th>
-						<th  style="text-align: left; color: black; font-size: 19px;">*Chất lượng</th>
+<!-- 			<table>		 -->
+<!-- 					<tr>		 -->
+<!-- 						<th  style="text-align: left; color: black; font-size: 19px;">*Mã vật tư</th> -->
+<!-- 						<th  style="text-align: left; color: black; font-size: 19px;">*Tên vật tư</th> -->
+<!-- 						<th  style="text-align: left; color: black; font-size: 19px;">*Nơi sản xuất</th> -->
+<!-- 						<th  style="text-align: left; color: black; font-size: 19px;">*Chất lượng</th> -->
 											
-					</tr>		
-					<tr>
-						<td><input type="text" class="text" name="Ma"/></td>	
-						<td><input type="text" class="text" name="Ten"/></td>	
-						<td>
-									<select onkeypress="changeNsx();"
-									title="" class="select" id="noisanxuat" name="noiSanXuat" style="margin-top: 10px;">
-										<option disabled selected value="">-- Chọn nơi sản xuất --</option>
-										<%						  
+<!-- 					</tr>		 -->
+<!-- 					<tr> -->
+<!-- 						<td><input type="text" class="text" name="Ma"/></td>	 -->
+<!-- 						<td><input type="text" class="text" name="Ten"/></td>	 -->
+<!-- 						<td> -->
+<!-- 									<select onkeypress="changeNsx();" -->
+<!-- 									title="" class="select" id="noisanxuat" name="noiSanXuat" style="margin-top: 10px;"> -->
+<!-- 										<option disabled selected value="">-- Chọn nơi sản xuất --</option> -->
+<%-- 										<%						   --%>
 		 								
-		 								for (NoiSanXuat noiSanXuat : listNoiSanXuat)
-		 								{%>  
-		 								<option value=<%=noiSanXuat.getNsxMa()%>><%=noiSanXuat.getNsxTen()%></option>
-		 								<%}
-		  								%>  
-									</select><div id="requireNsx" style="color: red"></div>
-						</td>
-						<td>
-									<select onkeypress="changeCl();" 
-											title="" class="select" id="chatluong" name="chatLuong" style="margin-top: 10px;">
-												<option disabled selected value="">-- Chọn chất lượng --</option>
-												<%						  
+<!-- // 		 								for (NoiSanXuat noiSanXuat : listNoiSanXuat) -->
+<%-- 		 								{%>   --%>
+<%-- 		 								<option value=<%=noiSanXuat.getNsxMa()%>><%=noiSanXuat.getNsxTen()%></option> --%>
+<%-- 		 								<%} --%>
+<%-- 		  								%>   --%>
+<!-- 									</select><div id="requireNsx" style="color: red"></div> -->
+<!-- 						</td> -->
+<!-- 						<td> -->
+<!-- 									<select onkeypress="changeCl();"  -->
+<!-- 											title="" class="select" id="chatluong" name="chatLuong" style="margin-top: 10px;"> -->
+<!-- 												<option disabled selected value="">-- Chọn chất lượng --</option> -->
+<%-- 												<%						   --%>
 				 								
-				 								for (ChatLuong chatLuong : listChatLuong)
-				 								{%>
-				 								<option value=<%=chatLuong.getClMa()%>><%=chatLuong.getClTen()%></option> 
-				 								<%}  
-				  								%>  
-									</select><div id="requireCl" style="color: red"></div>
-						</td>
-						<td> <span class="search-button"> &nbsp; <button type="button" class="btn-search" style="background-color: #00A69B;">
-						<i class="fa fa-search"></i></button></span></td>	
-					</tr>			
-				</table>
+<!-- // 				 								for (ChatLuong chatLuong : listChatLuong) -->
+<%-- 				 								{%> --%>
+<%-- 				 								<option value=<%=chatLuong.getClMa()%>><%=chatLuong.getClTen()%></option>  --%>
+<%-- 				 								<%}   --%>
+<%-- 				  								%>   --%>
+<!-- 									</select><div id="requireCl" style="color: red"></div> -->
+<!-- 						</td> -->
+<!-- 						<td> <span class="search-button"> &nbsp; <button type="button" class="btn-search" style="background-color: #00A69B;"> -->
+<!-- 						<i class="fa fa-search"></i></button></span></td>	 -->
+<!-- 					</tr>			 -->
+<!-- 				</table> -->
 			
 				<div id="view-table-chi-tiet" style="height: 350px; width: 910px; overflow:auto">
 
