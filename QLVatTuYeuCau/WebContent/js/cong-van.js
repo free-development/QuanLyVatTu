@@ -130,8 +130,6 @@ function confirmDelete(){
 		congVanList.push($(this).val());
     });
 	var str = congVanList.join(', ');
-//	alert('1');
-//	confirm('Bạn có chắc xóa' + cvId);
 	if (confirm('Bạn có chắc xóa cong van?'))
 		deleteCv(str);
 }
@@ -222,7 +220,7 @@ function loadByYear(year) {
 	    	for(var i = 0; i< length; i++) {
 	    		monthLi += 	'<li id = \"month' + monthList[i] + '\">' 
 							+ '<label for="m' + monthList[i] + '\">' + 'Tháng ' + monthList[i]  + '</label>' 
-							+' <input type="checkbox" class=\"month\" id=\"m' + monthList[i] + '\" onchange="loadByMonth(' + monthList[i] + '); ' + '\"/>' 
+							+' <input type="checkbox" class=\"month\" id=\"m' + monthList[i] + '\" onchange="loadByMonth(' + year + ', ' + monthList[i] + '); ' + '\"/>' 
 							+ '<ol></ol> </li>'; 
 	    	}
 	    	var yearLi = '';
@@ -236,12 +234,12 @@ function loadByYear(year) {
 	    } 
 	});  
 }
-function loadByMonth(month) {
+function loadByMonth(year, month) {
 	$.ajax({
 		url: "/QLVatTuYeuCau/loadByMonth.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
-	  	data: { "month": month},
+	  	data: { "year": year, "month": month },
 	  	contentType: 'application/json',
 	    mimeType: 'application/json',
 	    success: function(objectList) {
@@ -253,7 +251,7 @@ function loadByMonth(month) {
 	    	for(var i = 0; i< length; i++) {
 	    		dateLi += 	'<li id = \"date' + dateList[i] + '\">' 
 							+ '<label for="d' + dateList[i] + '\">' + 'Ngày ' + dateList[i]  + '</label>' 
-							+' <input type="button" class=\"date\" id=\"d' + dateList[i] +'\" value =\"' + dateList[i] + '\" onclick=\"loadByDate(' + dateList[i] + ');' + '\"/>' 
+							+' <input type="button" class=\"date\" id=\"d' + dateList[i] +'\" value =\"' + dateList[i] + '\" onclick=\"loadByDate(' + year + ', ' + month  + ', ' + dateList[i] + ');' + '\"/>' 
 							+ '</li>'; 
 	    	}
 	    	$('#month'+month + ' ol').html(dateLi);
@@ -272,14 +270,14 @@ function loadCongVan(congVanList, fileList) {
 	var tables = '';
 	if(length > 0) {
 		for (var i = 0; i < length; i++) {
-			var style = 'style=';
+			var style = 'style=\"';
 			
 			var congVan = congVanList[i];
 			var file = fileList[i];
 			if (i % 2 == 0)
-				style += '\"background : #CCFFFF;\"';
+				style += 'background : #CCFFFF; ';
 			else
-				style += 'style=\"background : #FFFFFF; ';
+				style += 'background : #FFFFFF; ';
 			style += ' font-size: 16px; width: 900px;\"';
 			tables +=     '<table class=\"tableContent\" ' + style + ' class=\"border-congvan\">'
 						+ '<tr >'
@@ -303,7 +301,7 @@ function loadCongVan(congVanList, fileList) {
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Nơi gửi: &nbsp;&nbsp;</td>'
 						+ '<td class=\"column-color\" colspan=\"3\" style=\"text-align: left\">' +  congVan.donVi.dvTen + '</td>'
 						+ '<td colspan=\"1\" style=\"font-weight: bold;\">Trạng thái</td>'
-						+ '<td colspan="1" style=\"color:red;font-weight: bold;font-style: oblique;\">' + congVan.trangThai.ttTen + '</td>'
+						+ '<td colspan=\"1\" style=\"color:red;font-weight: bold;font-style: oblique;\">' + congVan.trangThai.ttTen + '</td>'
 						
 						+ '</tr>'
 						+ '<tr>'
@@ -316,9 +314,10 @@ function loadCongVan(congVanList, fileList) {
 						+ '</tr>'
 						+ '<tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Nơi GQ chính</td>'
-						+ '<td class=\"column-color\"colspan=\"3\">' + congVan.donVi.dvTen + '</td>'
+						+ '<td class=\"column-color\" colspan=\"3\">' + congVan.donVi.dvTen + '</td>'
 						+ '<td colspan=\"3\" style=\"float: right;\">'
-						+ '<button  class=\"button\" type=\"button\" style=\"width: 170px; height: 30px;\" onclick=\"location.href=\"' + '/QLVatTuYeuCau/cscvManage.html ' + '?action=chiaSeCv&congVan=' + congVan.cvId + '\">'
+						+ '<button  class=\"button-chia-se\" id=\"chiaSe\" type=\"button\" style=\"width: 170px; height: 30px;\"' 
+						+ '  onclick=\"location.href=/QLVatTuYeuCau/cscvManage.html?action=chiaSeCv&congVan=' + congVan.cvId + '\">'
 						+ '<i class=\"fa fa-spinner\"></i>&nbsp;&nbsp;Chia sẻ công văn'
 						+ '</button>'
 						+ '</td>'
@@ -341,13 +340,14 @@ function loadCongVan(congVanList, fileList) {
 		alert('Không tồn tại công văn');
 	}
 	$('.scroll_content').html(tables);
+	showButton();
 }
-function loadByDate(date) {
+function loadByDate(year, month, date) {
 	$.ajax({
 		url: "/QLVatTuYeuCau/loadByDate.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
-	  	data: { "date": date},
+	  	data: { "year": year, "month": month, "date": date},
 	  	contentType: 'application/json',
 	    mimeType: 'application/json',
 	    success: function(objectList) {
@@ -455,7 +455,7 @@ function loadPage(pageNumber) {
 	} else {
 		var page = pageNumber;
 	}
-//	alert(page);
+
 	$.ajax({
 		url: "/QLVatTuYeuCau/loadPageCongVan.html",	
 	  	type: "GET",
@@ -613,3 +613,15 @@ $(document).ready(function(){
 		}
 	});
 });	
+function propCheckYear(yearId) {
+	$('.year').prop('checked', false);
+	$('#'+yearId).prop('checked', true);
+}
+function propCheckMonth(monthId) {
+	$('.month').prop('checked', false);
+	$('#'+monthId).prop('checked', true);
+}
+function propCheckDate(dateId) {
+	$('.date').prop('checked', false);
+	$('#'+dateId).prop('checked', true);
+}
