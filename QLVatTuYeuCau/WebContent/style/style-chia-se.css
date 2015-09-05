@@ -10,8 +10,6 @@
 	font-size: 25px;
 	color: firebrick;
 	font-weight: bold;
-	padding-top: 20px;
-	padding-bottom: 20px;
 }
 #main-content {
 	height: 800px;
@@ -165,7 +163,6 @@
 	color: firebrick;
 	font-weight: bold;
 	padding-top: 20px;
-	padding-bottom: 20px;
 }
 .scroll-chia-se {
 	max-height: 420px;

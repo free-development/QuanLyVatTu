@@ -288,12 +288,11 @@
 	text-align: right;
 }
 
-.form-title {
+.form-title-vat-tu{
 	text-align: center;
 	font-size: 25px;
 	font-weight: bold;
-	color: rgb(0, 0, 255);
-	margin-bottom: 20px;
+	color: firebrick;
 }
 
 .group-button {
@@ -679,7 +678,7 @@
 }
 #add-so-luong-form,#update-so-luong-form,#cap-so-luong-form  {
 	width:65%;
-	height: 23%;
+	height: 27%;
 	border-radius: 10px;
 	background-color: #dceaf5;
 	display: none;
@@ -713,7 +712,7 @@
 
 */
 #main-content {
-	height: 700px;
+	height: 1000px;;
 	background-color: while;
 }
 #paging {

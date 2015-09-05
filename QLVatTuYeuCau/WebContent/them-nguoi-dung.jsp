@@ -114,6 +114,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
+		<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=nguoiDung.getHoTen() %></b></div>
 		<div id="main-content">
 			<form id="add-form" action="<%=siteMap.ndManage %>?action=addNd" method="post"
 				name="taoTaiKhoan" >

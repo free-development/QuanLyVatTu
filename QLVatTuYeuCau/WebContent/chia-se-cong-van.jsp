@@ -139,7 +139,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
+				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 		<div id="main-content">
 				<form id="main-form" action="<%=siteMap.updateChiaSeCv%>" method="get">
 				<div id="title-content">Chia sẻ công văn</div>
@@ -214,9 +214,9 @@
 						<button type="reset" class="btn">
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Bỏ qua
 						</button>
-						<button type="button" class="button" onclick="location.href='<%=siteMap.home%>'">
+						<button type="button" id="print_button" class="button"  onclick="location.href='<%=siteMap.congVan+".jsp" %>'">
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
-						</button>
+					</button>
 					</div>
 				</form>
 				

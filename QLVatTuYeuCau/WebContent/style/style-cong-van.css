@@ -1,8 +1,8 @@
 .left-content {
 	position: relative;
-	width: 150px;
-	left: 0px;
-	display: table-cell;
+	width: 20%;
+	top:36%;
+	position: absolute;
 	
 }
 
@@ -211,7 +211,7 @@
 }
 
 #scroll_time {
-	height: 200px;
+	height: 260px;
 	width: 200px;
 	display: auto;
 	border: 1px solid #CCCCCC;
