@@ -12,7 +12,11 @@
 <link rel="stylesheet" href="style/style-giao-dien-chinh.css"
 	type="text/css">
 <link rel="stylesheet" href="style/style.css" type="text/css">
-<link href="style/style-tao-tai-khoan.css" type="text/css"
+<link href="style/style-cap-nhat-tai-khoan.css" type="text/css"
+	rel="stylesheet">
+<link href="style/style-chia-se.css" type="text/css"
+	rel="stylesheet">
+<link href="style/style-vat-tu.css" type="text/css"
 	rel="stylesheet">
 <link
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
@@ -37,6 +41,7 @@
    	%>
 	<%
     		ArrayList<ChucDanh> listChucDanh = (ArrayList<ChucDanh>) request.getAttribute("chucDanhList");
+			ArrayList<NguoiDung> listNguoiDung = (ArrayList<NguoiDung>) request.getAttribute("nguoiDungList");
 			if (listChucDanh ==  null) {
 				int index = siteMap.ndManage.lastIndexOf("/");
 				String url = siteMap.ndManage.substring(index);
@@ -44,6 +49,7 @@
 				dispatcher.forward(request, response);
 				return;
 			}
+			Long pageNum = (Long) request.getAttribute("size")/10;
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -121,8 +127,80 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào:&nbsp;<%=authentication.getHoTen() %></div>
+		<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 		<div id="main-content">
+				<form id="main-form">
+				<div id="title-content">Danh sách tài khoản</div>
+				<table style="margin-left: 60px;margin-bottom: 10px;">		
+					<tr>		
+					<th  style="text-align: left; color: black; font-size: 19px;">* Tìm kiếm mã</th>
+								<td>
+									<div class="search_form1" id="search">		
+										<form>												
+											<span> &nbsp; <input type="search" id="searchName" class="text-search" name="nguoidung"/>						
+														<script>
+														$("#searchName").autocomplete("getdataMsnv.jsp");
+														$("#searchName").autocomplete("getdataHoten.jsp");	
+														</script> 												
+												<td><input type="checkbox" value="check" class="checkbox" style="text-align: center;" id="checkTen"/></td>
+												<td  style="text-align: center; color: black; font-size: 19px;">Theo tên</td>&nbsp;&nbsp;&nbsp;
+											</span>
+												<td> <span class="search-button"> &nbsp; <button type="button" class="btn-search" style="background-color: #00A69B;" onclick="timKiemNguoidung();"><i class="fa fa-search"></i></button></span></td>						
+										</form>
+									</div>
+									</td>
+					</tr>					
+				</table>
+				<div id="view-table-chia-se">
+					<table >
+						<tr bgcolor= "#199e5e">
+						<th style="text-align: center;">Chọn</th>
+						<th>Msnv</th><th>Họ tên</th><th>Chức danh</th><th>Email</th><th>Địa chỉ</th><th>Số điện thoại</th>
+						</tr>
+						<%
+						int i = 0;
+						for(NguoiDung nguoiDung : listNguoiDung)
+						{i++;%>
+						<tr class="rowContent" <% if (i % 2 ==0) out.println("style=\"background : #CCFFFF;\"");%> >
+							<td style="text-align: center;"><input type = "checkbox" class="checkbox" name = "msnv" value="<%=nguoiDung.getMsnv()%>"></td>
+							<td><%=nguoiDung.getMsnv()%></td>
+							<td><%=nguoiDung.getHoTen()%></td>
+							<td><%=nguoiDung.getChucDanh().getCdTen()%></td>
+							<td><%=nguoiDung.getEmail()%></td>
+							<td><%=nguoiDung.getDiaChi()%></td>
+							<td><%=nguoiDung.getSdt()%></td>
+							
+						</tr>
+						<%}%>
+					</table>
+					</div>
+					<div id = "paging" >
+							<table style ="border-style: none;">
+								<tr>
+										<td>Trang</td>
+										<td>
+												<%
+												for(int j = 0; j <= pageNum; j++) { %>
+												<input type="button" value="<%=j+1%>" class="page">
+												<%} %>
+										</td>
+									
+								</tr>
+							</table>
+						</div>
+					<div class="group-button">
+					<input type="hidden" value="save" name="action">
+						<button class="button" id="update" type="button"onclick="preUpdateNd('add-form', true)">
+							<i class="fa fa-pencil fa-fw"></i>&nbsp;sửa
+						</button>
+						<button type="reset" class="button" type="button">
+							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Bỏ qua
+						</button>
+						<button type="button" class="button" onclick="location.href='<%=siteMap.home%>'">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
+					</button>
+					</div>
+				</form>
 			<form id="add-form" action="<%=siteMap.updateNguoiDung%>" >
 				<div class="input-table">
 					<table>
@@ -132,28 +210,18 @@
 						<td><input type="text" autofocus required size="12"
 							maxlength="10" placeholder="Mã số nhân viên"
 							title="Mã số nhân viên đủ 10 ký tự, không chứa ký tự đặc biệt"
-							pattern="[a-zA-Z0-9]*" class="text" id="msnv" name="msnv" onkeypress="changeMsnv();"><div id="requireMsnv" style="color: red"></div></td>
+							pattern="[a-zA-Z0-9]*" class="text" id="msnv" name="msnv" onkeypress="changeMsnv();"readonly><div id="requireMsnv" style="color: red"></div></td>
 					</tr>
-
 					<tr>
-						<td class="input"><label for="matkhau">Mật khẩu</label></td>
-						<td><input type="password" required size="20" maxlength="20" placeholder="Mật khẩu"
-							title="Mật khẩu phải hơn 7 ký tự và nhỏ hơn 21" pattern=".{8,20}"
-							class="text" id="matkhau" name="matkhau" onkeypress="changeMatkhau();"><div id="requireMatkhau" style="color: red"></div></td>
+						<td class="input"><label for="hoten">Họ tên</label></td>
+						<td><input type="text" required size="20" maxlength="50" placeholder="Họ tên"
+							title="Họ tên không được chứa chữ số và ký tự đặc biệt"
+							pattern="[a-zA-Z]*" class="text" id="hoTen" name="hoten" onkeypress="changeHoten();"style="margin-top: 5px;"><div id="requireHoten" style="color: red"></div></td>
 					</tr>
-
-					<tr>
-						<td class="input"><label for="re-matkhau">Nhập lại
-								mật khẩu</label></td>
-						<td><input type="password" required size="20" maxlength="20" placeholder="Mật khẩu"
-							title="Mật khẩu phải hơn 7 ký tự và nhỏ hơn 21" pattern=".{8,20}"
-							class="text" id="nlmatkhau" name="nlmatKhau" onkeypress="changeNlmatkhau();"><div id="requireNlmatkhau" style="color: red"></div></td>
-					</tr>
-
 					<tr>
 						<td class="input"><label for="chucdanh">Chức danh</label></td>
 						<td><select required title="Chức danh phải được chọn"
-							class="select" id="chucdanh" name="chucdanh" placeholder="Chọn chức danh" onchange="changeChucdanh();">
+							class="select" id="chucDanh" name="chucdanh" placeholder="Chọn chức danh" onchange="changeChucdanh();">
 								<option disabled selected value="">--Chọn chức danh--</option>
 								<%
 							
@@ -167,24 +235,11 @@
 					</tr>
 
 					<tr>
-						<td class="input"><label for="hoten">Họ tên</label></td>
-						<td><input type="text" required size="20" maxlength="50" placeholder="Họ tên"
-							title="Họ tên không được chứa chữ số và ký tự đặc biệt"
-							pattern="[a-zA-Z]*" class="text" id="hoten" name="hoten" onkeypress="changeHoten();"><div id="requireHoten" style="color: red"></div></td>
-					</tr>
-
-					<tr>
-						<td class="input"><label for="sdt">Số điện thoại</label></td>
-						<td><input type="text" required size="11" maxlength="11" placeholder="Số điện thoại"
-							title="Phải nhập đúng định dạng. Ví dụ: 01234567890"
-							pattern="[0-9]{10,11}" class="text" id="sdt" name="sdt" onkeypress="changeSdt();"><div id="requireSdt" style="color: red"></div></td>
-					</tr>
-
-					<tr>
 						<td class="input"><label for="email">Email</label></td>
 						<td><input type="text" required size="20" maxlength="50" placeholder="Email"
 							title="Email phải được nhập" class="text" id="email" name="email" onkeypress="changeEmail();"><div id="requireEmail" style="color: red"></div></td>
 					</tr>
+
 
 					<tr>
 						<td class="input"><label for="diachi">Địa chỉ</label></td>
@@ -192,10 +247,17 @@
 							title="Địa chỉ phải được nhập" class="text" name="diachi"
 							id="diachi" onkeypress="changeDiachi();"><div id="requireDiachi" style="color: red"></div></td>
 					</tr>
+					<tr>
+						<td class="input"><label for="sdt">Số điện thoại</label></td>
+						<td><input type="text" required size="11" maxlength="11" placeholder="Số điện thoại"
+							title="Phải nhập đúng định dạng. Ví dụ: 01234567890"
+							pattern="[0-9]{10,11}" class="text" id="sdt" name="sdt" onkeypress="changeSdt();"><div id="requireSdt" style="color: red"></div></td>
+					</tr>
+
 					</table>
 				</div>
 				<div class="button-group">
-					<button class="button" type="button" onclick="checkNd();">
+					<button class="button" type="button" onclick="confirmUpdateNd();">
 						<i class="fa fa-plus-circle"></i>&nbsp;Lưu lại
 					</button>
 					&nbsp;
@@ -203,7 +265,7 @@
 						<i class="fa fa-refresh"></i>&nbsp;Nhập lại
 					</button>
 					&nbsp;
-					<button type="button" class="button" onclick="location.href='<%=siteMap.home%>'">
+					<button type="button" class="button" onclick="showForm2('add-form', false);">
 							<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 						</button>
 				</div>

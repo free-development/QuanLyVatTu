@@ -167,13 +167,15 @@ public class CongVanDAO {
 		Criterion tt1 = Restrictions.eq("trangThai.ttMa","DGQ");
 		Criterion tt2 = Restrictions.eq("trangThai.ttMa","CGQ");
 		LogicalExpression andExp = Restrictions.or(tt1, tt2);
-		cr.add(tt1);
+//		cr.add(tt1);
 		cr.add(andExp);
-		if (!(ngaybd == null && ngaybd == null)) {
+		if ((ngaybd != null || ngaybd != null)) {
+			System.out.println(ngaybd + "*" + ngaykt);
 			if (ngaybd == null)
 				ngaybd = ngaykt;
-			else
+			else if (ngaykt == null)
 				ngaykt = ngaybd;
+			System.out.println(ngaybd + "*" + ngaykt);
 			Criterion ngay = Restrictions.between("cvNgayNhan", ngaybd, ngaykt);
 //			LogicalExpression andNgay = Restrictions.and(andExp, ngay);
 			cr.add(ngay);
@@ -401,8 +403,8 @@ public long size(String msnv, HashMap<String, Object> conditions) {
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		conditions.put("year", 2015);
 		conditions.put("month", 8);
-		ArrayList<Integer> size =  new CongVanDAO().groupByDate(null, 2015, 11);
-		for(Integer year : size)
+		ArrayList<CongVan> size =  new CongVanDAO().getTrangThai(new Date(115,6,20), new Date(115,9,20));
+		for(CongVan year : size)
 			System.out.println(year);
 		
 	}

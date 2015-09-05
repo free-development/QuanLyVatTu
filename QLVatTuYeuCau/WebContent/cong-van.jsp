@@ -1,4 +1,3 @@
-<%@page import="model.ConfigParam"%>
 <%@page import="model.NguoiDung"%>
 <%@page import="model.TrangThai"%>
 <%@page import="model.MucDich"%>
@@ -25,13 +24,8 @@
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
 	type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/cong-van.js"></script>
 
-<meta charset="utf-8">
-<link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
-</head>
-<body>
-	<%
+<%
 		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
 		String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
@@ -43,6 +37,20 @@
    			return;
    		}
    	%>
+<script type="text/javascript">
+	function showButton() {
+		var check = '<% if (vanThuMa.equals(authentication.getChucDanh().getCdMa())) out.print("hide");%>';
+		if (check == 'hide')
+			$('.button-chia-se').hide();
+	}
+</script>
+<script type="text/javascript" src="js/cong-van.js"></script>
+<meta charset="utf-8">
+<link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
+
+</head>
+<body>
+	
 	<%
 		request.getCharacterEncoding();
 		response.getCharacterEncoding();
@@ -123,7 +131,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
+				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 
 		<div id="main-content">
 			<div id="content-form">
@@ -134,7 +142,8 @@
 						<ol class="tree">
 						<% for (Integer year : yearList) {%>
 							<li id="year<%=year%>"><label for="y<%=year%>"><%=year %></label> <input
-									type="checkbox" id="y<%=year %>" value=<%=year %> class="year" name="year"/>
+									type="checkbox" id="y<%=year %>" value=<%=year %> class="year" name="year" />
+<%-- 									onchange="propCheckYear('y<%=year %>');" --%>
 									<ol>
 									</ol>
 <!-- 								<div class="month">	 -->
@@ -144,36 +153,23 @@
 							<%} %>
 						</ol>		
 					</div>
-<!-- 					<div id="scroll_time"> -->
-<!-- 						<ol class="tree"> -->
-<!-- 							<li><label for="year">Năm 2015</label> <input -->
-<!-- 								type="checkbox" id="year" /> -->
-<!-- 								<ol id> -->
-<!-- 										<li><label for="month">Tháng 08</label> <input -->
-<!-- 											type="checkbox" id="month" /> -->
-<!-- 											<ol> -->
-<!-- 													<li class="date"><input type="button"></input><a href="">Ngày 31</a></li> -->
-<!-- 											</ol> -->
-<!-- 										</li> -->
-<!-- 								</ol> -->
-<!-- 							</li> -->
-<!-- 						</ol> -->
-<!-- 					</div> -->
-				<div id="Link-vbd">
-<!-- 						<div class="vbd-column">--Văn bản đến--</div><br> -->
-<!-- 						<div class="tt-column"> -->
-<!-- 						<a href="" >Chưa giải quyết</a><br> -->
-<!-- 						<a href="">Đang giải quyết</a><br> -->
-<!-- 						<a href="">Đã giải quyết</a> -->
-<!-- 						</div> -->
-					<div class="vbd-column">--Văn bản đến--</div><br>
-					<select id = "ttFilter" class="select" name="trangThai">
-						<option value = "" style="text-align: center;">Tất cả</option>
-						<option value = "CGQ" style="text-align: center;">Chưa giải quyết</option>
-						<option value = "DGQ" style="text-align: center;">Đang giải quyết</option>
-						<option value = "DaGQ" style="text-align: center;">Đã giải quyết</option>
-					</select>
-				</div>
+					<table style="margin-left:18px;">
+						<tr>
+						<th style="text-align: center;">
+							--Văn bản đến--
+						</th>
+						</tr>
+						<tr>
+						<td style="text-align: center;">
+						<select id = "ttFilter" class="select" name="trangThai">
+							<option value = "" style="text-align: center;font-weight: bold;">Tất cả</option>
+							<option value = "CGQ" style="text-align: center;font-weight: bold;">Chưa giải quyết</option>
+							<option value = "DGQ" style="text-align: center;font-weight: bold;">Đang giải quyết</option>
+							<option value = "DaGQ" style="text-align: center;font-weight: bold;">Đã giải quyết</option>
+						</select>
+						</td>
+						</tr>
+					</table>
 					<br> <br>
 					
 			</div>
@@ -182,7 +178,7 @@
 						<div id="title-table">
 						<table>
 							<tr>
-								<td class="column-loc">Tìm kiếm: </td>
+								<th class="column-loc">Tìm kiếm: </th>
 								<td><select class="select" name="filter" id="filter">
 										<option value =""> Tất cả </option>
 <!-- 										<option>Ngày đến</option> -->
@@ -229,8 +225,10 @@
 						</table>
 						</div>
 					</form>	
+
+
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
-                     <div style="height: 500px; width: 810px;" class="scroll_content">
+                     <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
 						<%
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {

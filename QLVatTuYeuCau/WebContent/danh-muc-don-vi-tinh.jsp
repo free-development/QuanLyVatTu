@@ -143,8 +143,13 @@
 			</ul>
 				<div class="clear"></div>
 			</div>
+<<<<<<< HEAD
 		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
 		<div id="main-content">
+=======
+				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
+		
+>>>>>>> 66883a0cec93fa662f30c0dddc21f73b82957c9d
 			<div id="title-content">Danh mục đơn vị tính</div>
 				<form id="main-form">
 					<div id="view-table" style="height: 600px; margin: 0 auto;">

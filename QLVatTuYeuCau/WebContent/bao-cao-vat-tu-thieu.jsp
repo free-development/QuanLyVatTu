@@ -142,7 +142,7 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào <%=nguoiDung.getHoTen() %></div>
+		<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=nguoiDung.getHoTen() %></b></div>
 		<div id="main-content">
 			<div id="title-content"style="margin-top: 20px;">Báo cáo vật tư thiếu</div>
 			<br>
@@ -216,7 +216,7 @@
 										<td class="d-column"style="text-align: center;"><%=yeuCau.getCtVatTu().getChatLuong().getClTen() %></td>
 										<td class="e-column"style="text-align: center;"><%=yeuCau.getCtVatTu().getVatTu().getDvt().getDvtTen() %></td>
 										<td class="e-column"style="text-align: center;"><%=yeuCau.getYcSoLuong() %></td>
-										<td style="text-align: center;"><a style="color: blue;" href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">Xem</td>
+										<td style="text-align: center;"><a style="color: blue;text-decoration: underline;" href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">Xem</td>
 									</tr>	
 								<%}} }%>			
 					</table>

@@ -152,7 +152,7 @@
 			</ul>
 					<div class="clear"></div>
 				</div>
-		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
+				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 		<div id="main-vattu">
 			<div id="title-content">Danh mục vật tư</div>
 <!-- 					<h3>* Tìm kiếm mã</h3> -->
@@ -163,7 +163,7 @@
 <!-- 						</script> -->
 		
 		<form id="vattu">
-			<table>		
+			<table style="margin-left:60px;">		
 					<tr>		
 					<th  style="text-align: left; color: black; font-size: 19px;">* Tìm kiếm mã</th>
 								<td>
@@ -632,7 +632,6 @@
 					<button type="button" class="button" onclick="showForm('update-chitiet', false)"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
 				</div>
 			</form>
-		</div>
 		</div>
 </body>
 </html>

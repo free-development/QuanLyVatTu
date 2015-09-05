@@ -10,8 +10,6 @@
 	font-size: 25px;
 	color: firebrick;
 	font-weight: bold;
-	padding-top: 20px;
-	padding-bottom: 20px;
 }
 #main-content {
 	height: 800px;
@@ -165,7 +163,6 @@
 	color: firebrick;
 	font-weight: bold;
 	padding-top: 20px;
-	padding-bottom: 20px;
 }
 .scroll-chia-se {
 	max-height: 420px;
@@ -189,7 +186,7 @@
 	width:900px;
 }
 #view-table-chia-se table tr td {
-	border: 1px solid black;
+	border: 1px dotted black;
 	border-width: 1px;
 	margin: 0px;
 	border-spacing: 0px;
@@ -199,7 +196,7 @@
 	padding-bottom: 5px;
 }
 #view-table-chia-se table tr th {
-	border: 1px solid black;
+	border: 1px dotted black;
 	border-width: 1px;
 	margin: 0px;
 	border-spacing: 0px
@@ -236,7 +233,7 @@
 	*/
 }
 #view-chia-se table th{
-	border: 1px solid black;
+	border: 1px dotted black;
 	border-width: 1px;
 	margin: 0px;
 	border-spacing: 0px
@@ -246,7 +243,7 @@
 }
 #update-form table th{
 
-	border: 1px solid black;
+	border: 1px dotted black;
 	border-width: 1px;
 	margin: 0px;
 	border-spacing: 0px
@@ -260,7 +257,7 @@
 }
 
 #update-form table td{
-	border: 1px solid black;
+	border: 1px dotted black;
 	border-width: 1px;
 	margin: 0px;
 	border-spacing: 0px

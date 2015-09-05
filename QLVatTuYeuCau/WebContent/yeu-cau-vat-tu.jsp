@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="style/style-giao-dien-chinh.css"
 	type="text/css">
 <link rel="stylesheet" href="style/style.css" type="text/css">
+<link rel="stylesheet" href="style/style-vat-tu.css" type="text/css">
 <link rel="stylesheet" href="style/jquery.autocomplete.css" type="text/css">
 <link href="style/style-yeu-cau.css"type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="style/style-menu-tree.css" type="text/css">
@@ -46,6 +47,7 @@
 	<%
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+   		CongVan congVan = (CongVan) session.getAttribute("congVan");
    		if (authentication == null) {
    			request.setAttribute("url", siteMap.cvManage+ "?action=manageCv");
    			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
@@ -153,54 +155,40 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting"><%=authentication.getHoTen() %></div>
+		<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 
 		<div id="main-content">
-			
-			
 			<form id="add-yeu-cau-form">
-				<div id="yc-table">
-				<table>
-					<tr>
-						<td><label for="vtMa">Mã vật tư: </label></td>
-						<td class="column-mavt" colspan=3><input type="search" maxlength="16" size="19px" name="search" id="searchName" class="text" autocomplete="off">
-						&nbsp;&nbsp;&nbsp;<input type="checkbox" value="check" class="checkbox" style="text-align: center;" id="checkTen"/>Theo tên
-						<script>
+			</form>
+			<div style="color: #CC3333;height:20px;text-align: right;margin-right: 40px;"><b>Số công văn:&nbsp;<%=congVan.getCvSo()%></b></div>
+			<form id="danh-sach-vat-tu">
+			<div class="form-title-vat-tu">Danh sách vật tư</div>
+			<div id="yc-table">
+				<table style="margin-left:60px;margin-bottom: 10px;">		
+					<tr>		
+					<td  style="text-align: left; font-size: 19px;color:#6600FF;">* Tìm kiếm mã</td>
+								<td>
+									<div class="search_form1" id="search">		
+										<form>	
+<!-- 											<span class="search-text"> &nbsp; <input type="search" class="text" name="search_box" name="search" placeholder="Tìm kiếm" /> 												 -->
+<!-- 												<td><input type="checkbox" class="checkbox" style="text-align: center;"/></td> -->
+<!-- 												<td  style="text-align: center; color: black; font-size: 19px;">Theo tên</td>&nbsp;&nbsp;&nbsp; -->
+<!-- 											</span> -->
+											
+											<span> &nbsp; <input type="search" id="searchName" class="text-search" name="vattu"/>						
+														<script>
 														$("#searchName").autocomplete("getdataMa.jsp");
-														$("#searchName").autocomplete("getdata.jsp");
-						</script>
-						</td>
-						<td style="text-align: left;"><button class="button" type="button" id="search">Tìm kiếm</button></td>
-<!-- 						<td><label for="vtTen">Tên vật tư: </label></td> -->
-<!-- 						<td class="column-tenvt"><input type="text" maxlength="3" size="3px" name="vtTen" id="vtMa" class="text"></td> -->
-					</tr>
-<!-- 					<tr> -->
-<!-- 						<td><label for="nsx">Nơi sản xuất: </label></td> -->
-<!-- 						<td class="column-noisx"> -->
-<!-- 							<select name="nsx" id="nsx" class="select"> -->
-<!-- 							<option selected disabled value="" style="text-decoration: none;">-- Chọn nơi sản xuất --</option> -->
-<%-- 							<% for(NoiSanXuat nsx : nsxList) {%> --%>
-<%-- 								<option value=<%=nsx.getNsxMa() %>><%=nsx.getNsxTen() %></option> --%>
-<%-- 							<%} %> --%>
-<!-- 							</select> -->
-<!-- 						</td> -->
-<!-- 						<td><label for="chatLuong">Chất lượng: </label></td> -->
-<!-- 						<td> -->
-<!-- 							<select name="chatLuong" id="chatLuong" class="select"> -->
-<!-- 							<option selected disabled value="" style="text-decoration: none;">-- Chọn chất lượng --</option> -->
-<%-- 							<% for(ChatLuong chatLuong : chatLuongList) {%> --%>
-<%-- 								<option value=<%=chatLuong.getClMa() %>><%=chatLuong.getClTen()  %></option> --%>
-<%-- 							<%} %> --%>
-<!--  							</select>  -->
-<!-- 						</td> -->
-<!-- 					</tr> -->
-					
+														$("#searchName").autocomplete("getdata.jsp");	
+														</script> 												
+												<td><input type="checkbox" value="check" class="checkbox" style="text-align: center;" id="checkTen"/></td>
+												<td  style="text-align: center; color:#6600FF; font-size: 19px;">Theo tên</td>&nbsp;&nbsp;&nbsp;
+											</span>
+												<td> <span class="search-button"> &nbsp; <button type="button" id="search" class="btn-search" style="background-color: #00A69B;" onclick=""><i class="fa fa-search"></i></button></span></td>						
+										</form>
+									</div>
+					</tr>					
 				</table>
 				</div>
-
-			</form>
-			<form id="danh-sach-vat-tu">
-			<div class="form-title">Danh sách vật tư</div>
 				<div id="view-search">
 				<div id="view-table-ds">
 				<table style="width:960px;margin:0 auto;">
@@ -225,12 +213,10 @@
 							
 						</tr>
 					<%}%>
-				</div>
 				</table>
 				</div>
 				</div>
 			</form>				
-				</div>
 				<div id = "paging" >
 									<%
 										String str = "";
@@ -243,12 +229,10 @@
 									out.println(str);	
 								%>
 					</div>
-
-			</div>
 			<form id="main-form">
-			<div class="form-title" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
+			<div class="form-title-vat-tu" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
-							<table style= "width:960px; margin: 0 auto;s" >
+							<table style= "width:960px; margin: 0 auto;" >
 								<tr>
 									<th class="a-column"style= "text-align: center;">Chọn</th>
 									<th class="b-column" style="text-align: center;">Mã vật tư</th>
@@ -290,20 +274,15 @@
 									<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa
 								</button>
 								
-								<button type="button" class="button"
-									onclick="showForm('main-form', 'update-yc-vat-tu',false)">
-									<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
-								</button>
+								<button type="button" id="print_button" class="button"  onclick="location.href='<%=siteMap.congVan+".jsp" %>'">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
+					</button>
 							</div>
 				</form>
-			<br>
-			<br>
-			<br>
-			<br>
 			<form id="add-so-luong-form" onsubmit="return false">
 			<div class="form-title" style="margin-top: 10px;">Thêm yêu cầu vật tư</div>
 			<div id="view-table-them">
-			<table style= "width:900px; margin: 0 auto;margin-top: 20px;"  >
+			<table style= "width:900px; margin: 0 auto;margin-top: 10px;"  >
 				<tr><th >Mã vật tư</th><th >Tên vật tư</th><th >Nơi sản xuất</th><th >Chất lượng</th><th >Đơn vị tính</th><th >Số lượng</th></tr>
 				<tr>
 					<td><div id="vtMaAdd"></div></td>
@@ -358,5 +337,7 @@
 			</table>
 			</div>
 			</form>
+			</div>
+			</div>
 </body>
 </html>

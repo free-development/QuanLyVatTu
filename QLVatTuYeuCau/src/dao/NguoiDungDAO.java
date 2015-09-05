@@ -6,6 +6,7 @@ import java.util.List;
 import model.CTVatTu;
 import model.CongVan;
 import model.NguoiDung;
+import model.VatTu;
 import model.YeuCau;
 
 import org.hibernate.Criteria;
@@ -77,27 +78,71 @@ public class NguoiDungDAO {
 		session.delete(nguoiDung);
 		session.getTransaction().commit();
 	}
-	
-	
-	
-	public ArrayList<NguoiDung> limit(int first, int limit) {
+	public void lockNguoiDung(String msnv){
 		session.beginTransaction();
-		Criteria cr = session.createCriteria(NguoiDung.class, "nd");
-		cr.createAlias("nd.msnv", "msnv");
-		cr.createAlias("nd.hoTen", "hoTen");
-		cr.createAlias("nd.vaiTro", "vaiTro");
-		cr.createAlias("vaiTro.vtMa", "vtMa");
-		cr.addOrder(Order.asc("nd.msnv"));
-		cr.setFirstResult(first);
-		cr.setMaxResults(limit);
+		String sql = "update NguoiDung set Khoa = 1 where msnv = '" + msnv +"'";		
+		Query query = session.createQuery(sql);
+		query.executeUpdate();
+		session.getTransaction().commit();
+	}
+	public ArrayList<String> startWithMa(String i) {
+		session.beginTransaction();
+		String sql = "select msnv from NguoiDung where msnv LIKE :msnv";
+		Query query = session.createQuery(sql);
+		query.setParameter("msnv", i+"%");
+		ArrayList<String> list = (ArrayList<String>) query.list();
+		session.getTransaction().commit();
+		return list;
+	}
+	public ArrayList<String> startWithTen(String i) {
+		session.beginTransaction();
+
+		String sql = "select hoten from NguoiDung where hoten LIKE :hoten";
+		Query query = session.createQuery(sql);
+		query.setParameter("hoten", i+"%");
+		ArrayList<String> list = (ArrayList<String>) query.list();
+		
+		session.getTransaction().commit();
+		return list;
+	}
+	public ArrayList<NguoiDung> searchHoten(String i) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(NguoiDung.class);
+		cr.add(Restrictions.like("hoten", i+"%"));
 		ArrayList<NguoiDung> list = (ArrayList<NguoiDung>) cr.list();
 		session.getTransaction().commit();
 		return list;
 	}
 	
+	public ArrayList<NguoiDung> searchMsnv(String i) {
+		session.beginTransaction();
+//		String sql = "select E.vtMa, E.vtTen, E.dvt, E.daXoa from VatTu E where E.vtMa LIKE :vtMa";
+		Criteria cr = session.createCriteria(NguoiDung.class);
+		cr.add(Restrictions.like("msnv", i+"%"));
+//		Restrictions.
+//		Query query = session.createQuery(sql);
+		
+//		query.setParameter("vtMa", i+"%");
+//		ArrayList<VatTu> list = (ArrayList<VatTu>) query.list();
+		ArrayList<NguoiDung> list = (ArrayList<NguoiDung>) cr.list();
+		session.getTransaction().commit();
+		return list;
+	}
+	public List<NguoiDung> limit(int first, int limit) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(NguoiDung.class);
+		Criterion KhoaNd = Restrictions.eq("Khoa", 0);
+//		Criterion limitRow = Restrictions.
+		cr.add(KhoaNd);
+		cr.setFirstResult(first);
+		cr.setMaxResults(limit);
+		ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) cr.list(); 
+		session.getTransaction().commit();
+		return nguoiDungList;
+	}
 	public long size() {
 		session.beginTransaction();
-		String sql = "select count(msnv) from NguoiDung";
+		String sql = "select count(msnv) from NguoiDung where Khoa = 0";
 		Query query =  session.createQuery(sql);
 		long size = (long) query.list().get(0);
 		session.getTransaction().commit();

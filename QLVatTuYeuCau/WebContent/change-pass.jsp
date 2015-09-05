@@ -134,18 +134,15 @@
 				<%} %>
 				<li><a>Tài khoản</a>
 					<ul>
-<<<<<<< HEAD
 						<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
-=======
 						<li><a href="<%=siteMap.changePassPage + "?action=changePassWord"%>">Đổi mật khẩu</a></li>
->>>>>>> f96cc11764cfdb4677543fa3dd6d77a92f6b0b4b
 						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
 					</ul>
 				</li>		
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào <%=nguoiDung.getHoTen() %></div>
+				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=nguoiDung.getHoTen() %></b></div>
 		<div id="main-content">
 			<form id="add-form" action="<%=siteMap.changePass %>" method="post"
 				name="taoTaiKhoan" action="/QLVatTuYeuCau/changePass.html">
