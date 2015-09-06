@@ -6,16 +6,13 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
-import org.apache.xmlbeans.impl.common.SystemCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -23,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -34,14 +30,15 @@ import dao.FileDAO;
 import dao.MucDichDAO;
 import dao.NguoiDungDAO;
 import dao.TrangThaiDAO;
+import dao.VTCongVanDAO;
 import map.siteMap;
-import model.ConfigParam;
 import model.CongVan;
 import model.DonVi;
 import model.File;
 import model.MucDich;
 import model.NguoiDung;
 import model.TrangThai;
+import model.VaiTro;
 import util.DateUtil;
 import util.FileUtil;
 import util.JSonUtil;
@@ -71,14 +68,17 @@ public class CvController extends HttpServlet {
     
     private String truongPhongMa = "";
     private String vanThuMa = "";
+    private int vtCapVt = 0;
     
     public ModelAndView getCongvan( HttpServletRequest request) {
     	truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
+    	vtCapVt = Integer.parseInt(context.getInitParameter("capPhatId"));
     	session = request.getSession(false);
     	NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
     	
+    	VTCongVanDAO vtcvDAO =  new VTCongVanDAO();
     	MucDichDAO mucDichDAO =  new MucDichDAO();
     	DonViDAO donViDAO =  new DonViDAO();
     	TrangThaiDAO trangThaiDAO =  new TrangThaiDAO();
@@ -87,18 +87,48 @@ public class CvController extends HttpServlet {
     	String cdMa = nguoiDung.getChucDanh().getCdMa();
 		String msnvTemp = msnv;
 		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa)) {
-			System.out.println(cdMa + "*" + truongPhongMa);
 			msnvTemp = null;
+			// danh sach vai tro nguoi dung doi voi cong van
 		}
     	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(msnvTemp, null, null, 0, 3);
+    	
+    	// danh sach nguoi xu ly cong van
+    	ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
+    	//chung
 		HashMap<Integer, File> fileHash = new HashMap<Integer, File>();
 		ArrayList<DonVi> donViList = (ArrayList<DonVi>) donViDAO.getAllDonVi();
 		ArrayList<MucDich> mucDichList = (ArrayList<MucDich>) mucDichDAO.getAllMucDich();
 		ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) trangThaiDAO.getAllTrangThai();
 		long size = congVanDAO.size(msnvTemp, null);
-		for(CongVan congVan : congVanList) {
-			int cvId = congVan.getCvId();
-			fileHash.put(cvId, fileDAO.getByCongVanId(cvId));
+		//
+		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		if (msnvTemp != null) {
+			for(CongVan congVan : congVanList) {
+				int cvId = congVan.getCvId();
+				fileHash.put(cvId, fileDAO.getByCongVanId(cvId));
+				
+					ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
+				System.out.println(vtCongVan.size());
+				
+				vtCongVanList.add(vtCongVan);
+	//			ArrayList<VaiTro> vaiTroList = vtcvDAO.getVaiTroId(cvId);
+	//			vtNguoiDungHash.put(cvId, vaiTroList);
+			}
+		}
+		else if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa)) {
+			for(CongVan congVan : congVanList) {
+				int cvId = congVan.getCvId();
+				fileHash.put(cvId, fileDAO.getByCongVanId(cvId));
+				
+				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
+				
+				nguoiXlCongVan.add(nguoiXl);
+	//			ArrayList<VaiTro> vaiTroList = vtcvDAO.getVaiTroId(cvId);
+	//			vtNguoiDungHash.put(cvId, vaiTroList);
+			}
+//	    	HashMap<Integer, ArrayList<NguoiDung>> vtNguoiDungHash = new HashMap<Integer, ArrayList<VaiTro>>();
+			request.setAttribute("nguoiXlCongVan", nguoiXlCongVan);
+	    	
 		}
 		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp,5);
 		request.setAttribute("congVanList", congVanList);
@@ -113,6 +143,7 @@ public class CvController extends HttpServlet {
 		trangThaiDAO.disconnect();
 		fileDAO.disconnect();
 		mucDichDAO.disconnect();
+		vtcvDAO.disconnect();
 		return new ModelAndView(siteMap.congVan);
     }
     
@@ -131,24 +162,27 @@ public class CvController extends HttpServlet {
 			response.sendRedirect("login.jsp");
 		
 		String action = request.getParameter("action");
+		
 		if("manageCv".equalsIgnoreCase(action)) {
-			FileDAO fileDAO = new FileDAO();
-	    	CongVanDAO congVanDAO = new CongVanDAO();
-	    	String cdMa = nguoiDung.getChucDanh().getCdMa();
-	    	String msnv = nguoiDung.getMsnv();
-			String msnvTemp = msnv;
-			if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa))
-				msnvTemp = null;
-			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(msnvTemp ,null, null, 0, 3);
-			HashMap<Integer, File> fileHash = new HashMap<Integer, File>();
-			for(CongVan congVan : congVanList) {
-				int cvId = congVan.getCvId();
-				File file = fileDAO.getByCongVanId(cvId);
-				fileHash.put(cvId, file);
-			}
-			congVanDAO.disconnect();
-			fileDAO.disconnect();
 			return getCongvan(request);
+//			FileDAO fileDAO = new FileDAO();
+//	    	CongVanDAO congVanDAO = new CongVanDAO();
+//	    	String cdMa = nguoiDung.getChucDanh().getCdMa();
+//	    	String msnv = nguoiDung.getMsnv();
+//			String msnvTemp = msnv;
+//			if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa))
+//				msnvTemp = null;
+//			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(msnvTemp ,null, null, 0, 3);
+//			HashMap<Integer, File> fileHash = new HashMap<Integer, File>();
+//			for(CongVan congVan : congVanList) {
+//				int cvId = congVan.getCvId();
+//				File file = fileDAO.getByCongVanId(cvId);
+//				fileHash.put(cvId, file);
+//			}
+//			congVanDAO.disconnect();
+//			fileDAO.disconnect();
+			
+//			return getCongvan(request);
 		}
 	
 		if("download".equals(action)) {

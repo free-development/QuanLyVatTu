@@ -1,3 +1,4 @@
+<%@page import="javafx.scene.control.Cell"%>
 <%@page import="model.NguoiDung"%>
 <%@page import="model.YeuCau"%>
 <%@page import="java.util.HashMap"%>
@@ -237,7 +238,10 @@
 				<% if(loaiBc != null && "tonghop".equalsIgnoreCase(loaiBc)){
 			
 	   		HashMap<Integer, CTVatTu> ctvtHash = (HashMap<Integer, CTVatTu>) session.getAttribute("ctvtHash");
-	   		HashMap<Integer, Integer> yeuCauHash = (HashMap<Integer, Integer>) session.getAttribute("yeuCau"); %>
+	   		HashMap<Integer, Integer> yeuCauHash = (HashMap<Integer, Integer>) session.getAttribute("yeuCau");
+	   		HashMap<Integer, ArrayList<Integer>> cvIdHash = (HashMap<Integer, ArrayList<Integer>>) session.getAttribute("cvIdHash");
+	   		HashMap<Integer, ArrayList<Integer>> soDenHash = (HashMap<Integer, ArrayList<Integer>>) session.getAttribute("soDenHash");
+	   		%>
 			
 				<div style="text-align: center;font-size: 20px;color:firebrick;font-weight: bold;margin-top:10px;">Tổng hợp vật tư thiếu</div>
 				<div id="view-table-bao-cao" style="max-height: 420px;width: 1000px;display: auto;border: 1px dotted #CCCCCC;margin: 0 auto;overflow: scroll;">
@@ -249,6 +253,7 @@
 						<th style="border: 1px dottedblack;" class="three-column">Chất lượng</th>
 						<th style="border: 1px dotted black;" class="six-column">Đơn vị tính</th>
 						<th style="border: 1px dotted black;" class="one-column">Tổng số lượng thiếu</th>
+						<th style="border: 1px dotted black;" class="one-column">Công văn liên quan (số đến)</th>
 					</tr >
 								<%
 							if(yeuCauHash != null){
@@ -259,7 +264,7 @@
 							%>
 									
 					<tr
-						<%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>
+						<%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\""); else out.println("style=\"background : #FFFFFF;\"");%>
 						style="border: 1px solid black;">
 						<td class="a-column"style="text-align: center;"><%=ctvt.getVatTu().getVtMa() %></td>
 						<td class="b-column"style="text-align: center;"><%=ctvt.getVatTu().getVtTen() %></td>
@@ -267,6 +272,23 @@
 						<td class="d-column"style="text-align: center;"><%=ctvt.getChatLuong().getClTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=ctvt.getVatTu().getDvt().getDvtTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
+						<td>
+							<%
+							ArrayList<Integer> cvIdList = cvIdHash.get(key);
+							ArrayList<Integer> soDenList = soDenHash.get(key);
+							int length = cvIdList.size();
+							StringBuilder cell = new StringBuilder ("");
+							for(int i = 0; i < length; i++) {
+								int soDen = soDenList.get(i);
+								int cvId = cvIdList.get(i);
+								cell.append("<a style=\"color: red; text-decoration: underline; \" href=" + siteMap.searchCv + "action=search?congVan=" + cvId + "> " + soDen + "</a>" + ", ");
+							}
+							int len = cell.length() ;
+							cell.delete(len - 2, len);
+							out.println(cell);
+							%>
+							 
+						</td>
 					</tr>
 					<%} %>
 				</table>

@@ -126,6 +126,15 @@ public class CongVanDAO {
 		int result = query.executeUpdate();
 		session.getTransaction().commit();
 	}
+	public int getSoDen(final int cvId) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(CongVan.class);
+		cr.add(Restrictions.eq("cvId", cvId));
+		cr.setProjection(Projections.property("soDen"));
+		int soDen = (int) cr.list().get(0);
+		session.getTransaction().commit();
+		return soDen;
+	}
 	public int getLastInsert() {
 		session.beginTransaction();
 		Criteria cr =  session.createCriteria(File.class).setProjection(Projections.max("cvId"));// max("ctvtId"));

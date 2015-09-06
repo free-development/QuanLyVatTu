@@ -340,7 +340,9 @@ function loadCongVan(congVanList, fileList) {
 		alert('Không tồn tại công văn');
 	}
 	$('.scroll_content').html(tables);
-	showButton();
+	if (check == false) {
+		$('.button-chia-se').hide();;
+	}
 }
 function loadByDate(year, month, date) {
 	$.ajax({

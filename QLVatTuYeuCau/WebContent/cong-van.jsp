@@ -1,3 +1,5 @@
+<%@page import="model.VaiTro"%>
+<%@page import="dao.VaiTroDAO"%>
 <%@page import="model.NguoiDung"%>
 <%@page import="model.TrangThai"%>
 <%@page import="model.MucDich"%>
@@ -29,6 +31,7 @@
 		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
 		String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
+		int capPhatMa = Integer.parseInt(request.getServletContext().getInitParameter("capPhatId"));
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
    			session.setAttribute("url", siteMap.cvManage+ "?action=manageCv");
@@ -38,11 +41,13 @@
    		}
    	%>
 <script type="text/javascript">
-	function showButton() {
-		var check = '<% if (vanThuMa.equals(authentication.getChucDanh().getCdMa())) out.print("hide");%>';
-		if (check == 'hide')
-			$('.button-chia-se').hide();
-	}
+<% 
+String chucDanhMa = authentication.getChucDanh().getCdMa();
+%>
+check = <% if (vanThuMa.equals(chucDanhMa) ) out.print("false"); else out.print("true");%>;
+capVatTuId = <%=capPhatMa  %>; 
+// || capPhatMa.equals(chucDanhMa)
+
 </script>
 <script type="text/javascript" src="js/cong-van.js"></script>
 <meta charset="utf-8">
@@ -74,6 +79,7 @@
     	ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) request.getAttribute("trangThaiList");
     	ArrayList<Integer> yearList = (ArrayList<Integer>) request.getAttribute("yearList");
     	Long size = (Long) request.getAttribute("size");
+    	ArrayList<ArrayList<VaiTro>> vtCongVanList = (ArrayList<ArrayList<VaiTro>>) request.getAttribute("vtCongVanList");
     %>
     
 	<div class="wrapper">
@@ -241,6 +247,7 @@
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
                      <div style="height: 500px; width: 810px;" class="scroll_content">
 						<%
+					
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {
                      		count ++;
@@ -258,7 +265,6 @@
 							<td class="column-date" style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
 						</tr>
 						<tr>
-							
 							<td class="left-column-first" style="font-weight: bold;">Mục đích: &nbsp;&nbsp;</td>
 							<td class="column-color" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
 							<td class="left-column-ngdi" style="font-weight: bold;">Ngày công văn đi:&nbsp;&nbsp;</td>
@@ -281,16 +287,49 @@
 							<td class="column-color" colspan="6"><%= congVan.getButPhe()%></td>
 						</tr>
 						<tr>
-							<td class="left-column-first" style="font-weight: bold;">Nơi GQ chính</td>
-							<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
-							<td colspan="3" style="float: right;">
+							
 							<%
 								String chucDanh =  authentication.getChucDanh().getCdMa();
+							
+								boolean capPhat = false;
+								StringBuilder vaiTro = new StringBuilder("");
+								
+								if (!chucDanh.equals(truongPhongMa) && !chucDanh.equals(vanThuMa)) {%>
+									<td class="left-column-first" style="font-weight: bold;">Nơi GQ chính</td>
+									<td class="column-color"colspan="3">
+									
+									
+									<%
+									ArrayList<VaiTro> vaiTroList = vtCongVanList.get(count - 1);
+									System.out.println(vtCongVanList);
+									System.out.println(vaiTroList);
+									for (VaiTro vt : vaiTroList) {
+										vaiTro.append(vt.getVtTen() + ", ");
+										if (vt.getVtId() == capPhatMa)
+											capPhat = true;
+									}
+									int len = vaiTro.length();
+									vaiTro.delete(len - 2, len);
+									out.println(vaiTro.toString());
+								} else {	
+							%>
+							<%} %>
+							</td>
+							<td colspan="3" style="float: right;">
+							<%
+							
 							if (truongPhongMa.equalsIgnoreCase(chucDanh)) {%>
 								<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
 									<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
 								</button>
 								<%} %>
+							<%if (capPhat)
+								{ %>
+								<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.ycvtManage + "?cvId=" + congVan.getCvId()%>'">
+								<i class="fa fa-spinner"></i>&nbsp;&nbsp;Cập vật tư yêu cầu
+								</button>
+							<% 	}
+								%>
 							</td>
 						</tr>
 						<tr>

@@ -134,7 +134,7 @@ public class ChiaSeCvController extends HttpServlet {
 				vaiTroHash.put(msnv, vtHash);
 				String account = context.getInitParameter("account");
 				String password = context.getInitParameter("password");
-				String host = context.getInitParameter("host");
+				String host = context.getInitParameter("hosting");
 
 				SendMail sendMail = new SendMail(account, password);
 				NguoiDung nguoiDung = vtNguoiDungHash.get(msnv);
