@@ -16,12 +16,29 @@
 	rel="stylesheet">
 <link href="style/style-chia-se.css" type="text/css"
 	rel="stylesheet">
+<link href="style/style-vat-tu.css" type="text/css"
+	rel="stylesheet">
 <link
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
 	type="text/css" rel="stylesheet">
-<!--		<script type="text/javascript" src="js/check.js"></script>-->
-<script type="text/javascript" src="js/jquery-1.6.3.min.js"></script>
-<script type="text/javascript" src="js/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style/jquery.autocomplete.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/check.js"></script>
+<script src="js/jsapi.js"></script>  
+	<script>  
+		google.load("jquery", "1");
+	</script>
+	<script src="js/jquery.autocomplete.js"></script>
+	<style>
+		input {
+			font-size: 120%;
+		}
+	</style>
+	<script type="text/javascript">
+	
+	</script>
+<!-- <script type="text/javascript" src="js/jquery-1.6.3.min.js"></script> -->
+<!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
 <script type="text/javascript" src="js/nguoidung.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
@@ -129,23 +146,28 @@
 		<div id="main-content">
 		<form id="main-form">
 				<div id="title-content">Danh sách tài khoản</div>
-				<table style="margin-left: 60px;">		
+				<table style="margin-left: 60px;margin-bottom: 10px;">		
 					<tr>		
-					<th  style="text-align: left; color: black; font-size: 19px;">* Tìm kiếm mã</th>
+					<th  style="text-align: left; color: black; font-size: 19px;">*Tìm kiếm mã</th>
 								<td>
 									<div class="search_form1" id="search">		
+										
+										
 										<form>												
-											<span> &nbsp; <input type="search" id="searchName" class="text-search" name="vattu"/>						
-														<script>
-														$("#searchName").autocomplete("getdataMa.jsp");
-														$("#searchName").autocomplete("getdata.jsp");	
-														</script> 												
-<!-- 												<td><input type="checkbox" value="check" class="checkbox" style="text-align: center;" id="checkTen"/></td> -->
-<!-- 												<td  style="text-align: center; color: black; font-size: 19px;">Theo tên</td>&nbsp;&nbsp;&nbsp; -->
+											<span> &nbsp; <input type="search" id="searchName" class="text-search" name="nguoidung"/>						
+														 												
+												<td><input type="checkbox" value="check" class="checkbox" style="text-align: center;" id="checkTen"/></td>
+												<td  style="text-align: center; color: black; font-size: 19px;">Theo tên</td>&nbsp;&nbsp;&nbsp;
 											</span>
-												<td> <span class="search-button"> &nbsp; <button type="button" class="btn-search" style="background-color: #00A69B;" onclick="timKiemVattu();"><i class="fa fa-search"></i></button></span></td>						
+											
+												<td> <span class="search-button"> &nbsp; <button type="button" class="btn-search" style="background-color: #00A69B;" onclick="timKiemNguoidung()"><i class="fa fa-search"></i></button></span></td>						
 										</form>
+										<script>
+														$('#searchName').autocomplete("getdataMsnv.jsp");
+														$('#searchName').autocomplete("getdataHoten.jsp");	
+														</script>
 									</div>
+									</td>
 					</tr>					
 				</table>
 				<div id="view-table-chia-se">

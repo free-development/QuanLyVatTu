@@ -70,9 +70,11 @@ public class BcvttController extends HttpServlet {
     	else if ("tonghop".equalsIgnoreCase(action)){
     		String ngaybd = request.getParameter("ngaybd");
     		String ngaykt = request.getParameter("ngaykt");
+    		String cvSo = request.getParameter("cvSo");
     		System.out.println(ngaybd);
     		System.out.println(ngaykt);
-//    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
+    		CongVanDAO congVan = new CongVanDAO();
+//    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>)congVanDAO.getByCvSo(cvSo);
     		HashMap<Integer, Integer> yeuCauHash = new HashMap<Integer, Integer>();
     		
 //    			for(CongVan congVan: congVanList){
@@ -84,7 +86,6 @@ public class BcvttController extends HttpServlet {
     				Integer soluong = yeuCau.getYcSoLuong();
     				if (slCu != null)
     					soluong += slCu;
-    				
     				yeuCauHash.put(ctVtId,soluong);
     			}
 		    		session.setAttribute("ngaybd", DateUtil.parseDate(ngaybd));
@@ -92,6 +93,7 @@ public class BcvttController extends HttpServlet {
         			session.setAttribute("ctvtHash", ctvtHash);
         			session.setAttribute("action", action);
         			session.setAttribute("yeuCau", yeuCauHash);
+        			//session.setAttribute("congVan", congVan);
         			congVanDAO.disconnect();
         			yeuCauDAO.disconnect();
         			return new ModelAndView(siteMap.baoCaoVatTuThieu);

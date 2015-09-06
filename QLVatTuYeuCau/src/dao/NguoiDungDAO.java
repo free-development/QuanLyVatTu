@@ -96,10 +96,9 @@ public class NguoiDungDAO {
 	}
 	public ArrayList<String> startWithTen(String i) {
 		session.beginTransaction();
-
-		String sql = "select hoten from NguoiDung where hoten LIKE :hoten";
+		String sql = "select hoTen from NguoiDung where hoTen LIKE :hoTen";
 		Query query = session.createQuery(sql);
-		query.setParameter("hoten", i+"%");
+		query.setParameter("hoTen", i+"%");
 		ArrayList<String> list = (ArrayList<String>) query.list();
 		
 		session.getTransaction().commit();
@@ -108,7 +107,7 @@ public class NguoiDungDAO {
 	public ArrayList<NguoiDung> searchHoten(String i) {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(NguoiDung.class);
-		cr.add(Restrictions.like("hoten", i+"%"));
+		cr.add(Restrictions.like("hoTen", i+"%"));
 		ArrayList<NguoiDung> list = (ArrayList<NguoiDung>) cr.list();
 		session.getTransaction().commit();
 		return list;
@@ -116,14 +115,8 @@ public class NguoiDungDAO {
 	
 	public ArrayList<NguoiDung> searchMsnv(String i) {
 		session.beginTransaction();
-//		String sql = "select E.vtMa, E.vtTen, E.dvt, E.daXoa from VatTu E where E.vtMa LIKE :vtMa";
 		Criteria cr = session.createCriteria(NguoiDung.class);
 		cr.add(Restrictions.like("msnv", i+"%"));
-//		Restrictions.
-//		Query query = session.createQuery(sql);
-		
-//		query.setParameter("vtMa", i+"%");
-//		ArrayList<VatTu> list = (ArrayList<VatTu>) query.list();
 		ArrayList<NguoiDung> list = (ArrayList<NguoiDung>) cr.list();
 		session.getTransaction().commit();
 		return list;
@@ -170,6 +163,6 @@ public class NguoiDungDAO {
 			session.disconnect();
 	}
 	public static void main(String[] args) {
-		System.out.println(new NguoiDungDAO().getTruongPhong("TP"));
+		System.out.println(new NguoiDungDAO().searchHoten("V"));
 	}
 }

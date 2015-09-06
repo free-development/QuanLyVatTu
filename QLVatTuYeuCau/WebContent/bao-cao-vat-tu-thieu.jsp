@@ -174,7 +174,7 @@
 			<br>
 			<% if(loaiBc != null  &&  "chitiet".equalsIgnoreCase(loaiBc)){
 			
-				ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");			
+ 				ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");			
 		   		HashMap<Integer, ArrayList<YeuCau>> yeuCauHash = (HashMap<Integer, ArrayList<YeuCau>>) session.getAttribute("yeuCau");
 		   		
 		    %>
@@ -211,9 +211,9 @@
 										<td class="a-column"style="text-align: center;"><%=congVan.getCvSo() %></td>
 										<td class="b-column"style="text-align: center;"><%=congVan.getCvNgayNhan() %></td>
 										<td class="a-column"style="text-align: center;"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
-										<td class="b-column"style="text-align: center;"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
+										<td class="b-column"style="text-align: left;"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
 										<td class="c-column"style="text-align: center;"><%=yeuCau.getCtVatTu().getNoiSanXuat().getNsxTen() %></td>
-										<td class="d-column"style="text-align: center;"><%=yeuCau.getCtVatTu().getChatLuong().getClTen() %></td>
+										<td class="d-column"style="text-align: left;"><%=yeuCau.getCtVatTu().getChatLuong().getClTen() %></td>
 										<td class="e-column"style="text-align: center;"><%=yeuCau.getCtVatTu().getVatTu().getDvt().getDvtTen() %></td>
 										<td class="e-column"style="text-align: center;"><%=yeuCau.getYcSoLuong() %></td>
 										<td style="text-align: center;"><a style="color: blue;text-decoration: underline;" href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">Xem</td>
@@ -234,11 +234,10 @@
 			
 					<% }%>
 					
-				<% if(loaiBc != null && "tonghop".equalsIgnoreCase(loaiBc)){
-			
+				<% if(loaiBc != null && "tonghop".equalsIgnoreCase(loaiBc)){	
 	   		HashMap<Integer, CTVatTu> ctvtHash = (HashMap<Integer, CTVatTu>) session.getAttribute("ctvtHash");
 	   		HashMap<Integer, Integer> yeuCauHash = (HashMap<Integer, Integer>) session.getAttribute("yeuCau"); %>
-			
+<!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
 				<div style="text-align: center;font-size: 20px;color:firebrick;font-weight: bold;margin-top:10px;">Tổng hợp vật tư thiếu</div>
 				<div id="view-table-bao-cao" style="max-height: 420px;width: 1000px;display: auto;border: 1px dotted #CCCCCC;margin: 0 auto;overflow: scroll;">
 				<table style="margin: 0 auto;width:1000px;border: 1px dotted black;" >
@@ -249,24 +248,26 @@
 						<th style="border: 1px dottedblack;" class="three-column">Chất lượng</th>
 						<th style="border: 1px dotted black;" class="six-column">Đơn vị tính</th>
 						<th style="border: 1px dotted black;" class="one-column">Tổng số lượng thiếu</th>
+						<th style="border: 1px dotted black;" class="one-column">Công văn liên quan</th>
 					</tr >
 								<%
 							if(yeuCauHash != null){
 							int count = 0;
 							for(Integer key  : yeuCauHash.keySet()) { count++;
 							CTVatTu ctvt = ctvtHash.get(key);
-// 							for (YeuCau yeuCau : yeuCauList) {
+ 							//for (CongVan congVan : congVanList) {
 							%>
 									
 					<tr
 						<%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>
 						style="border: 1px solid black;">
 						<td class="a-column"style="text-align: center;"><%=ctvt.getVatTu().getVtMa() %></td>
-						<td class="b-column"style="text-align: center;"><%=ctvt.getVatTu().getVtTen() %></td>
+						<td class="b-column"style="text-align: left;"><%=ctvt.getVatTu().getVtTen() %></td>
 						<td class="c-column"style="text-align: center;"><%=ctvt.getNoiSanXuat().getNsxTen() %></td>
-						<td class="d-column"style="text-align: center;"><%=ctvt.getChatLuong().getClTen() %></td>
+						<td class="d-column"style="text-align: left;"><%=ctvt.getChatLuong().getClTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=ctvt.getVatTu().getDvt().getDvtTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
+<%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
 					</tr>
 					<%} %>
 				</table>

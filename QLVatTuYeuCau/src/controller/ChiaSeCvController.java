@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -247,5 +248,33 @@ public class ChiaSeCvController extends HttpServlet {
 		// return JSonUtil.toJson(objectList);
 		ndDAO.disconnect();
 		return JSonUtil.toJson(objectList);
+	}
+	@RequestMapping(value="/timKiemNguoidungCs", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String timKiemNguoidungCs(@RequestParam("msnv") String msnv, @RequestParam("hoTen") String hoTen) {
+		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		VaiTroDAO vaiTroDAO = new VaiTroDAO();
+		ArrayList<VaiTro> vaiTroList = (ArrayList<VaiTro>)vaiTroDAO.getAllVaiTro();
+		
+		ArrayList<Object> objectList = new ArrayList<Object>();
+		//ArrayList<VaiTro> list = new ArrayList<VaiTro>();
+		if(msnv != ""){
+			ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.searchMsnv(msnv);
+			
+			objectList.add(vaiTroList);
+			objectList.add(ndList);
+			nguoiDungDAO.disconnect();
+			return JSonUtil.toJson(objectList);
+		}
+		else
+		{
+			ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.searchHoten(hoTen);
+			//System.out.println("Ten: "+vtTen);
+//			nguoiDungDAO.disconnect();
+			objectList.add(vaiTroList);
+			objectList.add(ndList);
+			nguoiDungDAO.disconnect();
+			return JSonUtil.toJson(objectList);
+		}
 	}
 }

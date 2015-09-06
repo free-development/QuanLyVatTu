@@ -363,44 +363,38 @@ $(document).ready(function() {
 	}
  
  function timKiemNguoidung(){
-		var hoten = '';
+		var hoTen = '';
 		var msnv = '';
 		var check = $('#checkTen:checked').val();
 		if (check != null)
-			msnv = $('#search input[name=nguoidung]').val();
+			hoTen = $('#search input[name=nguoidung]').val();
 		else 
-			hoten = $('#search input[name=nguoidung]').val();
-		/*
-		alert(check);
-		alert(vtTen);
-		alert(vtMa);
-		*/
+			msnv = $('#search input[name=nguoidung]').val();
+//		
+//		alert(hoten);
+//		alert(msnv);
+		
 		$.ajax({
 			url: "/QLVatTuYeuCau/timKiemNguoidung.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
-		  	data: { "msnv": msnv, "hoten": hoten},
+		  	data: { "msnv": msnv, "hoTen": hoTen},
 		  	contentType: 'application/json',
 		    mimeType: 'application/json',
-		  	
 		  	success: function(ndList){
-		  		
 		  		if(ndList.length>0){
+		  			//alert('OKs');
 		  			$('#view-table-chia-se table .rowContent').remove();
 					for(i = 0;i < ndList.length; i++ ) {
 						nd = ndList[i];
-						//alert(vtList[i].vtMa);
-	 			  		
-						str = '<tr class=\"rowContent\" ' + style + '>'
-						+ '<td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
-						+ nd.msnv +'\" class=\"checkbox\"></td>'
-						+ '<td class=\"col\">' + nd.msnv + '</td>'
-						+ '<td class=\"col\">' + nd.hoten + '</td>'
-						+ '<td class=\"col\">' + nd.chucDanh.cdTen + '</td>'
-						+ '<td class=\"col\">' + nd.email + '</td>'
-						+ '<td class=\"col\">' + nd.diachi + '</td>'
-						+ '<td class=\"col\">' + nd.sdt + '</td>'
-						+ '</tr>';
+						//alert(ndList[i].msnv);
+		  				$('#view-table-chia-se table tr:first').after('<tr class=\"rowContent\"><td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' +nd.msnv 
+						+ '\"</td><td class=\"col\">'+ nd.msnv +'</td><td class=\"col\">' + nd.hoTen
+						+'</td><td class=\"col\">' + nd.chucDanh.cdTen
+						+'</td><td class=\"col\">' + nd.email
+						+'</td><td class=\"col\">' + nd.diaChi
+						+'</td><td class=\"col\">' + nd.sdt
+						+'</tr>');
 					}
 		  		}
 		  		else
@@ -411,6 +405,49 @@ $(document).ready(function() {
 		});
 		
 	}
+ 
+ function timKiemNguoidungCs(){
+		var hoTen = '';
+		var msnv = '';
+		var check = $('#checkTen:checked').val();
+		if (check != null)
+			hoTen = $('#search input[name=nguoidung]').val();
+		else 
+			msnv = $('#search input[name=nguoidung]').val();
+//		
+//		alert(hoten);
+//		alert(msnv);
+		
+		$.ajax({
+			url: "/QLVatTuYeuCau/timKiemNguoidung.html",	
+		  	type: "GET",
+		  	dateType: "JSON",
+		  	data: { "msnv": msnv, "hoTen": hoTen},
+		  	contentType: 'application/json',
+		    mimeType: 'application/json',
+		  	success: function(ndList){
+		  		if(ndList.length>0){
+		  			//alert('OKs');
+		  			$('#view-table-chia-se table .rowContent').remove();
+					for(i = 0;i < ndList.length; i++ ) {
+						nd = ndList[i];
+						//alert(ndList[i].msnv);
+		  				$('#view-table-chia-se table tr:first').after('<tr class=\"rowContent\"><td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' +nd.msnv 
+						+ '\"</td><td class=\"col\">'+ nd.msnv +'</td><td class=\"col\">' + nd.hoTen
+						+'</td><td class=\"col\">' + nd.chucDanh.cdTen
+						+'</td><td class=\"col\">' + nd.vaiTro.vtTen
+						+'</tr>');
+					}
+		  		}
+		  		else
+		  			{
+		  				alert("Không tìm thấy tài khoản!");
+		  			}
+		  	}
+		});
+		
+	}
+
  
  $(document).ready(function() {
 		$('#add-form').keypress(function(e) {
