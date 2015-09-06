@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import util.JSonUtil;
 import dao.ChatLuongDAO;
+import dao.NoiSanXuatDAO;
 import dao.VatTuDAO;
 import dao.CTVatTuDAO;
 
@@ -132,10 +133,10 @@ public class CtvtController extends HttpServlet {
 		System.out.println("NSX: " + noiSanXuat);
 		System.out.println("CL: " + chatLuong);
 		CTVatTuDAO ctVatTuDAO = new CTVatTuDAO();
-		if(ctVatTuDAO.getCTVatTu(vtMa, noiSanXuat, chatLuong) == null)
+		CTVatTu ctvt = ctVatTuDAO.getCTVatTu(vtMa, noiSanXuat, chatLuong);
+		if( ctvt == null)
 		{
-			
-			CTVatTu ctvt = new CTVatTu(new VatTu(vtMa) , new NoiSanXuat(noiSanXuat), new ChatLuong(chatLuong), Integer.parseInt(dinhMuc), Integer.parseInt(soLuongTon),0);
+//			ctVatTuDAO.addCTVatTu(new VatTu(vtMa) , new NoiSanXuat(noiSanXuat), new ChatLuong(chatLuong), Integer.parseInt(dinhMuc), Integer.parseInt(soLuongTon),0);
 			ctVatTuDAO.addOrUpdateCTVatTu(ctvt);
 			System.out.println("success");
 

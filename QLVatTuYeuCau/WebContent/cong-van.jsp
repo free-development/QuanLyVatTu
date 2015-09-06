@@ -137,7 +137,7 @@ capVatTuId = <%=capPhatMa  %>;
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
+				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 
 		<div id="main-content">
 			<div id="content-form">
@@ -159,36 +159,23 @@ capVatTuId = <%=capPhatMa  %>;
 							<%} %>
 						</ol>		
 					</div>
-<!-- 					<div id="scroll_time"> -->
-<!-- 						<ol class="tree"> -->
-<!-- 							<li><label for="year">Năm 2015</label> <input -->
-<!-- 								type="checkbox" id="year" /> -->
-<!-- 								<ol id> -->
-<!-- 										<li><label for="month">Tháng 08</label> <input -->
-<!-- 											type="checkbox" id="month" /> -->
-<!-- 											<ol> -->
-<!-- 													<li class="date"><input type="button"></input><a href="">Ngày 31</a></li> -->
-<!-- 											</ol> -->
-<!-- 										</li> -->
-<!-- 								</ol> -->
-<!-- 							</li> -->
-<!-- 						</ol> -->
-<!-- 					</div> -->
-				<div id="Link-vbd">
-<!-- 						<div class="vbd-column">--Văn bản đến--</div><br> -->
-<!-- 						<div class="tt-column"> -->
-<!-- 						<a href="" >Chưa giải quyết</a><br> -->
-<!-- 						<a href="">Đang giải quyết</a><br> -->
-<!-- 						<a href="">Đã giải quyết</a> -->
-<!-- 						</div> -->
-					<div class="vbd-column">--Văn bản đến--</div><br>
-					<select id = "ttFilter" class="select" name="trangThai">
-						<option value = "" style="text-align: center;">Tất cả</option>
-						<option value = "CGQ" style="text-align: center;">Chưa giải quyết</option>
-						<option value = "DGQ" style="text-align: center;">Đang giải quyết</option>
-						<option value = "DaGQ" style="text-align: center;">Đã giải quyết</option>
-					</select>
-				</div>
+					<table style="margin-left:18px;">
+						<tr>
+						<th style="text-align: center;">
+							--Văn bản đến--
+						</th>
+						</tr>
+						<tr>
+						<td style="text-align: center;">
+						<select id = "ttFilter" class="select" name="trangThai">
+							<option value = "" style="text-align: center;font-weight: bold;">Tất cả</option>
+							<option value = "CGQ" style="text-align: center;font-weight: bold;">Chưa giải quyết</option>
+							<option value = "DGQ" style="text-align: center;font-weight: bold;">Đang giải quyết</option>
+							<option value = "DaGQ" style="text-align: center;font-weight: bold;">Đã giải quyết</option>
+						</select>
+						</td>
+						</tr>
+					</table>
 					<br> <br>
 					
 			</div>
@@ -197,7 +184,7 @@ capVatTuId = <%=capPhatMa  %>;
 						<div id="title-table">
 						<table>
 							<tr>
-								<td class="column-loc">Tìm kiếm: </td>
+								<th class="column-loc">Tìm kiếm: </th>
 								<td><select class="select" name="filter" id="filter">
 										<option value =""> Tất cả </option>
 <!-- 										<option>Ngày đến</option> -->
@@ -244,8 +231,10 @@ capVatTuId = <%=capPhatMa  %>;
 						</table>
 						</div>
 					</form>	
+
+
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
-                     <div style="height: 500px; width: 810px;" class="scroll_content">
+                     <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
 						<%
 					
                      	int count = 0;

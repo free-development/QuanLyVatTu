@@ -281,4 +281,24 @@ public class NdController extends HttpServlet {
 		nguoiDungDAO.disconnect();
 			return JSonUtil.toJson(ndList);
 	}
+	@RequestMapping(value="/timKiemNguoidung", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody String timKiemNguoidung(@RequestParam("msnv") String msnv, @RequestParam("hoten") String hoten) {
+		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		System.out.println("Ma goi qua " + msnv);
+		System.out.println("Ten goi qua " + hoten);
+		if(msnv != ""){
+			ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.searchMsnv(msnv);
+			nguoiDungDAO.disconnect();
+			return JSonUtil.toJson(ndList);
+		}
+		else
+		{
+			ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.searchHoten(hoten);
+			//System.out.println("Ten: "+vtTen);
+			nguoiDungDAO.disconnect();
+			return JSonUtil.toJson(ndList);
+		}
+		
+	}
 }

@@ -146,7 +146,7 @@
 			</ul>
 					<div class="clear"></div>
 				</div>
-		<div id="greeting">Chào <%=authentication.getHoTen() %></div>
+				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 		<div id="main-content">
 			<div id="title-content">Danh mục vai trò</div>
 			<div id="main-content">

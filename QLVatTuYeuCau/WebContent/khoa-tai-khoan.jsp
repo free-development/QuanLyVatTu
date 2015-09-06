@@ -125,10 +125,29 @@
 			</ul>
 			<div class="clear"></div>
 		</div>
-		<div id="greeting">Chào:&nbsp;<%=authentication.getHoTen() %></div>
+				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 		<div id="main-content">
 		<form id="main-form">
 				<div id="title-content">Danh sách tài khoản</div>
+				<table style="margin-left: 60px;">		
+					<tr>		
+					<th  style="text-align: left; color: black; font-size: 19px;">* Tìm kiếm mã</th>
+								<td>
+									<div class="search_form1" id="search">		
+										<form>												
+											<span> &nbsp; <input type="search" id="searchName" class="text-search" name="vattu"/>						
+														<script>
+														$("#searchName").autocomplete("getdataMa.jsp");
+														$("#searchName").autocomplete("getdata.jsp");	
+														</script> 												
+<!-- 												<td><input type="checkbox" value="check" class="checkbox" style="text-align: center;" id="checkTen"/></td> -->
+<!-- 												<td  style="text-align: center; color: black; font-size: 19px;">Theo tên</td>&nbsp;&nbsp;&nbsp; -->
+											</span>
+												<td> <span class="search-button"> &nbsp; <button type="button" class="btn-search" style="background-color: #00A69B;" onclick="timKiemVattu();"><i class="fa fa-search"></i></button></span></td>						
+										</form>
+									</div>
+					</tr>					
+				</table>
 				<div id="view-table-chia-se">
 					<table >
 						<tr bgcolor= "#199e5e">
