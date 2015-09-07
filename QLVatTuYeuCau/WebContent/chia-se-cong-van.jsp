@@ -81,8 +81,7 @@
 		<div class="header">
 			<!--
 					<img src="img/logo.png" alt="" id="logo" width=80 height=80/><br/>
-					<img src="img/textlogo.png" alt="" id="logo" width=80 height=20/>
-	-->
+					<img src="img/textlogo.png" alt="" id="logo" width=80 height=20/>-->
 			<div id="top_title">Văn phòng điện tử</div>
 			<div id="bottom-title">Công ty điện lực cần thơ</div>
 			<div class="search_form" id="search">
@@ -136,17 +135,17 @@
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
 				<li><a>Báo cáo</a>
 					<ul>
-						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
-						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
+						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"></a>Báo cáo vật tư thiếu</li>
+						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"></a>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
 				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
 				<li><a>Quản lý người dùng</a>
 					<ul>
-						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
-						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
-						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
-						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
+						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>"></a>Thêm người dùng</li>
+						<li><a href="<%=siteMap.updateNguoiDung%>"></a>Cập nhật thông tin</li>
+						<li><a href="<%=siteMap.resetPassword%>"></a>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.lockNguoiDung%>"></a>Khóa tài khoản</li>
 					</ul>
 				</li>
 				<%} %>
@@ -323,13 +322,13 @@
 			</div>
 			<div id="update-form" style="top:60%;position:absolute;width:900px;left:20%;" >
 				<div id="view-table-cap-nhat"class="scroll">
-				<div id="title-content" style="margin-bottom: 10px;">Cập nhật chia sẽ</div>
+				<div id="title-content" style="margin-bottom: 10px;">Cập nhật chia sẻ</div>
 				<table style="width:900px;"></table>
 				</div>
 				<div class="group-button" id="updateButton">
 				<button type="button" class="button" id="updateCs">Lưu lại</button> 
 				</div>
 			</div>
-			
+			</div>
 </body>
 </html>
