@@ -16,6 +16,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import util.HibernateUtil;
@@ -122,17 +124,96 @@ public class VTCongVanDAO {
 		session.getTransaction().commit();
 		return nguoiDungHash;
 	}
+//	public ArrayList<VaiTro> toVaiTro(ArrayList<VTCongVan> vtcvList) {
+//		ArrayList<VaiTro> vaiTroList = new ArrayList<VaiTro>();
+//		for (VTCongVan vtCongVan : vtcvList) {
+//			
+//			VaiTro vaiTro = new VaiTroDAO().getVaiTro(vtCongVan.getVtId());
+//			int vtId = vaiTro.getVtId();
+//			vaiTroList.add(vaiTro);
+//		}
+//		return vaiTroList;
+//	}
 	public HashMap<Integer, VaiTro> toVaiTro(ArrayList<VTCongVan> vtcvList) {
-		HashMap<Integer, VaiTro> vaiTroHash = new HashMap<Integer, VaiTro>();
+		HashMap<Integer, VaiTro>  vaiTroList = new HashMap<Integer, VaiTro> ();
 		for (VTCongVan vtCongVan : vtcvList) {
 			
 			VaiTro vaiTro = new VaiTroDAO().getVaiTro(vtCongVan.getVtId());
 			int vtId = vaiTro.getVtId();
-			vaiTroHash.put(vtId, vaiTro);
+			vaiTroList.put(vtId, vaiTro);
 		}
-		return vaiTroHash;
+		return vaiTroList;
 	}
-	
+	public ArrayList<Integer> getVtIdByCvId(final int cvId) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(VTCongVan.class);
+		cr.add(Restrictions.eq("cvId", cvId));
+		cr.setProjection(Projections.property("vtId"));
+		ArrayList<Integer> vtIdList = (ArrayList<Integer>) cr.list();
+		session.getTransaction().commit();
+		return vtIdList;
+	}
+	public ArrayList<VaiTro> getVaiTroByCvId(final int cvId) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(VaiTro.class);
+		
+//		ArrayList<Integer> vtIdList = getVtIdByCvId(cvId);
+		Criteria cr1 = session.createCriteria(VTCongVan.class);
+		cr1.add(Restrictions.eq("cvId", cvId));
+		cr1.setProjection(Projections.property("vtId"));
+		ArrayList<Integer> vtIdList = (ArrayList<Integer>) cr1.list();
+		if (vtIdList.size() == 0) {
+			session.getTransaction().commit();
+			return new ArrayList<VaiTro>();
+		}
+		cr.add(Restrictions.in("vtId", vtIdList));
+		ArrayList<VaiTro> vaiTroList = (ArrayList<VaiTro>) cr.list();
+		
+		session.getTransaction().commit();
+		return vaiTroList;
+	}
+	public ArrayList<VaiTro> getVaiTro(final int cvId, String msnv) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(VaiTro.class);
+		
+//		ArrayList<Integer> vtIdList = getVtIdByCvId(cvId);
+		Criteria cr1 = session.createCriteria(VTCongVan.class);
+		cr1.add(Restrictions.eq("cvId", cvId));
+		cr1.setProjection(Projections.property("vtId"));
+		cr1.add(Restrictions.eq("msnv", msnv));
+		ArrayList<Integer> vtIdList = (ArrayList<Integer>) cr1.list();
+		
+		if (vtIdList.size() == 0) {
+			session.getTransaction().commit();
+			return new ArrayList<VaiTro>();
+		}
+		cr.add(Restrictions.in("vtId", vtIdList));
+		ArrayList<VaiTro> vaiTroList = (ArrayList<VaiTro>) cr.list();
+		
+		session.getTransaction().commit();
+		return vaiTroList;
+	}
+	public ArrayList<String> getNguoiXl(final int cvId) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(NguoiDung.class);
+		
+//		ArrayList<Integer> vtIdList = getVtIdByCvId(cvId);
+		Criteria cr1 = session.createCriteria(VTCongVan.class);
+		cr1.add(Restrictions.eq("cvId", cvId));
+		cr1.setProjection(Projections.property("msnv"));
+		ArrayList<String> msnvList = (ArrayList<String>) cr1.list();
+		
+		if (msnvList.size() == 0) {
+			session.getTransaction().commit();
+			return new ArrayList<String>();
+		}
+		cr.add(Restrictions.in("msnv", msnvList));
+		cr.setProjection(Projections.property("hoTen"));
+		ArrayList<String> hoTenList = (ArrayList<String>) cr.list();
+		
+		session.getTransaction().commit();
+		return hoTenList;
+	}
 	public ArrayList<VTCongVan> getByMsnv(String msnv) {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(VTCongVan.class);
@@ -149,6 +230,6 @@ public class VTCongVanDAO {
 	}
 	public static void main(String[] args) {
 		VTCongVanDAO l = new VTCongVanDAO();
-		System.out.println(l.getVaiTro(1));
+		System.out.println(l.getVaiTroByCvId(44));
 	}
 }

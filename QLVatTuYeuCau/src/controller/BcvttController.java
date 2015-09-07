@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,23 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import map.siteMap;
-import model.CTVatTu;
-import model.CongVan;
-import model.DonVi;
-import model.TrangThai;
-import model.YeuCau;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import util.DateUtil;
 import dao.CTVatTuDAO;
 import dao.CongVanDAO;
-import dao.DonViDAO;
-import dao.TrangThaiDAO;
 import dao.YeuCauDAO;
+import map.siteMap;
+import model.CTVatTu;
+import model.CongVan;
+import model.YeuCau;
+import util.DateUtil;
 import util.DateUtil;
 
 @Controller
@@ -70,22 +64,64 @@ public class BcvttController extends HttpServlet {
     	else if ("tonghop".equalsIgnoreCase(action)){
     		String ngaybd = request.getParameter("ngaybd");
     		String ngaykt = request.getParameter("ngaykt");
+<<<<<<< HEAD
+//    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
+=======
     		String cvSo = request.getParameter("cvSo");
     		System.out.println(ngaybd);
     		System.out.println(ngaykt);
     		CongVanDAO congVan = new CongVanDAO();
 //    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>)congVanDAO.getByCvSo(cvSo);
+>>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
     		HashMap<Integer, Integer> yeuCauHash = new HashMap<Integer, Integer>();
     		
 //    			for(CongVan congVan: congVanList){
     		ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) yeuCauDAO.getVTThieu();
     		HashMap<Integer, CTVatTu> ctvtHash = new CTVatTuDAO().getHashMap();
+    		
+    		HashMap<Integer, ArrayList<Integer>> soDenHash = new HashMap<Integer, ArrayList<Integer>>();
+    		HashMap<Integer, ArrayList<Integer>> cvIdHash = new HashMap<Integer, ArrayList<Integer>>();
+    		
+//    		ArrayList<Integer> soDenList = new ArrayList<Integer>();
+//    		ArrayList<Integer> cvIdList = new ArrayList<Integer>();
     		for(YeuCau yeuCau: yeuCauList){
     				int ctVtId = yeuCau.getCtVatTu().getCtvtId();
+//    				soDenList.add(yeuCau.getCvId());
+    				int cvId = yeuCau.getCvId();
+//    				cvIdList.add(cvId);
+//    				soDenList.
+//    				add(congVanDAO.getSoDen(cvId));
     				Integer slCu = yeuCauHash.get(ctVtId);
     				Integer soluong = yeuCau.getYcSoLuong();
     				if (slCu != null)
     					soluong += slCu;
+<<<<<<< HEAD
+    				
+//    				ArrayList<Integer> soDenList = soDenHash.get(ctVtId);
+//    				ArrayList<Integer> soDenListCu = soDenHash.get(ctVtId);
+
+    				
+    				ArrayList<Integer> cvList = new ArrayList<Integer>();
+    				ArrayList<Integer> cvListCu = cvIdHash.get(ctVtId);
+    				
+    				ArrayList<Integer> soDenList = new ArrayList<Integer>();
+    				ArrayList<Integer> soDenListCu = soDenHash.get(ctVtId);
+    				int soDen = congVanDAO.getSoDen(cvId);
+    				System.out.println(cvId);
+    				System.out.println(soDen);
+    				if (cvListCu != null) {
+    					soDenList = soDenListCu;
+    					cvList = cvListCu;
+    				}
+    				soDenList.add(soDen);
+    				soDenHash.put(ctVtId, soDenList);
+    				//
+    				cvList.add(cvId);
+    				cvIdHash.put(ctVtId, cvList);
+    				
+    				
+=======
+>>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
     				yeuCauHash.put(ctVtId,soluong);
     			}
 		    		session.setAttribute("ngaybd", DateUtil.parseDate(ngaybd));
@@ -93,7 +129,12 @@ public class BcvttController extends HttpServlet {
         			session.setAttribute("ctvtHash", ctvtHash);
         			session.setAttribute("action", action);
         			session.setAttribute("yeuCau", yeuCauHash);
+<<<<<<< HEAD
+        			session.setAttribute("cvIdHash", cvIdHash);
+        			session.setAttribute("soDenHash", soDenHash);
+=======
         			//session.setAttribute("congVan", congVan);
+>>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
         			congVanDAO.disconnect();
         			yeuCauDAO.disconnect();
         			return new ModelAndView(siteMap.baoCaoVatTuThieu);

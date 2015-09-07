@@ -260,9 +260,11 @@ public class ChiaSeCvController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String timKiemNguoidungCs(@RequestParam("msnv") String msnv, @RequestParam("hoTen") String hoTen) {
 		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		VTCongVanDAO vtCongVanDAO = new VTCongVanDAO();
 		VaiTroDAO vaiTroDAO = new VaiTroDAO();
+		CongVan congVan = (CongVan) session.getAttribute("congVan");
 		ArrayList<VaiTro> vaiTroList = (ArrayList<VaiTro>)vaiTroDAO.getAllVaiTro();
-		
+		ArrayList<VTCongVan> vtCongVanList = vtCongVanDAO.getVTCongVan(congVan.getCvId(), msnv);
 		ArrayList<Object> objectList = new ArrayList<Object>();
 		//ArrayList<VaiTro> list = new ArrayList<VaiTro>();
 		if(msnv != ""){
@@ -270,7 +272,10 @@ public class ChiaSeCvController extends HttpServlet {
 			
 			objectList.add(vaiTroList);
 			objectList.add(ndList);
+			objectList.add(vtCongVanList);
 			nguoiDungDAO.disconnect();
+			vtCongVanDAO.disconnect();
+			vaiTroDAO.disconnect();
 			return JSonUtil.toJson(objectList);
 		}
 		else
@@ -280,7 +285,10 @@ public class ChiaSeCvController extends HttpServlet {
 //			nguoiDungDAO.disconnect();
 			objectList.add(vaiTroList);
 			objectList.add(ndList);
+			objectList.add(vtCongVanList);
 			nguoiDungDAO.disconnect();
+			vtCongVanDAO.disconnect();
+			vaiTroDAO.disconnect();
 			return JSonUtil.toJson(objectList);
 		}
 	}

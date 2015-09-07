@@ -229,7 +229,8 @@ function loadByYear(year) {
 	    	var congVanList = objectList[0];
 	    	var fileList = objectList[1];
 	    	var size = objectList[3];
-	    	loadCongVan(congVanList, fileList);
+	    	var unknownList = objectList[4];
+	    	loadCongVan(congVanList, fileList, unknownList);
 	    	loadPageNumber(0, '',size);
 	    } 
 	});  
@@ -258,33 +259,35 @@ function loadByMonth(year, month) {
 	    	// load Cong van
 	    	var congVanList = objectList[0];
 	    	var fileList = objectList[1];
-	    	loadCongVan(congVanList, fileList);
 	    	var size = objectList[3];
+	    	var unknownList = objectList[4];
+	    	loadCongVan(congVanList, fileList, unknownList);
 	    	loadPageNumber(0, '',size);
 	    } 
 	});  
 }
-function loadCongVan(congVanList, fileList) {
+function loadCongVan(congVanList, fileList, unknownList) {
 	$('.tableContent').remove();
 	var length = congVanList.length;
 	var tables = '';
 	if(length > 0) {
 		for (var i = 0; i < length; i++) {
 			var style = 'style=\"';
-			
 			var congVan = congVanList[i];
 			var file = fileList[i];
-			if (i % 2 == 0)
+			if (i % 2 == 1)
 				style += 'background : #CCFFFF; ';
 			else
 				style += 'background : #FFFFFF; ';
 			style += ' font-size: 16px; width: 900px;\"';
 			tables +=     '<table class=\"tableContent\" ' + style + ' class=\"border-congvan\">'
-						+ '<tr >'
-						+ '<td class=\"column-check\" rowspan=\"7\">'
+						+ '<tr >';
+						if(chucDanhMa == vanThuMa) {
+						tables += '<td class=\"column-check\" rowspan=\"7\">'
 						+ '<input title=\"Click để chọn công văn\" type=\"checkbox\" name=\"cvId\" value=\"' + congVan.cvId + '\">'
-						+ '</td>'
-						+ '<td class=\"left-column-soden\" style=\"font-weight: bold;\">Số đến: &nbsp;&nbsp;</td>'
+						+ '</td>';
+						}
+						tables += '<td class=\"left-column-soden\" style=\"font-weight: bold;\">Số đến: &nbsp;&nbsp;</td>'
 						+ '<td class=\"column-so-den\" style=\"text-align: left\">' + congVan.soDen + '</td>'
 						+ '<td class=\"left-column-socv\" style=\"font-weight: bold;\">Số công văn: &nbsp;&nbsp;</td>'
 						+ '<td class=\"column-socv\" style=\"text-align: left;color:red;\">' + congVan.cvSo + '</td>'
@@ -312,6 +315,7 @@ function loadCongVan(congVanList, fileList) {
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Bút phê: &nbsp;&nbsp;</td>'
 						+ '<td class=\"column-color\" colspan=\"6\">' +  congVan.butPhe + '</td>'
 						+ '</tr>'
+<<<<<<< HEAD
 						+ '<tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Nơi GQ chính</td>'
 						+ '<td class=\"column-color\" colspan=\"3\">' + congVan.donVi.dvTen + '</td>'
@@ -322,12 +326,59 @@ function loadCongVan(congVanList, fileList) {
 						+ '</button>'
 						+ '</td>'
 						+ '</tr>'
+=======
+						+ '<tr>';
+					if (chucDanhMa == truongPhongMa || chucDanhMa == vanThuMa) {
+						var cellNguoiXl = '';
+						if (unknownList.length > 0) {
+							var nguoiXlList = unknownList[i];  
+							cellNguoiXl = nguoiXlList.join(', ');
+//							for (var j = 0; j < nguoiXlList.length; j++) {
+//								cellNguoiXl += nguoiXlList[j];
+//							}
+						}
+						tables += '<td class=\"left-column-first\" style=\"font-weight: bold;\">Người xử lý</td>'
+						+ '<td class=\"column-color\" colspan=\"3\">' + cellNguoiXl + '</td>';
+						if (chucDanhMa == truongPhongMa) {
+							tables += '<td colspan=\"3\" style=\"float: right;\">'
+							+ '<button  class=\"button-chia-se\" id=\"chiaSe\" type=\"button\" style=\"width: 170px; height: 30px;\"' 
+							+ '  onclick=\"location.href=/QLVatTuYeuCau/cscvManage.html?action=chiaSeCv&congVan=' + congVan.cvId + '\">'
+							+ '<i class=\"fa fa-spinner\"></i>&nbsp;&nbsp;Chia sẻ công văn'
+							+ '</button>'
+							+ '</td>';
+						}
+					} else {
+						var cellVaiTro = '';
+						var capPhat = false;
+						if (unknownList.length > 0) {
+							var vtCongVanList = unknownList[i];  
+//							cellVaiTro = vtCongVanList.vtTen.join(', ');
+							for (var j = 0; j < vtCongVanList.length; j++) {
+								var vtTen = vtCongVanList[j].vtTen;
+								cellVaiTro += vtTen;
+								if (vtCongVanList[j].vtId == capVatTuId)
+									capPhat = true;
+							}
+						}
+						tables += '<td class=\"left-column-first\" style=\"font-weight: bold;\">Vai trò</td>'
+							+ '<td class=\"column-color\" colspan=\"3\">' + cellVaiTro + '</td>';
+							
+						if (capPhat == true) {
+							tables += '<td colspan=\"3\" style=\"float: right;\">' 
+							+ '<button class=\"button\" type=\"button\" style=\"width: 200px; height: 30px;\"' 
+							+ '  onclick=\"location.href=\'/QLVatTuYeuCau/ycvtManage.html?cvId=' + congVan.cvId + '\"\'>'
+							+ '<i class="fa fa-spinner"></i>&nbsp;&nbsp;Cập vật tư yêu cầu'
+							+ '</button>'
+							+ '</td>';
+						}
+					}
+				tables	+= '</tr>'
+>>>>>>> 96b39f0975c229f49ae1eff582bcbd8254d9d330
 						+ '<tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Xem công văn: </td>'
 						+ '<td colspan=\"1\">'
 						+ '<a href=\"' + '/QLVatTuYeuCau/cvManage.html' + '?action=download&file=' + congVan.cvId + '\">'
-						+ 
-						'<div class=\"mo-ta\">' + file.moTa + '</div>'
+						+ '<div class=\"mo-ta\">' + file.moTa + '</div>'
 						+ '</a> '
 						+ '</td>'
 						+ '</tr>'
@@ -340,7 +391,9 @@ function loadCongVan(congVanList, fileList) {
 		alert('Không tồn tại công văn');
 	}
 	$('.scroll_content').html(tables);
-	showButton();
+	if (check == false) {
+		$('.button-chia-se').hide();;
+	}
 }
 function loadByDate(year, month, date) {
 	$.ajax({
@@ -353,8 +406,9 @@ function loadByDate(year, month, date) {
 	    success: function(objectList) {
 	    	var congVanList = objectList[0];
 	    	var fileList = objectList[1];
-	    	loadCongVan(congVanList, fileList);
 	    	var size = objectList[2];
+	    	var unknownList = objectList[3];
+	    	loadCongVan(congVanList, fileList, unknownList);
 	    	loadPageNumber(0, '',size);
 	    } 
 	});
@@ -371,8 +425,9 @@ function filterData(filter, filterValue) {
 	    success: function(objectList) {
 	    	var congVanList = objectList[0];
 	    	var fileList = objectList[1];
-	    	loadCongVan(congVanList, fileList);
 	    	var size = objectList[2];
+	    	var unknownList = objectList[3];
+	    	loadCongVan(congVanList, fileList, unknownList);
 	    	loadPageNumber('',size);
 	    } 
 	});
@@ -389,9 +444,10 @@ function searchByTrangThai(trangThai) {
 	    success: function(objectList) {
 	    	var congVanList = objectList[0];
 	    	var fileList = objectList[1];
-	    	loadCongVan(congVanList, fileList);
 	    	var size = objectList[2];
-			 loadPageNumber(0, pageNumber,size)
+	    	var unknownList = objectList[3];
+	    	loadCongVan(congVanList, fileList, unknownList);
+			 loadPageNumber(0, '',size)
 	    } 
 	});
 }
@@ -467,7 +523,8 @@ function loadPage(pageNumber) {
 	  		var size = objectList[2];
 	  		var congVanList = objectList[0];
 	  		var fileList = objectList[1];
-	  		loadCongVan(congVanList, fileList);
+	  		var unknownList = objectList[3];
+	    	loadCongVan(congVanList, fileList, unknownList);
 	  		loadPageNumber(p, pageNumber,size) ;
 					
 	  	}
@@ -564,21 +621,21 @@ function loadPageNumber(p, pageNumber, size) {
 $(document).ready(function(){
 	$('.year').change(function(){
 		var year = $(this).val();
-		loadByYear(year);
+			loadByYear(year);
 	});
 });
-$(document).ready(function(){
-	$('.month').change(function(){
-		var month = $(this).val();
-		loadByMonth(month);
-	});
-});	
-$(document).ready(function(){
-	$('.date').click(function(){
-		var date = $(this).val();
-		loadByDate(date);
-	});
-});	
+//$(document).ready(function(){
+//	$('.month').change(function(){
+//		var month = $(this).val();
+//		loadByMonth(month);
+//	});
+//});	
+//$(document).ready(function(){
+//	$('.date').click(function(){
+//		var date = $(this).val();
+//		loadByDate(date);
+//	});
+//});	
 $(document).ready(function(){
 	$('#ttFilter').change(function(){
 //		alert($(this).val());
@@ -613,15 +670,15 @@ $(document).ready(function(){
 		}
 	});
 });	
-function propCheckYear(yearId) {
-	$('.year').prop('checked', false);
-	$('#'+yearId).prop('checked', true);
-}
-function propCheckMonth(monthId) {
-	$('.month').prop('checked', false);
-	$('#'+monthId).prop('checked', true);
-}
-function propCheckDate(dateId) {
-	$('.date').prop('checked', false);
-	$('#'+dateId).prop('checked', true);
-}
+//function propCheckYear(yearId) {
+//	$('.year').prop('checked', false);
+//	$('#'+yearId).prop('checked', true);
+//}
+//function propCheckMonth(monthId) {
+//	$('.month').prop('checked', false);
+//	$('#'+monthId).prop('checked', true);
+//}
+//function propCheckDate(dateId) {
+//	$('.date').prop('checked', false);
+//	$('#'+dateId).prop('checked', true);
+//}

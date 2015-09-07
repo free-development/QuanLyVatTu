@@ -35,7 +35,7 @@ public class SendMailTLS {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("evnCanTho@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
-			InternetAddress.parse("tienb1208736@student.ctu.edu.vn"));
+			InternetAddress.parse("quoipro94@gmail.com"));
 			message.setSubject("Công việc được chia sẻ");
 			message.setText("Bạn đã được chia sẻ công việc. Vui lòng vào hệ thống làm việc để kiểm tra.");
 

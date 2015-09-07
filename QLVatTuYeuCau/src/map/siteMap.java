@@ -75,6 +75,7 @@ public class siteMap {
 	public static final String addCv = home +  "addCongVan.html";
 	public static final String updateCv = home +  "updateCongVan.html";
 	public static final String deleteCv = home +  "deleteCv.html";
+	public static final String searchCv = home +  "searchCv.html";
 	public static final String congVan =  "cong-van";
 	
 	// map yeu cau vat tu

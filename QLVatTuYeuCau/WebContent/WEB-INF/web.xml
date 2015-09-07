@@ -40,16 +40,25 @@
     	<param-name>adminMa</param-name>
     	<param-value>AD</param-value>
   	</context-param>
+  	
+  	<!-- param for nhan vien cap phat ma -->
+  	<context-param>
+    	<param-name>capPhatId</param-name>
+    	<param-value>1</param-value>
+  	</context-param>
+  	
   	<!-- param for email account ma -->
   	<context-param>
     	<param-name>account</param-name>
     	<param-value>evnCanTho@gmail.com</param-value>
   	</context-param>
-  	<!-- param for email password ma -->
+  	<!-- param for password email ma -->
   	<context-param>
     	<param-name>password</param-name>
     	<param-value>evnCanTho2015</param-value>
   	</context-param>
+  	
+  	
   	<!-- param for hosting -->
   	<context-param>
     	<param-name>hosting</param-name>
