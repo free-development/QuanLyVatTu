@@ -254,8 +254,8 @@
 									int end = str1.length();
 									str1.delete(end - 4, end);
 									out.println(str1.toString());
+									
 								%>
-								
 							</td>
 						</tr>
 						<%}%>

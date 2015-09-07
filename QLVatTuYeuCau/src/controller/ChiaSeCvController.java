@@ -91,7 +91,11 @@ public class ChiaSeCvController extends HttpServlet {
 	protected ModelAndView chiaSeCv(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-
+		request.getCharacterEncoding();
+		response.getCharacterEncoding();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		if ("save".equalsIgnoreCase(action)) {
 			// session = request.getSession(false);
 			session = request.getSession(false);
@@ -101,7 +105,6 @@ public class ChiaSeCvController extends HttpServlet {
 			VTCongVanDAO vtCongVanDAO = new VTCongVanDAO();
 			NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 			VaiTroDAO vaiTroDAO = new VaiTroDAO();
-
 			int cvId = congVan.getCvId();
 			vtCongVanDAO.deleteByCvId(cvId);
 			for (String vtMa : vaiTro) {
@@ -125,31 +128,36 @@ public class ChiaSeCvController extends HttpServlet {
 				vtCongVan.setVtId(Integer.parseInt(str[1]));
 				vtCongVanDAO.addOrUpdateVTCongVan(vtCongVan);
 			}
-
 			HashMap<String, NguoiDung> vtNguoiDungHash = vtCongVanDAO.getNguoiXuLy(cvId);
 			HashMap<String, HashMap<Integer, VaiTro>> vaiTroHash = new HashMap<String, HashMap<Integer, VaiTro>>();
 			for (String msnv : vtNguoiDungHash.keySet()) {
 				ArrayList<VTCongVan> vtcvList = vtCongVanDAO.getVTCongVan(cvId, msnv);
 				HashMap<Integer, VaiTro> vtHash = vtCongVanDAO.toVaiTro(vtcvList);
 				vaiTroHash.put(msnv, vtHash);
+				String str1 = "";
+				VaiTro vt = new VaiTro();
+				System.out.println(str1);
 				String account = context.getInitParameter("account");
 				String password = context.getInitParameter("password");
-				String host = context.getInitParameter("host");
+				String host = context.getInitParameter("hosting");
 
 				SendMail sendMail = new SendMail(account, password);
+				vtHash = vaiTroHash.get(msnv);
 				NguoiDung nguoiDung = vtNguoiDungHash.get(msnv);
-
+				for(Integer vtId : vtHash.keySet()) {
+					vt = vtHash.get(vtId);
+					str1 += "\t\t , " + vt.getVtTen() + "\n ";
+				}
 				Mail mail = new Mail();
 				mail.setFrom(account);
 				mail.setTo(nguoiDung.getEmail());
 				mail.setSubject("Công việc được chia sẻ");
-
 				String content = "Bạn đã được chia sẻ công văn. Vui lòng vào hệ thống làm việc để kiểm tra.\n";
-				content += host + siteMap.cscvManage + "?action=chiaSeCv&congVan=" + cvId;
+				content += "\t *Công việc được chia sẻ là: \n" + str1 + ".\n" + "Thân mến!";
+				//content += host + siteMap.cscvManage + "?action=chiaSeCv&congVan=" + cvId;
 				mail.setContent(content);
 				sendMail.send(mail);
 			}
-
 			request.setAttribute("vaiTroHash", vaiTroHash);
 			request.setAttribute("vtNguoiDungHash", vtNguoiDungHash);
 			vtCongVanDAO.disconnect();

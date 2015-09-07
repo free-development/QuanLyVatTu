@@ -25,6 +25,7 @@ public class SendMail {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.starttls.enable", "true");
 	}
 	
 	/**
@@ -39,6 +40,7 @@ public class SendMail {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.starttls.enable", "true");
 		
 	}
 	
@@ -55,6 +57,7 @@ public class SendMail {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.starttls.enable", "true");
 	}
 
 	public String getUsername() {
@@ -90,11 +93,12 @@ public class SendMail {
 		try {
 
 			Message message = new MimeMessage(session);
+			message.setHeader("", "text/html; charset=UTF-8");
 			message.setFrom(new InternetAddress(mail.getFrom()));
 			message.setRecipients(Message.RecipientType.TO,
 			InternetAddress.parse(mail.getTo()));
-			message.setSubject(mail.getSubject());
-			message.setText(mail.getContent());
+			message.setSubject(mail.getSubject());//etSubject(mail.getSubject());
+			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
 			Transport.send(message);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
