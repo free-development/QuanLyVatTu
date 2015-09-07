@@ -11,6 +11,17 @@ function showForm(formId, check){
 	for(var i=0; i<f.length; i++) f[i].disabled = check;
 	
 }
+function showForm3(formId1, formId2, check){
+	if (check)
+		document.getElementById(formId2).style.display="block";
+	else document.getElementById(formId2).style.display="none";
+	var f = document.getElementById(formId1), s, opacity;
+	s = f.style;
+	opacity = check? '10' : '100';
+	s.opacity = s.MozOpacity = s.KhtmlOpacity = opacity/100;
+	s.filter = 'alpha(opacity='+opacity+')';
+	for(var i=0; i<f.length; i++) f[i].disabled = check;
+}	
 function showForm2(formId, check){
 	if (check)
 		document.getElementById(formId).style.display="block";
@@ -76,14 +87,15 @@ function preUpdateNd(formId, check) {
 	  	
 	  	success: function(nd) {
 		  	$('input:text[name=msnv]').val(nd.msnv);
-		  	$('input:text[name=hoten]').val(nd.hoten);
+		  	$('input:text[name=hoten]').val(nd.hoTen);
 		  	$('input:text[name=email]').val(nd.email);
-		  	$('input:text[name=diachi]').val(nd.diachi);
+		  	$('input:text[name=diachi]').val(nd.diaChi);
 		  	$('input:text[name=sdt]').val(nd.sdt);
 		  	$('#chucDanh option[value='+nd.chucDanh.cdMa+']').prop('selected',true);
 		  	$('#hoTen').focus();
-		  	showForm(formId,check);	
-		  	$('#main-form').hide();
+		  	showForm3("main-form","add-form",true);
+		  //	showForm(formId, check);	
+		  	//$('#main-form').hide();
 	  	}
 	});
 	}
@@ -131,8 +143,8 @@ function updateNd(msnv, hoten,chucdanh, email, diachi, sdt) {
 			diachi = $('input:text[name=diachi]').val('');
 			sdt = $('input:text[name=sdt]').val('');
 	  		alert("Thay đổi thành công người dùng có mã "+msnv+ " !")	
-	  		showForm('add-form',false);	
-	  		$('#main-form').show();
+	  		showForm2('add-form',false);	
+	  		//$('#main-form').show();
 	  		
 	  	}
 	});

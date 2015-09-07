@@ -136,6 +136,7 @@ public class NdController extends HttpServlet {
 		NguoiDung nd = new NguoiDung(msnv, hoten,diachi,email,sdt,new ChucDanh(chucdanh),0);
 		NguoiDungDAO nguoiDungDAO=new NguoiDungDAO();
 		nguoiDungDAO.updateNguoiDung(nd);
+		System.out.println(nd.getChucDanh().getCdTen());
 		nguoiDungDAO.disconnect();
 		return JSonUtil.toJson(nd);
 	}

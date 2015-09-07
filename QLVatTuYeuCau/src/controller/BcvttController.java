@@ -95,6 +95,13 @@ public class BcvttController extends HttpServlet {
     				Integer soluong = yeuCau.getYcSoLuong();
     				if (slCu != null)
     					soluong += slCu;
+<<<<<<< HEAD
+=======
+
+    				
+//    				ArrayList<Integer> soDenList = soDenHash.get(ctVtId);
+//    				ArrayList<Integer> soDenListCu = soDenHash.get(ctVtId);
+>>>>>>> 2b6e24594d4aeb6187cb4c9d98e38920c555c95d
 
     				
     				ArrayList<Integer> cvList = new ArrayList<Integer>();
