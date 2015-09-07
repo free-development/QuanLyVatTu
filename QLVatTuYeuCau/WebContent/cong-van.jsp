@@ -1,5 +1,3 @@
-<%@page import="model.VaiTro"%>
-<%@page import="dao.VaiTroDAO"%>
 <%@page import="model.NguoiDung"%>
 <%@page import="model.TrangThai"%>
 <%@page import="model.MucDich"%>
@@ -31,8 +29,6 @@
 		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
 		String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
-		String hosting = request.getServletContext().getInitParameter("hosting");
-		int capPhatMa = Integer.parseInt(request.getServletContext().getInitParameter("capPhatId"));
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
    			session.setAttribute("url", siteMap.cvManage+ "?action=manageCv");
@@ -42,18 +38,11 @@
    		}
    	%>
 <script type="text/javascript">
-<% 
-String chucDanh = authentication.getChucDanh().getCdMa();
-String chucDanhMa = chucDanh;
-%>
-check = <% if (vanThuMa.equals(chucDanhMa) ) out.print("false"); else out.print("true");%>;
-capVatTuId = '<%=capPhatMa  %>';
-chucDanhMa = '<%=chucDanhMa  %>';
-vanThuMa = '<%=vanThuMa  %>';
-truongPhongMa = '<%=truongPhongMa  %>';
-hosting = '<%=hosting  %>';
-// || capPhatMa.equals(chucDanhMa)
-
+	function showButton() {
+		var check = '<% if (vanThuMa.equals(authentication.getChucDanh().getCdMa())) out.print("hide");%>';
+		if (check == 'hide')
+			$('.button-chia-se').hide();
+	}
 </script>
 <script type="text/javascript" src="js/cong-van.js"></script>
 <meta charset="utf-8">
@@ -85,10 +74,6 @@ hosting = '<%=hosting  %>';
     	ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) request.getAttribute("trangThaiList");
     	ArrayList<Integer> yearList = (ArrayList<Integer>) request.getAttribute("yearList");
     	Long size = (Long) request.getAttribute("size");
-    	ArrayList<ArrayList<VaiTro>> vtCongVanList = (ArrayList<ArrayList<VaiTro>>) request.getAttribute("vtCongVanList");
-    	ArrayList<ArrayList<String>> nguoiXlCongVan = (ArrayList<ArrayList<String>>) request.getAttribute("nguoiXlCongVan");
-    	
-    	try {
     %>
     
 	<div class="wrapper">
@@ -96,7 +81,7 @@ hosting = '<%=hosting  %>';
 		<div class="main_menu">
 			<ul>
 				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-				<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
+				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
 				
 				<li><a>Danh mục</a>
 					<ul>
@@ -120,23 +105,20 @@ hosting = '<%=hosting  %>';
 							</ul>
 				</li>
 				<%} %>
-				<%if (!chucDanh.equalsIgnoreCase(adminMa)) {%>
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-				<%if (!chucDanhMa.equalsIgnoreCase(vanThuMa)){ %>
 				<li><a>Báo cáo</a>
 					<ul>
 						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<%}} %>
-				<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
+				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
 				<li><a>Quản lý người dùng</a>
 					<ul>
-						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
-						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
-						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
-						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
+						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>"></a>Thêm người dùng</li>
+						<li><a href="<%=siteMap.updateNguoiDung%>"></a>Cập nhật thông tin</li>
+						<li><a href="<%=siteMap.resetPassword%>"></a>Khôi phục mật khẩu</li>
+						<li><a href="<%=siteMap.lockNguoiDung%>"></a>Khóa tài khoản</li>
 					</ul>
 				</li>
 				<%} %>
@@ -248,18 +230,15 @@ hosting = '<%=hosting  %>';
                      <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
                      <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
 						<%
-					
                      	int count = 0;
                      	for(CongVan congVan : congVanList) {
                      		count ++;
                      %>
 					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : #FFFFFF;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
 						<tr >
-						<% if (chucDanhMa.equals(vanThuMa)) {%>
 							<td class="column-check" rowspan="7" style="margin-right: 30px;">
 								<input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
 							</td>
-							<%} %>
 							<td class="left-column-soden" style="font-weight: bold;">Số đến: &nbsp;&nbsp;</td>
 							<td class="column-so-den" style="text-align: left;"><%=congVan.getSoDen() %></td>
 							<td class="left-column-socv" style="font-weight: bold;">Số công văn: &nbsp;&nbsp;</td>
@@ -268,6 +247,7 @@ hosting = '<%=hosting  %>';
 							<td class="column-date" style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
 						</tr>
 						<tr>
+							
 							<td class="left-column-first" style="font-weight: bold;">Mục đích: &nbsp;&nbsp;</td>
 							<td class="column-color" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
 							<td class="left-column-ngdi" style="font-weight: bold;">Ngày công văn đi:&nbsp;&nbsp;</td>
@@ -290,55 +270,17 @@ hosting = '<%=hosting  %>';
 							<td class="column-color" colspan="6"><%= congVan.getButPhe()%></td>
 						</tr>
 						<tr>
-							
+							<td class="left-column-first" style="font-weight: bold;">Nơi GQ chính</td>
+							<td class="column-color"colspan="3"><%=congVan.getDonVi().getDvTen() %></td>
+							<td colspan="3" style="float: right;">
 							<%
-								if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)) { %>
-									<td class="left-column-first" style="font-weight: bold;">Người xử lý</td>
-									<td class="column-color"colspan="3">
-									<%
-										if (nguoiXlCongVan.size() > 0) {
-											ArrayList<String> nguoiXlList = nguoiXlCongVan.get(count - 1);
-											StringBuilder cellHoTen = new StringBuilder("");   
-											for (String hoTen : nguoiXlList) {
-												cellHoTen.append(hoTen + ", ");
-											}
-											int len = cellHoTen.length();
-											cellHoTen.delete(len -2, len);
-											out.println(cellHoTen.toString());
-										}%>
-									</td>
-									<%if (chucDanh.equals(truongPhongMa)) { %>
-									<td colspan="2" style="float: right;">
-										<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
-											<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
-										</button>
-									</td>
-									<%} %>
-								<%} else {%>
-									<td class="left-column-first" style="font-weight: bold;">Vai trò</td>
-									<td class="column-color"colspan="3">
-									<%
-									boolean capPhat = false;
-									StringBuilder vaiTro = new StringBuilder("");
-									if (vtCongVanList.size() > 0) {
-										ArrayList<VaiTro> vaiTroList = vtCongVanList.get(count - 1);
-										for (VaiTro vt : vaiTroList) {
-											vaiTro.append(vt.getVtTen() + ", ");
-											if (vt.getVtId() == capPhatMa)
-												capPhat = true;
-										}
-										int len = vaiTro.length();
-										vaiTro.delete(len - 2, len);
-										out.println(vaiTro.toString());%>
-									</td>
-									<%if (capPhat) { %>
-										<td colspan="3" style="float: right;">
-											<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.ycvtManage + "?cvId=" + congVan.getCvId()%>'">
-												<i class="fa fa-spinner"></i>&nbsp;&nbsp;Cập vật tư yêu cầu
-											</button>									
-										</td>
-								<% 	}}}%>
-									
+								String chucDanh =  authentication.getChucDanh().getCdMa();
+							if (truongPhongMa.equalsIgnoreCase(chucDanh)) {%>
+								<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
+									<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
+								</button>
+								<%} %>
+							</td>
 						</tr>
 						<tr>
 							<td class="left-column-first" style="font-weight: bold;">Xem công văn: </td>
@@ -361,10 +303,9 @@ hosting = '<%=hosting  %>';
 						<%
 							long pageNum = size / 3;
 							long p = (pageNum <= 10 ? pageNum : 10);
-						
 							for (int i = 0; i < p; i++) {
 						%>
-							<input type="button" name = "page" class="page" value="<%=i+1 %>" onclick = "loadPage(<%=i%>)">
+						<input type="button" name = "page" class="page" value = "<%=i+1 %>" onclick = "loadPage(<%=i%>)">
 						<%}
 							if(pageNum > 10) {
 						%>
@@ -375,6 +316,7 @@ hosting = '<%=hosting  %>';
 						<div class="group-button">
 							<input type="hidden" name="action" value="update-yeu-cau">
 							<%
+								String chucDanh =  authentication.getChucDanh().getCdMa();
 								if (vanThuMa.equalsIgnoreCase(chucDanh)) {
 							%>
 							<button type="button" class="button" onclick="loadDataCv();">
@@ -392,6 +334,15 @@ hosting = '<%=hosting  %>';
 <!-- 								<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa -->
 <!-- 							</button> -->
 							&nbsp;
+							<%
+// 								String chucDanh =  authentication.getChucDanh().getCdMa();
+								if (!vanThuMa.equalsIgnoreCase(chucDanh)) {
+							%>
+							<button class="button" onclick="return checkCongVan();">
+								<i class="fa fa-spinner"></i>&nbsp;&nbsp;Cập nhật yêu cầu vật tư
+							</button>
+							&nbsp;
+							<%} %>
 							<button type="button" class="button" onclick="location.href='<%=siteMap.home%>'">
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
@@ -558,9 +509,5 @@ hosting = '<%=hosting  %>';
 						</div>
 			</div>
 		</div>		
-		<%} catch (NullPointerException e){
-			response.sendRedirect("login.jsp");
-		}
-			%>
 </body>
 </html>

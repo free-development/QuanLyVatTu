@@ -315,6 +315,16 @@ function loadCongVan(congVanList, fileList, unknownList) {
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Bút phê: &nbsp;&nbsp;</td>'
 						+ '<td class=\"column-color\" colspan=\"6\">' +  congVan.butPhe + '</td>'
 						+ '</tr>'
+						+ '<tr>'
+						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Nơi GQ chính</td>'
+						+ '<td class=\"column-color\" colspan=\"3\">' + congVan.donVi.dvTen + '</td>'
+						+ '<td colspan=\"3\" style=\"float: right;\">'
+						+ '<button  class=\"button-chia-se\" id=\"chiaSe\" type=\"button\" style=\"width: 170px; height: 30px;\"' 
+						+ '  onclick=\"location.href=\'/QLVatTuYeuCau/cscvManage.html?action=chiaSeCv&congVan=' + congVan.cvId + '\'\">'
+						+ '<i class=\"fa fa-spinner\"></i>&nbsp;&nbsp;Chia sẻ công văn'
+						+ '</button>'
+						+ '</td>'
+						+ '</tr>'
 						+ '<tr>';
 					if (chucDanhMa == truongPhongMa || chucDanhMa == vanThuMa) {
 						var cellNguoiXl = '';

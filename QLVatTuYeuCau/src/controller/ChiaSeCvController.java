@@ -75,7 +75,6 @@ public class ChiaSeCvController extends HttpServlet {
 			}
 			request.setAttribute("vaiTroHash", vaiTroHash);
 			request.setAttribute("vtNguoiDungHash", vtNguoiDungHash);
-
 			session.setAttribute("vaiTroList", vaiTroList);
 			session.setAttribute("nguoiDungList", nguoiDungList);
 			session.setAttribute("congVan", congVan);
@@ -139,10 +138,17 @@ public class ChiaSeCvController extends HttpServlet {
 				Mail mail = new Mail();
 				mail.setFrom(account);
 				mail.setTo(nguoiDung.getEmail());
+<<<<<<< HEAD
 				mail.setSubject("Công việc được chia sẻ");
 				String content = "Bạn đã được chia sẻ công văn. Vui lòng vào hệ thống làm việc đ	ể kiểm tra.\n";
 				content += "Công việc được chia sẻ là: \n" + str1 + "\n" ;
 				content += host + siteMap.searchCongVan + "?congVan=" + cvId + "\nThân mến!";
+=======
+				mail.setSubject("Công việc được chia s ẻ");
+				String content = "Bạn đã được chia sẻ công văn. Vui lòng vào hệ thống làm việc để kiểm tra.\n";
+				content += "\t *Công việc được chia sẻ là: \n" + str1 + ".\n" + "Thân mến!";
+				//content += host + siteMap.cscvManage + "?action=chiaSeCv&congVan=" + cvId;
+>>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
 				mail.setContent(content);
 				sendMail.send(mail);
 			}

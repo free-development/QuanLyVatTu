@@ -815,7 +815,7 @@ public class CvController extends HttpServlet {
 			ArrayList<Object> objectList = new ArrayList<Object>(); 
 			objectList.add(congVanList);
 			objectList.add(fileList);
-			long page = (size % 3 == 0 ? size/3 : (size/3) +1 ); 
+			long page = (size % 3 == 0 ? size/3 : (size/3) +1 );
 			objectList.add(page);
 			if (msnvTemp == null) {
 				objectList.add(nguoiXlCongVan);
