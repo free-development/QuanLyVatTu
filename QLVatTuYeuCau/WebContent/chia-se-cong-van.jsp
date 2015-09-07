@@ -214,7 +214,8 @@
 <!-- 								<th class="six-column">...</th> -->
 
 							</tr>
-							<% int count = 0;for(NguoiDung nguoiDung : nguoiDungList) { 
+							<% int count = 0;
+							for(NguoiDung nguoiDung : nguoiDungList) { 
 								count ++;
 								String msnv = nguoiDung.getMsnv();
 							%>

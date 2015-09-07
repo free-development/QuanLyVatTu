@@ -219,25 +219,23 @@ function timKiemNguoidungCs(){
 	  	success: function(objectList){
 	  		var vaiTroList = objectList[0];
 	  		var ndList = objectList[1];
-	  		if(ndList.length>0||vaiTroList.length>0){
-	  			$('#view-table table .rowContent').remove();
-				for(i = 0;i < ndList.length; i++ )
-					for(j = 0;j < vaiTroList.length; j++ ){
-					nd = ndList[i];
-					vt=vaitroList[j];
-					//alert(ndList[i].msnv);
-	  				
-				}
+	  		var vtCongVanList = objectList[2];
+	  		var content = '';
+	  		var count = 0;
+	  		for(var i = 0; i < ndList.length; i++) { 
+	  			content += '<td class=\"tbody-nguoidung\">'+ndList[i].msnv+'</td><td class=\"tbody-nguoidung\">'+ndList.hoTen
+				+'</td>';
 	  		}
-	  		else
-	  			{
-	  				alert("Không tìm thấy tài khoản!");
-	  			}
+			for(var j = 0; j < vaiTroList.length; j++) {
+				content += '<td><input type=\"checkbox\" class=\"checkbox\" name=\"vaiTro\" value=\"' + vaiTroList[i].vtId + '\" id=\"' + vaiTroList[i].vtId + '\"></td>';
+			}
+			for (var i = 0; i < vtCongVanList.length; i++) {
+//	  			alert('#update #'+vtCongVanList[i].vtId);
+	  			$('#'+vtCongVanList[i].vtId).prop('checked',true);
+	  		}	
 	  	}
 	});
-	
 }
-
 //$(document).ready(function() {
 //	$('#sendMail').click(function() {
 //		var email = $('#view-mail input:text[name=email]').val();
