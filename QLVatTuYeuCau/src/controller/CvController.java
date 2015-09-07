@@ -31,6 +31,7 @@ import dao.MucDichDAO;
 import dao.NguoiDungDAO;
 import dao.TrangThaiDAO;
 import dao.VTCongVanDAO;
+import dao.VaiTroDAO;
 import map.siteMap;
 import model.CongVan;
 import model.DonVi;
@@ -92,28 +93,27 @@ public class CvController extends HttpServlet {
 		}
     	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(msnvTemp, null, null, 0, 3);
     	
-    	// danh sach nguoi xu ly cong van
-    	ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
+    	
     	//chung
 		HashMap<Integer, File> fileHash = new HashMap<Integer, File>();
 		ArrayList<DonVi> donViList = (ArrayList<DonVi>) donViDAO.getAllDonVi();
 		ArrayList<MucDich> mucDichList = (ArrayList<MucDich>) mucDichDAO.getAllMucDich();
 		ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) trangThaiDAO.getAllTrangThai();
 		long size = congVanDAO.size(msnvTemp, null);
-		//
+		// danh sach nguoi xu ly cong van
+    	ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
+		// array list vai tro nguoi dung
 		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
 		if (msnvTemp != null) {
 			for(CongVan congVan : congVanList) {
 				int cvId = congVan.getCvId();
 				fileHash.put(cvId, fileDAO.getByCongVanId(cvId));
 				
-					ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
-				System.out.println(vtCongVan.size());
-				
+				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
 				vtCongVanList.add(vtCongVan);
-	//			ArrayList<VaiTro> vaiTroList = vtcvDAO.getVaiTroId(cvId);
-	//			vtNguoiDungHash.put(cvId, vaiTroList);
+				
 			}
+			request.setAttribute("vtCongVanList", vtCongVanList);
 		}
 		else if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa)) {
 			for(CongVan congVan : congVanList) {
@@ -123,12 +123,8 @@ public class CvController extends HttpServlet {
 				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
 				
 				nguoiXlCongVan.add(nguoiXl);
-	//			ArrayList<VaiTro> vaiTroList = vtcvDAO.getVaiTroId(cvId);
-	//			vtNguoiDungHash.put(cvId, vaiTroList);
 			}
-//	    	HashMap<Integer, ArrayList<NguoiDung>> vtNguoiDungHash = new HashMap<Integer, ArrayList<VaiTro>>();
 			request.setAttribute("nguoiXlCongVan", nguoiXlCongVan);
-	    	
 		}
 		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp,5);
 		request.setAttribute("congVanList", congVanList);
@@ -424,9 +420,27 @@ public class CvController extends HttpServlet {
 		ArrayList<Integer> monthList = congVanDAO.groupByMonth(msnvTemp, year);
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
-		for (CongVan congVan : congVanList) {
-			File file = fileDAO.getByCongVanId(congVan.getCvId());
-			fileList.add(file);
+		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
+		// array list vai tro nguoi dung
+		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		VTCongVanDAO vtcvDAO = new VTCongVanDAO();
+		if (msnvTemp != null) {
+			for (CongVan congVan : congVanList) {
+				File file = fileDAO.getByCongVanId(congVan.getCvId());
+				fileList.add(file);
+				int cvId = congVan.getCvId();
+				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
+				vtCongVanList.add(vtCongVan);
+			}
+		} else {
+			for(CongVan congVan : congVanList) {
+				File file = fileDAO.getByCongVanId(congVan.getCvId());
+				fileList.add(file);
+				
+				int cvId = congVan.getCvId();
+				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
+				nguoiXlCongVan.add(nguoiXl);
+			}
 		}
 		long size = congVanDAO.size(msnvTemp, conditions);
 		congVanDAO.disconnect();
@@ -435,9 +449,14 @@ public class CvController extends HttpServlet {
 		objectList.add(congVanList);
 		objectList.add(fileList);
 		objectList.add(monthList);
-		
-		long page = (size % 3 == 0 ? size/3 : (size/3) +1 ); 
+		long page = (size % 3 == 0 ? size/3 : (size/3) +1 );
+		System.out.println("size = " + size + "******* page = " + page);
 		objectList.add(page);
+		if (msnvTemp == null) {
+			objectList.add(nguoiXlCongVan);
+		} else {
+			objectList.add(vtCongVanList);
+		}
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/loadByMonth", method=RequestMethod.GET, 
@@ -476,9 +495,27 @@ public class CvController extends HttpServlet {
 		ArrayList<Integer> dateList = congVanDAO.groupByDate(msnvTemp, year, month);
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
-		for (CongVan congVan : congVanList) {
-			File file = fileDAO.getByCongVanId(congVan.getCvId());
-			fileList.add(file);
+		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
+		// array list vai tro nguoi dung
+		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		VTCongVanDAO vtcvDAO = new VTCongVanDAO();
+		if (msnvTemp != null) {
+			for (CongVan congVan : congVanList) {
+				File file = fileDAO.getByCongVanId(congVan.getCvId());
+				fileList.add(file);
+				int cvId = congVan.getCvId();
+				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
+				vtCongVanList.add(vtCongVan);
+			}
+		} else {
+			for(CongVan congVan : congVanList) {
+				File file = fileDAO.getByCongVanId(congVan.getCvId());
+				fileList.add(file);
+				
+				int cvId = congVan.getCvId();
+				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
+				nguoiXlCongVan.add(nguoiXl);
+			}
 		}
 		long size = congVanDAO.size(msnvTemp, conditions);
 		
@@ -491,6 +528,11 @@ public class CvController extends HttpServlet {
 		long page = (size % 3 == 0 ? size/3 : (size/3) +1 );
 		System.out.println(page);
 		objectList.add(page);
+		if (msnvTemp == null) {
+			objectList.add(nguoiXlCongVan);
+		} else {
+			objectList.add(vtCongVanList);
+		}
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/loadByDate", method=RequestMethod.GET, 
@@ -529,9 +571,27 @@ public class CvController extends HttpServlet {
 			msnvTemp = null;
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
-		for (CongVan congVan : congVanList) {
-			File file = fileDAO.getByCongVanId(congVan.getCvId());
-			fileList.add(file);
+		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
+		// array list vai tro nguoi dung
+		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		VTCongVanDAO vtcvDAO = new VTCongVanDAO();
+		if (msnvTemp != null) {
+			for (CongVan congVan : congVanList) {
+				File file = fileDAO.getByCongVanId(congVan.getCvId());
+				fileList.add(file);
+				int cvId = congVan.getCvId();
+				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
+				vtCongVanList.add(vtCongVan);
+			}
+		} else {
+			for(CongVan congVan : congVanList) {
+				File file = fileDAO.getByCongVanId(congVan.getCvId());
+				fileList.add(file);
+				
+				int cvId = congVan.getCvId();
+				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
+				nguoiXlCongVan.add(nguoiXl);
+			}
 		}
 		long size = congVanDAO.size(msnvTemp, conditions);
 		congVanDAO.disconnect();
@@ -541,6 +601,11 @@ public class CvController extends HttpServlet {
 		objectList.add(fileList);
 		long page = (size % 3 == 0 ? size/3 : (size/3) +1 ); 
 		objectList.add(page);
+		if (msnvTemp == null) {
+			objectList.add(nguoiXlCongVan);
+		} else {
+			objectList.add(vtCongVanList);
+		}
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/searchByTrangThai", method=RequestMethod.GET, 
@@ -580,9 +645,27 @@ public class CvController extends HttpServlet {
 			msnvTemp = null;
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
-		for (CongVan congVan : congVanList) {
-			File file = fileDAO.getByCongVanId(congVan.getCvId());
-			fileList.add(file);
+		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
+		// array list vai tro nguoi dung
+		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		VTCongVanDAO vtcvDAO = new VTCongVanDAO();
+		if (msnvTemp != null) {
+			for (CongVan congVan : congVanList) {
+				File file = fileDAO.getByCongVanId(congVan.getCvId());
+				fileList.add(file);
+				int cvId = congVan.getCvId();
+				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
+				vtCongVanList.add(vtCongVan);
+			}
+		} else {
+			for(CongVan congVan : congVanList) {
+				File file = fileDAO.getByCongVanId(congVan.getCvId());
+				fileList.add(file);
+				
+				int cvId = congVan.getCvId();
+				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
+				nguoiXlCongVan.add(nguoiXl);
+			}
 		}
 		long size = congVanDAO.size(msnvTemp, conditions);
 		congVanDAO.disconnect();
@@ -592,6 +675,11 @@ public class CvController extends HttpServlet {
 		objectList.add(fileList);
 		long page = (size % 3 == 0 ? size/3 : (size/3) +1 ); 
 		objectList.add(page);
+		if (msnvTemp == null) {
+			objectList.add(nguoiXlCongVan);
+		} else {
+			objectList.add(vtCongVanList);
+		}
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/filter", method=RequestMethod.GET, 
@@ -632,9 +720,27 @@ public class CvController extends HttpServlet {
 			msnvTemp = null;
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnv, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
-		for (CongVan congVan : congVanList) {
-			File file = fileDAO.getByCongVanId(congVan.getCvId());
-			fileList.add(file);
+		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
+		// array list vai tro nguoi dung
+		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		VTCongVanDAO vtcvDAO = new VTCongVanDAO();
+		if (msnvTemp != null) {
+			for (CongVan congVan : congVanList) {
+				File file = fileDAO.getByCongVanId(congVan.getCvId());
+				fileList.add(file);
+				int cvId = congVan.getCvId();
+				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
+				vtCongVanList.add(vtCongVan);
+			}
+		} else {
+			for(CongVan congVan : congVanList) {
+				File file = fileDAO.getByCongVanId(congVan.getCvId());
+				fileList.add(file);
+				
+				int cvId = congVan.getCvId();
+				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
+				nguoiXlCongVan.add(nguoiXl);
+			}
 		}
 		long size = congVanDAO.size(msnvTemp, conditions);
 		congVanDAO.disconnect();
@@ -644,6 +750,11 @@ public class CvController extends HttpServlet {
 		objectList.add(fileList);
 		long page = (size % 3 == 0 ? size/3 : (size/3) +1 ); 
 		objectList.add(page);
+		if (msnvTemp == null) {
+			objectList.add(nguoiXlCongVan);
+		} else {
+			objectList.add(vtCongVanList);
+		}
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/loadPageCongVan", method=RequestMethod.GET, 
@@ -685,9 +796,27 @@ public class CvController extends HttpServlet {
 			}
 			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, (page) *3, 3);
 			ArrayList<File> fileList = new ArrayList<File>();
-			for (CongVan congVan : congVanList) {
-				File file = fileDAO.getByCongVanId(congVan.getCvId());
-				fileList.add(file);
+			ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
+			// array list vai tro nguoi dung
+			ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+			VTCongVanDAO vtcvDAO = new VTCongVanDAO();
+			if (msnvTemp != null) {
+				for (CongVan congVan : congVanList) {
+					File file = fileDAO.getByCongVanId(congVan.getCvId());
+					fileList.add(file);
+					int cvId = congVan.getCvId();
+					ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
+					vtCongVanList.add(vtCongVan);
+				}
+			} else {
+				for(CongVan congVan : congVanList) {
+					File file = fileDAO.getByCongVanId(congVan.getCvId());
+					fileList.add(file);
+					
+					int cvId = congVan.getCvId();
+					ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
+					nguoiXlCongVan.add(nguoiXl);
+				}
 			}
 			long size = congVanDAO.size(msnvTemp, conditions);
 			congVanDAO.disconnect();
@@ -697,6 +826,11 @@ public class CvController extends HttpServlet {
 			objectList.add(fileList);
 			long page = (size % 3 == 0 ? size/3 : (size/3) +1 ); 
 			objectList.add(page);
+			if (msnvTemp == null) {
+				objectList.add(nguoiXlCongVan);
+			} else {
+				objectList.add(vtCongVanList);
+			}
 			return JSonUtil.toJson(objectList);
 		} catch (NumberFormatException e) {
 			return null;
