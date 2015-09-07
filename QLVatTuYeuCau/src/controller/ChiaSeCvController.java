@@ -140,7 +140,6 @@ public class ChiaSeCvController extends HttpServlet {
 				String account = context.getInitParameter("account");
 				String password = context.getInitParameter("password");
 				String host = context.getInitParameter("hosting");
-
 				SendMail sendMail = new SendMail(account, password);
 				vtHash = vaiTroHash.get(msnv);
 				NguoiDung nguoiDung = vtNguoiDungHash.get(msnv);
@@ -151,7 +150,7 @@ public class ChiaSeCvController extends HttpServlet {
 				Mail mail = new Mail();
 				mail.setFrom(account);
 				mail.setTo(nguoiDung.getEmail());
-				mail.setSubject("Công việc được chia s ẻ");
+				mail.setSubject("Công việc được chia sẻ");
 				String content = "Bạn đã được chia sẻ công văn. Vui lòng vào hệ thống làm việc để kiểm tra.\n";
 				content += "\t *Công việc được chia sẻ là: \n" + str1 + ".\n" + "Thân mến!";
 				//content += host + siteMap.cscvManage + "?action=chiaSeCv&congVan=" + cvId;

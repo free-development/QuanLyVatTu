@@ -305,7 +305,6 @@ function loadCongVan(congVanList, fileList, unknownList) {
 						+ '<td class=\"column-color\" colspan=\"3\" style=\"text-align: left\">' +  congVan.donVi.dvTen + '</td>'
 						+ '<td colspan=\"1\" style=\"font-weight: bold;\">Trạng thái</td>'
 						+ '<td colspan=\"1\" style=\"color:red;font-weight: bold;font-style: oblique;\">' + congVan.trangThai.ttTen + '</td>'
-						
 						+ '</tr>'
 						+ '<tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Trích yếu: &nbsp;&nbsp;</td>'
