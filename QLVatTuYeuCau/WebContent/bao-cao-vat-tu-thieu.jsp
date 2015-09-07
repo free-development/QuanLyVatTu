@@ -1,4 +1,4 @@
-<%@page import="javafx.scene.control.Cell"%>
+
 <%@page import="model.NguoiDung"%>
 <%@page import="model.YeuCau"%>
 <%@page import="java.util.HashMap"%>
@@ -243,6 +243,10 @@
 	   		%>
 			
 <!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
+<<<<<<< HEAD
+=======
+<!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
+>>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 				<div style="text-align: center;font-size: 20px;color:firebrick;font-weight: bold;margin-top:10px;">Tổng hợp vật tư thiếu</div>
 				<div id="view-table-bao-cao" style="max-height: 420px;width: 1000px;display: auto;border: 1px dotted #CCCCCC;margin: 0 auto;overflow: scroll;">
 				<table style="margin: 0 auto;width:1000px;border: 1px dotted black;" >
@@ -253,6 +257,10 @@
 						<th style="border: 1px dottedblack;" class="three-column">Chất lượng</th>
 						<th style="border: 1px dotted black;" class="six-column">Đơn vị tính</th>
 						<th style="border: 1px dotted black;" class="one-column">Tổng số lượng thiếu</th>
+<<<<<<< HEAD
+=======
+						<th style="border: 1px dotted black;" class="one-column">Tổng số lượng thiếu</th>
+>>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 						<th style="border: 1px dotted black;" class="one-column">Công văn liên quan (số đến)</th>
 					</tr >
 								<%
@@ -272,6 +280,10 @@
 						<td class="d-column"style="text-align: left;"><%=ctvt.getChatLuong().getClTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=ctvt.getVatTu().getDvt().getDvtTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
+<<<<<<< HEAD
+=======
+						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
+>>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 						<td>
 							<%
 							ArrayList<Integer> cvIdList = cvIdHash.get(key);
@@ -281,15 +293,22 @@
 							for(int i = 0; i < length; i++) {
 								int soDen = soDenList.get(i);
 								int cvId = cvIdList.get(i);
-								cell.append("<a style=\"color: red; text-decoration: underline; \" href=" + siteMap.searchCv + "action=search?congVan=" + cvId + "> " + soDen + "</a>" + ", ");
+								cell.append("<a style=\"color: red; text-decoration: underline; \" href=" + siteMap.searchCongVan + "?congVan=" + cvId + "> " + soDen + "</a>" + ", ");
 							}
 							int len = cell.length() ;
 							cell.delete(len - 2, len);
 							out.println(cell);
 							%>
+<<<<<<< HEAD
+=======
 							 
+>>>>>>> 2b6e24594d4aeb6187cb4c9d98e38920c555c95d
 						</td>
 <%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
+<<<<<<< HEAD
+=======
+						</td>
+>>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 					</tr>
 					<%} %>
 				</table>

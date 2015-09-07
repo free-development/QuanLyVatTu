@@ -339,7 +339,7 @@ function loadCongVan(congVanList, fileList, unknownList) {
 						if (chucDanhMa == truongPhongMa) {
 							tables += '<td colspan=\"3\" style=\"float: right;\">'
 							+ '<button  class=\"button-chia-se\" id=\"chiaSe\" type=\"button\" style=\"width: 170px; height: 30px;\"' 
-							+ '  onclick=\"location.href=/QLVatTuYeuCau/cscvManage.html?action=chiaSeCv&congVan=' + congVan.cvId + '\">'
+							+ '  onclick=\"location.href=\'/QLVatTuYeuCau/cscvManage.html?action=chiaSeCv&congVan=' + congVan.cvId + '\'\">'
 							+ '<i class=\"fa fa-spinner\"></i>&nbsp;&nbsp;Chia sẻ công văn'
 							+ '</button>'
 							+ '</td>';
@@ -370,7 +370,11 @@ function loadCongVan(congVanList, fileList, unknownList) {
 						}
 					}
 				tables	+= '</tr>'
+<<<<<<< HEAD
 					+ '<tr>'
+=======
+						+ '<tr>'
+>>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Xem công văn: </td>'
 						+ '<td colspan=\"1\">'
 						+ '<a href=\"' + '/QLVatTuYeuCau/cvManage.html' + '?action=download&file=' + congVan.cvId + '\">'

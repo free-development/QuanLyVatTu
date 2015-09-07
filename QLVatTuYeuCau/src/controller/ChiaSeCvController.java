@@ -110,18 +110,6 @@ public class ChiaSeCvController extends HttpServlet {
 			for (String vtMa : vaiTro) {
 				String[] str = vtMa.split("\\#");
 				NguoiDung nguoiDung = nguoiDungDAO.getNguoiDung(str[0]);
-				//
-				// final String username = "evnCanTho@gmail.com";
-				// final String password = "evnCanTho2015";
-
-				//
-				// InternetAddress.parse("camtien.le1994@gmail.com"));
-				// message.setSubject("Công việc được chia sẻ");
-				// message.setText("Bạn đã được chia sẻ công việc. Vui lòng vào
-				// hệ thống làm việc để kiểm tra.");
-				//
-				// Transport.send(message);
-
 				VTCongVan vtCongVan = new VTCongVan();
 				vtCongVan.setCvId(cvId);
 				vtCongVan.setMsnv(str[0]);
@@ -136,7 +124,6 @@ public class ChiaSeCvController extends HttpServlet {
 				vaiTroHash.put(msnv, vtHash);
 				String str1 = "";
 				VaiTro vt = new VaiTro();
-				System.out.println(str1);
 				String account = context.getInitParameter("account");
 				String password = context.getInitParameter("password");
 				String host = context.getInitParameter("hosting");
@@ -145,14 +132,26 @@ public class ChiaSeCvController extends HttpServlet {
 				NguoiDung nguoiDung = vtNguoiDungHash.get(msnv);
 				for(Integer vtId : vtHash.keySet()) {
 					vt = vtHash.get(vtId);
-					str1 += "\t\t , " + vt.getVtTen() + "\n ";
+					str1 += "\t+" + vt.getVtTen() + ".\n ";
 				}
 				Mail mail = new Mail();
 				mail.setFrom(account);
 				mail.setTo(nguoiDung.getEmail());
 				mail.setSubject("Công việc được chia sẻ");
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+				String content = "Bạn đã được chia sẻ công văn. Vui lòng vào hệ thống làm việc đ	ể kiểm tra.\n";
+				content += "Công việc được chia sẻ là: \n" + str1 + "\n" ;
+				content += host + siteMap.searchCongVan + "?congVan=" + cvId + "\nThân mến!";
+				mail.setSubject("Công việc được chia s ẻ");
+				
+=======
+				//String content = "Bạn đã được chia sẻ công văn. Vui lòng vào hệ thống làm việc đ	ể kiểm tra.\n";
+>>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 				String content = "Bạn đã được chia sẻ công văn. Vui lòng vào hệ thống làm việc để kiểm tra.\n";
 				content += "\t *Công việc được chia sẻ là: \n" + str1 + ".\n" + "Thân mến!";
+>>>>>>> 2b6e24594d4aeb6187cb4c9d98e38920c555c95d
 				//content += host + siteMap.cscvManage + "?action=chiaSeCv&congVan=" + cvId;
 				mail.setContent(content);
 				sendMail.send(mail);

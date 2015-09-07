@@ -48,7 +48,7 @@
 <script type="text/javascript" src="js/chia-se-cong-van.js"></script>
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
 <!-- <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" /> -->
-<!-- <script type="text/javascript" src="js/jquery.min.js"></script> --> -->
+<!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
 </head>
 <body>
 	<%

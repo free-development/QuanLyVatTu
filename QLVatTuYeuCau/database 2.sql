@@ -385,34 +385,31 @@ alter table YEUCAU add constraint FK_RELATIONSHIP_7 foreign key (CTVTID)
     references CTVATTU (CTVTID) on delete restrict on update restrict;
 insert into TRANGTHAI values('DGQ','Dang giai quyet');
 
-insert into VAITRO values(1,'Lap phieu nhap');
+insert into VAITRO values(1,'Lap phieu nhapCap vat tu');
 insert into VAITRO values(2,'Mua vat tu');
-insert into VAITRO values(3,'Cap vat tu');
+insert into VAITRO values(3,'Lap phieu nhap');
 insert into VAITRO values(4,'Mua Lap phieu xuat');
-insert into VAITRO values(5,'Mua Lap phieu xuat');
-insert into VAITRO values(6,'Mua Lap phieu xuat');
-insert into VAITRO values(7,'Mua Lap phieu xuat');
-insert into VAITRO values(8,'Mua Lap phieu xuat');
-
-insert into CHUCDANH values ('GD', 'Giam doc');
-insert into CHUCDANH values ('GD1', 'Giam doc');
-insert into CHUCDANH values ('GD2', 'Giam doc');
-insert into CHUCDANH values ('GD3', 'Giam doc');
-insert into CHUCDANH values ('TP', 'Truong phong');
-insert into CHUCDANH values ('NV', 'Nhan vien');
-insert into CHUCDANH values ('TK', 'Thu ky');
-insert into CHUCDANH values ('VT', 'Van thu');
 
 
-insert into NGUOIDUNG values ('b1203959', 'GD', 'Vo Phu Quoi', 'An giang', 'quoipro94@gmail.com', '0979921380');
-insert into NGUOIDUNG values ('b1203958', 'TK', 'Le Thi Cam Tien', 'An giang', 'quoipro94@gmail.com', '0979921380');
-insert into NGUOIDUNG values ('b1203957', 'TP', 'Nguyen Thi Cam Nhung', 'An giang', 'quoipro94@gmail.com', '0979921380');
-insert into NGUOIDUNG values ('b1203955', 'VT', 'Truong Trung Hieu', 'An giang', 'quoipro94@gmail.com', '0979921380');
-insert into NGUOIDUNG values ('b1203954', 'NV', 'Truong Quoc huy', 'An giang', 'quoipro94@gmail.com', '0979921380');
+insert into CHUCDANH values ('GD', 'Giam doc', 0);
+insert into CHUCDANH values ('GD1', 'Giam doc', 0);
+insert into CHUCDANH values ('GD2', 'Giam doc', 0);
+insert into CHUCDANH values ('GD3', 'Giam doc', 0);
+insert into CHUCDANH values ('TP', 'Truong phong', 0);
+insert into CHUCDANH values ('NV', 'Nhan vien', 0);
+insert into CHUCDANH values ('TK', 'Thu ky', 0);
+insert into CHUCDANH values ('VT', 'Van thu', 0);
 
 
-insert into CHUCDANH value('AD','Admin');
-insert into NGUOIDUNG values ('admin123','Ad','Vo Phu Quoi','An Giang','quoipro94@gmail.com','0979921380');
+insert into NGUOIDUNG values ('b1203959', 'GD', 'Vo Phu Quoi', 'An giang', 'quoipro94@gmail.com', '0979921380', 0);
+insert into NGUOIDUNG values ('b1203958', 'TK', 'Le Thi Cam Tien', 'An giang', 'quoipro94@gmail.com', '0979921380', 0);
+insert into NGUOIDUNG values ('b1203957', 'TP', 'Nguyen Thi Cam Nhung', 'An giang', 'quoipro94@gmail.com', '0979921380', 0);
+insert into NGUOIDUNG values ('b1203955', 'VT', 'Truong Trung Hieu', 'An giang', 'quoipro94@gmail.com', '0979921380', 0);
+insert into NGUOIDUNG values ('b1203954', 'NV', 'Truong Quoc huy', 'An giang', 'quoipro94@gmail.com', '0979921380', 0);
+
+
+insert into CHUCDANH value('AD','Admin', 0);
+insert into NGUOIDUNG values ('admin123','Ad','Vo Phu Quoi','An Giang','quoipro94@gmail.com','0979921380', 0);
 insert into CTNGUOIDUNG values ('admin123' ,md5('123456789'));
 
 alter table VAITRO add DAXOA int(2) not null;

@@ -347,7 +347,7 @@ public class CongVanDAO {
 		if (conditions != null) {
 			for (String key : conditions.keySet()) {
 				Object object = conditions.get(key);
-				if (object instanceof Integer && !key.equals("soDen")) {
+				if (object instanceof Integer && (key.equalsIgnoreCase("year") || key.equalsIgnoreCase("month") || key.equalsIgnoreCase("day"))) {
 					cr.add(Restrictions.sqlRestriction(key.toUpperCase() + "(cvNgayNhan) = " + conditions.get(key)));
 				} else if (conditions.get(key) != null){ 
 					cr.add(Restrictions.eq(key, conditions.get(key)));
