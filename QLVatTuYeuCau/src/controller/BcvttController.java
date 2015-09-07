@@ -64,22 +64,15 @@ public class BcvttController extends HttpServlet {
     	else if ("tonghop".equalsIgnoreCase(action)){
     		String ngaybd = request.getParameter("ngaybd");
     		String ngaykt = request.getParameter("ngaykt");
-<<<<<<< HEAD
 //    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
-=======
 
 //    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
 
->>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
     		String cvSo = request.getParameter("cvSo");
     		System.out.println(ngaybd);
     		System.out.println(ngaykt);
     		CongVanDAO congVan = new CongVanDAO();
 //    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>)congVanDAO.getByCvSo(cvSo);
-<<<<<<< HEAD
-=======
-
->>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
     		HashMap<Integer, Integer> yeuCauHash = new HashMap<Integer, Integer>();
     		
 //    			for(CongVan congVan: congVanList){
@@ -102,10 +95,7 @@ public class BcvttController extends HttpServlet {
     				Integer soluong = yeuCau.getYcSoLuong();
     				if (slCu != null)
     					soluong += slCu;
-<<<<<<< HEAD
-=======
 
->>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
     				
 //    				ArrayList<Integer> soDenList = soDenHash.get(ctVtId);
 //    				ArrayList<Integer> soDenListCu = soDenHash.get(ctVtId);
@@ -127,29 +117,23 @@ public class BcvttController extends HttpServlet {
     				soDenHash.put(ctVtId, soDenList);
     				//
     				cvList.add(cvId);
-<<<<<<< HEAD
     				cvIdHash.put(ctVtId, cvList);
     				
     				
-=======
     				cvIdHash.put(ctVtId, cvList);
->>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
     				yeuCauHash.put(ctVtId,soluong);
     			}
 		    		session.setAttribute("ngaybd", DateUtil.parseDate(ngaybd));
 					session.setAttribute("ngaykt", DateUtil.parseDate(ngaykt));
         			session.setAttribute("ctvtHash", ctvtHash);
         			session.setAttribute("action", action);
-<<<<<<< HEAD
         			session.setAttribute("yeuCau", yeuCauHash);
         			session.setAttribute("cvIdHash", cvIdHash);
         			session.setAttribute("soDenHash", soDenHash);
         			//session.setAttribute("congVan", congVan);
-=======
         			session.setAttribute("yeuCau", yeuCauHash);
         			session.setAttribute("cvIdHash", cvIdHash);
         			session.setAttribute("soDenHash", soDenHash);
->>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
         			congVanDAO.disconnect();
         			yeuCauDAO.disconnect();
         			return new ModelAndView(siteMap.baoCaoVatTuThieu);
