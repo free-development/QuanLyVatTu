@@ -64,15 +64,15 @@ public class BcvttController extends HttpServlet {
     	else if ("tonghop".equalsIgnoreCase(action)){
     		String ngaybd = request.getParameter("ngaybd");
     		String ngaykt = request.getParameter("ngaykt");
-<<<<<<< HEAD
+
 //    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
-=======
+
     		String cvSo = request.getParameter("cvSo");
     		System.out.println(ngaybd);
     		System.out.println(ngaykt);
     		CongVanDAO congVan = new CongVanDAO();
 //    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>)congVanDAO.getByCvSo(cvSo);
->>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
+
     		HashMap<Integer, Integer> yeuCauHash = new HashMap<Integer, Integer>();
     		
 //    			for(CongVan congVan: congVanList){
@@ -95,7 +95,7 @@ public class BcvttController extends HttpServlet {
     				Integer soluong = yeuCau.getYcSoLuong();
     				if (slCu != null)
     					soluong += slCu;
-<<<<<<< HEAD
+
     				
 //    				ArrayList<Integer> soDenList = soDenHash.get(ctVtId);
 //    				ArrayList<Integer> soDenListCu = soDenHash.get(ctVtId);
@@ -118,10 +118,6 @@ public class BcvttController extends HttpServlet {
     				//
     				cvList.add(cvId);
     				cvIdHash.put(ctVtId, cvList);
-    				
-    				
-=======
->>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
     				yeuCauHash.put(ctVtId,soluong);
     			}
 		    		session.setAttribute("ngaybd", DateUtil.parseDate(ngaybd));
@@ -129,12 +125,8 @@ public class BcvttController extends HttpServlet {
         			session.setAttribute("ctvtHash", ctvtHash);
         			session.setAttribute("action", action);
         			session.setAttribute("yeuCau", yeuCauHash);
-<<<<<<< HEAD
         			session.setAttribute("cvIdHash", cvIdHash);
         			session.setAttribute("soDenHash", soDenHash);
-=======
-        			//session.setAttribute("congVan", congVan);
->>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
         			congVanDAO.disconnect();
         			yeuCauDAO.disconnect();
         			return new ModelAndView(siteMap.baoCaoVatTuThieu);

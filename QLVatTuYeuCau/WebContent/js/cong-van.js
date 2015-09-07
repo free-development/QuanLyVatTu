@@ -330,7 +330,7 @@ function loadCongVan(congVanList, fileList, unknownList) {
 						if (chucDanhMa == truongPhongMa) {
 							tables += '<td colspan=\"3\" style=\"float: right;\">'
 							+ '<button  class=\"button-chia-se\" id=\"chiaSe\" type=\"button\" style=\"width: 170px; height: 30px;\"' 
-							+ '  onclick=\"location.href=/QLVatTuYeuCau/cscvManage.html?action=chiaSeCv&congVan=' + congVan.cvId + '\">'
+							+ '  onclick=\"location.href=\'/QLVatTuYeuCau/cscvManage.html?action=chiaSeCv&congVan=' + congVan.cvId + '\'\">'
 							+ '<i class=\"fa fa-spinner\"></i>&nbsp;&nbsp;Chia sẻ công văn'
 							+ '</button>'
 							+ '</td>';
