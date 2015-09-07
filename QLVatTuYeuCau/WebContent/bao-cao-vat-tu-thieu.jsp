@@ -127,7 +127,7 @@
 				<%if ("admin".equalsIgnoreCase(nguoiDung.getChucDanh().getCdTen())) {%>
 				<li><a>Quản lý người dùng</a>
 					<ul>
-						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
+						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>"/>Thêm người dùng</li>
 						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
 						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
 						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
@@ -237,16 +237,12 @@
 					
 				<% if(loaiBc != null && "tonghop".equalsIgnoreCase(loaiBc)){	
 	   		HashMap<Integer, CTVatTu> ctvtHash = (HashMap<Integer, CTVatTu>) session.getAttribute("ctvtHash");
-<<<<<<< HEAD
 	   		HashMap<Integer, Integer> yeuCauHash = (HashMap<Integer, Integer>) session.getAttribute("yeuCau");
 	   		HashMap<Integer, ArrayList<Integer>> cvIdHash = (HashMap<Integer, ArrayList<Integer>>) session.getAttribute("cvIdHash");
 	   		HashMap<Integer, ArrayList<Integer>> soDenHash = (HashMap<Integer, ArrayList<Integer>>) session.getAttribute("soDenHash");
 	   		%>
 			
-=======
-	   		HashMap<Integer, Integer> yeuCauHash = (HashMap<Integer, Integer>) session.getAttribute("yeuCau"); %>
 <!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
->>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
 				<div style="text-align: center;font-size: 20px;color:firebrick;font-weight: bold;margin-top:10px;">Tổng hợp vật tư thiếu</div>
 				<div id="view-table-bao-cao" style="max-height: 420px;width: 1000px;display: auto;border: 1px dotted #CCCCCC;margin: 0 auto;overflow: scroll;">
 				<table style="margin: 0 auto;width:1000px;border: 1px dotted black;" >
@@ -257,11 +253,7 @@
 						<th style="border: 1px dottedblack;" class="three-column">Chất lượng</th>
 						<th style="border: 1px dotted black;" class="six-column">Đơn vị tính</th>
 						<th style="border: 1px dotted black;" class="one-column">Tổng số lượng thiếu</th>
-<<<<<<< HEAD
 						<th style="border: 1px dotted black;" class="one-column">Công văn liên quan (số đến)</th>
-=======
-						<th style="border: 1px dotted black;" class="one-column">Công văn liên quan</th>
->>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
 					</tr >
 								<%
 							if(yeuCauHash != null){
@@ -280,7 +272,6 @@
 						<td class="d-column"style="text-align: left;"><%=ctvt.getChatLuong().getClTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=ctvt.getVatTu().getDvt().getDvtTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
-<<<<<<< HEAD
 						<td>
 							<%
 							ArrayList<Integer> cvIdList = cvIdHash.get(key);
@@ -298,9 +289,7 @@
 							%>
 							 
 						</td>
-=======
 <%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
->>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
 					</tr>
 					<%} %>
 				</table>

@@ -315,7 +315,6 @@ function loadCongVan(congVanList, fileList, unknownList) {
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Bút phê: &nbsp;&nbsp;</td>'
 						+ '<td class=\"column-color\" colspan=\"6\">' +  congVan.butPhe + '</td>'
 						+ '</tr>'
-<<<<<<< HEAD
 						+ '<tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Nơi GQ chính</td>'
 						+ '<td class=\"column-color\" colspan=\"3\">' + congVan.donVi.dvTen + '</td>'
@@ -326,7 +325,6 @@ function loadCongVan(congVanList, fileList, unknownList) {
 						+ '</button>'
 						+ '</td>'
 						+ '</tr>'
-=======
 						+ '<tr>';
 					if (chucDanhMa == truongPhongMa || chucDanhMa == vanThuMa) {
 						var cellNguoiXl = '';
@@ -373,8 +371,7 @@ function loadCongVan(congVanList, fileList, unknownList) {
 						}
 					}
 				tables	+= '</tr>'
->>>>>>> 96b39f0975c229f49ae1eff582bcbd8254d9d330
-						+ '<tr>'
+					+ '<tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Xem công văn: </td>'
 						+ '<td colspan=\"1\">'
 						+ '<a href=\"' + '/QLVatTuYeuCau/cvManage.html' + '?action=download&file=' + congVan.cvId + '\">'
