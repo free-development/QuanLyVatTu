@@ -16,8 +16,8 @@
 	rel="stylesheet">
 <link href="style/style-chia-se.css" type="text/css"
 	rel="stylesheet">
-<link href="style/style-vat-tu.css" type="text/css"
-	rel="stylesheet">
+<!-- <link href="style/style-vat-tu.css" type="text/css" -->
+<!-- 	rel="stylesheet"> -->
 <link rel="stylesheet" type="text/css" href="style/jquery.autocomplete.css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/check.js"></script>
@@ -223,7 +223,8 @@
 					</button>
 					</div>
 				</form>
-			<form id="add-form" action="<%=siteMap.updateNguoiDung%>" >
+				</div>
+			<form id="add-form">
 				<div class="input-table">
 					<table>
 						<div class="form-title">Cập nhật thông tin</div>
@@ -258,7 +259,7 @@
 
 					<tr>
 						<td class="input"><label for="email">Email</label></td>
-						<td><input type="text" required size="20" maxlength="50" placeholder="Email"
+						<td><input type="text" required size="25" maxlength="50" placeholder="Email"
 							title="Email phải được nhập" class="text" id="email" name="email" onkeypress="changeEmail();"><div id="requireEmail" style="color: red"></div></td>
 					</tr>
 
@@ -293,6 +294,6 @@
 				</div>
 			</form>
 		</div>
-	</div>
+	
 </body>
 </html>
