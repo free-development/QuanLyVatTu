@@ -93,7 +93,6 @@ public class SendMail {
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setHeader("", "text/html; charset=UTF-8");
 			message.setFrom(new InternetAddress(mail.getFrom()));
 			message.setRecipients(Message.RecipientType.TO,
 			InternetAddress.parse(mail.getTo()));
