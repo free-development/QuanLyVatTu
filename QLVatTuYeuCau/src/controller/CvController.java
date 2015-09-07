@@ -91,9 +91,10 @@ public class CvController extends HttpServlet {
 			msnvTemp = null;
 			// danh sach vai tro nguoi dung doi voi cong van
 		}
-    	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(msnvTemp, null, null, 0, 3);
-    	
-    	
+		Integer cv = (Integer) request.getAttribute("cvId");
+		HashMap<String, Object> conditions = new HashMap<String, Object>();
+		conditions.put("cvId", cv);
+    	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(msnvTemp, conditions, null, 0, 3);
     	//chung
 		HashMap<Integer, File> fileHash = new HashMap<Integer, File>();
 		ArrayList<DonVi> donViList = (ArrayList<DonVi>) donViDAO.getAllDonVi();
@@ -161,24 +162,6 @@ public class CvController extends HttpServlet {
 		
 		if("manageCv".equalsIgnoreCase(action)) {
 			return getCongvan(request);
-//			FileDAO fileDAO = new FileDAO();
-//	    	CongVanDAO congVanDAO = new CongVanDAO();
-//	    	String cdMa = nguoiDung.getChucDanh().getCdMa();
-//	    	String msnv = nguoiDung.getMsnv();
-//			String msnvTemp = msnv;
-//			if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa))
-//				msnvTemp = null;
-//			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(msnvTemp ,null, null, 0, 3);
-//			HashMap<Integer, File> fileHash = new HashMap<Integer, File>();
-//			for(CongVan congVan : congVanList) {
-//				int cvId = congVan.getCvId();
-//				File file = fileDAO.getByCongVanId(cvId);
-//				fileHash.put(cvId, file);
-//			}
-//			congVanDAO.disconnect();
-//			fileDAO.disconnect();
-			
-//			return getCongvan(request);
 		}
 	
 		if("download".equals(action)) {
@@ -196,7 +179,16 @@ public class CvController extends HttpServlet {
 		}
 		return new ModelAndView("login");
 	}
-   
+    @RequestMapping("/searchCongVan")
+   	public ModelAndView searchCongVan(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       	try {
+       		int cvId = Integer.parseInt(request.getParameter("congVan"));
+       		request.setAttribute("cvId", cvId);
+       		return getCongvan(request);
+       	} catch (NumberFormatException e) {
+       		return new ModelAndView(siteMap.login);
+       	}
+    }
     @RequestMapping("addCongVan")
     public ModelAndView addCV(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //    	request.ge
@@ -250,7 +242,6 @@ public class CvController extends HttpServlet {
 			file.renameTo(new java.io.File(root + pathFile + fileName));
 			
 		}
-		System.out.println(root + pathFile + fileName);
 		
 		if (congVanCheck != null) {
 			congVanCheck.setSoDen(soDen);
@@ -287,7 +278,7 @@ public class CvController extends HttpServlet {
 				mail.setSubject("Công việc được chia sẻ");
 				String content = "Chào " + nguoiDung.getHoTen() +",\n";
 				content += " Có công văn mới được cập nhật. Vui lòng vào hệ thống làm việc để kiểm tra.\n";
-				content += host + siteMap.cscvManage + "?searchCongVan=chiaSeCv&congVan=" + cvId;
+				content += host + siteMap.searchCongVan + "?congVan=" + cvId;
 				mail.setContent(content);
 				sendMail.send(mail);
 			}

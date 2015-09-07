@@ -236,12 +236,22 @@
 					<% }%>
 					
 				<% if(loaiBc != null && "tonghop".equalsIgnoreCase(loaiBc)){	
+<<<<<<< HEAD
 	   		HashMap<Integer, CTVatTu> ctvtHash = (HashMap<Integer, CTVatTu>) session.getAttribute("ctvtHash");
+=======
+	   		HashMap<Integer, CTVatTu> ctvtHash = (HashMap<Integer, CTVatTu>) session.getAttribute("ctvtHash");
+>>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
 	   		HashMap<Integer, Integer> yeuCauHash = (HashMap<Integer, Integer>) session.getAttribute("yeuCau");
 	   		HashMap<Integer, ArrayList<Integer>> cvIdHash = (HashMap<Integer, ArrayList<Integer>>) session.getAttribute("cvIdHash");
 	   		HashMap<Integer, ArrayList<Integer>> soDenHash = (HashMap<Integer, ArrayList<Integer>>) session.getAttribute("soDenHash");
 	   		%>
+<<<<<<< HEAD
+			
+	   		HashMap<Integer, Integer> yeuCauHash = (HashMap<Integer, Integer>) session.getAttribute("yeuCau"); %>
 <!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
+=======
+<!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
+>>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
 				<div style="text-align: center;font-size: 20px;color:firebrick;font-weight: bold;margin-top:10px;">Tổng hợp vật tư thiếu</div>
 				<div id="view-table-bao-cao" style="max-height: 420px;width: 1000px;display: auto;border: 1px dotted #CCCCCC;margin: 0 auto;overflow: scroll;">
 				<table style="margin: 0 auto;width:1000px;border: 1px dotted black;" >
@@ -251,7 +261,11 @@
 						<th style="border: 1px dotted black;" class="three-column">Nơi sản xuất</th>
 						<th style="border: 1px dottedblack;" class="three-column">Chất lượng</th>
 						<th style="border: 1px dotted black;" class="six-column">Đơn vị tính</th>
+<<<<<<< HEAD
 						<th style="border: 1px dotted black;" class="one-column">Tổng số lượng thiếu</th>
+=======
+						<th style="border: 1px dotted black;" class="one-column">Tổng số lượng thiếu</th>
+>>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
 						<th style="border: 1px dotted black;" class="one-column">Công văn liên quan (số đến)</th>
 					</tr >
 								<%
@@ -270,7 +284,11 @@
 						<td class="c-column"style="text-align: center;"><%=ctvt.getNoiSanXuat().getNsxTen() %></td>
 						<td class="d-column"style="text-align: left;"><%=ctvt.getChatLuong().getClTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=ctvt.getVatTu().getDvt().getDvtTen() %></td>
+<<<<<<< HEAD
 						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
+=======
+						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
+>>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
 						<td>
 							<%
 							ArrayList<Integer> cvIdList = cvIdHash.get(key);
@@ -280,14 +298,19 @@
 							for(int i = 0; i < length; i++) {
 								int soDen = soDenList.get(i);
 								int cvId = cvIdList.get(i);
-								cell.append("<a style=\"color: red; text-decoration: underline; \" href=" + siteMap.searchCv + "action=search?congVan=" + cvId + "> " + soDen + "</a>" + ", ");
+								cell.append("<a style=\"color: red; text-decoration: underline; \" href=" + siteMap.searchCongVan + "?congVan=" + cvId + "> " + soDen + "</a>" + ", ");
 							}
 							int len = cell.length() ;
 							cell.delete(len - 2, len);
 							out.println(cell);
 							%>
 							 
+<<<<<<< HEAD
 						</td>
+<%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
+=======
+						</td>
+>>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
 					</tr>
 					<%} %>
 				</table>

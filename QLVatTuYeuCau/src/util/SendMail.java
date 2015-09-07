@@ -43,12 +43,14 @@ public class SendMail {
 		            "javax.net.ssl.SSLSocketFactory");  
 		  props.put("mail.smtp.auth", "true");  
 		  props.put("mail.smtp.port", "465");
-		  
 		props.put("mail.smtp.starttls.enable", "true");
+<<<<<<< HEAD
+=======
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
 		props.put("mail.smtp.starttls.enable", "true");
 		
+>>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
 	}
 	
 	/**
@@ -67,12 +69,21 @@ public class SendMail {
 	  props.put("mail.smtp.auth", "true");  
 	  props.put("mail.smtp.port", "465");
 	  
+	  props.put("mail.smtp.host", "smtp.gmail.com");  
+	  props.put("mail.smtp.socketFactory.port", "465");  
+	  props.put("mail.smtp.socketFactory.class",  
+	            "javax.net.ssl.SSLSocketFactory");  
+	  props.put("mail.smtp.auth", "true");  
+	  props.put("mail.smtp.port", "465");
 	props.put("mail.smtp.starttls.enable", "true");
+<<<<<<< HEAD
+=======
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
 		props.put("mail.smtp.starttls.enable", "true");
+>>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
 	}
 
 	public String getUsername() {
@@ -115,7 +126,12 @@ public class SendMail {
 			StandardCharsets.UTF_8.displayName();
 			message.setText(mail.getContent());
 			message.setSubject(mail.getSubject());//etSubject(mail.getSubject());
+<<<<<<< HEAD
+			message.setText(mail.getContent());
+			//message.setContent(mail.getContent(),"text/html; charset=UTF-8");
+=======
 			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
+>>>>>>> 4a701592662ad6c5836ab625bfc639167a9effb7
 			Transport.send(message);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
