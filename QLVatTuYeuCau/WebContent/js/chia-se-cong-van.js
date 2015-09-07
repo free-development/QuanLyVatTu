@@ -229,10 +229,23 @@ function timKiemNguoidungCs(){
 			for(var j = 0; j < vaiTroList.length; j++) {
 				content += '<td><input type=\"checkbox\" class=\"checkbox\" name=\"vaiTro\" value=\"' + vaiTroList[i].vtId + '\" id=\"' + vaiTroList[i].vtId + '\"></td>';
 			}
+			content = '<tr>'+ content + '</tr>';
 			for (var i = 0; i < vtCongVanList.length; i++) {
 //	  			alert('#update #'+vtCongVanList[i].vtId);
 	  			$('#'+vtCongVanList[i].vtId).prop('checked',true);
 	  		}	
+			
+//			
+//			
+//			for(var i = 0; i < ndList.length; i++) { 
+//				$('#view-table-chia-se table tr:first').after('<tr id=\"row\" class =\"rowContent\" id=\"'+ndList[i].msnv+'\">'+'<td class=\"tbody-nguoidung\">'+ndList[i].msnv+'</td><td class=\"tbody-nguoidung\">'+ndList[i].hoTen+'</td></tr>');
+//				for(var i = 0; i < vaiTroList.length; i++) {
+//					int vtId = vaiTroList[i].vtId;
+//				<td class="checkbox" style="text-align: center;">
+//					<input type="checkbox" name="vaiTro" <%if (check) out.print("checked "); %> value="<%	out.print(msnv + "#" + vtId); %>" >
+//				</td>
+//				<%} %>
+//			</tr>'
 	  	}
 	});
 }
