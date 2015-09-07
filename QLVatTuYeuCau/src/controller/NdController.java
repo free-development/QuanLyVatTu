@@ -283,10 +283,10 @@ public class NdController extends HttpServlet {
 	}
 	@RequestMapping(value="/timKiemNguoidung", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String timKiemNguoidung(@RequestParam("msnv") String msnv, @RequestParam("hoten") String hoten) {
+	public @ResponseBody String timKiemNguoidung(@RequestParam("msnv") String msnv, @RequestParam("hoTen") String hoTen) {
 		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 		System.out.println("Ma goi qua " + msnv);
-		System.out.println("Ten goi qua " + hoten);
+		System.out.println("Ten goi qua " + hoTen);
 		if(msnv != ""){
 			ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.searchMsnv(msnv);
 			nguoiDungDAO.disconnect();
@@ -294,11 +294,10 @@ public class NdController extends HttpServlet {
 		}
 		else
 		{
-			ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.searchHoten(hoten);
+			ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.searchHoten(hoTen);
 			//System.out.println("Ten: "+vtTen);
 			nguoiDungDAO.disconnect();
 			return JSonUtil.toJson(ndList);
 		}
-		
 	}
 }

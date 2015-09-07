@@ -196,7 +196,46 @@ $(document).ready(function() {
 	});   
 });
 
-
+function timKiemNguoidungCs(){
+	var hoTen = '';
+	var msnv = '';
+	var vaiTroList = [];
+	var check = $('#checkTen:checked').val();
+	if (check != null)
+		hoTen = $('#search input[name=nguoidung]').val();
+	else 
+		msnv = $('#search input[name=nguoidung]').val();
+//	
+//	alert(hoten);
+//	alert(msnv);
+	
+	$.ajax({
+		url: "/QLVatTuYeuCau/timKiemNguoidungCs.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: { "msnv": msnv, "hoTen": hoTen},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	  	success: function(objectList){
+	  		var vaiTroList = objectList[0];
+	  		var ndList = objectList[1];
+	  		var vtCongVanList = objectList[2];
+	  		var content = '';
+	  		var count = 0;
+	  		for(var i = 0; i < ndList.length; i++) { 
+	  			content += '<td class=\"tbody-nguoidung\">'+ndList[i].msnv+'</td><td class=\"tbody-nguoidung\">'+ndList.hoTen
+				+'</td>';
+	  		}
+			for(var j = 0; j < vaiTroList.length; j++) {
+				content += '<td><input type=\"checkbox\" class=\"checkbox\" name=\"vaiTro\" value=\"' + vaiTroList[i].vtId + '\" id=\"' + vaiTroList[i].vtId + '\"></td>';
+			}
+			for (var i = 0; i < vtCongVanList.length; i++) {
+//	  			alert('#update #'+vtCongVanList[i].vtId);
+	  			$('#'+vtCongVanList[i].vtId).prop('checked',true);
+	  		}	
+	  	}
+	});
+}
 //$(document).ready(function() {
 //	$('#sendMail').click(function() {
 //		var email = $('#view-mail input:text[name=email]').val();

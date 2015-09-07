@@ -53,7 +53,7 @@ public class CvController extends HttpServlet {
 	int page = 1;
 	private HttpSession session;
 	 @Autowired
-	 private   ServletContext context; 
+	private   ServletContext context; 
 	
 	private final String tempPath = "File/Temp/"; 
     private final String pathFile = "File/File/";

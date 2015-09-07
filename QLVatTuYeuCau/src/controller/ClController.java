@@ -34,39 +34,18 @@ public class ClController extends HttpServlet {
 	int page = 1;
 	@RequestMapping("/manageCl")
 	public ModelAndView manageCl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
+		
 		String action = request.getParameter("action");
-		if("AddCl".equalsIgnoreCase(action)) {
-			String clMa = request.getParameter("clMa");
-			String clTen = request.getParameter("clTen");
-			if(new ChatLuongDAO().getChatLuong1(clMa)!=0)
-			{
-				request.setAttribute("error","Chất lượng đã tồn tại");
-				System.out.println("Chất lượng đã tồn tại");
-				return new ModelAndView("danh-muc-chat-luong");
-			}
-			else{
-			chatLuongDAO.addChatLuong(new ChatLuong(clMa,clTen,0));
-			ArrayList<ChatLuong> chatLuongList =  (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();
-			return new ModelAndView("danh-muc-chat-luong", "chatLuongList", chatLuongList);
-			}
-		}
-		if("deleteCl".equalsIgnoreCase(action)) {
-			String[] idList = request.getParameterValues("clMa");
-			for(String s : idList) {
-					chatLuongDAO.deleteChatLuong(s);
-			}
-			
-			ArrayList<ChatLuong> chatLuongList =  (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();
-			return new ModelAndView("danh-muc-chat-luong", "chatLuongList", chatLuongList);
-		}
+		
 		if("manageCl".equalsIgnoreCase(action)) {
+			ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
 			long size = chatLuongDAO.size();
 			ArrayList<ChatLuong> chatLuongList =  (ArrayList<ChatLuong>) chatLuongDAO.limit(page -1, 10);
 			request.setAttribute("size", size);
+			chatLuongDAO.disconnect();
 			return new ModelAndView("danh-muc-chat-luong", "chatLuongList", chatLuongList);
 		}
-		chatLuongDAO.disconnect();
+		
 		return new ModelAndView("login");
 	}
 

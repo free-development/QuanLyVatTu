@@ -160,7 +160,7 @@
 		<div id="main-content">
 			<form id="add-yeu-cau-form">
 			</form>
-			<div style="color: #CC3333;height:20px;text-align: right;margin-right: 40px;"><b>Số công văn:&nbsp;<%=congVan.getCvSo()%></b></div>
+ 			<div style="color: #CC3333;height:20px;text-align: right;margin-right: 40px;">Số công văn:&nbsp;<%=congVan.getCvSo() %></div>
 			<form id="danh-sach-vat-tu">
 			<div class="form-title-vat-tu">Danh sách vật tư</div>
 			<div id="yc-table">

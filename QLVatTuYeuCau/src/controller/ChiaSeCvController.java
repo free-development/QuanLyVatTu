@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -91,7 +92,11 @@ public class ChiaSeCvController extends HttpServlet {
 	protected ModelAndView chiaSeCv(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-
+		request.getCharacterEncoding();
+		response.getCharacterEncoding();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		if ("save".equalsIgnoreCase(action)) {
 			// session = request.getSession(false);
 			session = request.getSession(false);
@@ -101,7 +106,6 @@ public class ChiaSeCvController extends HttpServlet {
 			VTCongVanDAO vtCongVanDAO = new VTCongVanDAO();
 			NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 			VaiTroDAO vaiTroDAO = new VaiTroDAO();
-
 			int cvId = congVan.getCvId();
 			vtCongVanDAO.deleteByCvId(cvId);
 			for (String vtMa : vaiTro) {
@@ -125,31 +129,36 @@ public class ChiaSeCvController extends HttpServlet {
 				vtCongVan.setVtId(Integer.parseInt(str[1]));
 				vtCongVanDAO.addOrUpdateVTCongVan(vtCongVan);
 			}
-
 			HashMap<String, NguoiDung> vtNguoiDungHash = vtCongVanDAO.getNguoiXuLy(cvId);
 			HashMap<String, HashMap<Integer, VaiTro>> vaiTroHash = new HashMap<String, HashMap<Integer, VaiTro>>();
 			for (String msnv : vtNguoiDungHash.keySet()) {
 				ArrayList<VTCongVan> vtcvList = vtCongVanDAO.getVTCongVan(cvId, msnv);
 				HashMap<Integer, VaiTro> vtHash = vtCongVanDAO.toVaiTro(vtcvList);
 				vaiTroHash.put(msnv, vtHash);
+				String str1 = "";
+				VaiTro vt = new VaiTro();
+				System.out.println(str1);
 				String account = context.getInitParameter("account");
 				String password = context.getInitParameter("password");
 				String host = context.getInitParameter("hosting");
 
 				SendMail sendMail = new SendMail(account, password);
+				vtHash = vaiTroHash.get(msnv);
 				NguoiDung nguoiDung = vtNguoiDungHash.get(msnv);
-
+				for(Integer vtId : vtHash.keySet()) {
+					vt = vtHash.get(vtId);
+					str1 += "\t\t , " + vt.getVtTen() + "\n ";
+				}
 				Mail mail = new Mail();
 				mail.setFrom(account);
 				mail.setTo(nguoiDung.getEmail());
 				mail.setSubject("Công việc được chia sẻ");
-
 				String content = "Bạn đã được chia sẻ công văn. Vui lòng vào hệ thống làm việc để kiểm tra.\n";
-				content += host + siteMap.cscvManage + "?action=chiaSeCv&congVan=" + cvId;
+				content += "\t *Công việc được chia sẻ là: \n" + str1 + ".\n" + "Thân mến!";
+				//content += host + siteMap.cscvManage + "?action=chiaSeCv&congVan=" + cvId;
 				mail.setContent(content);
 				sendMail.send(mail);
 			}
-
 			request.setAttribute("vaiTroHash", vaiTroHash);
 			request.setAttribute("vtNguoiDungHash", vtNguoiDungHash);
 			vtCongVanDAO.disconnect();
@@ -247,5 +256,41 @@ public class ChiaSeCvController extends HttpServlet {
 		// return JSonUtil.toJson(objectList);
 		ndDAO.disconnect();
 		return JSonUtil.toJson(objectList);
+	}
+	@RequestMapping(value="/timKiemNguoidungCs", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String timKiemNguoidungCs(@RequestParam("msnv") String msnv, @RequestParam("hoTen") String hoTen) {
+		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		VTCongVanDAO vtCongVanDAO = new VTCongVanDAO();
+		VaiTroDAO vaiTroDAO = new VaiTroDAO();
+		CongVan congVan = (CongVan) session.getAttribute("congVan");
+		ArrayList<VaiTro> vaiTroList = (ArrayList<VaiTro>)vaiTroDAO.getAllVaiTro();
+		ArrayList<VTCongVan> vtCongVanList = vtCongVanDAO.getVTCongVan(congVan.getCvId(), msnv);
+		ArrayList<Object> objectList = new ArrayList<Object>();
+		//ArrayList<VaiTro> list = new ArrayList<VaiTro>();
+		if(msnv != ""){
+			ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.searchMsnv(msnv);
+			
+			objectList.add(vaiTroList);
+			objectList.add(ndList);
+			objectList.add(vtCongVanList);
+			nguoiDungDAO.disconnect();
+			vtCongVanDAO.disconnect();
+			vaiTroDAO.disconnect();
+			return JSonUtil.toJson(objectList);
+		}
+		else
+		{
+			ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.searchHoten(hoTen);
+			//System.out.println("Ten: "+vtTen);
+//			nguoiDungDAO.disconnect();
+			objectList.add(vaiTroList);
+			objectList.add(ndList);
+			objectList.add(vtCongVanList);
+			nguoiDungDAO.disconnect();
+			vtCongVanDAO.disconnect();
+			vaiTroDAO.disconnect();
+			return JSonUtil.toJson(objectList);
+		}
 	}
 }

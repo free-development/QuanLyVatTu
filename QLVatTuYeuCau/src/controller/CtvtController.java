@@ -128,16 +128,22 @@ public class CtvtController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String addCTVattu(@RequestParam("vtMa") String vtMa, @RequestParam("vtTen") String vtTen, @RequestParam("noiSanXuat") String noiSanXuat, @RequestParam("chatLuong") String chatLuong, 
 			 @RequestParam("dvt") String dvt, @RequestParam("dinhMuc") String dinhMuc, @RequestParam("soLuongTon") String soLuongTon) {
-		//String result = "";
+		String result = "success";
 		System.out.println("MA: " + vtMa);
 		System.out.println("NSX: " + noiSanXuat);
 		System.out.println("CL: " + chatLuong);
 		CTVatTuDAO ctVatTuDAO = new CTVatTuDAO();
 		CTVatTu ctvt = ctVatTuDAO.getCTVatTu(vtMa, noiSanXuat, chatLuong);
 		if( ctvt == null)
-		{
-//			ctVatTuDAO.addCTVatTu(new VatTu(vtMa) , new NoiSanXuat(noiSanXuat), new ChatLuong(chatLuong), Integer.parseInt(dinhMuc), Integer.parseInt(soLuongTon),0);
-			ctVatTuDAO.addOrUpdateCTVatTu(ctvt);
+		{	
+			VatTuDAO vtDAO = new VatTuDAO();
+			VatTu vt = vtDAO.getVatTu(vtMa);
+			NoiSanXuatDAO nsxDAO = new NoiSanXuatDAO();
+			NoiSanXuat nsx = nsxDAO.getNoiSanXuat(noiSanXuat);
+			ChatLuongDAO clDAO = new ChatLuongDAO();
+			ChatLuong cl = clDAO.getChatLuong(chatLuong);
+			ctvt = new CTVatTu( vt, nsx, cl, Integer.parseInt(dinhMuc), Integer.parseInt(soLuongTon),0);
+			ctVatTuDAO.addCTVatTu(ctvt);
 			System.out.println("success");
 
 			//int id = ctVatTuDAO.getLastInsert()-1;
@@ -145,6 +151,17 @@ public class CtvtController extends HttpServlet {
 			//ctVatTuDAO.disconnect();
 			return JSonUtil.toJson(ctvt);
 		
+		}
+		else if(ctvt.getDaXoa() == 1)
+		{
+			ctvt.setVatTu(new VatTu(vtMa));
+			ctvt.setNoiSanXuat(new NoiSanXuat(noiSanXuat));
+			ctvt.setChatLuong(new ChatLuong(chatLuong));
+			ctvt.setDinhMuc(Integer.parseInt(dinhMuc));
+			ctvt.setSoLuongTon(Integer.parseInt(soLuongTon));
+			ctvt.setDaXoa(0);
+			ctVatTuDAO.updateCTVatTu(ctvt);
+			return JSonUtil.toJson(ctvt);
 		}
 		else
 		{

@@ -26,6 +26,7 @@ public class SendMail {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.starttls.enable", "true");
 	}
 	
 	/**
@@ -44,6 +45,12 @@ public class SendMail {
 		  props.put("mail.smtp.port", "465");
 		  
 		props.put("mail.smtp.starttls.enable", "true");
+<<<<<<< HEAD
+=======
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.starttls.enable", "true");
+>>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
 		
 	}
 	
@@ -56,6 +63,7 @@ public class SendMail {
 		this.username = username;
 		this.password = password;
 		this.props = props;
+<<<<<<< HEAD
 	  props.put("mail.smtp.host", "smtp.gmail.com");  
 	  props.put("mail.smtp.socketFactory.port", "465");  
 	  props.put("mail.smtp.socketFactory.class",  
@@ -64,6 +72,13 @@ public class SendMail {
 	  props.put("mail.smtp.port", "465");
 	  
 	props.put("mail.smtp.starttls.enable", "true");
+=======
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.starttls.enable", "true");
+>>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
 	}
 
 	public String getUsername() {
@@ -102,9 +117,14 @@ public class SendMail {
 			message.setFrom(new InternetAddress(mail.getFrom()));
 			message.setRecipients(Message.RecipientType.TO,
 			InternetAddress.parse(mail.getTo()));
+<<<<<<< HEAD
 			message.setSubject(mail.getSubject());
 			StandardCharsets.UTF_8.displayName();
 			message.setText(mail.getContent());
+=======
+			message.setSubject(mail.getSubject());//etSubject(mail.getSubject());
+			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
+>>>>>>> d94fba850455c3aac7919285ad04f28b3f3641d0
 			Transport.send(message);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
