@@ -20,10 +20,10 @@
 }
 
 .right-content {
-	position: relative;
+	/*position: relative; */
 	position: absolute;
 	top:30%;
-	left:29.5%;
+	left:27%;
 	display: table-cell;
 }
 #content-form{
