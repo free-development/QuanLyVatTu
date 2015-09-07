@@ -196,6 +196,47 @@ $(document).ready(function() {
 	});   
 });
 
+function timKiemNguoidungCs(){
+	var hoTen = '';
+	var msnv = '';
+	var vaiTroList = [];
+	var check = $('#checkTen:checked').val();
+	if (check != null)
+		hoTen = $('#search input[name=nguoidung]').val();
+	else 
+		msnv = $('#search input[name=nguoidung]').val();
+//	
+//	alert(hoten);
+//	alert(msnv);
+	
+	$.ajax({
+		url: "/QLVatTuYeuCau/timKiemNguoidungCs.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: { "msnv": msnv, "hoTen": hoTen},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	  	success: function(objectList){
+	  		var vaiTroList = objectList[0];
+	  		var ndList = objectList[1];
+	  		if(ndList.length>0||vaiTroList.length>0){
+	  			$('#view-table table .rowContent').remove();
+				for(i = 0;i < ndList.length; i++ )
+					for(j = 0;j < vaiTroList.length; j++ ){
+					nd = ndList[i];
+					vt=vaitroList[j];
+					//alert(ndList[i].msnv);
+	  				
+				}
+	  		}
+	  		else
+	  			{
+	  				alert("Không tìm thấy tài khoản!");
+	  			}
+	  	}
+	});
+	
+}
 
 //$(document).ready(function() {
 //	$('#sendMail').click(function() {

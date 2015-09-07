@@ -5,7 +5,7 @@
 <%
 	NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 
-	String query = request.getParameter("nguoidung");
+	String query = request.getParameter("q");
 	
 	ArrayList<String> nguoiDungList = nguoiDungDAO.startWithTen(query);
 	/*
