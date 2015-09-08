@@ -65,6 +65,7 @@ public class SendMail {
 	  props.put("mail.smtp.auth", "true");  
 	  props.put("mail.smtp.port", "465");
 		props.put("mail.smtp.starttls.enable", "true");
+		
 	}
 
 	public String getUsername() {
@@ -106,8 +107,10 @@ public class SendMail {
 			message.setSubject(mail.getSubject());
 			StandardCharsets.UTF_8.displayName();
 			message.setText(mail.getContent());
+			message.setSubject(mail.getSubject());
+//			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
 			message.setSubject(mail.getSubject());//etSubject(mail.getSubject());
-			message.setText(mail.getContent());
+			//message.setContent(mail.getContent(),"text/html; charset=UTF-8");
 			Transport.send(message);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);

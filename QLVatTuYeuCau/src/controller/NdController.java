@@ -185,13 +185,16 @@ public class NdController extends HttpServlet {
 		String msnv = request.getParameter("msnv");
 		String matKhau = request.getParameter("matkhau");
 		CTNguoiDungDAO ctndDAO = new CTNguoiDungDAO();
-		NguoiDungDAO ndDAO = new NguoiDungDAO();
+		
 		int check = ctndDAO.login(msnv, StringUtil.encryptMD5(matKhau));
 		ctndDAO.disconnect();
-		if (check == 0) {
+		if (check == 1) {
+			NguoiDungDAO ndDAO = new NguoiDungDAO();
 			NguoiDung nguoiDung =  ndDAO. getNguoiDung(msnv);
 			session.setAttribute("nguoiDung", nguoiDung);
 			String forward = "index";
+			ndDAO.disconnect();
+			ctndDAO.disconnect();
 			return new ModelAndView(forward);
 		} else {
 			return new ModelAndView("login", "status", "fail");
