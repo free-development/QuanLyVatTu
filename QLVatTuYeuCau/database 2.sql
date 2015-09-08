@@ -432,6 +432,8 @@ alter table CTVATTU add DAXOA int(2) not null;
 alter table CHATLUONG add DAXOA int(2) not null;
 alter table DONVITINH add DAXOA int(2) not null;
 alter table DONVI add DAXOA int(2) not null;
+
+alter table NGUOIDUNG drop KHOA int (2);
 alter table CTNGUOIDUNG ADD KHOA int(2) default 0;
 
 update DONVI set DAXOA = 0;

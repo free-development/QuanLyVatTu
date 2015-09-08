@@ -30,6 +30,7 @@
 		<mapping resource="DonViTinh.hbm.xml" />
 		<mapping resource="YeuCau.hbm.xml" />
 		<mapping resource="VTCongVan.hbm.xml"/>
+		<mapping resource="NhatKy.hbm.xml"/>
 		<!-- <mapping resource=".hbm.xml"/> <mapping resource=".hbm.xml"/> <mapping 
 			resource=".hbm.xml"/> <mapping resource=".hbm.xml"/> <mapping resource=".hbm.xml"/> 
 			<mapping resource=".hbm.xml"/> <mapping resource=".hbm.xml"/> <mapping resource=".hbm.xml"/> 
