@@ -290,10 +290,7 @@
 							cell.delete(len - 2, len);
 							out.println(cell);
 							%>
-<<<<<<< HEAD
-=======
 							 
->>>>>>> 2b6e24594d4aeb6187cb4c9d98e38920c555c95d
 						</td>
 <%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
 						</td>

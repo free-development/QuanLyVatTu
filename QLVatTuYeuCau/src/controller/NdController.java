@@ -68,8 +68,8 @@ public class NdController extends HttpServlet {
 			String sdt = request.getParameter("sdt");
 			String email = request.getParameter("email");
 			String diachi = request.getParameter("diachi");
-			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh),0));
-			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau)));
+			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh)));
+			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau), 0));
 			
 			ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(new ArrayList<String>());
 			return new ModelAndView("them-nguoi-dung", "nguoiDungList", nguoiDungList);
@@ -97,8 +97,8 @@ public class NdController extends HttpServlet {
 		//System.out.println("MA: "+msnv);
 		if((nguoiDungDAO.getNguoiDung(msnv)==null)&&(ctNguoiDungDAO.getCTNguoiDung(msnv)==null))
 		{
-			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh),0));
-			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau)));
+			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh)));
+			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau), 0));
 			
 //			System.out.println("success");
 			result = "success";	
@@ -133,7 +133,7 @@ public class NdController extends HttpServlet {
 		System.out.println(email);
 		System.out.println(diachi);
 		System.out.println(sdt);
-		NguoiDung nd = new NguoiDung(msnv, hoten,diachi,email,sdt,new ChucDanh(chucdanh),0);
+		NguoiDung nd = new NguoiDung(msnv, hoten,diachi,email,sdt,new ChucDanh(chucdanh));
 		NguoiDungDAO nguoiDungDAO=new NguoiDungDAO();
 		nguoiDungDAO.updateNguoiDung(nd);
 		System.out.println(nd.getChucDanh().getCdTen());
@@ -147,8 +147,9 @@ public class NdController extends HttpServlet {
 			, @RequestParam("passNew") String passNew) {
 		CTNguoiDungDAO ctNguoiDungDAO = new CTNguoiDungDAO();
 		String result = "";
-		if (ctNguoiDungDAO.login(msnv, StringUtil.encryptMD5(passOld))) {
-			ctNguoiDungDAO.updateCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(passNew)));
+		int check = ctNguoiDungDAO.login(msnv, StringUtil.encryptMD5(passOld));
+		if (check == 1) {
+			ctNguoiDungDAO.updateCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(passNew), 0));
 			result = "success";
 		}
 		else
@@ -170,11 +171,11 @@ public class NdController extends HttpServlet {
 	 public @ResponseBody String lockNd(@RequestParam("ndList") String ndList) {
 		String[] str =ndList.split("\\, ");
 		
-		NguoiDungDAO ndDAO =  new NguoiDungDAO();
+		CTNguoiDungDAO ctndDAO =  new CTNguoiDungDAO();
 		for(String msnv : str) {
-			ndDAO.lockNguoiDung(msnv);
+			ctndDAO.lockNguoiDung(msnv);
 		}
-		ndDAO.disconnect();
+		ctndDAO.disconnect();
 		return JSonUtil.toJson(ndList);
 	}
 	
@@ -185,24 +186,13 @@ public class NdController extends HttpServlet {
 		String matKhau = request.getParameter("matkhau");
 		CTNguoiDungDAO ctndDAO = new CTNguoiDungDAO();
 		NguoiDungDAO ndDAO = new NguoiDungDAO();
-		boolean check = ctndDAO.login(msnv, StringUtil.encryptMD5(matKhau));
+		int check = ctndDAO.login(msnv, StringUtil.encryptMD5(matKhau));
 		ctndDAO.disconnect();
-		if (check) {
+		if (check == 0) {
 			NguoiDung nguoiDung =  ndDAO. getNguoiDung(msnv);
 			session.setAttribute("nguoiDung", nguoiDung);
-//			int index = siteMap.cvManage.lastIndexOf("/");
-//    		String url = siteMap.cvManage.substring(index);
 			String forward = "index";
-//			String url = (String) session.getAttribute("url");
-//			if (url != null) {
-//				int index = url.lastIndexOf("/");
-//				String page = url.substring(index);
-//				forward = page;
-//			}
 			return new ModelAndView(forward);
-//			ctndDAO.disconnect();
-//			ndDAO.disconnect();
-//			return new ModelAndView("index");
 		} else {
 			return new ModelAndView("login", "status", "fail");
 		}

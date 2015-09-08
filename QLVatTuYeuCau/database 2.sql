@@ -321,6 +321,17 @@ create table YEUCAU(
 ) ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+CREATE TABLE NHATKY (
+	NKID int primary key auto_increment,
+	MSNV varchar(10),
+	CVID int,
+	NOIDUNG TEXT,
+	constraint FK_MSNV foreign key (MSNV) references NGUOIDUNG(MSNV),
+	constraint FK_CONGVAN foreign key (CVID) references CONGVAN(CVID)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
 alter table CONGVAN add constraint FK_DONVI_CONGVAN2 foreign key (DVMA)
       references DONVI (DVMA) on delete restrict on update restrict;
 
@@ -421,6 +432,7 @@ alter table CTVATTU add DAXOA int(2) not null;
 alter table CHATLUONG add DAXOA int(2) not null;
 alter table DONVITINH add DAXOA int(2) not null;
 alter table DONVI add DAXOA int(2) not null;
+alter table CTNGUOIDUNG ADD KHOA int(2) default 0;
 
 update DONVI set DAXOA = 0;
 update CHATLUONG set DAXOA = 0;

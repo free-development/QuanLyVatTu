@@ -28,7 +28,6 @@ public class NguoiDung implements Serializable{
 	 * DataTypeLength/Precision 50
 	 */
 	private String diaChi;
-	private int khoa;
 	/**
 	 * NOT NULL false
 	 * DomainName 
@@ -54,7 +53,6 @@ public class NguoiDung implements Serializable{
 		this.email = "";
 		this.sdt = "";
 		this.chucDanh = new ChucDanh();
-		this.khoa=0;
 	}
 
 	/**
@@ -66,24 +64,15 @@ public class NguoiDung implements Serializable{
 	 * @param chucDanh
 	 */
 	public NguoiDung(String msnv, String hoTen, String diaChi, String email,
-			String sdt, ChucDanh chucDanh,int khoa) {
-		super();
+			String sdt, ChucDanh chucDanh) {
 		this.msnv = msnv;
 		this.hoTen = hoTen;
 		this.diaChi = diaChi;
 		this.email = email;
 		this.sdt = sdt;
 		this.chucDanh = chucDanh;
-		this.khoa = khoa;
 	}
 
-	public int getKhoa() {
-		return khoa;
-	}
-
-	public void setKhoa(int khoa) {
-		khoa = khoa;
-	}
 
 	/**
 	 * @return the msnv
