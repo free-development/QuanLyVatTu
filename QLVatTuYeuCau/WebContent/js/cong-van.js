@@ -370,11 +370,6 @@ function loadCongVan(congVanList, fileList, unknownList) {
 						}
 					}
 				tables	+= '</tr>'
-<<<<<<< HEAD
-					+ '<tr>'
-=======
-						+ '<tr>'
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Xem công văn: </td>'
 						+ '<td colspan=\"1\">'
 						+ '<a href=\"' + '/QLVatTuYeuCau/cvManage.html' + '?action=download&file=' + congVan.cvId + '\">'

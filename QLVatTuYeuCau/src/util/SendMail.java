@@ -45,20 +45,7 @@ public class SendMail {
 		            "javax.net.ssl.SSLSocketFactory");  
 		  props.put("mail.smtp.auth", "true");  
 		  props.put("mail.smtp.port", "465");
-<<<<<<< HEAD
-		  
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-		props.put("mail.smtp.starttls.enable", "true");
-=======
-<<<<<<< HEAD
-			props.put("mail.smtp.starttls.enable", "true");
-=======
-		props.put("mail.smtp.starttls.enable", "true");
->>>>>>> 2b6e24594d4aeb6187cb4c9d98e38920c555c95d
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
-		
 	}
 	
 	/**
@@ -76,30 +63,8 @@ public class SendMail {
 	            "javax.net.ssl.SSLSocketFactory");  
 	  props.put("mail.smtp.auth", "true");  
 	  props.put("mail.smtp.port", "465");
-<<<<<<< HEAD
-		props.put("mail.smtp.starttls.enable", "true");
-=======
 	  
-<<<<<<< HEAD
 	  	props.put("mail.smtp.starttls.enable", "true");
-=======
-	  props.put("mail.smtp.host", "smtp.gmail.com");  
-	  props.put("mail.smtp.socketFactory.port", "465");  
-	  props.put("mail.smtp.socketFactory.class",  
-	            "javax.net.ssl.SSLSocketFactory");  
-	  props.put("mail.smtp.auth", "true");  
-	  props.put("mail.smtp.port", "465");
-	props.put("mail.smtp.starttls.enable", "true");
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-		props.put("mail.smtp.starttls.enable", "true");
-<<<<<<< HEAD
-=======
->>>>>>> 2b6e24594d4aeb6187cb4c9d98e38920c555c95d
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 	}
 
 	public String getUsername() {
@@ -141,29 +106,14 @@ public class SendMail {
 			message.setSubject(mail.getSubject());
 			StandardCharsets.UTF_8.displayName();
 			message.setText(mail.getContent());
-<<<<<<< HEAD
 			message.setSubject(mail.getSubject());
-			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
-=======
-			message.setSubject(mail.getSubject());//etSubject(mail.getSubject());
-<<<<<<< HEAD
-//			message.setText(mail.getContent());
-			//message.setContent(mail.getContent(),"text/html; charset=UTF-8");
 //			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
-=======
+			message.setSubject(mail.getSubject());//etSubject(mail.getSubject());
 			message.setText(mail.getContent());
-			//message.setContent(mail.getContent(),"text/html; charset=UTF-8");
-			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
->>>>>>> 2b6e24594d4aeb6187cb4c9d98e38920c555c95d
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
+//			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
 			Transport.send(message);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
-	}
-	public static void main(String[] args) {
-		SendMail s = new SendMail();
-		Mail m = new Mail("Công việc được chia sẻ", "Bạn đã được chia sẻ công việc. Vui lòng vào hệ thống làm việc để kiểm tra", "evnCanTho@gmail.com", "tienb1208736@student.ctu.edu.vn");
-		s.send(m);
 	}
 }

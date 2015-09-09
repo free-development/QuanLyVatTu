@@ -65,12 +65,9 @@ public class BcvttController extends HttpServlet {
     		String ngaybd = request.getParameter("ngaybd");
     		String ngaykt = request.getParameter("ngaykt");
 //    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
-<<<<<<< HEAD
-=======
 
 //    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
 
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
     		String cvSo = request.getParameter("cvSo");
     		System.out.println(ngaybd);
     		System.out.println(ngaykt);
@@ -98,16 +95,9 @@ public class BcvttController extends HttpServlet {
     				Integer soluong = yeuCau.getYcSoLuong();
     				if (slCu != null)
     					soluong += slCu;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
     				
 //    				ArrayList<Integer> soDenList = soDenHash.get(ctVtId);
 //    				ArrayList<Integer> soDenListCu = soDenHash.get(ctVtId);
->>>>>>> 2b6e24594d4aeb6187cb4c9d98e38920c555c95d
 
     				
     				ArrayList<Integer> cvList = new ArrayList<Integer>();
@@ -129,10 +119,7 @@ public class BcvttController extends HttpServlet {
     				cvIdHash.put(ctVtId, cvList);
     				
     				
-<<<<<<< HEAD
-=======
     				cvIdHash.put(ctVtId, cvList);
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
     				yeuCauHash.put(ctVtId,soluong);
     			}
 		    		session.setAttribute("ngaybd", DateUtil.parseDate(ngaybd));
@@ -143,12 +130,9 @@ public class BcvttController extends HttpServlet {
         			session.setAttribute("cvIdHash", cvIdHash);
         			session.setAttribute("soDenHash", soDenHash);
         			//session.setAttribute("congVan", congVan);
-<<<<<<< HEAD
-=======
         			session.setAttribute("yeuCau", yeuCauHash);
         			session.setAttribute("cvIdHash", cvIdHash);
         			session.setAttribute("soDenHash", soDenHash);
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
         			congVanDAO.disconnect();
         			yeuCauDAO.disconnect();
         			return new ModelAndView(siteMap.baoCaoVatTuThieu);

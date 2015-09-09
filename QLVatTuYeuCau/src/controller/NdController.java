@@ -177,7 +177,17 @@ public class NdController extends HttpServlet {
 		ndDAO.disconnect();
 		return JSonUtil.toJson(ndList);
 	}
-	
+	@RequestMapping(value="/resetNd", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody String resetNd(@RequestParam("msnv") String msnv) {
+		NguoiDung nd = new NguoiDung();
+		NguoiDungDAO nguoiDungDAO=new NguoiDungDAO();
+		nd = nguoiDungDAO.getNguoiDung(msnv);
+		nd.setKhoa(0);
+		nguoiDungDAO.updateNguoiDung(nd);
+		nguoiDungDAO.disconnect();
+		return JSonUtil.toJson(nd);
+	}
 	@RequestMapping("/login")
 	public ModelAndView login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);

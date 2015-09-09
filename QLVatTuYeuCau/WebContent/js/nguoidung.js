@@ -36,6 +36,36 @@ function showForm2(formId, check){
 	
 }
 
+function confirmResetNd(){
+	var msnv = $('input:checkbox[name=msnv]:checked').val();
+	var ndMaList = [];
+	$.each($("input[name='msnv']:checked"), function(){            
+		ndMaList.push($(this).val());
+    });
+	var str = ndMaList.join(", ");
+	if (ndMaList.length == 0)
+		alert('Bạn phải chọn 1 Tài khoản để mở khóa!!');
+	else if (confirm('Bạn có chắc mở tài khoản có mã ' + str))
+		resetNd(str);
+}
+function resetNd(str) {
+	$.ajax({
+		url: "/QLVatTuYeuCau/lockNd.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: { "ndList": str},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	  	success: function() {
+					$('table tr').has('input[name="msnv"]:checked').remove();
+			  		$('#view-table-chia-se table tr:first').after('<tr class="rowContent"><td style=\"text-align: center;\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
+			  				+msnv + '\"</td><td class=\"col\">'+ msnv +'</td><td class=\"col\">' + hoten+'</td><td class=\"col\">' + chucdanh+'</td><td class=\"col\">' 
+			  				+ email+'</td><td class=\"col\">' + diachi+'</td><td class=\"col\">' + sdt+'</td></tr>');
+			  		
+					alert('Tài khoản có mã ' + str + " đã mở khóa");
+	    } 
+	});  
+}
 function confirmLockNd(){
 	var msnv = $('input:checkbox[name=msnv]:checked').val();
 	var ndMaList = [];
@@ -48,7 +78,6 @@ function confirmLockNd(){
 	else if (confirm('Bạn có chắc khóa tài khoản có mã ' + str))
 		lockNd(str);
 }
-	
 	 function lockNd(str) {
 	$.ajax({
 		url: "/QLVatTuYeuCau/lockNd.html",	
