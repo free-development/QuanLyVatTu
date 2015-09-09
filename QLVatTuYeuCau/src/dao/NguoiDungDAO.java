@@ -6,6 +6,7 @@ import java.util.List;
 import model.CTVatTu;
 import model.CongVan;
 import model.NguoiDung;
+import model.NoiSanXuat;
 import model.VatTu;
 import model.YeuCau;
 
@@ -124,15 +125,16 @@ public class NguoiDungDAO {
 	public List<NguoiDung> limit(int first, int limit) {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(NguoiDung.class);
-		Criterion KhoaNd = Restrictions.eq("Khoa", 0);
+		Criterion Khoa = Restrictions.eq("Khoa", 0);
 //		Criterion limitRow = Restrictions.
-		cr.add(KhoaNd);
+		cr.add(Khoa);
 		cr.setFirstResult(first);
 		cr.setMaxResults(limit);
 		ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) cr.list(); 
 		session.getTransaction().commit();
 		return nguoiDungList;
 	}
+	
 	public long size() {
 		session.beginTransaction();
 		String sql = "select count(msnv) from NguoiDung where Khoa = 0";

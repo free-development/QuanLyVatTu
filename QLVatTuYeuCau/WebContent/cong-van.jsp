@@ -133,7 +133,7 @@ hosting = '<%=hosting  %>';
 				<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
 				<li><a>Quản lý người dùng</a>
 					<ul>
-						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
+						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>"/>Thêm người dùng</li>
 						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
 						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
 						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>

@@ -204,11 +204,12 @@ $(document).ready(function() {
 							+ '<td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
 							+ nd.msnv +'\" class=\"checkbox\"></td>'
 							+ '<td class=\"col\">' + nd.msnv + '</td>'
-							+ '<td class=\"col\">' + nd.hoten + '</td>'
+							+ '<td class=\"col\">' + nd.hoTen + '</td>'
 							+ '<td class=\"col\">' + nd.chucDanh.cdTen + '</td>'
 							+ '<td class=\"col\">' + nd.email + '</td>'
-							+ '<td class=\"col\">' + nd.diachi + '</td>'
+							+ '<td class=\"col\">' + nd.diaChi + '</td>'
 							+ '<td class=\"col\">' + nd.sdt + '</td>'
+							
 							+ '</tr>';
 						$('#view-table-chia-se table tr:first').after(str);
 					}
