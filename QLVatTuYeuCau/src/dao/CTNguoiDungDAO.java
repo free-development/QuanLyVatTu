@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.CTNguoiDung;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -25,11 +26,13 @@ public class CTNguoiDungDAO {
 		session.getTransaction().commit();
 		return ctNguoiDung;
 	}
-	public boolean login(final String msnv, final String matkhau) {
+	public int login(final String msnv, final String matkhau) {
 		CTNguoiDung ctNguoiDung = getCTNguoiDung(msnv);
-		if (ctNguoiDung == null || !matkhau.equals(ctNguoiDung.getMatKhau()))
-			return false;
-		return true;
+		if (ctNguoiDung == null)
+			return -1;
+		else if (!matkhau.equals(ctNguoiDung.getMatKhau()))
+			return 0;
+		return 1;
 	}
 	public List<CTNguoiDung> getAllCTNguoiDung() {
 		session.beginTransaction();
@@ -51,6 +54,14 @@ public class CTNguoiDungDAO {
 		session.beginTransaction();
 		session.delete(ctNguoiDung);
 		session.getTransaction().commit();
+	}
+	public int lockNguoiDung(String msnv){
+		session.beginTransaction();
+		String sql = "update CTNguoiDung set khoa = 1 where msnv = '" + msnv +"'";		
+		Query query = session.createQuery(sql);
+		int count = query.executeUpdate();
+		session.getTransaction().commit();
+		return count;
 	}
 	public void close() {
 		if(session.isOpen())

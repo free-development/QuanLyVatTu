@@ -79,13 +79,7 @@ public class NguoiDungDAO {
 		session.delete(nguoiDung);
 		session.getTransaction().commit();
 	}
-	public void lockNguoiDung(String msnv){
-		session.beginTransaction();
-		String sql = "update NguoiDung set Khoa = 1 where msnv = '" + msnv +"'";		
-		Query query = session.createQuery(sql);
-		query.executeUpdate();
-		session.getTransaction().commit();
-	}
+	
 	public ArrayList<String> startWithMa(String i) {
 		session.beginTransaction();
 		String sql = "select msnv from NguoiDung where msnv LIKE :msnv";

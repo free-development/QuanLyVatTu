@@ -2,16 +2,19 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -31,7 +34,6 @@ import dao.MucDichDAO;
 import dao.NguoiDungDAO;
 import dao.TrangThaiDAO;
 import dao.VTCongVanDAO;
-import dao.VaiTroDAO;
 import map.siteMap;
 import model.CongVan;
 import model.DonVi;
@@ -48,7 +50,7 @@ import util.SendMail;
 
 
 @Controller
-public class CvController extends HttpServlet {
+public class CvController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	int page = 1;
 	private HttpSession session;
@@ -293,6 +295,7 @@ public class CvController extends HttpServlet {
 	public @ResponseBody String changePass(@RequestParam("cvId") int cvId) {
     	CongVanDAO congVanDAO = new CongVanDAO();
 		CongVan congVan = congVanDAO.getCongVan(cvId);
+		congVanDAO.disconnect();
 		return JSonUtil.toJson(congVan);
 	}
     @RequestMapping("updateCongVan")
@@ -358,7 +361,8 @@ public class CvController extends HttpServlet {
     }
 	@RequestMapping(value="/deleteCv", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String deleteNsx(@RequestParam("cvId") String cvId) {
+	 public @ResponseBody String deleteNsx(@RequestParam("cvId") String cvId, HttpServletRequest request,
+	            HttpServletResponse response) {
 		String[] congVanList = cvId.split("\\, ");
 		for (String s : congVanList) {
 			int id = Integer.parseInt(s);
@@ -370,7 +374,8 @@ public class CvController extends HttpServlet {
 	
 	@RequestMapping(value="/preUpdateCv", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String preUpdateCv(@RequestParam("congVan") String congVan) {
+	 public @ResponseBody String preUpdateCv(@RequestParam("congVan") String congVan, HttpServletRequest request,
+	            HttpServletResponse responses) {
 		CongVanDAO congVanDAO = new CongVanDAO();
 		int id = Integer.parseInt(congVan);
 		CongVan cv = congVanDAO.getCongVan(id);
@@ -379,7 +384,8 @@ public class CvController extends HttpServlet {
 	}
 	@RequestMapping(value="/loadByYear", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String loadByYear(@RequestParam("year") String yearRequest) {
+	 public @ResponseBody String loadByYear(@RequestParam("year") String yearRequest, HttpServletRequest request,
+	            HttpServletResponse response) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
@@ -452,10 +458,10 @@ public class CvController extends HttpServlet {
 	}
 	@RequestMapping(value="/loadByMonth", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String loadByMonth(@RequestParam("year") String yearRequest, @RequestParam("month") String monthRequest) {
+	 public @ResponseBody String loadByMonth(@RequestParam("year") String yearRequest, @RequestParam("month") String monthRequest, HttpServletRequest request,
+	            HttpServletResponse response) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
-		
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
 		year = Integer.parseInt(yearRequest);
@@ -528,7 +534,8 @@ public class CvController extends HttpServlet {
 	}
 	@RequestMapping(value="/loadByDate", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String loadByDate(@RequestParam("year") String yearRequest, @RequestParam("month") String monthRequest, @RequestParam("date") String dateRequest) {
+	 public @ResponseBody String loadByDate(@RequestParam("year") String yearRequest, @RequestParam("month") String monthRequest, @RequestParam("date") String dateRequest, HttpServletRequest request,
+	            HttpServletResponse response) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
 		
@@ -601,7 +608,8 @@ public class CvController extends HttpServlet {
 	}
 	@RequestMapping(value="/searchByTrangThai", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String searchByTrangThai(@RequestParam("trangThai") String trangThai) {
+	 public @ResponseBody String searchByTrangThai(@RequestParam("trangThai") String trangThai, HttpServletRequest request,
+	            HttpServletResponse response) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
 		
@@ -675,7 +683,8 @@ public class CvController extends HttpServlet {
 	}
 	@RequestMapping(value="/filter", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String filter(@RequestParam("filter") String filter, @RequestParam("filterValue") String filterValue) {
+	 public @ResponseBody String filter(@RequestParam("filter") String filter, @RequestParam("filterValue") String filterValue, HttpServletRequest request,
+	            HttpServletResponse response) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
 		
@@ -750,8 +759,9 @@ public class CvController extends HttpServlet {
 	}
 	@RequestMapping(value="/loadPageCongVan", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String loadPageCongVan(@RequestParam("pageNumber") String pageNumber) {
-		try { 
+	 public @ResponseBody String loadPageCongVan(@RequestParam("pageNumber") String pageNumber, HttpServletRequest request,
+	            HttpServletResponse response) {
+		try {
 			truongPhongMa = context.getInitParameter("truongPhongMa");
 	    	vanThuMa = context.getInitParameter("vanThuMa");
 			NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
@@ -803,7 +813,6 @@ public class CvController extends HttpServlet {
 				for(CongVan congVan : congVanList) {
 					File file = fileDAO.getByCongVanId(congVan.getCvId());
 					fileList.add(file);
-					
 					int cvId = congVan.getCvId();
 					ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
 					nguoiXlCongVan.add(nguoiXl);
@@ -822,8 +831,15 @@ public class CvController extends HttpServlet {
 			} else {
 				objectList.add(vtCongVanList);
 			}
+//			session.setMaxInactiveInterval(5000);
 			return JSonUtil.toJson(objectList);
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException | NullPointerException e) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login);
+			try {
+				dispatcher.forward(request, response);
+			} catch (ServletException | IOException e1) {
+				e1.printStackTrace();
+			}
 			return null;
 		}
 	}
