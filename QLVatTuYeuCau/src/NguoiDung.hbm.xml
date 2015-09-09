@@ -22,6 +22,5 @@
 		<many-to-one name="chucDanh" class="model.ChucDanh" fetch="join">
 			<column name="CDMA" />
 		</many-to-one>
-		
 	</class>
 </hibernate-mapping>
