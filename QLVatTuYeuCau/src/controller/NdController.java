@@ -223,35 +223,40 @@ public class NdController extends HttpServlet {
 	@RequestMapping("lockNguoiDung")
 	public ModelAndView lockNguoiDung(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
+		CTNguoiDungDAO ctnguoiDungDAO = new CTNguoiDungDAO();
 		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
-		long size = nguoiDungDAO.size();
-		ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.limit(page - 1, 10);
+		long size = ctnguoiDungDAO.size();
+		ArrayList<CTNguoiDung> ctnguoiDungList =  (ArrayList<CTNguoiDung>) ctnguoiDungDAO.limit(page - 1, 10);
 		request.setAttribute("size", size);
 		ArrayList<String> ignoreList = new ArrayList<String>();
 		String adminMa = context.getInitParameter("adminMa");
-		NguoiDungDAO ndDAO = new NguoiDungDAO();
+		//NguoiDungDAO ndDAO = new NguoiDungDAO();
 		ignoreList.add(adminMa);
-		//ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(ignoreList);
-	
+		ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(ignoreList);
+		request.setAttribute("ctnguoiDungList", ctnguoiDungList);
 		request.setAttribute("nguoiDungList", nguoiDungList);
+		ctnguoiDungDAO.disconnect();
 		nguoiDungDAO.disconnect();
-		return new ModelAndView(siteMap.lockNguoiDungPage, "nguoiDungList", nguoiDungList);
+		return new ModelAndView(siteMap.lockNguoiDungPage, "ctnguoiDungList", ctnguoiDungList);
 	}
 	@RequestMapping("updateNguoiDung")
 	public ModelAndView updateNguoiDung(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		CTNguoiDungDAO ctnguoiDungDAO = new CTNguoiDungDAO();
 		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 		ChucDanhDAO chucDanhDAO = new ChucDanhDAO();
-		long size = nguoiDungDAO.size();
-		ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.limit(page - 1, 10);
+		long size = ctnguoiDungDAO.size();
+		ArrayList<CTNguoiDung> ctnguoiDungList =  (ArrayList<CTNguoiDung>) ctnguoiDungDAO.limit(page - 1, 10);
 		request.setAttribute("size", size);
 		ArrayList<String> ignoreList = new ArrayList<String>();
 		String adminMa = context.getInitParameter("adminMa");
 		ignoreList.add(adminMa);
-	//	ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(ignoreList);
-		request.setAttribute("nguoiDungList", nguoiDungList);
+		ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(ignoreList);
 		ArrayList<ChucDanh> chucDanhList = (ArrayList<ChucDanh>) chucDanhDAO.getAllChucDanh();
+		request.setAttribute("ctnguoiDungList", ctnguoiDungList);
 		request.setAttribute("chucDanhList", chucDanhList);
+		request.setAttribute("nguoiDungList", nguoiDungList);
 		chucDanhDAO.disconnect();
+		ctnguoiDungDAO.disconnect();
 		nguoiDungDAO.disconnect();
 		return new ModelAndView(siteMap.updateNguoiDungPage, "chucDanhList", chucDanhList);
 	}
@@ -269,10 +274,10 @@ public class NdController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String loadPageNd(@RequestParam("pageNumber") String pageNumber) {
 		System.out.println("MA: " + pageNumber);
-		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		CTNguoiDungDAO ctnguoiDungDAO = new CTNguoiDungDAO();
 		int page = Integer.parseInt(pageNumber);
-		ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.limit((page -1 ) * 10, 10);
-		nguoiDungDAO.disconnect();
+		ArrayList<CTNguoiDung> ndList = (ArrayList<CTNguoiDung>) ctnguoiDungDAO.limit((page -1 ) * 10, 10);
+		ctnguoiDungDAO.disconnect();
 			return JSonUtil.toJson(ndList);
 	}
 	@RequestMapping(value="/timKiemNguoidung", method=RequestMethod.GET, 

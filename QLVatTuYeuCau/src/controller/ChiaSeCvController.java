@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dao.CTNguoiDungDAO;
 import dao.CongVanDAO;
 import dao.NguoiDungDAO;
 import dao.VTCongVanDAO;
 import dao.VaiTroDAO;
 import map.siteMap;
+import model.CTNguoiDung;
 import model.CongVan;
 //import model.Mailer;
 import model.NguoiDung;
@@ -232,11 +234,11 @@ public class ChiaSeCvController extends HttpServlet {
 
 	@RequestMapping(value = "/loadPageCscv", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loadPageCscv(@RequestParam("pageNumber") String pageNumber) {
-		NguoiDungDAO ndDAO = new NguoiDungDAO();
+		CTNguoiDungDAO ndDAO = new CTNguoiDungDAO();
 		int page = Integer.parseInt(pageNumber);
 		ArrayList<Object> objectList = new ArrayList<Object>();
 		long sizeNd = ndDAO.size();
-		ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) ndDAO.limit((page - 1) * 10, 10);
+		ArrayList<CTNguoiDung> ndList = (ArrayList<CTNguoiDung>) ndDAO.limit((page - 1) * 10, 10);
 		objectList.add(ndList);
 		objectList.add((sizeNd - 1) / 10);
 		// return JSonUtil.toJson(objectList);

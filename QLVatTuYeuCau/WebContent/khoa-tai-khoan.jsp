@@ -57,7 +57,7 @@
 	<%
     		ArrayList<ChucDanh> listChucDanh = (ArrayList<ChucDanh>) request.getAttribute("chucDanhList");
 			ArrayList<NguoiDung> listNguoiDung = (ArrayList<NguoiDung>) request.getAttribute("nguoiDungList");
-			Long pageNum = (Long) request.getAttribute("size")/10;
+			long pageNum = (Long) request.getAttribute("size")/10;
 // 			if (listChucDanh ==  null) {
 // 				int index = siteMap.ndManage.lastIndexOf("/");
 // 				String url = siteMap.ndManage.substring(index);

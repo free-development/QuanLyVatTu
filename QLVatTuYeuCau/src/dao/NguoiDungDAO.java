@@ -116,28 +116,7 @@ public class NguoiDungDAO {
 		session.getTransaction().commit();
 		return list;
 	}
-	public List<NguoiDung> limit(int first, int limit) {
-		session.beginTransaction();
-		Criteria cr = session.createCriteria(NguoiDung.class);
-		Criterion Khoa = Restrictions.eq("Khoa", 0);
-//		Criterion limitRow = Restrictions.
-		cr.add(Khoa);
-		cr.setFirstResult(first);
-		cr.setMaxResults(limit);
-		ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) cr.list(); 
-		session.getTransaction().commit();
-		return nguoiDungList;
-	}
 	
-	public long size() {
-		session.beginTransaction();
-		String sql = "select count(msnv) from NguoiDung where Khoa = 0";
-		Query query =  session.createQuery(sql);
-		long size = (long) query.list().get(0);
-		session.getTransaction().commit();
-		return size;
-		
-	}
 	
 	public ArrayList<String> startWith(String i) {
 		session.beginTransaction();

@@ -1,12 +1,17 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.CTNguoiDung;
+import model.NguoiDung;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 import util.HibernateUtil;
 
@@ -62,6 +67,28 @@ public class CTNguoiDungDAO {
 		int count = query.executeUpdate();
 		session.getTransaction().commit();
 		return count;
+	}
+	public List<CTNguoiDung> limit(int first, int limit) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(CTNguoiDung.class);
+		Criterion khoa = Restrictions.eq("khoa", 0);
+//		Criterion limitRow = Restrictions.
+		cr.add(khoa);
+		cr.setFirstResult(first);
+		cr.setMaxResults(limit);
+		ArrayList<CTNguoiDung> ctnguoiDungList = (ArrayList<CTNguoiDung>) cr.list(); 
+		session.getTransaction().commit();
+		return ctnguoiDungList;
+	}
+	
+	public long size() {
+		session.beginTransaction();
+		String sql = "select count(msnv) from CTNguoiDung where khoa = 0";
+		Query query =  session.createQuery(sql);
+		long size = (long) query.list().get(0);
+		session.getTransaction().commit();
+		return size;
+		
 	}
 	public void close() {
 		if(session.isOpen())

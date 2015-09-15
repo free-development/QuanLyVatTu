@@ -1,4 +1,5 @@
-﻿<%@page import="model.NguoiDung"%>
+﻿<%@page import="model.CTNguoiDung"%>
+<%@page import="model.NguoiDung"%>
 <%@page import="model.ChucDanh"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="map.siteMap"%>
@@ -58,6 +59,7 @@
    	%>
 	<%
     		ArrayList<ChucDanh> listChucDanh = (ArrayList<ChucDanh>) request.getAttribute("chucDanhList");
+			ArrayList<CTNguoiDung> ctlistNguoiDung = (ArrayList<CTNguoiDung>) request.getAttribute("ctnguoiDungList");
 			ArrayList<NguoiDung> listNguoiDung = (ArrayList<NguoiDung>) request.getAttribute("nguoiDungList");
 			if (listChucDanh ==  null) {
 				int index = siteMap.ndManage.lastIndexOf("/");
@@ -202,8 +204,8 @@
 										<td>Trang</td>
 										<td>
 												<%
-												for(int j = 0; j <= pageNum; j++) { %>
-												<input type="button" value="<%=j+1%>" class="page">
+												for( i = 0; i <= pageNum; i++) { %>
+												<input type="button" value="<%=i+1%>" class="page">
 												<%} %>
 										</td>
 									
