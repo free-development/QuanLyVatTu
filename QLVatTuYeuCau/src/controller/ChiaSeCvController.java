@@ -140,16 +140,9 @@ public class ChiaSeCvController extends HttpServlet {
 				mail.setFrom(account);
 				mail.setTo(nguoiDung.getEmail());
 				mail.setSubject("Công việc được chia sẻ");
-<<<<<<< HEAD
-				String content = "Bạn đã được chia sẻ công văn. Vui lòng vào hệ thống làm việc đ	ể kiểm tra.\n";
-				content += "Công việc được chia sẻ là: \n" + str1 + "\n" ;
-				content += host + siteMap.searchCongVan + "?congVan=" + cvId + "\nThân mến!";
-				mail.setSubject("Công việc được chia s ẻ");
-=======
 				String content = "Bạn đã được chia sẻ công văn. Vui lòng vào hệ thống làm việc để kiểm tra.\n";
 				content += "Công việc được chia sẻ là: \n" + str1 + "\n" ;
 				content += host + siteMap.searchCongVan + "?congVan=" + cvId + "\nThân mến!";
->>>>>>> 7c60a8bda90f54089e8d220c9a4c967ffbdc7edb
 				mail.setContent(content);
 				sendMail.send(mail);
 			}
