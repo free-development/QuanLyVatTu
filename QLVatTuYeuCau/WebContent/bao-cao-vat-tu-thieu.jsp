@@ -52,6 +52,10 @@
     			dispatcher.forward(request, response);
     			return;
     		}
+    		String adminMa = request.getServletContext().getInitParameter("adminMa");
+    		String chucDanh = nguoiDung.getChucDanh().getCdMa();
+    		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
+    		String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
     	%>
 		<%
 			String loaiBc = (String) session.getAttribute("action"); 
@@ -91,58 +95,62 @@
 
 		</div>
 		<div class="main_menu">
-			<ul>
-				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-				<%if ("admin".equalsIgnoreCase(nguoiDung.getChucDanh().getCdTen())) {%>
-				
-				<li><a>Danh mục</a>
 					<ul>
-								<li><a href="<%=siteMap.nsxManage + "?action=manageNsx"%>">Danh
-										mục nơi sản xuất</a></li>
-								<li><a href="<%=siteMap.clManage + "?action=manageCl"%>">Danh
-										mục chất lượng</a></li>
-								<li><a href="<%=siteMap.vattuManage + "?action=manageVattu"%>">Danh
-										mục vật tư</a></li>
-								<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Danh
-										mục chi tiết vật tư</a></li>
-								<li><a href="<%=siteMap.bpsdManage +  "?action=manageBpsd"%>">Danh
-										mục bộ phận sử dụng</a></li>
-								<li><a href="<%=siteMap.mdManage + "?action=manageMd"%>">Danh
-										mục mục đích</a></li>
-								<li><a href="<%=siteMap.vtManage + "?action=manageVt"%>">Danh mục vai trò</a></li>
-								<li><a href="<%=siteMap.dvtManage + "?action=manageDvt"%>">Danh mục đơn vị tính</a></li>
-								<li><a href="<%=siteMap.cdManage + "?action=manageCd"%>">Danh
-										mục chức danh</a></li>
-								
+						<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
+						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
+						
+						<li><a>Danh mục</a>
+							<ul>
+										<li><a href="<%=siteMap.nsxManage + "?action=manageNsx"%>">Danh
+												mục nơi sản xuất</a></li>
+										<li><a href="<%=siteMap.clManage + "?action=manageCl"%>">Danh
+												mục chất lượng</a></li>
+										<li><a href="<%=siteMap.vattuManage + "?action=manageVattu"%>">Danh
+												mục vật tư</a></li>
+										<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Danh
+												mục chi tiết vật tư</a></li>
+										<li><a href="<%=siteMap.bpsdManage +  "?action=manageBpsd"%>">Danh
+												mục bộ phận sử dụng</a></li>
+										<li><a href="<%=siteMap.mdManage + "?action=manageMd"%>">Danh
+												mục mục đích</a></li>
+										<li><a href="<%=siteMap.vtManage + "?action=manageVt"%>">Danh mục vai trò</a></li>
+										<li><a href="<%=siteMap.dvtManage + "?action=manageDvt"%>">Danh mục đơn vị tính</a></li>
+										<li><a href="<%=siteMap.cdManage + "?action=manageCd"%>">Danh
+												mục chức danh</a></li>
+										
+									</ul>
+						</li>
+						<%} %>
+						<%if (!chucDanh.equalsIgnoreCase(adminMa)) {%>
+							<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
+							<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
+							<li><a>Báo cáo</a>
+								<ul>
+									<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
+									<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
+								</ul>
+							</li>
+							<%}} %>
+						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
+						<li><a>Quản lý người dùng</a>
+							<ul>
+								<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
+								<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
+								<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
+								<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
+								<li><a href="<%=siteMap.resetNguoiDung%>"/>Khôi phục tài khoản</li>
 							</ul>
-				</li>
-				<%} %>
-				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-				<li><a>Báo cáo</a>
-					<ul>
-						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
-						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
+						</li>
+						<%} %>
+						<li><a>Tài khoản</a>
+							<ul>
+								<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
+								<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
+							</ul>
+						</li>		
 					</ul>
-				</li>
-				<%if ("admin".equalsIgnoreCase(nguoiDung.getChucDanh().getCdTen())) {%>
-				<li><a>Quản lý người dùng</a>
-					<ul>
-						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>"/>Thêm người dùng</li>
-						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
-						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
-						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
-					</ul>
-				</li>
-				<%} %>
-				<li><a>Tài khoản</a>
-					<ul>
-						<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
-						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
-					</ul>
-				</li>		
-			</ul>
-			<div class="clear"></div>
-		</div>
+					<div class="clear"></div>
+				</div>
 		<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=nguoiDung.getHoTen() %></b></div>
 		<div id="main-content">
 			<div id="title-content"style="margin-top: 20px;">Báo cáo vật tư thiếu</div>
@@ -243,10 +251,7 @@
 	   		%>
 			
 <!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
-<<<<<<< HEAD
-=======
 <!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 				<div style="text-align: center;font-size: 20px;color:firebrick;font-weight: bold;margin-top:10px;">Tổng hợp vật tư thiếu</div>
 				<div id="view-table-bao-cao" style="max-height: 420px;width: 1000px;display: auto;border: 1px dotted #CCCCCC;margin: 0 auto;overflow: scroll;">
 				<table style="margin: 0 auto;width:1000px;border: 1px dotted black;" >
@@ -257,10 +262,7 @@
 						<th style="border: 1px dottedblack;" class="three-column">Chất lượng</th>
 						<th style="border: 1px dotted black;" class="six-column">Đơn vị tính</th>
 						<th style="border: 1px dotted black;" class="one-column">Tổng số lượng thiếu</th>
-<<<<<<< HEAD
-=======
 						<th style="border: 1px dotted black;" class="one-column">Tổng số lượng thiếu</th>
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 						<th style="border: 1px dotted black;" class="one-column">Công văn liên quan (số đến)</th>
 					</tr >
 								<%
@@ -280,10 +282,7 @@
 						<td class="d-column"style="text-align: left;"><%=ctvt.getChatLuong().getClTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=ctvt.getVatTu().getDvt().getDvtTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
-<<<<<<< HEAD
-=======
 						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 						<td>
 							<%
 							ArrayList<Integer> cvIdList = cvIdHash.get(key);
@@ -299,16 +298,9 @@
 							cell.delete(len - 2, len);
 							out.println(cell);
 							%>
-<<<<<<< HEAD
-=======
-							 
->>>>>>> 2b6e24594d4aeb6187cb4c9d98e38920c555c95d
 						</td>
 <%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
-<<<<<<< HEAD
-=======
 						</td>
->>>>>>> be10e1bae35a41e8bf67ccf35dd391b0c313ffc0
 					</tr>
 					<%} %>
 				</table>

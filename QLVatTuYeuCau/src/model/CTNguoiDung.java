@@ -13,9 +13,17 @@ public class CTNguoiDung implements Serializable{
 	
 	private String msnv;
 	private String matKhau;
+	private int khoa;
+	public CTNguoiDung(String msnv, String matKhau, int khoa) {
+		super();
+		this.msnv = msnv;
+		this.matKhau = matKhau;
+		this.khoa = khoa;
+	}
 	public CTNguoiDung() {
 		this.msnv = "";
 		this.matKhau = "";
+		this.khoa = 0;
 	}
 	/**
 	 * @param msnv
@@ -49,5 +57,11 @@ public class CTNguoiDung implements Serializable{
 	public void setMatKhau(String matKhau) {
 		this.matKhau = matKhau;
 	}
-	
+	public int getKhoa() {
+		return khoa;
+	}
+
+	public void setKhoa(int khoa) {
+		this.khoa = khoa;
+	}
 }

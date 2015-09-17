@@ -61,13 +61,25 @@
     		ArrayList<ChucDanh> listChucDanh = (ArrayList<ChucDanh>) request.getAttribute("chucDanhList");
 			ArrayList<NguoiDung> listNguoiDung = (ArrayList<NguoiDung>) request.getAttribute("nguoiDungList");
 			Long pageNum = (Long) request.getAttribute("size")/10;
+// 			if (listChucDanh ==  null) {
+// 				int index = siteMap.ndManage.lastIndexOf("/");
+// 				String url = siteMap.ndManage.substring(index);
+// 				RequestDispatcher dispatcher =  request.getRequestDispatcher(url + "?action=manageNd");
+// 				dispatcher.forward(request, response);
+// 				return;
+// 			}
     	%>
 	<div class="wrapper">
 		<div class="header">
+			<!--
+					<img src="img/logo.png" alt="" id="logo" width=80 height=80/><br/>
+					<img src="img/textlogo.png" alt="" id="logo" width=80 height=20/>
+	-->
 			<div id="top_title">Văn phòng điện tử</div>
 			<div id="bottom-title">Công ty điện lực cần thơ</div>
 			<div class="search_form" id="search">
 				<form action="" method="post">
+
 					<span class="search-text"> &nbsp; <input type="search"
 						class="search" name="search_box" name="search"
 						placeholder="Tìm kiếm" />
@@ -140,7 +152,7 @@
 				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 		<div id="main-content">
 		<form id="main-form">
-				<div id="title-content">Danh sách tài khoản bị khóa</div>
+				<div id="title-content">Danh sách tài khoản</div>
 				<table style="margin-left: 60px;margin-bottom: 10px;">		
 					<tr>		
 					<th  style="text-align: left; color: black; font-size: 19px;">*Tìm kiếm mã</th>
@@ -203,8 +215,8 @@
 							</table>
 						</div>
 					<div class="button-group">
-					<button class="button" type="button" onclick="confirmResetNd();">
-						<i class="fa fa-lock"></i>&nbsp;Khôi phục
+					<button class="button" type="button" onclick="confirmResetMK();">
+						<i class="fa fa-lock"></i>&nbsp;Khôi phục mật khẩu
 					</button>
 					&nbsp;
 					<button class="button" type="reset">

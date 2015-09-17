@@ -36,6 +36,9 @@
 		dispatcher.forward(request, response);
 		return;
 	}
+	String chucDanh = nguoiDung.getChucDanh().getCdMa();
+	String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
+	String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -60,11 +63,10 @@
 			</div>
 
 		</div>
-		<div class="main_menu">
-			<ul>
-
-				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-						<%if (adminMa.equalsIgnoreCase(nguoiDung.getChucDanh().getCdMa())) {%>
+	<div class="main_menu">
+					<ul>
+						<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
+						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
 						
 						<li><a>Danh mục</a>
 							<ul>
@@ -88,20 +90,24 @@
 									</ul>
 						</li>
 						<%} %>
-						<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-						<li><a>Báo cáo</a>
-							<ul>
-								<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
-								<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
-							</ul>
-						</li>
-						<%if (adminMa.equalsIgnoreCase(nguoiDung.getChucDanh().getCdMa())) {%>
+						<%if (!chucDanh.equalsIgnoreCase(adminMa)) {%>
+							<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
+							<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
+							<li><a>Báo cáo</a>
+								<ul>
+									<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
+									<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
+								</ul>
+							</li>
+							<%}} %>
+						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
 						<li><a>Quản lý người dùng</a>
 							<ul>
 								<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
 								<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
 								<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
 								<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
+								<li><a href="<%=siteMap.resetNguoiDung%>"/>Khôi phục tài khoản</li>
 							</ul>
 						</li>
 						<%} %>
@@ -110,10 +116,10 @@
 								<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
 								<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
 							</ul>
-						</li>	
-			</ul>
-			<div class="clear"></div>
-		</div>
+						</li>		
+					</ul>
+					<div class="clear"></div>
+				</div>
 		<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=nguoiDung.getHoTen() %></b></div>
 		<div id="main-content">
 			<form id="add-form" action="<%=siteMap.ndManage %>?action=addNd" method="post"
@@ -152,9 +158,9 @@
 								<%
 							
 									int count = 0;
-									for(ChucDanh chucDanh : listChucDanh)
+									for(ChucDanh cd : listChucDanh)
 									{%>
-								<option value=<%=chucDanh.getCdMa()%>><%=chucDanh.getCdTen()%></option>
+								<option value=<%=cd.getCdMa()%>><%=cd.getCdTen()%></option>
 								<%}
 								%>
 						</select></td>

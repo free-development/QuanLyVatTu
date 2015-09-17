@@ -1,19 +1,32 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import model.CTNguoiDung;
+import javax.servlet.ServletContext;
 
+import model.CTNguoiDung;
+import model.NguoiDung;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import util.HibernateUtil;
+import util.Mail;
+import util.SendMail;
+import util.StringUtil;
 
 public class CTNguoiDungDAO {
 	
 	private SessionFactory template;  
 	private Session session;
-	
+
 	public CTNguoiDungDAO() {
 		template = HibernateUtil.getSessionFactory();
 		session = template.openSession();
@@ -60,6 +73,80 @@ public class CTNguoiDungDAO {
 		if (session.isConnected())
 			session.disconnect();
 	}
-
+	public List<NguoiDung> limit(int first, int limit) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(CTNguoiDung.class);
+		Criterion KhoaNd = Restrictions.eq("khoa", 0);
+//		Criterion limitRow = Restrictions.
+		cr.add(KhoaNd);
+		cr.setFirstResult(first);
+		cr.setMaxResults(limit);
+		cr.setProjection(Projections.property("msnv"));
+		ArrayList<String> ctnguoiDungList = (ArrayList<String>) cr.list(); 
+		if(ctnguoiDungList.size() == 0){
+			ArrayList<NguoiDung> nguoiDungList = new ArrayList<NguoiDung>(); 
+			session.getTransaction().commit();
+			return nguoiDungList;
+		}
+		else{
+			Criteria crNguoiDung = session.createCriteria(NguoiDung.class);
+			crNguoiDung.add(Restrictions.in("msnv",ctnguoiDungList));
+			ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) crNguoiDung.list(); 
+			session.getTransaction().commit();
+			return nguoiDungList;
+		}
+	}
 	
+	public long size() {
+		session.beginTransaction();
+		String sql = "select count(msnv) from CTNguoiDung where khoa = 0";
+		Query query =  session.createQuery(sql);
+		long size = (long) query.list().get(0);
+		session.getTransaction().commit();
+		return size;
+	}
+	public List<NguoiDung> limitReset(int first, int limit) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(CTNguoiDung.class);
+		Criterion resetNd = Restrictions.eq("khoa", 1);
+		cr.add(resetNd);
+		cr.setFirstResult(first);
+		cr.setMaxResults(limit);
+		cr.setProjection(Projections.property("msnv"));
+		ArrayList<String> ctnguoiDungList = (ArrayList<String>) cr.list(); 
+		if(ctnguoiDungList.size() == 0){
+			ArrayList<NguoiDung> nguoiDungList = new ArrayList<NguoiDung>(); 
+			session.getTransaction().commit();
+			return nguoiDungList;
+		}
+		else{
+			Criteria crNguoiDung = session.createCriteria(NguoiDung.class);
+			crNguoiDung.add(Restrictions.in("msnv",ctnguoiDungList));
+			ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) crNguoiDung.list(); 
+			session.getTransaction().commit();
+			return nguoiDungList;
+		}
+		
+	}
+	public long sizeReset() {
+		session.beginTransaction();
+		String sql = "select count(msnv) from CTNguoiDung where khoa = 1";
+		Query query =  session.createQuery(sql);
+		long size = (long) query.list().get(0);
+		session.getTransaction().commit();
+		return size;
+		
+	}
+	public String resetMK(String msnv){
+		session.beginTransaction();
+		StringUtil random = new StringUtil();
+		int k = 8;
+		String mk = random.randomCharacter(k);
+		CTNguoiDungDAO ctnguoiDungDAO = new CTNguoiDungDAO();
+		CTNguoiDung ctNd = new CTNguoiDung(msnv, mk);
+		ctNd.setMatKhau(StringUtil.encryptMD5(mk));
+		ctnguoiDungDAO.updateCTNguoiDung(ctNd);
+		session.getTransaction().commit(); 
+		return mk;
+	}
 }

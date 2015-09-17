@@ -49,7 +49,7 @@ public class siteMap {
 	public static final String changePassPage = "doi-mat-khau";
 	public static final String lockNguoiDungPage = "khoa-tai-khoan";
 	public static final String updateNguoiDungPage = "cap-nhat-tai-khoan";
-	public static final String resetPasswordPage = "reset-password";
+	public static final String resetPasswordPage = "khoi-phuc-mat-khau";
 	public static final String resetNguoiDungPage = "khoi-phuc-tai-khoan";
 	
 	// map danh muc chuc danh
