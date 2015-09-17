@@ -44,11 +44,13 @@ public class siteMap {
 	public static final String logout = home +  "logout.html";
 	public static final String updateNguoiDung = home +  "updateNguoiDung.html";
 	public static final String resetPassword = home +  "resetPassword.html";
+	public static final String resetNguoiDung = home + "resetNguoiDung.html";
 	
 	public static final String changePassPage = "doi-mat-khau";
 	public static final String lockNguoiDungPage = "khoa-tai-khoan";
 	public static final String updateNguoiDungPage = "cap-nhat-tai-khoan";
 	public static final String resetPasswordPage = "reset-password";
+	public static final String resetNguoiDungPage = "khoi-phuc-tai-khoan";
 	
 	// map danh muc chuc danh
 	public static final String cdManage = home +  "manageCd.html";

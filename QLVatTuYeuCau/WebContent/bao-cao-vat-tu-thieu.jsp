@@ -1,4 +1,3 @@
-
 <%@page import="model.NguoiDung"%>
 <%@page import="model.YeuCau"%>
 <%@page import="java.util.HashMap"%>
@@ -293,7 +292,6 @@
 							 
 						</td>
 <%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
-						</td>
 					</tr>
 					<%} %>
 				</table>

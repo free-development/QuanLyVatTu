@@ -111,6 +111,7 @@
 						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
 						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
 						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
+						<li><a href="<%=siteMap.resetNguoiDung%>"/>Khôi phục tài khoản</li>
 					</ul>
 				</li>
 				<%} %>

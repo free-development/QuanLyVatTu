@@ -46,7 +46,10 @@ public class SendMail {
 		  props.put("mail.smtp.auth", "true");  
 		  props.put("mail.smtp.port", "465");
 		props.put("mail.smtp.starttls.enable", "true");
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 7c60a8bda90f54089e8d220c9a4c967ffbdc7edb
 	}
 	
 	/**
@@ -64,8 +67,13 @@ public class SendMail {
 	            "javax.net.ssl.SSLSocketFactory");  
 	  props.put("mail.smtp.auth", "true");  
 	  props.put("mail.smtp.port", "465");
+<<<<<<< HEAD
 		props.put("mail.smtp.starttls.enable", "true");
 		
+=======
+	  
+	  	props.put("mail.smtp.starttls.enable", "true");
+>>>>>>> 7c60a8bda90f54089e8d220c9a4c967ffbdc7edb
 	}
 
 	public String getUsername() {
@@ -110,15 +118,15 @@ public class SendMail {
 			message.setSubject(mail.getSubject());
 //			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
 			message.setSubject(mail.getSubject());//etSubject(mail.getSubject());
+<<<<<<< HEAD
 			//message.setContent(mail.getContent(),"text/html; charset=UTF-8");
+=======
+			message.setText(mail.getContent());
+//			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
+>>>>>>> 7c60a8bda90f54089e8d220c9a4c967ffbdc7edb
 			Transport.send(message);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
-	}
-	public static void main(String[] args) {
-		SendMail s = new SendMail();
-		Mail m = new Mail("Công việc được chia sẻ", "Bạn đã được chia sẻ công việc. Vui lòng vào hệ thống làm việc để kiểm tra", "evnCanTho@gmail.com", "tienb1208736@student.ctu.edu.vn");
-		s.send(m);
 	}
 }

@@ -67,6 +67,10 @@ public class BcvttController extends HttpServlet {
 //    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
 
 //    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) new CongVanDAO().getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7c60a8bda90f54089e8d220c9a4c967ffbdc7edb
     		String cvSo = request.getParameter("cvSo");
     		System.out.println(ngaybd);
     		System.out.println(ngaykt);
@@ -94,6 +98,12 @@ public class BcvttController extends HttpServlet {
     				Integer soluong = yeuCau.getYcSoLuong();
     				if (slCu != null)
     					soluong += slCu;
+<<<<<<< HEAD
+=======
+    				
+//    				ArrayList<Integer> soDenList = soDenHash.get(ctVtId);
+//    				ArrayList<Integer> soDenListCu = soDenHash.get(ctVtId);
+>>>>>>> 7c60a8bda90f54089e8d220c9a4c967ffbdc7edb
 
     				
     				ArrayList<Integer> cvList = new ArrayList<Integer>();
