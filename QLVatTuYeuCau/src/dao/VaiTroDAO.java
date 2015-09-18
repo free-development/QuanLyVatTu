@@ -6,6 +6,7 @@ import java.util.List;
 
 import model.CTVatTu;
 import model.ChucDanh;
+import model.DonViTinh;
 import model.VTCongVan;
 import model.VaiTro;
 
@@ -36,6 +37,18 @@ public class VaiTroDAO {
 		session.getTransaction().commit();
 		return vaiTro;
 	}
+	public VaiTro getVaiTroByTen(final String vtTen) {
+		session.beginTransaction();
+		String sql = "from VaiTro where LOWER(vtTen) = :vtTen";
+		Query query = session.createQuery(sql);
+		query.setParameter("vtTen", vtTen.toLowerCase());
+		ArrayList<VaiTro> list = (ArrayList<VaiTro>) query.list();
+		VaiTro vt = null;
+		if(list.size() != 0)
+			vt = list.get(0);
+		session.getTransaction().commit();
+		return vt;
+	}
 	public List<VaiTro> getAllVaiTro() {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(VaiTro.class);
@@ -50,7 +63,6 @@ public class VaiTroDAO {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(VaiTro.class);
 		Criterion xoaCd = Restrictions.eq("daXoa", 0);
-//		Criterion limitRow = Restrictions.
 		cr.add(xoaCd);
 		cr.setFirstResult(first);
 		cr.setMaxResults(limit);
@@ -78,9 +90,21 @@ public class VaiTroDAO {
 		session.update(vaiTro);
 		session.getTransaction().commit();
 	}
-	public void deleteVaiTro(String vtId){
+	public void addOrUpdateVaiTro(VaiTro vt){
 		session.beginTransaction();
-		String sql = "update VaiTro set daXoa = 1 where vtId = '" + vtId+"'" ;		
+		session.saveOrUpdate(vt);
+		session.getTransaction().commit();
+	}
+	public void deleteVaiTro(int vtId){
+		session.beginTransaction();
+		String sql = "update VaiTro set daXoa = 1 where vtId = " + vtId;		
+		Query query = session.createQuery(sql);
+		query.executeUpdate();
+		session.getTransaction().commit();
+	}
+	public void deleteVaiTroTen(String vtTen){
+		session.beginTransaction();
+		String sql = "update VaiTro set daXoa = 1 where vtTen = '" + vtTen+ "'";		
 		Query query = session.createQuery(sql);
 		query.executeUpdate();
 		session.getTransaction().commit();
@@ -101,9 +125,5 @@ public class VaiTroDAO {
 	public void disconnect() {
 		if (session.isConnected())
 			session.disconnect();
-	}
-
-	public static void main(String[] args) {
-		new VaiTroDAO().deleteVaiTro("2");
 	}
 }

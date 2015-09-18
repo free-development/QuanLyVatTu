@@ -10,5 +10,8 @@
 		<property name="matKhau" type="java.lang.String">
 			<column name="MATKHAU" />
 		</property>
+		<property name="khoa" type="int">
+			<column name="KHOA" />
+		</property>
 	</class>
 </hibernate-mapping>

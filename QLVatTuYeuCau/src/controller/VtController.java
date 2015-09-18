@@ -8,10 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
-import model.ChucDanh;
-import model.DonVi;
-import model.NoiSanXuat;
 import model.VaiTro;
 
 import org.springframework.http.MediaType;
@@ -23,26 +21,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import util.JSonUtil;
-import dao.CTVatTuDAO;
-import dao.ChucDanhDAO;
-import dao.DonViDAO;
-import dao.NoiSanXuatDAO;
+import dao.DonViTinhDAO;
 import dao.VaiTroDAO;
 
 
 @Controller
 public class VtController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	int page = 1;
+	private int page = 1;
+	private String vtOld = "";
 	@RequestMapping("/manageVt")
 	public ModelAndView manageVt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		VaiTroDAO vaiTroDAO = new VaiTroDAO();
-		
 		String action = request.getParameter("action");
 		if("AddVaiTro".equalsIgnoreCase(action)) {
 			int vtId = Integer.parseInt(request.getParameter("vtId"));
 			String vtTen = request.getParameter("vtTen");
-			vaiTroDAO.addVaiTro(new VaiTro(vtId, vtTen,0));
+			vaiTroDAO.addOrUpdateVaiTro(new VaiTro(vtTen,0));
 			
 			ArrayList<VaiTro> vaiTroList =  (ArrayList<VaiTro>) vaiTroDAO.getAllVaiTro();
 			vaiTroDAO.disconnect();
@@ -52,7 +47,8 @@ public class VtController extends HttpServlet {
 		if("deleteVaiTro".equalsIgnoreCase(action)) {
 			String[] vtIdList = request.getParameterValues("vtId");
 			for(String s : vtIdList) {
-					vaiTroDAO.deleteVaiTro(s);
+				int vtId = Integer.parseInt(s); 	
+				vaiTroDAO.deleteVaiTro(vtId);
 			}
 			ArrayList<VaiTro> vaiTroList =  (ArrayList<VaiTro>) vaiTroDAO.getAllVaiTro();
 			vaiTroDAO.disconnect();
@@ -68,88 +64,75 @@ public class VtController extends HttpServlet {
 		vaiTroDAO.disconnect();
 		return new ModelAndView("login");
 	}
-	@RequestMapping(value="/preEditVt", method=RequestMethod.GET,
+	@RequestMapping(value="/preEditvt", method=RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String preEditVt(@RequestParam("vtId") String vtId) {
-			System.out.println("****" + vtId + "****");
-			VaiTroDAO vaiTroDAO = new VaiTroDAO();
-			VaiTro vt = vaiTroDAO.getVaiTro(Integer.parseInt(vtId));
-			vaiTroDAO.disconnect();
+	 public @ResponseBody String preEditvt(@RequestParam("vtId") String vt) {
+			System.out.println("****" + vt + "****");
+			//JOptionPane.showMessageDialog(null, vt);
+			vtOld = vt;
 			return JSonUtil.toJson(vt);
-			/*ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) new NoiSanXuatDAO().getAllNoiSanXuat();
-			return toJson(nsxList);*/
 		}
-	@RequestMapping(value="/addVt", method=RequestMethod.GET, 
+	@RequestMapping(value="/addvt", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String addVt(@RequestParam("vtId") int vtId, @RequestParam("vtTen") String vtTen) {
+	 public @ResponseBody String addvt(@RequestParam("vtTen") String vtTen) {
 		String result = "success";
-		VaiTroDAO vaiTroDAO = new VaiTroDAO();
-		VaiTro vt = vaiTroDAO.getVaiTro(vtId);
-		if(vt == null) 
+		System.out.println("Ten: "+ vtTen);
+		VaiTroDAO vtDAO = new VaiTroDAO();
+		VaiTro vt = vtDAO.getVaiTroByTen(vtTen);
+		if(vt == null)
 		{
-			vaiTroDAO.addVaiTro(new VaiTro(vtId, vtTen,0));
+			vtDAO.addVaiTro(new VaiTro(vtTen,0));
 			System.out.println("success");
-			result = "success";	
+			result = "success";
 		}
-		else if(vt !=null && vt.getDaXoa()== 1){
-			vt.setVtId(vtId);
+		else if(vt!=null && vt.getDaXoa() == 1){
 			vt.setVtTen(vtTen);
 			vt.setDaXoa(0);
-			vaiTroDAO.updateVaiTro(vt);
+			vtDAO.updateVaiTro(vt);
+			result = "success";
 		}
-		else
+		else 
 		{
 			System.out.println("fail");
 			result = "fail";
 		}
-		vaiTroDAO.disconnect();
+		vtDAO.disconnect();
 			return JSonUtil.toJson(result);
 	}
-	@RequestMapping(value="/updateVt", method=RequestMethod.GET, 
+	@RequestMapping(value="/updatevt", method=RequestMethod.GET, 
 		produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String updateVt(@RequestParam("vtIdUpdate") String vtIdUpdate, @RequestParam("vtTenUpdate") String vtTenUpdate) {
-		VaiTroDAO vaiTroDAO = new VaiTroDAO();
-		VaiTro vt = new VaiTro(Integer.parseInt(vtIdUpdate), vtTenUpdate,0);
-		vaiTroDAO.updateVaiTro(vt);
-		vaiTroDAO.disconnect();
+	 public @ResponseBody String updatevt(@RequestParam("vtTenUpdate") String vtTenUpdate) {
+		//JOptionPane.showMessageDialog(null, vtOld);
+		VaiTroDAO vtDAO = new VaiTroDAO();
+		VaiTro vt = vtDAO.getVaiTroByTen(vtOld);
+		//JOptionPane.showMessageDialog(null, vt.getVtTen() + vt.getVtId());
+		vt.setVtTen(vtTenUpdate);
+		vt.setDaXoa(0);
+		vtDAO.updateVaiTro(vt);
+		vtDAO.disconnect();
 		return JSonUtil.toJson(vt);
 	}
-	@RequestMapping(value="/deleteVt", method=RequestMethod.GET, 
+	@RequestMapping(value="/deletevt", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String deleteVt(@RequestParam("vtList") String vtList) {
+	 public @ResponseBody String deletevt(@RequestParam("vtList") String vtList) {
 		String[] str = vtList.split("\\, ");
 		
-		VaiTroDAO vaiTroDAO =  new VaiTroDAO();
-		for(String vtId : str) {
-			vaiTroDAO.deleteVaiTro(vtId);
+		VaiTroDAO vtDAO =  new VaiTroDAO();
+		for(String vtTen : str) {
+			vtDAO.deleteVaiTroTen(vtTen);
 		}
-		vaiTroDAO.disconnect();
+		vtDAO.disconnect();
 		return JSonUtil.toJson(vtList);
 	}
-	
-	@RequestMapping(value="/loadPageVt", method=RequestMethod.GET, 
+	@RequestMapping(value="/loadPagevt", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String loadPageVt(@RequestParam("pageNumber") String pageNumber) {
-		String result = "";
-//		System.out.println("MA: " + pageNumber);
-		VaiTroDAO vaiTroDAO = new VaiTroDAO();
+	 public @ResponseBody String loadPagevt(@RequestParam("pageNumber") String pageNumber) {
+		System.out.println("MA: " + pageNumber);
+		VaiTroDAO vtDAO = new VaiTroDAO();
 		int page = Integer.parseInt(pageNumber);
-		ArrayList<VaiTro> vtList = (ArrayList<VaiTro>) vaiTroDAO.limit((page -1 ) * 10, 10);
-		
-		/*
-		if(new NoiSanXuatDAO().getNoiSanXuat(nsxMa)==null)
-		{
-			new NoiSanXuatDAO().addNoiSanXuat(new NoiSanXuat(nsxMa, nsxTen,0));
-			System.out.println("success");
-			result = "success";	
-		}
-		else
-		{
-			System.out.println("fail");
-			result = "fail";
-		}
-		*/
-		vaiTroDAO.disconnect();
+		ArrayList<VaiTro> vtList = (ArrayList<VaiTro>) vtDAO.limit((page -1 ) * 10, 10);
+		vtDAO.disconnect();
 			return JSonUtil.toJson(vtList);
 	}
+	
 }

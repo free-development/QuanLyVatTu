@@ -32,14 +32,18 @@
     </head>
     <body>
     	<%
-    		String adminMa = request.getServletContext().getInitParameter("adminMa");
-    		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
-    		if (nguoiDung == null) {
+    		
+    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+    		if (authentication == null) {
     			request.setAttribute("url", "index");
     			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
     			dispatcher.forward(request, response);
     			return;
     		}
+    		String adminMa = request.getServletContext().getInitParameter("adminMa");
+    		String chucDanh = authentication.getChucDanh().getCdMa();
+    		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
+    		String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
     	%>
         <div class="wrapper">
 				<div class="header">
@@ -73,7 +77,7 @@
 				<div class="main_menu">
 					<ul>
 						<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-						<%if (adminMa.equalsIgnoreCase(nguoiDung.getChucDanh().getCdMa())) {%>
+						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
 						
 						<li><a>Danh mục</a>
 							<ul>
@@ -97,20 +101,24 @@
 									</ul>
 						</li>
 						<%} %>
-						<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-						<li><a>Báo cáo</a>
-							<ul>
-								<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
-								<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
-							</ul>
-						</li>
-						<%if (adminMa.equalsIgnoreCase(nguoiDung.getChucDanh().getCdMa())) {%>
+						<%if (!chucDanh.equalsIgnoreCase(adminMa)) {%>
+							<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
+							<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
+							<li><a>Báo cáo</a>
+								<ul>
+									<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
+									<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
+								</ul>
+							</li>
+							<%}} %>
+						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
 						<li><a>Quản lý người dùng</a>
 							<ul>
 								<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
 								<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
 								<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
 								<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
+								<li><a href="<%=siteMap.resetNguoiDung%>"/>Khôi phục tài khoản</li>
 							</ul>
 						</li>
 						<%} %>
@@ -123,7 +131,7 @@
 					</ul>
 					<div class="clear"></div>
 				</div>
-						<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=nguoiDung.getHoTen() %></b></div>
+						<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 				<div id="main-content">
 					<div class="view-tbao">
 						<table>

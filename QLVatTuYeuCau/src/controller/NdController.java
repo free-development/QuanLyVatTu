@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import util.JSonUtil;
+import util.Mail;
+import util.SendMail;
 import util.StringUtil;
 import dao.CTNguoiDungDAO;
 import dao.ChatLuongDAO;
@@ -49,6 +51,11 @@ public class NdController extends HttpServlet {
 	@RequestMapping("/ndManage")
 	public ModelAndView ndManage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
+		request.getCharacterEncoding();
+		response.getCharacterEncoding();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		if (session.getAttribute("nguoiDung") == null)
 			response.sendRedirect("login.jsp");
 		
@@ -68,7 +75,7 @@ public class NdController extends HttpServlet {
 			String sdt = request.getParameter("sdt");
 			String email = request.getParameter("email");
 			String diachi = request.getParameter("diachi");
-			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh),0));
+			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh)));
 			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau)));
 			
 			ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(new ArrayList<String>());
@@ -97,7 +104,7 @@ public class NdController extends HttpServlet {
 		//System.out.println("MA: "+msnv);
 		if((nguoiDungDAO.getNguoiDung(msnv)==null)&&(ctNguoiDungDAO.getCTNguoiDung(msnv)==null))
 		{
-			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh),0));
+			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh)));
 			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau)));
 			
 //			System.out.println("success");
@@ -118,7 +125,7 @@ public class NdController extends HttpServlet {
 	@RequestMapping(value="/preUpdateNd", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String preUpdateNd(@RequestParam("msnv") String msnv) {
-		//System.out.println(msnv);
+		System.out.println(msnv);
 		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 		NguoiDung nd = nguoiDungDAO.getNguoiDung(msnv);
 		nguoiDungDAO.disconnect();
@@ -133,7 +140,7 @@ public class NdController extends HttpServlet {
 		System.out.println(email);
 		System.out.println(diachi);
 		System.out.println(sdt);
-		NguoiDung nd = new NguoiDung(msnv, hoten,diachi,email,sdt,new ChucDanh(chucdanh),0);
+		NguoiDung nd = new NguoiDung(msnv, hoten,diachi,email,sdt,new ChucDanh(chucdanh));
 		NguoiDungDAO nguoiDungDAO=new NguoiDungDAO();
 		nguoiDungDAO.updateNguoiDung(nd);
 		System.out.println(nd.getChucDanh().getCdTen());
@@ -179,15 +186,44 @@ public class NdController extends HttpServlet {
 	}
 	@RequestMapping(value="/resetNd", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String resetNd(@RequestParam("msnv") String msnv) {
-		NguoiDung nd = new NguoiDung();
-		NguoiDungDAO nguoiDungDAO=new NguoiDungDAO();
-		nd = nguoiDungDAO.getNguoiDung(msnv);
-		nd.setKhoa(0);
-		nguoiDungDAO.updateNguoiDung(nd);
+	 public @ResponseBody String resetNd(@RequestParam("ndList") String ndList) {
+		String[] str =ndList.split("\\, ");
+
+		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		for(String msnv : str) {
+			nguoiDungDAO.resetNguoiDung(msnv);
+		}
 		nguoiDungDAO.disconnect();
-		return JSonUtil.toJson(nd);
+		return JSonUtil.toJson(ndList);
 	}
+	
+	@RequestMapping(value="/resetMK", method=RequestMethod.GET, 
+	produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+		public @ResponseBody String resetMK(@RequestParam("ndList") String ndList) {
+		String[] str =ndList.split("\\, ");
+		
+		CTNguoiDungDAO ctnguoiDungDAO = new CTNguoiDungDAO();
+		for(String msnv : str) {
+			String mk = ctnguoiDungDAO.resetMK(msnv);
+			String account = context.getInitParameter("account");
+			String password = context.getInitParameter("password");
+			String host = context.getInitParameter("hosting");
+			SendMail sendMail = new SendMail(account, password);
+			NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+			NguoiDung nguoiDung = nguoiDungDAO.getNguoiDung(msnv);
+			Mail mail = new Mail();
+			mail.setFrom(account);
+			mail.setTo(nguoiDung.getEmail());
+			mail.setSubject("Mật khẩu mới");
+			String content = "Bạn đã được khôi phục mật khẩu.\n";
+			content += "Mật khẩu mới của bạn là: \n" + mk + "\n Vui lòng đăng nhập vào hệ thống làm việc để kiểm tra.\n Thân mến!";
+			mail.setContent(content);
+			sendMail.send(mail);
+			nguoiDungDAO.disconnect();
+		}
+		ctnguoiDungDAO.disconnect();
+		return JSonUtil.toJson(ndList);
+		}
 	@RequestMapping("/login")
 	public ModelAndView login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
@@ -240,7 +276,7 @@ public class NdController extends HttpServlet {
 	@RequestMapping("lockNguoiDung")
 	public ModelAndView lockNguoiDung(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		CTNguoiDungDAO nguoiDungDAO = new CTNguoiDungDAO();
 		long size = nguoiDungDAO.size();
 		ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.limit(page - 1, 10);
 		request.setAttribute("size", size);
@@ -254,9 +290,39 @@ public class NdController extends HttpServlet {
 		nguoiDungDAO.disconnect();
 		return new ModelAndView(siteMap.lockNguoiDungPage, "nguoiDungList", nguoiDungList);
 	}
+	@RequestMapping("resetNguoiDung")
+	public ModelAndView resetNguoiDung(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		CTNguoiDungDAO nguoiDungDAO = new CTNguoiDungDAO();
+		long size = nguoiDungDAO.sizeReset();
+		ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.limitReset(page - 1, 10);
+		request.setAttribute("size", size);
+		ArrayList<String> ignoreList = new ArrayList<String>();
+		String adminMa = context.getInitParameter("adminMa");
+		NguoiDungDAO ndDAO = new NguoiDungDAO();
+		ignoreList.add(adminMa);
+		request.setAttribute("nguoiDungList", nguoiDungList);
+		nguoiDungDAO.disconnect();
+		return new ModelAndView(siteMap.resetNguoiDungPage, "nguoiDungList", nguoiDungList);
+	}
+	@RequestMapping("resetPassword")
+	public ModelAndView resetPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		CTNguoiDungDAO nguoiDungDAO = new CTNguoiDungDAO();
+		long size = nguoiDungDAO.size();
+		ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.limit(page - 1, 10);
+		request.setAttribute("size", size);
+		ArrayList<String> ignoreList = new ArrayList<String>();
+		String adminMa = context.getInitParameter("adminMa");
+		NguoiDungDAO ndDAO = new NguoiDungDAO();
+		ignoreList.add(adminMa);
+		request.setAttribute("nguoiDungList", nguoiDungList);
+		nguoiDungDAO.disconnect();
+		return new ModelAndView(siteMap.resetPasswordPage, "nguoiDungList", nguoiDungList);
+	}
 	@RequestMapping("updateNguoiDung")
 	public ModelAndView updateNguoiDung(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		CTNguoiDungDAO nguoiDungDAO = new CTNguoiDungDAO();
 		ChucDanhDAO chucDanhDAO = new ChucDanhDAO();
 		long size = nguoiDungDAO.size();
 		ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.limit(page - 1, 10);
@@ -286,7 +352,7 @@ public class NdController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String loadPageNd(@RequestParam("pageNumber") String pageNumber) {
 		System.out.println("MA: " + pageNumber);
-		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		CTNguoiDungDAO nguoiDungDAO = new CTNguoiDungDAO();
 		int page = Integer.parseInt(pageNumber);
 		ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.limit((page -1 ) * 10, 10);
 		nguoiDungDAO.disconnect();

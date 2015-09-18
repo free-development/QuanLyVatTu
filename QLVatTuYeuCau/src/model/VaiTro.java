@@ -32,6 +32,11 @@ public class VaiTro implements Serializable{
 		this.daXoa = daXoa;
 	}
 
+	public VaiTro(String vtTen,int daXoa) {
+		this.vtTen = vtTen;
+		this.daXoa = daXoa;
+	}
+
 	public int getDaXoa() {
 		return daXoa;
 	}

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dao.CTNguoiDungDAO;
 import dao.CongVanDAO;
 import dao.NguoiDungDAO;
 import dao.VTCongVanDAO;
@@ -231,7 +232,7 @@ public class ChiaSeCvController extends HttpServlet {
 
 	@RequestMapping(value = "/loadPageCscv", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String loadPageCscv(@RequestParam("pageNumber") String pageNumber) {
-		NguoiDungDAO ndDAO = new NguoiDungDAO();
+		CTNguoiDungDAO ndDAO = new CTNguoiDungDAO();
 		int page = Integer.parseInt(pageNumber);
 		ArrayList<Object> objectList = new ArrayList<Object>();
 		long sizeNd = ndDAO.size();

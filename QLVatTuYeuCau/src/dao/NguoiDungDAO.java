@@ -3,6 +3,9 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
+import util.StringUtil;
 import model.CTVatTu;
 import model.CongVan;
 import model.NguoiDung;
@@ -24,7 +27,7 @@ public class NguoiDungDAO {
 	
 	private SessionFactory template;  
 	private Session session;
-	
+	private   ServletContext context;
 	private String truongPhongMa = "TP";
 	private String adminMa = "AD";
 	public NguoiDungDAO() {
@@ -80,7 +83,14 @@ public class NguoiDungDAO {
 	}
 	public void lockNguoiDung(String msnv){
 		session.beginTransaction();
-		String sql = "update NguoiDung set Khoa = 1 where msnv = '" + msnv +"'";		
+		String sql = "update CTNguoiDung set khoa = 1 where msnv = '" + msnv +"'";		
+		Query query = session.createQuery(sql);
+		query.executeUpdate();
+		session.getTransaction().commit();
+	}
+	public void resetNguoiDung(String msnv){
+		session.beginTransaction();
+		String sql = "update CTNguoiDung set khoa = 0 where msnv = '" + msnv +"'";		
 		Query query = session.createQuery(sql);
 		query.executeUpdate();
 		session.getTransaction().commit();
@@ -121,27 +131,7 @@ public class NguoiDungDAO {
 		session.getTransaction().commit();
 		return list;
 	}
-	public List<NguoiDung> limit(int first, int limit) {
-		session.beginTransaction();
-		Criteria cr = session.createCriteria(NguoiDung.class);
-		Criterion KhoaNd = Restrictions.eq("Khoa", 0);
-//		Criterion limitRow = Restrictions.
-		cr.add(KhoaNd);
-		cr.setFirstResult(first);
-		cr.setMaxResults(limit);
-		ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) cr.list(); 
-		session.getTransaction().commit();
-		return nguoiDungList;
-	}
-	public long size() {
-		session.beginTransaction();
-		String sql = "select count(msnv) from NguoiDung where Khoa = 0";
-		Query query =  session.createQuery(sql);
-		long size = (long) query.list().get(0);
-		session.getTransaction().commit();
-		return size;
-		
-	}
+
 	
 	public ArrayList<String> startWith(String i) {
 		session.beginTransaction();
@@ -154,6 +144,7 @@ public class NguoiDungDAO {
 		session.getTransaction().commit();
 		return list;
 	}
+
 	public void close() {
 		if(session.isOpen())
 			session.close();
