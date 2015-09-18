@@ -395,14 +395,14 @@ constraint FK_CONGVAN foreign key (CVID) references CONGVAN(CVID)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-insert into VAITRO values(1,'Lap phieu nhap');
-insert into VAITRO values(2,'Mua vat tu');
-insert into VAITRO values(3,'Cap vat tu');
-insert into VAITRO values(4,'Mua Lap phieu xuat');
-insert into VAITRO values(5,'Mua Lap phieu xuat');
-insert into VAITRO values(6,'Mua Lap phieu xuat');
-insert into VAITRO values(7,'Mua Lap phieu xuat');
-insert into VAITRO values(8,'Mua Lap phieu xuat');
+insert into VAITRO values(1,'Lap phieu nhap', 0);
+insert into VAITRO values(2,'Mua vat tu', 0);
+insert into VAITRO values(3,'Cap vat tu', 0);
+insert into VAITRO values(4,'Mua Lap phieu xuat', 0);
+insert into VAITRO values(5,'Mua Lap phieu xuat', 0);
+insert into VAITRO values(6,'Mua Lap phieu xuat', 0);
+insert into VAITRO values(7,'Mua Lap phieu xuat', 0);
+insert into VAITRO values(8,'Mua Lap phieu xuat', 0);
 
 insert into CHUCDANH values ('GD', 'Giam doc',0);
 insert into CHUCDANH values ('GD1', 'Giam doc',0);
