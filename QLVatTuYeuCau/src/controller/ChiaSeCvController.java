@@ -237,7 +237,7 @@ public class ChiaSeCvController extends HttpServlet {
 		int page = Integer.parseInt(pageNumber);
 		ArrayList<Object> objectList = new ArrayList<Object>();
 		long sizeNd = ndDAO.size();
-		ArrayList<CTNguoiDung> ndList = (ArrayList<CTNguoiDung>) ndDAO.limit((page - 1) * 10, 10);
+		ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) ndDAO.limit((page - 1) * 10, 10);
 		objectList.add(ndList);
 		objectList.add((sizeNd - 1) / 10);
 		// return JSonUtil.toJson(objectList);

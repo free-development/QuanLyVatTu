@@ -28,6 +28,7 @@ public class NguoiDung implements Serializable{
 	 * DataTypeLength/Precision 50
 	 */
 	private String diaChi;
+	
 	/**
 	 * NOT NULL false
 	 * DomainName 
@@ -65,6 +66,7 @@ public class NguoiDung implements Serializable{
 	 */
 	public NguoiDung(String msnv, String hoTen, String diaChi, String email,
 			String sdt, ChucDanh chucDanh) {
+		super();
 		this.msnv = msnv;
 		this.hoTen = hoTen;
 		this.diaChi = diaChi;

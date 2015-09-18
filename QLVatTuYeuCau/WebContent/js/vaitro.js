@@ -10,7 +10,7 @@ function showForm(formId, check){
 		for(var i=0; i<f.length; i++) f[i].disabled = check;
 	}
 
-		function preUpdateVt(formId, check){
+		function preUpdatevt(formId, check){
 			vtId = $('input:checkbox[name=vtId]:checked').val();
 			var vtMaList = [];
 			$.each($("input[name='vtId']:checked"), function(){            
@@ -21,23 +21,25 @@ function showForm(formId, check){
 			else if (vtMaList.length > 1)
 				alert('Bạn chỉ được chọn 1 vai trò để thay đổi!!');
 			else {
+				
 				$.ajax({
-					url: "/QLVatTuYeuCau/preEditVt.html",
+					url: "/QLVatTuYeuCau/preEditvt.html",
 					type: "GET",
 					dataType: "JSON",
 					data: {"vtId": vtId},
 					contentType: "application/json",
 					mimeType: "application/json",
 					
-					success: function(vt){
+					success: function(vt){		
 						
-						$('input[name=vtIdUpdate]').val(vt.vtId);
-					  	$('input:text[name=vtTenUpdate]').val(vt.vtTen);
+						$('input:text[name=vtTenUpdate]').val(vtId);
 					  	
 					  	showForm(formId, check);
 					}
 					
 				});
+				
+				
 			}
 		}
 		function confirmDelete(){
@@ -49,69 +51,63 @@ function showForm(formId, check){
 			var str = vtMaList.join(", ");
 			if (vtMaList.length == 0)
 				alert('Bạn phải chọn 1 hoặc nhiều vai trò để xóa!!');
-			else if (confirm('Bạn có chắc xóa vai trò có mã ' + str))
-				deleteVt(str);
+			else if (confirm('Bạn có chắc xóa vai trò ' + str))
+				deletevt(str);
 		}
  		
-	 	 function deleteVt(str) {
+	 	 function deletevt(str) {
 			 
 			$.ajax({
-				url: "/QLVatTuYeuCau/deleteVt.html",	
+				url: "/QLVatTuYeuCau/deletevt.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "vtList": str},
 			  	contentType: 'application/json',
 			    mimeType: 'application/json',
-			  	success: function() {
-							$('table tr').has('input[name="vtId"]:checked').remove();
-							alert('Bộ phận có mã ' + str + " đã bị xóa");
+			  	success: function(vtList) {
+			  		$('table tr').has('input[name="vtId"]:checked').remove();
+			  		alert('Vai trò ' + str + " đã bị xóa");
 			    } 
 			});  
 		} 
- 	 	function addVt() {
- 			vtId = $('#add-form input[name=vtId]').val();
+ 	 	function addvt() {
  			vtTen = $('#add-form input:text[name=vtTen]').val();
- 			if(vtId == '') {
- 				$('#requirevtId').html('Vui lòng nhập mã vai trò');
- 			}
- 			else if (vtTen == '')
+ 			 if (vtTen == '')
 	 			{
 	 				$('#requirevtTen').html('Vui lòng nhập tên vai trò');
 	 			}
  			else {
 
 		 			$.ajax({
-		 				url: "/QLVatTuYeuCau/addVt.html",	
+		 				url: "/QLVatTuYeuCau/addvt.html",	
 					  	type: "GET",
 		 			  	dateType: "JSON",
-		 			  	data: { "vtId": vtId, "vtTen": vtTen},
+		 			  	data: {"vtTen": vtTen},
 		 			  	contentType: 'application/json',
 		 			    mimeType: 'application/json',
 					  	
 		 			  	success: function(result) {
 					  		if(result == "success")
 			 				{
-							$('#view-table table tr:first').after('<tr class="rowContent"><td class=\"left-column\"><input type=\"checkbox\" name=\"vtId\" value=\"' +vtId + '\"</td><td class=\"col\">'+ vtId +'</td><td class=\"col\">' + vtTen+'</td></tr>');
-					  		$('#add-form input[name=vtId]').val('');
+							$('#view-table table tr:first').after('<tr><td class=\"left-column\"><input type=\"checkbox\" name=\"vtId\" value=\"' + vtTen+'\"</td><td class=\"col\">' + vtTen+'</td></tr>');
 							$('#add-form input:text[name=vtTen]').val('');
 					  		showForm("add-form", false);	
-					  		alert("Vai trò "+vtId + " đã được thêm ");	
+					  		alert("Vai trò "+ vtTen + " đã được thêm ");	
 						}
 				  		else{
-				  			alert("Vai trò "+vtId + " đã tồn tại ");
+				  			alert("Vai trò "+ vtTen + " đã tồn tại ");
 				  		}
 					  	
 		 			  	}
 		 			});
  			}
  		}
- 	 	function confirmUpdateVt(){
-			var vtIdUpdate = $('input[name=vtIdUpdate]').val();
+ 	 	function confirmUpdatevt(){
 			var vtTenUpdate = $('input:text[name=vtTenUpdate]').val();
-			if (confirm('Bạn có chắc thay đổi vai trò có mã ' + vtIdUpdate))
-				updateVt(vtIdUpdate, vtTenUpdate);
+			if (confirm('Bạn có chắc thay đổi đơn vị tính: ' + vtTenUpdate))
+				updatevt(vtTenUpdate);
 		}
- 	 	function updateVt(vtIdUpdate, vtTenUpdate) {
+ 	 	function updatevt(vtTenUpdate) {
  	 		if (vtTenUpdate == '')
 	 			{
 	 				$('#requirevtTenUp').html('Vui lòng nhập tên vai trò');
@@ -120,40 +116,34 @@ function showForm(formId, check){
  			else {
 
 					$.ajax({
-						url: "/QLVatTuYeuCau/updateVt.html",	
+						url: "/QLVatTuYeuCau/updatevt.html",	
 					  	type: "GET",
 					  	dateType: "JSON",
-					  	data: { "vtIdUpdate": vtIdUpdate, "vtTenUpdate": vtTenUpdate},
+					  	data: {"vtTenUpdate": vtTenUpdate},
 					  	contentType: 'application/json',
 					    mimeType: 'application/json',
 					  	
 					  	success: function(vt) {
 					  		$('table tr').has('input[name="vtId"]:checked').remove();
-					  		$('#view-table table tr:first').after('<tr class="rowContent"><td class=\"left-column\"><input type=\"checkbox\" name=\"vtId\" value=\"' +vtIdUpdate + '\"</td><td class=\"col\">'+ vtIdUpdate +'</td><td class=\"col\">' + vtTenUpdate+'</td></tr>');
-					  		$('input[name=vtIdUpdate]').val('');
-							vtTenUpdate = $('input:text[name=vtTenUpdate]').val('');
+					  		$('#view-table table tr:first').after('<tr><td class=\"left-column\"><input type=\"checkbox\" name=\"vtId\" value=\"' +vtTenUpdate + '\"</td><td class=\"col\">' + vtTenUpdate+'</td></tr>');						
 					  		showForm("update-form", false);	
-					  		alert("Thay đổi thành công vai trò có mã "+ vtIdUpdate);
+					  		alert("Thay đổi thành công vai trò "+ vtTenUpdate);
+					  		vtTenUpdate = $('input:text[name=vtTenUpdate]').val('');
 					  	}
 					});
  			}
 		}
- 	 	function resetUpdateVt(){
+ 	 	function resetUpdatevt(){
  	 		$('#update-form input:text[name=vtTenUpdate]').val('');
  	 	}
- 	 	function changeVtId(){
- 	  		$('#requirevtId').html('');
- 	  		$('#add-form input[name=vtId]').focus();
- 	 	} 	
- 	  	
- 	  	function changeVtTen(){
+ 	  	function changevtTen(){
  	  		$('#requirevtTen').html('');
  	  		$('#add-form input:text[name=vtTen]').focus();
  	 	}	
  	  	
  	
  	  	
- 	  	function changeVtTenUp(){
+ 	  	function changevtTenUp(){
  	  		$('#requirevtTenUp').html('');
  	  		$('#update-form input:text[name=vtTenUpdate]').focus();
  	 	}
@@ -162,7 +152,7 @@ function showForm(formId, check){
  		  	$('.page').click(function(){
  			var pageNumber = $(this).val();
  		    	$.ajax({
- 					url: "/QLVatTuYeuCau/loadPageVt.html",	
+ 					url: "/QLVatTuYeuCau/loadPagevt.html",	
  				  	type: "GET",
  				  	dateType: "JSON",
  				  	data: { "pageNumber": pageNumber},
@@ -180,8 +170,7 @@ function showForm(formId, check){
  								var str = '';
  								str = '<tr class=\"rowContent\" ' + style + '>'
  									+ '<td class=\"left-column\"><input type=\"checkbox\" name=\"vtId\" value=\"' 
- 									+ vt.vtId +'\" class=\"checkbox\"></td>'
- 									+ '<td class=\"col\">' + vt.vtId + '</td>'
+ 									+ vt.vtTen +'\" class=\"checkbox\"></td>'
  									+ '<td class=\"col\">' + vt.vtTen + '</td>'
  									+ '</tr>';
  								$('#view-table table tr:first').after(str);
@@ -196,7 +185,7 @@ function showForm(formId, check){
  	 var key = e.which;
  	 if(key == 13)  // the enter key code
  	  {
- 		 addVt();
+ 		 addvt();
  	    return false;  
  	  }
  	});   
@@ -206,7 +195,7 @@ function showForm(formId, check){
  	 var key = e.which;
  	 if(key == 13)  // the enter key code
  	  {
- 	    updateVt();
+ 	    updatevt();
  	    return false;  
  	  }
  	});   

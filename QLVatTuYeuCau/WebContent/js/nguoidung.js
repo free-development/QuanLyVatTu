@@ -44,13 +44,13 @@ function confirmResetNd(){
     });
 	var str = ndMaList.join(", ");
 	if (ndMaList.length == 0)
-		alert('Bạn phải chọn 1 Tài khoản để mở khóa!!');
+		alert('Bạn phải chọn 1 hoặc nhiều Tài khoản để mở khóa!!');
 	else if (confirm('Bạn có chắc mở tài khoản có mã ' + str))
 		resetNd(str);
 }
 function resetNd(str) {
 	$.ajax({
-		url: "/QLVatTuYeuCau/lockNd.html",	
+		url: "/QLVatTuYeuCau/resetNd.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "ndList": str},
@@ -58,11 +58,11 @@ function resetNd(str) {
 	    mimeType: 'application/json',
 	  	success: function() {
 					$('table tr').has('input[name="msnv"]:checked').remove();
+					alert('Tài khoản có mã ' + str + " đã mở khóa");
 			  		$('#view-table-chia-se table tr:first').after('<tr class="rowContent"><td style=\"text-align: center;\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
 			  				+msnv + '\"</td><td class=\"col\">'+ msnv +'</td><td class=\"col\">' + hoten+'</td><td class=\"col\">' + chucdanh+'</td><td class=\"col\">' 
 			  				+ email+'</td><td class=\"col\">' + diachi+'</td><td class=\"col\">' + sdt+'</td></tr>');
-			  		
-					alert('Tài khoản có mã ' + str + " đã mở khóa");
+					
 	    } 
 	});  
 }
@@ -92,7 +92,32 @@ function confirmLockNd(){
 	    } 
 	});  
 }
-
+	 
+	 function confirmResetMK(){
+			var msnv = $('input:checkbox[name=msnv]:checked').val();
+			var ndMaList = [];
+			$.each($("input[name='msnv']:checked"), function(){            
+				ndMaList.push($(this).val());
+		    });
+			var str = ndMaList.join(", ");
+			if (ndMaList.length == 0)
+				alert('Bạn phải chọn 1 hoặc nhiều Tài khoản để khôi phục mật khẩu!!');
+			else if (confirm('Bạn có chắc khôi phục mật khẩu của tài khoản có mã ' + str))
+				resetMK(str);
+		}
+			 function resetMK(str) {
+			$.ajax({
+				url: "/QLVatTuYeuCau/resetMK.html",	
+			  	type: "GET",
+			  	dateType: "JSON",
+			  	data: { "ndList": str},
+			  	contentType: 'application/json',
+			    mimeType: 'application/json',
+			  	success: function() {
+							alert('Tài khoản có mã ' + str + " đã được khôi phục mật khẩu thành công!");
+			    } 
+			});
+		}
 function preUpdateNd(formId, check) {
 	var msnv = $('input:checkbox[name=msnv]:checked').val();
 	
@@ -246,7 +271,8 @@ $(document).ready(function() {
 		  	}
 		});
     });	
-})   
+})  
+
  function login() {
 		var msnv = $('input:text[name=msnv]').val();
 		var matkhau = $('input:password[name=matkhau]').val();
@@ -509,8 +535,11 @@ $(document).ready(function() {
 		    updateNd();
 		    return false;  
 		  }
-		});   
-	});  
+		  
+		}); 
+	}); 
+}
+
 
  // click event
  /*

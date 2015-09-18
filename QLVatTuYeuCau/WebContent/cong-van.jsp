@@ -122,7 +122,7 @@ hosting = '<%=hosting  %>';
 				<%} %>
 				<%if (!chucDanh.equalsIgnoreCase(adminMa)) {%>
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-				<%if (!chucDanhMa.equalsIgnoreCase(vanThuMa)){ %>
+				<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
 				<li><a>Báo cáo</a>
 					<ul>
 						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
@@ -137,6 +137,7 @@ hosting = '<%=hosting  %>';
 						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
 						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
 						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
+						<li><a href="<%=siteMap.resetNguoiDung%>"/>Khôi phục tài khoản</li>
 					</ul>
 				</li>
 				<%} %>

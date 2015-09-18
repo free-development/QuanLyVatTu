@@ -3,6 +3,9 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
+import util.StringUtil;
 import model.CTVatTu;
 import model.CongVan;
 import model.NguoiDung;
@@ -25,7 +28,7 @@ public class NguoiDungDAO {
 	
 	private SessionFactory template;  
 	private Session session;
-	
+	private   ServletContext context;
 	private String truongPhongMa = "TP";
 	private String adminMa = "AD";
 	public NguoiDungDAO() {
@@ -80,6 +83,20 @@ public class NguoiDungDAO {
 		session.getTransaction().commit();
 	}
 	
+	public void lockNguoiDung(String msnv){
+		session.beginTransaction();
+		String sql = "update CTNguoiDung set khoa = 1 where msnv = '" + msnv +"'";		
+		Query query = session.createQuery(sql);
+		query.executeUpdate();
+		session.getTransaction().commit();
+	}
+	public void resetNguoiDung(String msnv){
+		session.beginTransaction();
+		String sql = "update CTNguoiDung set khoa = 0 where msnv = '" + msnv +"'";		
+		Query query = session.createQuery(sql);
+		query.executeUpdate();
+		session.getTransaction().commit();
+	}
 	public ArrayList<String> startWithMa(String i) {
 		session.beginTransaction();
 		String sql = "select msnv from NguoiDung where msnv LIKE :msnv";
@@ -116,8 +133,6 @@ public class NguoiDungDAO {
 		session.getTransaction().commit();
 		return list;
 	}
-	
-	
 	public ArrayList<String> startWith(String i) {
 		session.beginTransaction();
 //		session.createCriteria(NguoiDung.class, "hoTen");
@@ -129,6 +144,7 @@ public class NguoiDungDAO {
 		session.getTransaction().commit();
 		return list;
 	}
+
 	public void close() {
 		if(session.isOpen())
 			session.close();

@@ -36,6 +36,8 @@ public class BcvttController extends HttpServlet {
     	
     	String action = request.getParameter("action");
     	if ("manageBcvtt".equalsIgnoreCase(action)) {
+    		congVanDAO.disconnect();
+			yeuCauDAO.disconnect();
     		return new ModelAndView(siteMap.baoCaoVatTuThieu);
 		}
     	if("chitiet".equalsIgnoreCase(action)){
