@@ -17,7 +17,6 @@ import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
 
 public class ChucDanhDAO {
-	
 	private SessionFactory template;  
 	private Session session;
 	public ChucDanhDAO() {
@@ -33,7 +32,6 @@ public class ChucDanhDAO {
 	public List<ChucDanh> getAllChucDanh() {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(ChucDanh.class);
-		
 		Criterion xoaCd = Restrictions.eq("daXoa", 0);
 		cr.add(xoaCd);
 		ArrayList<ChucDanh> chucDanhList = (ArrayList<ChucDanh>) cr.list(); 

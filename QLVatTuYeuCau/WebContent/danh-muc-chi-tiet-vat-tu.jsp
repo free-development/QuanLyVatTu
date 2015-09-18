@@ -199,11 +199,10 @@
 										String str = "";
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
-									for(int i = 0; i < p; i++) {
-										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick= \"loadPageCTVatTu(" + i +")\">&nbsp;";
+									for(int i = 0; i <= p; i++) {
+										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick=\"loadPageCTVatTu(" + i +")\">&nbsp;";
 									}
 									if (pageNum > 10)
-										// str = "<input type=\"button\" value=\"<<Previous\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;"  + str + "<input type=\"button\" value=\"Next>>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
 										str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageCTVatTu(\'Next\');\">";
 									out.println(str);	
 								%>

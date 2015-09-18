@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import map.siteMap;
 import model.CTNguoiDung;
+import model.CTVatTu;
 import model.ChatLuong;
 import model.ChucDanh;
 import model.DonViTinh;
@@ -33,6 +34,7 @@ import util.Mail;
 import util.SendMail;
 import util.StringUtil;
 import dao.CTNguoiDungDAO;
+import dao.CTVatTuDAO;
 import dao.ChatLuongDAO;
 import dao.ChucDanhDAO;
 import dao.NguoiDungDAO;
@@ -83,6 +85,9 @@ public class NdController extends HttpServlet {
 			
 		}
 		if("manageNd".equalsIgnoreCase(action)) {
+			long size = ctNguoiDungDAO.size();
+			ArrayList<NguoiDung> ctndList =  (ArrayList<NguoiDung>) ctNguoiDungDAO.limit(page - 1, 10);
+			request.setAttribute("size", size);
 			ArrayList<ChucDanh> chucDanhList = (ArrayList<ChucDanh>) new ChucDanhDAO().getAllChucDanh();
 			ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(new ArrayList<String>());
 			request.setAttribute("chucDanhList", chucDanhList);
@@ -91,7 +96,7 @@ public class NdController extends HttpServlet {
 		nguoiDungDAO.disconnect();
 		chucDanhDAO.disconnect();
 		ctNguoiDungDAO.disconnect();
-		return new ModelAndView(siteMap.login);
+		return new ModelAndView(siteMap.ndManage);
 	}
 	
 	@RequestMapping(value="/addNd", method=RequestMethod.GET, 
@@ -348,16 +353,49 @@ public class NdController extends HttpServlet {
 		String hoTen=nguoiDung.getHoTen();
 		return JSonUtil.toJson(hoTen);
 	}
+//	@RequestMapping(value="/loadPageNd", method=RequestMethod.GET, 
+//			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	 public @ResponseBody String loadPageNd(@RequestParam("pageNumber") String pageNumber) {
+//		System.out.println("MA: " + pageNumber);
+//		CTNguoiDungDAO nguoiDungDAO = new CTNguoiDungDAO();
+//		int page = Integer.parseInt(pageNumber);
+//		ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.limit((page -1 ) * 10, 10);
+//		nguoiDungDAO.disconnect();
+//			return JSonUtil.toJson(ndList);
+//	}
 	@RequestMapping(value="/loadPageNd", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String loadPageNd(@RequestParam("pageNumber") String pageNumber) {
-		System.out.println("MA: " + pageNumber);
-		CTNguoiDungDAO nguoiDungDAO = new CTNguoiDungDAO();
+		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 		int page = Integer.parseInt(pageNumber);
-		ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.limit((page -1 ) * 10, 10);
+		ArrayList<Object> objectList = new ArrayList<Object>();
+		CTNguoiDungDAO ctndDAO = new CTNguoiDungDAO();
+		long sizeNd = ctndDAO.size();
+		ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) nguoiDungDAO.limit(page * 10, 10);
+		System.out.println("****************" + ndList.size() + "*************");
+		objectList.add(ndList);
+		objectList.add((sizeNd - 1)/10);
 		nguoiDungDAO.disconnect();
-			return JSonUtil.toJson(ndList);
+		ctndDAO.disconnect();
+		return JSonUtil.toJson(objectList);
 	}
+	@RequestMapping(value="/loadPageNdKP", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody String loadPageNdKP(@RequestParam("pageNumber") String pageNumber) {
+		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
+		int page = Integer.parseInt(pageNumber);
+		ArrayList<Object> objectList = new ArrayList<Object>();
+		CTNguoiDungDAO ctndDAO = new CTNguoiDungDAO();
+		long sizeNd = ctndDAO.sizeReset();
+		ArrayList<NguoiDung> ndList = (ArrayList<NguoiDung>) ctndDAO.limitReset(page * 10, 10);
+		System.out.println("****************" + ndList.size() + "*************");
+		objectList.add(ndList);
+		objectList.add((sizeNd - 1)/10);
+		nguoiDungDAO.disconnect();
+		ctndDAO.disconnect();
+		return JSonUtil.toJson(objectList);
+	}
+	
 	@RequestMapping(value="/timKiemNguoidung", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String timKiemNguoidung(@RequestParam("msnv") String msnv, @RequestParam("hoTen") String hoTen) {

@@ -234,43 +234,195 @@ function checkPassword()
 			}
 	}
 
-$(document).ready(function() {
-  	$('.page').click(function(){
-	var pageNumber = $(this).val();
-    	$.ajax({
-			url: "/QLVatTuYeuCau/loadPageNd.html",	
-		  	type: "GET",
-		  	dateType: "JSON",
-		  	data: { "pageNumber": pageNumber},
-		  	contentType: 'application/json',
-		    mimeType: 'application/json',
-		  	
-		  	success: function(ndList) {
-		  		$('#view-table-chia-se table .rowContent').remove();
-				if(ndList.length>0){
-					for(i = 0;i < ndList.length; i++ ) {
-						var nd = ndList[i] ;
-						var style = '';	
-						if (i % 2 == 0)
-							style = 'style=\"background : #CCFFFF;\"';
-						var str = '';
-						str = '<tr class=\"rowContent\" ' + style + '>'
-							+ '<td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
-							+ nd.msnv +'\" class=\"checkbox\"></td>'
-							+ '<td class=\"col\">' + nd.msnv + '</td>'
-							+ '<td class=\"col\">' + nd.hoten + '</td>'
-							+ '<td class=\"col\">' + nd.chucDanh.cdTen + '</td>'
-							+ '<td class=\"col\">' + nd.email + '</td>'
-							+ '<td class=\"col\">' + nd.diachi + '</td>'
-							+ '<td class=\"col\">' + nd.sdt + '</td>'
-							+ '</tr>';
-						$('#view-table-chia-se table tr:first').after(str);
+//$(document).ready(function() {
+//  	$('.page').click(function(){
+//	var pageNumber = $(this).val();
+//    	$.ajax({
+//			url: "/QLVatTuYeuCau/loadPageNd.html",	
+//		  	type: "GET",
+//		  	dateType: "JSON",
+//		  	data: { "pageNumber": pageNumber},
+//		  	contentType: 'application/json',
+//		    mimeType: 'application/json',
+//		  	
+//		  	success: function(ndList) {
+//		  		$('#view-table-chia-se table .rowContent').remove();
+//				if(ndList.length>0){
+//					for(i = 0;i < ndList.length; i++ ) {
+//						var nd = ndList[i] ;
+//						var style = '';	
+//						if (i % 2 == 0)
+//							style = 'style=\"background : #CCFFFF;\"';
+//						var str = '';
+//						str = '<tr class=\"rowContent\" ' + style + '>'
+//							+ '<td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
+//							+ nd.msnv +'\" class=\"checkbox\"></td>'
+//							+ '<td class=\"col\">' + nd.msnv + '</td>'
+//							+ '<td class=\"col\">' + nd.hoTen + '</td>'
+//							+ '<td class=\"col\">' + nd.chucDanh.cdTen + '</td>'
+//							+ '<td class=\"col\">' + nd.email + '</td>'
+//							+ '<td class=\"col\">' + nd.diaChi + '</td>'
+//							+ '<td class=\"col\">' + nd.sdt + '</td>'
+//							+ '</tr>';
+//						$('#view-table-chia-se table tr:first').after(str);
+//					}
+//				}
+//		  	}
+//		});
+//    });	
+//})   
+ 	    function loadPageNd(pageNumber){
+ 		if (pageNumber == 'Next') {
+ 			var lastPage = document.getElementsByClassName('page')[9].value;
+ 			var p = (lastPage) / 5;
+ 			var page = p * 5;
+ 		}
+ 		else if (pageNumber == 'Previous') {
+ 			var firstPage = document.getElementsByClassName('page')[0].value;
+ 			var p = (firstPage - 1) / 5;
+ 			var page =  firstPage-2;
+ 		}
+ 		else {
+ 			var page = pageNumber;
+ 		}
+ 	    	$.ajax({
+ 				url: "/QLVatTuYeuCau/loadPageNd.html",	
+ 			  	type: "GET",
+ 			  	dateType: "JSON",
+ 			  	data: { "pageNumber": page},
+ 			  	contentType: 'application/json',
+ 			    mimeType: 'application/json',
+ 			  	
+ 			  	success: function(objectList) {
+ 			  		var size = objectList[1];
+ 			  		var ndList = objectList[0];
+ 			  		var length = ndList.length;
+ 			  		$('#view-table-chia-se table .rowContent').remove();
+ 						for(i = 0;i < length; i++ ) {
+ 							var nd = ndList[i];
+ 							var cells = '';
+ 							var style = '';
+ 							if (i % 2 == 0)
+ 								style = 'style=\"background : #CCFFFF;\"';
+ 							
+ 							
+						cells = '<td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
+								+ nd.msnv +'\" class=\"checkbox\"></td>'
+ 								+ '<td class=\"col\">' + nd.msnv + '</td>'
+								+ '<td class=\"col\">' + nd.hoTen + '</td>'
+								+ '<td class=\"col\">' + nd.chucDanh.cdTen + '</td>'
+								+ '<td class=\"col\">' + nd.email + '</td>'
+								+ '<td class=\"col\">' + nd.diaChi + '</td>'
+ 								+ '<td class=\"col\">' + nd.sdt + '</td>'
+ 							var row = '<tr class=\"rowContent\" ' + style + '>' + cells + '</tr>';
+		 					$('#view-table-chia-se table tr:first').after(row);
+ 						}
+ 					var button = '';
+					if(pageNumber == 'Next') {
+						for (var i = 0; i < 10; i++) {
+							
+							var t = ((p -1) * 5 + i + 1);
+							
+							button += '<input type=\"button\" value=\"' + ((p -1) * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageNd(' + ((p -1)*5 + i)  +')\">&nbsp;';
+							if (t > size)
+								break;
+						}
+						button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNd(\'Previous\')\">&nbsp;'  + button;
+						if ((p + 1) * 5 < size)
+							button += '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">';
+						$('#paging').html(button);
+						$('.page')[5].focus();
+					} else if (pageNumber == 'Previous'){
+						if (p > 0)
+							p = p -1;
+						for (var i = 0; i < 10; i++)
+							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageNd(' + (p * 5 + i)  +')\">&nbsp;';
+						
+						button = button + '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">';
+						if (p >= 1)	
+							button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNd(\'Previous\')\">&nbsp;' + button;
+						$('#paging').html(button);	
+						$('.page')[4].focus();
 					}
-				}
-		  	}
-		});
-    });	
-})   
+ 			  	}
+ 			});
+    }
+ 	    function loadPageNdKP(pageNumber){
+ 	 		if (pageNumber == 'Next') {
+ 	 			var lastPage = document.getElementsByClassName('page')[9].value;
+ 	 			var p = (lastPage) / 5;
+ 	 			var page = p * 5;
+ 	 		}
+ 	 		else if (pageNumber == 'Previous') {
+ 	 			var firstPage = document.getElementsByClassName('page')[0].value;
+ 	 			var p = (firstPage - 1) / 5;
+ 	 			var page =  firstPage-2;
+ 	 		}
+ 	 		else {
+ 	 			var page = pageNumber;
+ 	 		}
+ 	 	    	$.ajax({
+ 	 				url: "/QLVatTuYeuCau/loadPageNdKP.html",	
+ 	 			  	type: "GET",
+ 	 			  	dateType: "JSON",
+ 	 			  	data: { "pageNumber": page},
+ 	 			  	contentType: 'application/json',
+ 	 			    mimeType: 'application/json',
+ 	 			  	
+ 	 			  	success: function(objectList) {
+ 	 			  		var size = objectList[1];
+ 	 			  		var ndList = objectList[0];
+ 	 			  		var length = ndList.length;
+ 	 			  		$('#view-table-chia-se table .rowContent').remove();
+ 	 						for(i = 0;i < length; i++ ) {
+ 	 							var nd = ndList[i];
+ 	 							var cells = '';
+ 	 							var style = '';
+ 	 							if (i % 2 == 0)
+ 	 								style = 'style=\"background : #CCFFFF;\"';
+ 	 							
+ 	 							
+ 							cells = '<td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
+ 									+ nd.msnv +'\" class=\"checkbox\"></td>'
+ 	 								+ '<td class=\"col\">' + nd.msnv + '</td>'
+ 									+ '<td class=\"col\">' + nd.hoTen + '</td>'
+ 									+ '<td class=\"col\">' + nd.chucDanh.cdTen + '</td>'
+ 									+ '<td class=\"col\">' + nd.email + '</td>'
+ 									+ '<td class=\"col\">' + nd.diaChi + '</td>'
+ 	 								+ '<td class=\"col\">' + nd.sdt + '</td>'
+ 	 							var row = '<tr class=\"rowContent\" ' + style + '>' + cells + '</tr>';
+ 			 					$('#view-table-chia-se table tr:first').after(row);
+ 	 						}
+ 	 					var button = '';
+ 						if(pageNumber == 'Next') {
+ 							for (var i = 0; i < 10; i++) {
+ 								
+ 								var t = ((p -1) * 5 + i + 1);
+ 								
+ 								button += '<input type=\"button\" value=\"' + ((p -1) * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageNdKP(' + ((p -1)*5 + i)  +')\">&nbsp;';
+ 								if (t > size)
+ 									break;
+ 							}
+ 							button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNdKP(\'Previous\')\">&nbsp;'  + button;
+ 							if ((p + 1) * 5 < size)
+ 								button += '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNdKP(\'Next\');\">';
+ 							$('#paging').html(button);
+ 							$('.page')[5].focus();
+ 						} else if (pageNumber == 'Previous'){
+ 							if (p > 0)
+ 								p = p -1;
+ 							for (var i = 0; i < 10; i++)
+ 								button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageNdKP(' + (p * 5 + i)  +')\">&nbsp;';
+ 							
+ 							button = button + '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNdKP(\'Next\');\">';
+ 							if (p >= 1)	
+ 								button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNdKP(\'Previous\')\">&nbsp;' + button;
+ 							$('#paging').html(button);	
+ 							$('.page')[4].focus();
+ 						}
+ 	 			  	}
+ 	 			});
+ 	    }
  function login() {
 		var msnv = $('input:text[name=msnv]').val();
 		var matkhau = $('input:password[name=matkhau]').val();
