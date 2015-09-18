@@ -144,7 +144,25 @@ public class NguoiDungDAO {
 		session.getTransaction().commit();
 		return list;
 	}
-
+	public ArrayList<NguoiDung> limit(int first, int limit) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(NguoiDung.class, "nguoiDung");
+//		cr.createAlias("nguoiDung.msnv", "msnv");
+//		cr.createAlias("nguoiDung.hoTen", "hoTen");
+		cr.createAlias("nguoiDung.chucDanh", "chucDanh");
+//		cr.createAlias("chucDanh.cdTen", "cdTen");
+		cr.addOrder(Order.asc("chucDanh.cdMa"));
+//		cr.createAlias("nguoiDung.email", "email");
+//		cr.createAlias("nguoiDung.diaChi", "diaChi");
+//		cr.createAlias("nguoiDung.sdt", "sdt");
+		cr.setFirstResult(first);
+		cr.setMaxResults(limit);
+		ArrayList<NguoiDung> list = (ArrayList<NguoiDung>) cr.list();
+		
+		session.getTransaction().commit();
+		return list;
+	}
+	
 	public void close() {
 		if(session.isOpen())
 			session.close();

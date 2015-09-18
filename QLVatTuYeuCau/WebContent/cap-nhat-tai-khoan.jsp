@@ -69,6 +69,7 @@
 				dispatcher.forward(request, response);
 				return;
 			}
+			
 			Long pageNum = (Long) request.getAttribute("size")/10;
     	%>
 	<div class="wrapper">
@@ -203,19 +204,18 @@
 						<%}%>
 					</table>
 					</div>
-					<div id = "paging" >
-							<table style ="border-style: none;">
-								<tr>
-										<td>Trang</td>
-										<td>
-												<%
-												for(int j = 0; j <= pageNum; j++) { %>
-												<input type="button" value="<%=j+1%>" class="page">
-												<%} %>
-										</td>
-									
-								</tr>
-							</table>
+					<div id ="paging" style="text-align: center;">
+							<%
+										String str = "";
+										String pages = ""; 
+										long p = (pageNum < 10 ? pageNum : 10);
+									for(int j = 0; j <= p; j++) {
+										str += "<input type=\"button\" value=\"" + (j+1) + "\" class=\"page\" onclick=\"loadPageNd(" + j +")\">&nbsp;";
+									}
+									if (pageNum > 10)
+										str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">";
+									out.println(str);	
+								%>
 						</div>
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">

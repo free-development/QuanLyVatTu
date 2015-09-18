@@ -61,13 +61,6 @@
     		ArrayList<ChucDanh> listChucDanh = (ArrayList<ChucDanh>) request.getAttribute("chucDanhList");
 			ArrayList<NguoiDung> listNguoiDung = (ArrayList<NguoiDung>) request.getAttribute("nguoiDungList");
 			Long pageNum = (Long) request.getAttribute("size")/10;
-// 			if (listChucDanh ==  null) {
-// 				int index = siteMap.ndManage.lastIndexOf("/");
-// 				String url = siteMap.ndManage.substring(index);
-// 				RequestDispatcher dispatcher =  request.getRequestDispatcher(url + "?action=manageNd");
-// 				dispatcher.forward(request, response);
-// 				return;
-// 			}
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -200,19 +193,18 @@
 						<%}%>
 					</table>
 					</div>
-					<div id = "paging" >
-							<table style ="border-style: none;">
-								<tr>
-										<td>Trang</td>
-										<td>
-												<%
-												for(int j = 0; j <= pageNum; j++) { %>
-												<input type="button" value="<%=j+1%>" class="page">
-												<%} %>
-										</td>
-									
-								</tr>
-							</table>
+										<div id ="paging" style="text-align: center;">
+							<%
+										String str = "";
+										String pages = ""; 
+										long p = (pageNum < 10 ? pageNum : 10);
+									for(int j = 0; j <= p; j++) {
+										str += "<input type=\"button\" value=\"" + (j+1) + "\" class=\"page\" onclick=\"loadPageNd(" + j +")\">&nbsp;";
+									}
+									if (pageNum > 10)
+										str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">";
+									out.println(str);	
+								%>
 						</div>
 					<div class="button-group">
 					<button class="button" type="button" onclick="confirmLockNd();">
