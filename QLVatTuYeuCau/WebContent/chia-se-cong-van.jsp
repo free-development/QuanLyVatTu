@@ -225,7 +225,7 @@
 								count ++;
 								String msnv = nguoiDung.getMsnv();
 							%>
-							<tr id="row" class = "rowContent" <% if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%> id="<%=nguoiDung.getMsnv() %>">
+							<tr id=<%=nguoiDung.getMsnv() %> class = "rowContent" <% if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%> id="<%=nguoiDung.getMsnv() %>">
 								<td class="tbody-nguoidung"><%=nguoiDung.getMsnv() %></td>
 								<td class="tbody-nguoidung"><%=nguoiDung.getHoTen() %></td>
 								<% for(VaiTro vaiTro : vaiTroList) {

@@ -184,7 +184,8 @@ $(document).ready(function() {
 				  		for (var i = 0; i < vaiTroList.length; i++) {
 				  			content += vaiTroList[i].vtTen + '<br>';
 //				  			$('#view-table input[name=' +   + ']')
-				  			$('#view-table input:checkbox[name=vaiTro][value='+ (msnv + '#' + vaiTroList[i].vtId ) + ']').prop('checked',true);
+				  			alert('#view-table input:checkbox[name=vaiTro][value='+ (msnv + '#' + vaiTroList[i].vtId ) + ']');
+				  			$('#' + msnv + ' input:checkbox[name=vaiTro][value=\"'+ (msnv + '#' + vaiTroList[i].vtId ) + '\"]').prop('checked',true);
 				  		}
 			  			$('#vaiTro' + msnv).html(content);
 			  		}
