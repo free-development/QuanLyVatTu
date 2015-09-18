@@ -210,8 +210,6 @@ public class ChiaSeCvController extends HttpServlet {
 		objectList.add(list);
 		objectList.add(msnvUpdate);
 		// vtCongVanDAO.close();
-		nguoiDungDAO.close();
-		vaiTroDAO.close();
 		nguoiDungDAO.disconnect();
 		vtCongVanDAO.disconnect();
 		vaiTroDAO.disconnect();
