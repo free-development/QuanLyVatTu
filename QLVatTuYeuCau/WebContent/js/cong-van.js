@@ -148,7 +148,7 @@ function checkUpdate() {
 }
 function preUpdateCv(cv) {
 	$.ajax({
-		url: "/QLVatTuYeuCau/preUpdateCv.html",	
+		url: getRoot() +  "/preUpdateCv.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "congVan": cv},
@@ -174,7 +174,7 @@ function preUpdateCv(cv) {
 }
 function deleteCv(cvId) {
 	$.ajax({
-		url: "/QLVatTuYeuCau/deleteCv.html",	
+		url: getRoot() +  "/deleteCv.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "cvId": cvId},
@@ -193,7 +193,7 @@ function chiaSeCv() {
 //	var cvId = $('input:checkbox[name=cvId]:checked').val();
 	
 		$.ajax({
-			url: "/QLVatTuYeuCau/chiaSeCv.html",	
+			url: getRoot() +  "/chiaSeCv.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "cvId": cvId},
@@ -203,8 +203,10 @@ function chiaSeCv() {
 		});  
 }
 function loadByYear(year) {
+//	var root = getRoot();
+//	var root = ${pageContext.request.contextPath};
 	$.ajax({
-		url: "/QLVatTuYeuCau/loadByYear.html",	
+		url:  getRoot() + "/loadByYear.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "year": year},
@@ -237,7 +239,7 @@ function loadByYear(year) {
 }
 function loadByMonth(year, month) {
 	$.ajax({
-		url: "/QLVatTuYeuCau/loadByMonth.html",	
+		url: getRoot() +  "/loadByMonth.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "year": year, "month": month },
@@ -317,12 +319,12 @@ function loadCongVan(congVanList, fileList, unknownList) {
 						+ '<tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Nơi GQ chính</td>'
 						+ '<td class=\"column-color\" colspan=\"3\">' + congVan.donVi.dvTen + '</td>'
-						+ '<td colspan=\"3\" style=\"float: right;\">'
-						+ '<button  class=\"button-chia-se\" id=\"chiaSe\" type=\"button\" style=\"width: 170px; height: 30px;\"' 
-						+ '  onclick=\"location.href=\'/QLVatTuYeuCau/cscvManage.html?action=chiaSeCv&congVan=' + congVan.cvId + '\'\">'
-						+ '<i class=\"fa fa-spinner\"></i>&nbsp;&nbsp;Chia sẻ công văn'
-						+ '</button>'
-						+ '</td>'
+//						+ '<td colspan=\"3\" style=\"float: right;\">'
+//						+ '<button  class=\"button-chia-se\" id=\"chiaSe\" type=\"button\" style=\"width: 170px; height: 30px;\"' 
+//						+ '  onclick=\"location.href=\'/QLVatTuYeuCau/cscvManage.html?action=chiaSeCv&congVan=' + congVan.cvId + '\'\">'
+//						+ '<i class=\"fa fa-spinner\"></i>&nbsp;&nbsp;Chia sẻ công văn'
+//						+ '</button>'
+//						+ '</td>'
 						+ '</tr>'
 						+ '<tr>';
 					if (chucDanhMa == truongPhongMa || chucDanhMa == vanThuMa) {
@@ -392,7 +394,7 @@ function loadCongVan(congVanList, fileList, unknownList) {
 }
 function loadByDate(year, month, date) {
 	$.ajax({
-		url: "/QLVatTuYeuCau/loadByDate.html",	
+		url: getRoot() +  "/loadByDate.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "year": year, "month": month, "date": date},
@@ -411,7 +413,7 @@ function loadByDate(year, month, date) {
 function filterData(filter, filterValue) {
 
 	$.ajax({
-		url: "/QLVatTuYeuCau/filter.html",	
+		url: getRoot() +  "/filter.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: {"filter": filter, "filterValue": filterValue},
@@ -430,7 +432,7 @@ function filterData(filter, filterValue) {
 function searchByTrangThai(trangThai) {
 
 	$.ajax({
-		url: "/QLVatTuYeuCau/searchByTrangThai.html",	
+		url: getRoot() +  "/searchByTrangThai.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "trangThai": trangThai},
@@ -451,7 +453,7 @@ $(document).ready(function() {
 	  	$('.page').click(function(){
 		var pageNumber = $(this).val();
 	    	$.ajax({
-				url: "/QLVatTuYeuCau/loadPageCongVan.html",	
+				url: getRoot() +  "/loadPageCongVan.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "pageNumber": pageNumber},
@@ -508,7 +510,7 @@ function loadPage(pageNumber) {
 	}
 
 	$.ajax({
-		url: "/QLVatTuYeuCau/loadPageCongVan.html",	
+		url: getRoot() +  "/loadPageCongVan.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "pageNumber": page},
@@ -571,7 +573,7 @@ function loadPageNumber(p, pageNumber, size) {
 //	var nsxMa = $('#add-form input:text[name=nsxMa]').val();
 //	var nsxTen = $('#add-form input:text[name=nsxTen]').val();
 //	$.ajax({
-//		url: "/QLVatTuYeuCau/addNsx.html",	
+//		url: getRoot() +  "/addNsx.html",	
 //	  	type: "GET",
 //	  	dateType: "JSON",
 //	  	data: { "nsxMa": nsxMa, "nsxTen": nsxTen},
@@ -595,7 +597,7 @@ function loadPageNumber(p, pageNumber, size) {
 //function preUpdatecV(formId, check) {
 //	var cvId = $('input:checkbox[name=cvId]:checked').val();
 //	$.ajax({
-//		url: "/QLVatTuYeuCau/preEditCongVan.html",	
+//		url: getRoot() +  "/preEditCongVan.html",	
 //	  	type: "GET",
 //	  	dateType: "JSON",
 //	  	data: { "cvId": cvId},
