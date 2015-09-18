@@ -4,14 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.ChatLuong;
 import model.DonVi;
-import model.VaiTro;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -23,12 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import util.JSonUtil;
 
-import com.sun.org.apache.xerces.internal.impl.dv.DVFactoryException;
-
-import dao.ChatLuongDAO;
 import dao.DonViDAO;
-import dao.NoiSanXuatDAO;
-import dao.VaiTroDAO;
 
 @Controller
 public class BpsdController extends HttpServlet {

@@ -25,6 +25,7 @@
 <link
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
 	type="text/css" rel="stylesheet">
+<script type="text/javascript" src="js/location.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 
 <%
@@ -296,8 +297,9 @@ hosting = '<%=hosting  %>';
 									<td class="left-column-first" style="font-weight: bold;">Người xử lý</td>
 									<td class="column-color"colspan="3">
 									<%
-										if (nguoiXlCongVan.size() > 0) {
-											ArrayList<String> nguoiXlList = nguoiXlCongVan.get(count - 1);
+										ArrayList<String> nguoiXlList = nguoiXlCongVan.get(count - 1);
+										if (nguoiXlList.size() > 0) {
+											System.out.println("size ngXlCv = " + nguoiXlList.size());
 											StringBuilder cellHoTen = new StringBuilder("");   
 											for (String hoTen : nguoiXlList) {
 												cellHoTen.append(hoTen + ", ");
@@ -320,8 +322,9 @@ hosting = '<%=hosting  %>';
 									<%
 									boolean capPhat = false;
 									StringBuilder vaiTro = new StringBuilder("");
-									if (vtCongVanList.size() > 0) {
-										ArrayList<VaiTro> vaiTroList = vtCongVanList.get(count - 1);
+									ArrayList<VaiTro> vaiTroList = vtCongVanList.get(count - 1);
+									if (vaiTroList.size() > 0) {
+										
 										for (VaiTro vt : vaiTroList) {
 											vaiTro.append(vt.getVtTen() + ", ");
 											if (vt.getVtId() == capPhatMa)
