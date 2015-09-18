@@ -36,6 +36,7 @@
     });
 	</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="js/location.js"></script>
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
 </head>
 <body>

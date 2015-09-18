@@ -20,7 +20,7 @@ function searchCtvt() {
 	var chatLuong = $('select[name=chatLuong]').val();
 	//alert(vtMa + vtTen + nsx + chatLuong);
 	$.ajax({
-		url: "/QLVatTuYeuCau/searchCtvt.html",	
+		url: getRoot() +  "/searchCtvt.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "vtMa": vtMa, "vtTen": vtTen, "nsx": nsx, "chatLuong": chatLuong},
@@ -47,7 +47,7 @@ function preAddSoLuong(){
 //			var ctvtId = this.val();
 	var ctvtId = $('#view-search input:radio[name=ctvtId]:checked').val();
 			$.ajax({
-				url: "/QLVatTuYeuCau/preAddSoLuong.html",	
+				url: getRoot() +  "/preAddSoLuong.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "ctvtId": ctvtId},
@@ -75,7 +75,7 @@ function addSoLuong(){
 	count = 0;
 	count = 0;
 	$.ajax({
-		url: "/QLVatTuYeuCau/addSoLuong.html",	
+		url: getRoot() +  "/addSoLuong.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "soLuong": soLuong},
@@ -130,7 +130,7 @@ function confirmDelete() {
 };
 function deleteYc(ycList) {	
 	$.ajax({
-		url: "/QLVatTuYeuCau/deleteYc.html",	
+		url: getRoot() +  "/deleteYc.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "ycList": ycList},
@@ -155,7 +155,7 @@ function preUpdateYc() {
 	else {
 		
 		$.ajax({
-			url: "/QLVatTuYeuCau/preUpdateYc.html",	
+			url: getRoot() +  "/preUpdateYc.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "yeuCau": ycList[0]},
@@ -180,7 +180,7 @@ function updateYc() {
 	var soLuong = $('input[name=soLuongUpdate]').val();
 	count = 0;
 	$.ajax({
-		url: "/QLVatTuYeuCau/updateSoLuong.html",	
+		url: getRoot() +  "/updateSoLuong.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "soLuong": soLuong},
@@ -217,7 +217,7 @@ function preCapVatTu() {
 	else {
 		
 		$.ajax({
-			url: "/QLVatTuYeuCau/preCapVatTu.html",	
+			url: getRoot() +  "/preCapVatTu.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "yeuCau": ycList[0]},
@@ -242,7 +242,7 @@ function capVatTu() {
 	var soLuong = $('input[name=soLuongCap]').val();
 	count = 0;
 	$.ajax({
-		url: "/QLVatTuYeuCau/capVatTu.html",	
+		url: getRoot() +  "/capVatTu.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "soLuong": soLuong},
@@ -272,7 +272,7 @@ function searchCtVt(){
 	else 
 		vtMa = $('#yc-table input[name=search]').val();
 	$.ajax({
-		url: "/QLVatTuYeuCau/searchCtvtYc.html",	
+		url: getRoot() +  "/searchCtvtYc.html",	
 	  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "vtMa": vtMa, "vtTen": vtTen},
@@ -339,7 +339,7 @@ function loadPageCtvtYc(pageNumber) {
 		page = pageNumber;
 	}
 	$.ajax({
-		url: "/QLVatTuYeuCau/loadPageCtvtYc.html",	
+		url: getRoot() +  "/loadPageCtvtYc.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "pageNumber": page},

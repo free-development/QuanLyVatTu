@@ -8,6 +8,7 @@
 <link href="style/style-login.css" type="text/css"rel="stylesheet">
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/nguoidung.js"></script>
+<script type="text/javascript" src="js/location.js"></script>
 
 </head>
 <body>

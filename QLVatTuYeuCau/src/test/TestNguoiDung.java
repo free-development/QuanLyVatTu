@@ -24,11 +24,7 @@ public class TestNguoiDung {
 	 */
 	public static void main(String[] args) {
 		ChucDanh chucDanh = new ChucDanh("GD", "Giam Doc",0);
-<<<<<<< HEAD
 		NguoiDung nguoiDung = new NguoiDung("b1203950", "Vo Phu Quoi", "Can Tho", "quoipro94@gmail.com", "0979921380", chucDanh);
-=======
-		NguoiDung nguoiDung = new NguoiDung("b1203959", "Vo Phu Quoi", "Can Tho", "quoipro94@gmail.com", "0979921380", chucDanh);
->>>>>>> dcfaa30928f5b65b78fd026e5d12f910c2f8ce38
 		
 //		new ChucDanhDAO().addChucDanh(chucDanh);
 		new NguoiDungDAO().addNguoiDung(nguoiDung);

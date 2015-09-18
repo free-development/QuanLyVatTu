@@ -244,8 +244,8 @@ create table VAITRO
 (
    VTID   int primary key auto_increment,
    VTTEN                varchar(50),
-   DAXOA int(2),
-) ENGINE = InnoDB
+   DAXOA int(2)
+)ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 /*==============================================================*/
@@ -406,14 +406,26 @@ constraint FK_CONGVAN foreign key (CVID) references CONGVAN(CVID)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-insert into VAITRO values(1,'Lap phieu nhap');
-insert into VAITRO values(2,'Mua vat tu');
-insert into VAITRO values(3,'Cap vat tu');
-insert into VAITRO values(4,'Mua Lap phieu xuat');
-insert into VAITRO values(5,'Mua Lap phieu xuat');
-insert into VAITRO values(6,'Mua Lap phieu xuat');
-insert into VAITRO values(7,'Mua Lap phieu xuat');
-insert into VAITRO values(8,'Mua Lap phieu xuat');
+<<<<<<< HEAD
+insert into VAITRO values(1,'Lập phiếu nhập',0);
+insert into VAITRO values(2,'Mua vật tư',0);
+insert into VAITRO values(3,'Cấp vật tư',0);
+insert into VAITRO values(4,'Mua Lap phieu xuat',0);
+
+insert into CHUCDANH values ('GD', 'Giám đốc',0);
+insert into CHUCDANH values ('TP', 'Trưởng phòng',0);
+insert into CHUCDANH values ('NV', 'Nhân viên',0);
+insert into CHUCDANH values ('TK', 'Thư ký',0);
+insert into CHUCDANH values ('VT', 'Văn thư',0);
+=======
+insert into VAITRO values(1,'Lap phieu nhap', 0);
+insert into VAITRO values(2,'Mua vat tu', 0);
+insert into VAITRO values(3,'Cap vat tu', 0);
+insert into VAITRO values(4,'Mua Lap phieu xuat', 0);
+insert into VAITRO values(5,'Mua Lap phieu xuat', 0);
+insert into VAITRO values(6,'Mua Lap phieu xuat', 0);
+insert into VAITRO values(7,'Mua Lap phieu xuat', 0);
+insert into VAITRO values(8,'Mua Lap phieu xuat', 0);
 
 insert into CHUCDANH values ('GD', 'Giam doc',0);
 insert into CHUCDANH values ('GD1', 'Giam doc',0);
@@ -423,13 +435,14 @@ insert into CHUCDANH values ('TP', 'Truong phong',0);
 insert into CHUCDANH values ('NV', 'Nhan vien',0);
 insert into CHUCDANH values ('TK', 'Thu ky',0);
 insert into CHUCDANH values ('VT', 'Van thu',0);
+>>>>>>> ee01301f12ecb25e05678969ebd78c9a651e34a0
 
 
 insert into NGUOIDUNG values ('b1203959', 'GD', 'Vo Phu Quoi', 'An giang', 'quoipro94@gmail.com', '0979921380');
-insert into NGUOIDUNG values ('b1203958', 'TK', 'Le Thi Cam Tien', 'An giang', 'quoipro94@gmail.com', '0979921380');
-insert into NGUOIDUNG values ('b1203957', 'TP', 'Nguyen Thi Cam Nhung', 'An giang', 'quoipro94@gmail.com', '0979921380');
-insert into NGUOIDUNG values ('b1203955', 'VT', 'Truong Trung Hieu', 'An giang', 'quoipro94@gmail.com', '0979921380');
-insert into NGUOIDUNG values ('b1203954', 'NV', 'Truong Quoc huy', 'An giang', 'quoipro94@gmail.com', '0979921380');
+insert into NGUOIDUNG values ('b1203958', 'TK', 'Lê Thị Cẩm Tiên', 'An giang', 'quoipro94@gmail.com', '0979921380');
+insert into NGUOIDUNG values ('b1203957', 'TP', 'Nguyễn Thị Cẩm Nhung', 'An giang', 'quoipro94@gmail.com', '0979921380');
+insert into NGUOIDUNG values ('b1203955', 'VT', 'Trương Trung Hiếu', 'An giang', 'quoipro94@gmail.com', '0979921380');
+insert into NGUOIDUNG values ('b1203954', 'NV', 'Trương Quốc Huy', 'An giang', 'quoipro94@gmail.com', '0979921380');
 
 
 insert into CHUCDANH value('AD','Admin',0);

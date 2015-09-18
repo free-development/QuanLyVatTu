@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionListener;
+import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -89,12 +90,15 @@ public class CvController extends HttpServlet{
     	FileDAO fileDAO =  new FileDAO();
     	String cdMa = nguoiDung.getChucDanh().getCdMa();
 		String msnvTemp = msnv;
-		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa)) {
+		
+		if (truongPhongMa.equalsIgnoreCase(cdMa) || vanThuMa.equalsIgnoreCase(cdMa)) {
 			msnvTemp = null;
 			// danh sach vai tro nguoi dung doi voi cong van
 		}
 		Integer cv = (Integer) request.getAttribute("cvId");
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
+		HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
+		orderBy.put("cvId", false);
 		conditions.put("cvId", cv);
     	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(msnvTemp, conditions, null, 0, 3);
     	//chung
@@ -111,20 +115,18 @@ public class CvController extends HttpServlet{
 			for(CongVan congVan : congVanList) {
 				int cvId = congVan.getCvId();
 				fileHash.put(cvId, fileDAO.getByCongVanId(cvId));
-				
 				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
 				vtCongVanList.add(vtCongVan);
-				
 			}
 			request.setAttribute("vtCongVanList", vtCongVanList);
 		}
 		else if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa)) {
 			for(CongVan congVan : congVanList) {
+				System.out.println(congVan.getSoDen());
 				int cvId = congVan.getCvId();
 				fileHash.put(cvId, fileDAO.getByCongVanId(cvId));
 				
 				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
-				
 				nguoiXlCongVan.add(nguoiXl);
 			}
 			request.setAttribute("nguoiXlCongVan", nguoiXlCongVan);
@@ -150,7 +152,6 @@ public class CvController extends HttpServlet{
 	public ModelAndView manageCV(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
-    	
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -447,7 +448,6 @@ public class CvController extends HttpServlet{
 		objectList.add(fileList);
 		objectList.add(monthList);
 		long page = (size % 3 == 0 ? size/3 : (size/3) +1 );
-		System.out.println("size = " + size + "******* page = " + page);
 		objectList.add(page);
 		if (msnvTemp == null) {
 			objectList.add(nguoiXlCongVan);

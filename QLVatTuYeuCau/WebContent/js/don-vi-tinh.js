@@ -23,7 +23,7 @@ function showForm(formId, check){
 			else {
 				
 				$.ajax({
-					url: "/QLVatTuYeuCau/preEditdvt.html",
+					url: getRoot() +  "/preEditdvt.html",
 					type: "GET",
 					dataType: "JSON",
 					data: {"dvtId": dvtId},
@@ -58,7 +58,7 @@ function showForm(formId, check){
 	 	 function deletedvt(str) {
 			 
 			$.ajax({
-				url: "/QLVatTuYeuCau/deletedvt.html",	
+				url: getRoot() +  "/deletedvt.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "dvtList": str},
@@ -84,7 +84,7 @@ function showForm(formId, check){
  			else {
 
 		 			$.ajax({
-		 				url: "/QLVatTuYeuCau/adddvt.html",	
+		 				url: getRoot() +  "/adddvt.html",	
 					  	type: "GET",
 		 			  	dateType: "JSON",
 		 			  	data: {"dvtTen": dvtTen},
@@ -123,7 +123,7 @@ function showForm(formId, check){
  			else {
 
 					$.ajax({
-						url: "/QLVatTuYeuCau/updatedvt.html",	
+						url: getRoot() +  "/updatedvt.html",	
 					  	type: "GET",
 					  	dateType: "JSON",
 					  	data: {"dvtTenUpdate": dvtTenUpdate},
@@ -164,7 +164,7 @@ function showForm(formId, check){
  		  	$('.page').click(function(){
  			var pageNumber = $(this).val();
  		    	$.ajax({
- 					url: "/QLVatTuYeuCau/loadPagedvt.html",	
+ 					url: getRoot() +  "/loadPagedvt.html",	
  				  	type: "GET",
  				  	dateType: "JSON",
  				  	data: { "pageNumber": pageNumber},

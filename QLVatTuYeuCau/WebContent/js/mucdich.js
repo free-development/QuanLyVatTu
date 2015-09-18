@@ -22,7 +22,7 @@ function showForm(formId, check){
 			alert('Bạn chỉ được chọn 1 mục đích để thay đổi!!');
 		else {
 		$.ajax({
-			url: "/QLVatTuYeuCau/preUpdateMd.html",	
+			url: getRoot() +  "/preUpdateMd.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "mdMa": mdMa},
@@ -53,7 +53,7 @@ function showForm(formId, check){
 		
  	 function deleteMd(str) {
  		$.ajax({
-			url: "/QLVatTuYeuCau/deleteMd.html",	
+			url: getRoot() +  "/deleteMd.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "mdList": str},
@@ -79,7 +79,7 @@ function showForm(formId, check){
 			}
 		else{
 		$.ajax({
-			url: "/QLVatTuYeuCau/addMd.html",	
+			url: getRoot() +  "/addMd.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "mdMa": mdMa, "mdTen": mdTen},
@@ -131,7 +131,7 @@ function showForm(formId, check){
  	function updateMd(mdMaUpdate, mdTenUpdate) {
 
 		$.ajax({
-			url: "/QLVatTuYeuCau/updateMd.html",	
+			url: getRoot() +  "/updateMd.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "mdMaUpdate": mdMaUpdate, "mdTenUpdate": mdTenUpdate},
@@ -154,7 +154,7 @@ function showForm(formId, check){
  	  	$('.page').click(function(){
  		var pageNumber = $(this).val();
  	    	$.ajax({
- 				url: "/QLVatTuYeuCau/loadPageMd.html",	
+ 				url: getRoot() +  "/loadPageMd.html",	
  			  	type: "GET",
  			  	dateType: "JSON",
  			  	data: { "pageNumber": pageNumber},

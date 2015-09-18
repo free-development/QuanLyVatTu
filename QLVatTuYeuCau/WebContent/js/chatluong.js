@@ -21,7 +21,7 @@
 			alert('Bạn chỉ được chọn 1 chất lượng để thay đổi!!');
 		else {
 		$.ajax({
-			url: "/QLVatTuYeuCau/preUpdateCl.html",	
+			url: getRoot() +  "/preUpdateCl.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "clMa": clMa},
@@ -52,7 +52,7 @@
 		
  	 function deleteCl(str) {
 		$.ajax({
-			url: "/QLVatTuYeuCau/deleteCl.html",	
+			url: getRoot() +  "/deleteCl.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "clList": str},
@@ -77,7 +77,7 @@
  			}
 		else{
 			$.ajax({
-				url: "/QLVatTuYeuCau/addCl.html",	
+				url: getRoot() +  "/addCl.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "clMa": clMa, "clTen": clTen},
@@ -132,7 +132,7 @@
  	function updateCl(clMaUpdate, clTenUpdate) {
  		
 		$.ajax({
-			url: "/QLVatTuYeuCau/updateCl.html",	
+			url: getRoot() +  "/updateCl.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "clMaUpdate": clMaUpdate, "clTenUpdate": clTenUpdate},
@@ -156,7 +156,7 @@
  	  	$('.page').click(function(){
  		var pageNumber = $(this).val();
  	    	$.ajax({
- 				url: "/QLVatTuYeuCau/loadPageCl.html",	
+ 				url: getRoot() +  "/loadPageCl.html",	
  			  	type: "GET",
  			  	dateType: "JSON",
  			  	data: { "pageNumber": pageNumber},

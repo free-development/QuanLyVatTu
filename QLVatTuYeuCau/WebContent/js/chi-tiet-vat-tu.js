@@ -40,7 +40,7 @@
  			else {
 
  			$.ajax({
- 				url: "/QLVatTuYeuCau/addCTVattu.html",	
+ 				url: getRoot() +  "/addCTVattu.html",	
 			  	type: "GET",
  			  	dateType: "JSON",
  			  	data: { "vtMa": vtMa, "vtTen": vtTen, "dvt": dvt, "noiSanXuat": noiSanXuat, "chatLuong": chatLuong, "dinhMuc": dinhMuc, "soLuongTon": soLuongTon},
@@ -97,7 +97,7 @@
 			else {
 			//alert(ctvtId);
 				$.ajax({
-					url: "/QLVatTuYeuCau/preEditCTVattu.html",
+					url: getRoot() +  "/preEditCTVattu.html",
 					type: "GET",
 					dataType: "JSON",
 					data: {"ctvtId": ctvtId},
@@ -149,7 +149,7 @@
 		}
  		function updateCTVattu(vtMaUpdate, vtTenUpdate, dvtUpdate, nsxUpdate, clUpdate, dinhMucUpdate, soLuongTonUpdate){
  			$.ajax({
-				url: "/QLVatTuYeuCau/updateCTVattu.html",	
+				url: getRoot() +  "/updateCTVattu.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "vtMaUpdate": vtMaUpdate, "vtTenUpdate": vtTenUpdate, "dvtUpdate": dvtUpdate, "nsxUpdate": nsxUpdate, "clUpdate": clUpdate, "dinhMucUpdate": dinhMucUpdate, "soLuongTonUpdate": soLuongTonUpdate},
@@ -200,7 +200,7 @@
   	 function deleteCTVattu(str) {
   	///	alert(str); 
  		$.ajax({
- 			url: "/QLVatTuYeuCau/deleteCTVattu.html",	
+ 			url: getRoot() +  "/deleteCTVattu.html",	
  		  	type: "GET",
  		  	dateType: "JSON",
  		  	data: { "ctvtList": str},
@@ -269,7 +269,7 @@
  			var page = pageNumber;
  		}
  	    	$.ajax({
- 				url: "/QLVatTuYeuCau/loadPageCTVatTu.html",	
+ 				url: getRoot() +  "/loadPageCTVatTu.html",	
  			  	type: "GET",
  			  	dateType: "JSON",
  			  	data: { "pageNumber": page},

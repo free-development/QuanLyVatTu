@@ -50,7 +50,7 @@ function confirmResetNd(){
 }
 function resetNd(str) {
 	$.ajax({
-		url: "/QLVatTuYeuCau/resetNd.html",	
+		url: getRoot() +  "/resetNd.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "ndList": str},
@@ -80,7 +80,7 @@ function confirmLockNd(){
 }
 	 function lockNd(str) {
 	$.ajax({
-		url: "/QLVatTuYeuCau/lockNd.html",	
+		url: getRoot() +  "/lockNd.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "ndList": str},
@@ -107,7 +107,7 @@ function confirmLockNd(){
 		}
 			 function resetMK(str) {
 			$.ajax({
-				url: "/QLVatTuYeuCau/resetMK.html",	
+				url: getRoot() +  "/resetMK.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "ndList": str},
@@ -132,7 +132,7 @@ function preUpdateNd(formId, check) {
 		alert('Bạn chỉ được chọn 1 tài khoản để thay đổi!!');
 	else {
 	$.ajax({
-		url: "/QLVatTuYeuCau/preUpdateNd.html",	
+		url: getRoot() +  "/preUpdateNd.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "msnv": msnv},
@@ -178,7 +178,7 @@ function updateNd(msnv, hoten,chucdanh, email, diachi, sdt) {
 		}
 	else{
 	$.ajax({
-		url: "/QLVatTuYeuCau/updateNd.html",	
+		url: getRoot() +  "/updateNd.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "msnv": msnv, "hoten": hoten, "chucdanh": chucdanh, "email": email, "diachi": diachi, "sdt": sdt},
@@ -234,11 +234,12 @@ function checkPassword()
 			}
 	}
 
+<<<<<<< HEAD
 $(document).ready(function() {
   	$('.page').click(function(){
 	var pageNumber = $(this).val();
     	$.ajax({
-			url: "/QLVatTuYeuCau/loadPageNd.html",	
+			url: getRoot() +  "/loadPageNd.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "pageNumber": pageNumber},
@@ -273,11 +274,201 @@ $(document).ready(function() {
     });	
 })  
 
+//$(document).ready(function() {
+//  	$('.page').click(function(){
+//	var pageNumber = $(this).val();
+//    	$.ajax({
+//			url: getRoot() +  "/loadPageNd.html",	
+//		  	type: "GET",
+//		  	dateType: "JSON",
+//		  	data: { "pageNumber": pageNumber},
+//		  	contentType: 'application/json',
+//		    mimeType: 'application/json',
+//		  	
+//		  	success: function(ndList) {
+//		  		$('#view-table-chia-se table .rowContent').remove();
+//				if(ndList.length>0){
+//					for(i = 0;i < ndList.length; i++ ) {
+//						var nd = ndList[i] ;
+//						var style = '';	
+//						if (i % 2 == 0)
+//							style = 'style=\"background : #CCFFFF;\"';
+//						var str = '';
+//						str = '<tr class=\"rowContent\" ' + style + '>'
+//							+ '<td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
+//							+ nd.msnv +'\" class=\"checkbox\"></td>'
+//							+ '<td class=\"col\">' + nd.msnv + '</td>'
+//							+ '<td class=\"col\">' + nd.hoTen + '</td>'
+//							+ '<td class=\"col\">' + nd.chucDanh.cdTen + '</td>'
+//							+ '<td class=\"col\">' + nd.email + '</td>'
+//							+ '<td class=\"col\">' + nd.diaChi + '</td>'
+//							+ '<td class=\"col\">' + nd.sdt + '</td>'
+//							+ '</tr>';
+//						$('#view-table-chia-se table tr:first').after(str);
+//					}
+//				}
+//		  	}
+//		});
+//    });	
+//})   
+ 	    function loadPageNd(pageNumber){
+ 		if (pageNumber == 'Next') {
+ 			var lastPage = document.getElementsByClassName('page')[9].value;
+ 			var p = (lastPage) / 5;
+ 			var page = p * 5;
+ 		}
+ 		else if (pageNumber == 'Previous') {
+ 			var firstPage = document.getElementsByClassName('page')[0].value;
+ 			var p = (firstPage - 1) / 5;
+ 			var page =  firstPage-2;
+ 		}
+ 		else {
+ 			var page = pageNumber;
+ 		}
+ 	    	$.ajax({
+ 				url: getRoot() +  "/loadPageNd.html",	
+ 			  	type: "GET",
+ 			  	dateType: "JSON",
+ 			  	data: { "pageNumber": page},
+ 			  	contentType: 'application/json',
+ 			    mimeType: 'application/json',
+ 			  	
+ 			  	success: function(objectList) {
+ 			  		var size = objectList[1];
+ 			  		var ndList = objectList[0];
+ 			  		var length = ndList.length;
+ 			  		$('#view-table-chia-se table .rowContent').remove();
+ 						for(i = 0;i < length; i++ ) {
+ 							var nd = ndList[i];
+ 							var cells = '';
+ 							var style = '';
+ 							if (i % 2 == 0)
+ 								style = 'style=\"background : #CCFFFF;\"';
+ 							
+ 							
+						cells = '<td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
+								+ nd.msnv +'\" class=\"checkbox\"></td>'
+ 								+ '<td class=\"col\">' + nd.msnv + '</td>'
+								+ '<td class=\"col\">' + nd.hoTen + '</td>'
+								+ '<td class=\"col\">' + nd.chucDanh.cdTen + '</td>'
+								+ '<td class=\"col\">' + nd.email + '</td>'
+								+ '<td class=\"col\">' + nd.diaChi + '</td>'
+ 								+ '<td class=\"col\">' + nd.sdt + '</td>'
+ 							var row = '<tr class=\"rowContent\" ' + style + '>' + cells + '</tr>';
+		 					$('#view-table-chia-se table tr:first').after(row);
+ 						}
+ 					var button = '';
+					if(pageNumber == 'Next') {
+						for (var i = 0; i < 10; i++) {
+							
+							var t = ((p -1) * 5 + i + 1);
+							
+							button += '<input type=\"button\" value=\"' + ((p -1) * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageNd(' + ((p -1)*5 + i)  +')\">&nbsp;';
+							if (t > size)
+								break;
+						}
+						button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNd(\'Previous\')\">&nbsp;'  + button;
+						if ((p + 1) * 5 < size)
+							button += '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">';
+						$('#paging').html(button);
+						$('.page')[5].focus();
+					} else if (pageNumber == 'Previous'){
+						if (p > 0)
+							p = p -1;
+						for (var i = 0; i < 10; i++)
+							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageNd(' + (p * 5 + i)  +')\">&nbsp;';
+						
+						button = button + '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">';
+						if (p >= 1)	
+							button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNd(\'Previous\')\">&nbsp;' + button;
+						$('#paging').html(button);	
+						$('.page')[4].focus();
+					}
+ 			  	}
+ 			});
+    }
+ 	    function loadPageNdKP(pageNumber){
+ 	 		if (pageNumber == 'Next') {
+ 	 			var lastPage = document.getElementsByClassName('page')[9].value;
+ 	 			var p = (lastPage) / 5;
+ 	 			var page = p * 5;
+ 	 		}
+ 	 		else if (pageNumber == 'Previous') {
+ 	 			var firstPage = document.getElementsByClassName('page')[0].value;
+ 	 			var p = (firstPage - 1) / 5;
+ 	 			var page =  firstPage-2;
+ 	 		}
+ 	 		else {
+ 	 			var page = pageNumber;
+ 	 		}
+ 	 	    	$.ajax({
+ 	 				url: getRoot() +  "/loadPageNdKP.html",	
+ 	 			  	type: "GET",
+ 	 			  	dateType: "JSON",
+ 	 			  	data: { "pageNumber": page},
+ 	 			  	contentType: 'application/json',
+ 	 			    mimeType: 'application/json',
+ 	 			  	
+ 	 			  	success: function(objectList) {
+ 	 			  		var size = objectList[1];
+ 	 			  		var ndList = objectList[0];
+ 	 			  		var length = ndList.length;
+ 	 			  		$('#view-table-chia-se table .rowContent').remove();
+ 	 						for(i = 0;i < length; i++ ) {
+ 	 							var nd = ndList[i];
+ 	 							var cells = '';
+ 	 							var style = '';
+ 	 							if (i % 2 == 0)
+ 	 								style = 'style=\"background : #CCFFFF;\"';
+ 	 							
+ 	 							
+ 							cells = '<td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
+ 									+ nd.msnv +'\" class=\"checkbox\"></td>'
+ 	 								+ '<td class=\"col\">' + nd.msnv + '</td>'
+ 									+ '<td class=\"col\">' + nd.hoTen + '</td>'
+ 									+ '<td class=\"col\">' + nd.chucDanh.cdTen + '</td>'
+ 									+ '<td class=\"col\">' + nd.email + '</td>'
+ 									+ '<td class=\"col\">' + nd.diaChi + '</td>'
+ 	 								+ '<td class=\"col\">' + nd.sdt + '</td>'
+ 	 							var row = '<tr class=\"rowContent\" ' + style + '>' + cells + '</tr>';
+ 			 					$('#view-table-chia-se table tr:first').after(row);
+ 	 						}
+ 	 					var button = '';
+ 						if(pageNumber == 'Next') {
+ 							for (var i = 0; i < 10; i++) {
+ 								
+ 								var t = ((p -1) * 5 + i + 1);
+ 								
+ 								button += '<input type=\"button\" value=\"' + ((p -1) * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageNdKP(' + ((p -1)*5 + i)  +')\">&nbsp;';
+ 								if (t > size)
+ 									break;
+ 							}
+ 							button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNdKP(\'Previous\')\">&nbsp;'  + button;
+ 							if ((p + 1) * 5 < size)
+ 								button += '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNdKP(\'Next\');\">';
+ 							$('#paging').html(button);
+ 							$('.page')[5].focus();
+ 						} else if (pageNumber == 'Previous'){
+ 							if (p > 0)
+ 								p = p -1;
+ 							for (var i = 0; i < 10; i++)
+ 								button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageNdKP(' + (p * 5 + i)  +')\">&nbsp;';
+ 							
+ 							button = button + '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNdKP(\'Next\');\">';
+ 							if (p >= 1)	
+ 								button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNdKP(\'Previous\')\">&nbsp;' + button;
+ 							$('#paging').html(button);	
+ 							$('.page')[4].focus();
+ 						}
+ 	 			  	}
+ 	 			});
+ 	    }
+>>>>>>> 4d90902a3a63e3c962f57297a3f13f0642d8c322
  function login() {
 		var msnv = $('input:text[name=msnv]').val();
 		var matkhau = $('input:password[name=matkhau]').val();
 			$.ajax({
-				url: "/QLVatTuYeuCau/login.html",	
+				url: getRoot() +  "/login.html",	
 			  	type: "POST",
 			  	dateType: "JSON",
 			  	data: { "msnv": msnv, "matkhau": matkhau},
@@ -290,7 +481,7 @@ $(document).ready(function() {
  				  		alert("Xin chào "+ msnv + " bạn đã đăng nhập thành công");	
  				  		$('input:text[name=msnv]').val('');
  						$('input:password[name=matkhau]').val('');
- 				  		window.location.assign("/QLVatTuYeuCau");
+ 				  		window.location.assign(getRoot() +  "");
  					}
  			  		else{
  			  			alert("Mã số nhân viên và mật khẩu chưa đúng vui lòng kiểm tra lại");
@@ -348,7 +539,7 @@ $(document).ready(function() {
  function changeMsnv(){
 	 var msnv = $('#msnv').val();
 	 $.ajax({
-			url: "/QLVatTuYeuCau/loadHoten.html",	
+			url: getRoot() +  "/loadHoten.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "msnv": msnv},
@@ -401,7 +592,7 @@ $(document).ready(function() {
 		var diachi = $('#add-form input:text[name=diachi]').val();
 		
 			$.ajax({
-				url: "/QLVatTuYeuCau/addNd.html",	
+				url: getRoot() +  "/addNd.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "msnv": msnv,"matkhau":matkhau,"nlmatkhau":nlmatkhau,"hoten":hoten,"chucdanh":chucdanh,"sdt":sdt,"email":email,"diachi":diachi},
@@ -443,7 +634,7 @@ $(document).ready(function() {
 //		alert(msnv);
 		
 		$.ajax({
-			url: "/QLVatTuYeuCau/timKiemNguoidung.html",	
+			url: getRoot() +  "/timKiemNguoidung.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "msnv": msnv, "hoTen": hoTen},
@@ -487,7 +678,7 @@ $(document).ready(function() {
 //		alert(msnv);
 		
 		$.ajax({
-			url: "/QLVatTuYeuCau/timKiemNguoidung.html",	
+			url: getRoot() +  "/timKiemNguoidung.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "msnv": msnv, "hoTen": hoTen},
@@ -538,7 +729,6 @@ $(document).ready(function() {
 		  
 		}); 
 	}); 
-}
 
 
  // click event

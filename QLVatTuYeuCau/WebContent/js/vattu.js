@@ -34,7 +34,7 @@
 			alert(vtMa);
 			*/
 			$.ajax({
-				url: "/QLVatTuYeuCau/timKiemVattu.html",	
+				url: getRoot() +  "/timKiemVattu.html",	
 			  	type: "GET",
  			  	dateType: "JSON",
  			  	data: { "vtMa": vtMa, "vtTen": vtTen},
@@ -82,7 +82,7 @@
  			else {
 
 		 			$.ajax({
-		 				url: "/QLVatTuYeuCau/addVattu.html",	
+		 				url: getRoot() +  "/addVattu.html",	
 					  	type: "GET",
 		 			  	dateType: "JSON",
 		 			  	data: { "vtMa": vtMa, "vtTen": vtTen, "dvt": dvt},
@@ -129,7 +129,7 @@
 				alert('Bạn chỉ được chọn 1 vật tư để thay đổi!!');
 			else {
 				$.ajax({
-					url: "/QLVatTuYeuCau/preEditVattu.html",
+					url: getRoot() +  "/preEditVattu.html",
 					type: "GET",
 					dataType: "JSON",
 					data: {"vtMa": vtMa},
@@ -168,7 +168,7 @@
  			else {
 
 		 			$.ajax({
-						url: "/QLVatTuYeuCau/updateVattu.html",	
+						url: getRoot() +  "/updateVattu.html",	
 					  	type: "GET",
 					  	dateType: "JSON",
 					  	data: { "vtMaUpdate": vtMaUpdate, "vtTenUpdate": vtTenUpdate, "dvtUpdate": dvtUpdate},
@@ -211,7 +211,7 @@
   	 function deleteVattu(str) {
 		 
  		$.ajax({
- 			url: "/QLVatTuYeuCau/deleteVattu.html",	
+ 			url: getRoot() +  "/deleteVattu.html",	
  		  	type: "GET",
  		  	dateType: "JSON",
  		  	data: { "vtList": str},
@@ -230,7 +230,7 @@
   	function showCTVatTu(vtMa){ 
   		
   		$.ajax({
-  			url: "/QLVatTuYeuCau/showCTVatTu.html",
+  			url: getRoot() +  "/showCTVatTu.html",
 			type: "GET",
 		  	dateType: "JSON",
 		  	data: {"vtMa": vtMa},
@@ -345,7 +345,7 @@
  			page = pageNumber;
  		}
  	    	$.ajax({
- 				url: "/QLVatTuYeuCau/loadPageVatTu.html",	
+ 				url: getRoot() +  "/loadPageVatTu.html",	
  			  	type: "GET",
  			  	dateType: "JSON",
  			  	data: { "pageNumber": page},

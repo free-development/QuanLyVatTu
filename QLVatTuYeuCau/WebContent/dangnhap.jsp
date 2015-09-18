@@ -20,6 +20,7 @@
 <script type="text/javascript" src="js/jquery-1.6.3.min.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/nguoidung.js"></script>
+<script type="text/javascript" src="js/location.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
 </head>

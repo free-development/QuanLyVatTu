@@ -24,7 +24,7 @@ function preUpdateNsx(formId, check) {
 		alert('Bạn chỉ được chọn 1 nơi sản xuất để thay đổi!!');
 	else {
 		$.ajax({
-			url: "/QLVatTuYeuCau/preEditNsx.html",	
+			url: getRoot() +  "/preEditNsx.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "nsxMa": nsxMa},
@@ -57,7 +57,7 @@ function confirmDelete(){
 
  function deleteNsx(str) {
 	$.ajax({
-		url: "/QLVatTuYeuCau/deleteNsx.html",	
+		url: getRoot() +  "/deleteNsx.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "nsxList": str},
@@ -77,7 +77,7 @@ function addNsx() {
 		$('#requirensxTen').html('Vui lòng nhập tên nơi sản xuất');
 	else {
 		$.ajax({
-			url: "/QLVatTuYeuCau/addNsx.html",	
+			url: getRoot() +  "/addNsx.html",	
 			type: "GET",
 			dateType: "JSON",
 			data: { "nsxMa": nsxMa, "nsxTen": nsxTen},
@@ -123,7 +123,7 @@ if (nsxTenUpdate == '')
  
  			else {
  				$.ajax({
-				url: "/QLVatTuYeuCau/updateNsx.html",	
+				url: getRoot() +  "/updateNsx.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "nsxMaUpdate": nsxMaUpdate, "nsxTenUpdate": nsxTenUpdate},
@@ -164,7 +164,7 @@ $(document).ready(function() {
   	$('.page').click(function(){
 	var pageNumber = $(this).val();
     	$.ajax({
-			url: "/QLVatTuYeuCau/loadPageNsx.html",	
+			url: getRoot() +  "/loadPageNsx.html",	
 		  	type: "GET",
 		  	dateType: "JSON",
 		  	data: { "pageNumber": pageNumber},

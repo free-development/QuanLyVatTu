@@ -38,7 +38,7 @@ function showForm(formId, check){
  			}
  			else {
 		 			$.ajax({
-		 				url: "/QLVatTuYeuCau/addBp.html",	
+		 				url: getRoot() +  "/addBp.html",	
 					  	type: "GET",
 		 			  	dateType: "JSON",
 		 			  	data: { "dvMa": dvMa, "dvTen": dvTen, "sdt": sdt, "diaChi": diaChi, "email": email},
@@ -77,7 +77,7 @@ function showForm(formId, check){
 				alert('Bạn chỉ được chọn 1 đơn vị để thay đổi!!');
 			else {
 				$.ajax({
-					url: "/QLVatTuYeuCau/preEditBp.html",
+					url: getRoot() +  "/preEditBp.html",
 					type: "GET",
 					dataType: "JSON",
 					data: {"dvMa": dvMa},
@@ -142,7 +142,7 @@ function showForm(formId, check){
 			}
 			else {
 					$.ajax({
-						url: "/QLVatTuYeuCau/updateBp.html",	
+						url: getRoot() +  "/updateBp.html",	
 					  	type: "GET",
 					  	dateType: "JSON",
 					  	data: { "dvMaUpdate": dvMaUpdate, "dvTenUpdate": dvTenUpdate, "sdtUpdate": sdtUpdate, "diaChiUpdate": diaChiUpdate, "emailUpdate": emailUpdate},
@@ -192,7 +192,7 @@ function showForm(formId, check){
 	 	 function deleteBp(str) {
 			 
 			$.ajax({
-				url: "/QLVatTuYeuCau/deleteBp.html",	
+				url: getRoot() +  "/deleteBp.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "dvList": str},
@@ -258,7 +258,7 @@ function showForm(formId, check){
  	 	  	$('.page').click(function(){
  	 		var pageNumber = $(this).val();
  	 	    	$.ajax({
- 	 				url: "/QLVatTuYeuCau/loadPageDv.html",	
+ 	 				url: getRoot() +  "/loadPageDv.html",	
  	 			  	type: "GET",
  	 			  	dateType: "JSON",
  	 			  	data: { "pageNumber": pageNumber},

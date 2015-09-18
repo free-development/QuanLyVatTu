@@ -32,6 +32,7 @@
         
     });
 	</script>
+<script type="text/javascript" src="js/location.js"></script>
 <script type="text/javascript" src="js/mucdich.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />

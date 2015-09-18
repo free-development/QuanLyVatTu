@@ -18,6 +18,7 @@
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
 	type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-1.6.3.min.js"></script>
+<script type="text/javascript" src="js/location.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/bophan.js"></script>
 <script>

@@ -45,7 +45,7 @@ function loadPageCscv(pageNumber) {
 		page = pageNumber;
 	}
 	$.ajax({
-		url: "/QLVatTuYeuCau/loadPageCscv.html",	
+		url: getRoot() +  "/loadPageCscv.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "pageNumber": page},
@@ -111,7 +111,7 @@ $(document).ready(function() {
 			alert('Bạn chỉ được chọn 1 nhân viên để thay đổi!!');
 		else {
 			$.ajax({
-				url: "/QLVatTuYeuCau/preUpdateYeuCau.html",	
+				url: getRoot() +  "/preUpdateYeuCau.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "msnv": msnv},
@@ -160,7 +160,7 @@ $(document).ready(function() {
 		});
 		var str = vaiTroList.join(', ');
 			$.ajax({
-				url: "/QLVatTuYeuCau/updateYeuCau.html",	
+				url: getRoot() +  "/updateYeuCau.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
 			  	data: { "vaiTroList": str},
@@ -210,7 +210,7 @@ function timKiemNguoidungCs(){
 //	alert(msnv);
 	
 	$.ajax({
-		url: "/QLVatTuYeuCau/timKiemNguoidungCs.html",	
+		url: getRoot() +  "/timKiemNguoidungCs.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
 	  	data: { "msnv": msnv, "hoTen": hoTen},
@@ -255,7 +255,7 @@ function timKiemNguoidungCs(){
 //		var chude = $('#view-mail input:text[name=chude]').val();
 //		var noidung = $('#view-mail textarea[name=noidung]').val();
 //		$.ajax({
-//			url: "/QLVatTuYeuCau/sendMail.html",	
+//			url: getRoot() +  "/sendMail.html",	
 //		  	type: "GET",
 //		  	dateType: "JSON",
 //		  	data: { "email": email, "chude": chude, "noidung": noidung},

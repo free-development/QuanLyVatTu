@@ -66,7 +66,7 @@ function showForm(formId, check){
 				var passOld = $('input:password[name=passOld]').val();
 				
 				$.ajax({
-					url: "/QLVatTuYeuCau/changePass.html",	
+					url: getRoot() +  "/changePass.html",	
 				  	type: "GET",
 				  	dateType: "JSON",
 				  	data: { "msnv": msnv, "passOld": passOld, "passNew": passNew},

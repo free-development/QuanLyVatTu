@@ -21,6 +21,7 @@
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
 	type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/location.js"></script>
 <script type="text/javascript" src="js/noi-san-xuat.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />

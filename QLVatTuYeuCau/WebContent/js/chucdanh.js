@@ -114,7 +114,7 @@ function confirmDeleteCd(){
 	    mimeType: 'application/json',
 	  	success: function() {
 					$('table tr').has('input[name="cdMa"]:checked').remove();
-					alert('Bộ phận có mã ' + str + " đã bị xóa");
+					alert('Chức danh có mã ' + str + " đã bị xóa");
 	    } 
 	});  
 } 
