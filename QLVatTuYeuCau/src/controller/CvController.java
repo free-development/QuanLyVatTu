@@ -130,6 +130,7 @@ public class CvController extends HttpServlet{
 				nguoiXlCongVan.add(nguoiXl);
 			}
 			request.setAttribute("nguoiXlCongVan", nguoiXlCongVan);
+			
 		}
 		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp,5);
 		request.setAttribute("congVanList", congVanList);
