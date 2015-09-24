@@ -42,6 +42,7 @@
 <!--		<script type="text/javascript" src="js/check.js"></script>-->
 <!-- <script type="text/javascript" src="js/jquery-1.6.3.min.js"></script> -->
 <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+<script type="text/javascript" src="js/location.js"></script>
 <script type="text/javascript" src="js/nguoidung.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
@@ -71,12 +72,7 @@
 				dispatcher.forward(request, response);
 				return;
 			}
-<<<<<<< HEAD
 			long pageNum = (Long) request.getAttribute("size")/10;
-=======
-			
-			Long pageNum = (Long) request.getAttribute("size")/10;
->>>>>>> 4d90902a3a63e3c962f57297a3f13f0642d8c322
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -226,8 +222,8 @@
 				
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">
-						<button class="button" id="update" type="button"onclick="preUpdateNd('add-form', true)">
-							<i class="fa fa-pencil fa-fw"></i>&nbsp;sửa
+						<button class="button" id="update" type="button" onclick="preUpdateNd('add-form', true)">
+							<i class="fa fa-pencil fa-fw"></i>&nbsp;Sửa
 						</button>
 						<button type="reset" class="button" type="button">
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Bỏ qua

@@ -120,12 +120,10 @@ function confirmLockNd(){
 		}
 function preUpdateNd(formId, check) {
 	var msnv = $('input:checkbox[name=msnv]:checked').val();
-	
 	var MsnvList = [];
 	$.each($("input[name='msnv']:checked"), function(){            
 		MsnvList.push($(this).val());
     });
-	
 	if (MsnvList.length == 0)
 		alert('Bạn phải chọn 1 tài khoản để thay đổi!!');
 	else if (MsnvList.length > 1)
@@ -234,7 +232,6 @@ function checkPassword()
 			}
 	}
 
-<<<<<<< HEAD
 $(document).ready(function() {
   	$('.page').click(function(){
 	var pageNumber = $(this).val();
@@ -463,7 +460,6 @@ $(document).ready(function() {
  	 			  	}
  	 			});
  	    }
->>>>>>> 4d90902a3a63e3c962f57297a3f13f0642d8c322
  function login() {
 		var msnv = $('input:text[name=msnv]').val();
 		var matkhau = $('input:password[name=matkhau]').val();
