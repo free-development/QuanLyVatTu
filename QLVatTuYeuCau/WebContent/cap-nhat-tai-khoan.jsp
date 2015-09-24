@@ -71,12 +71,7 @@
 				dispatcher.forward(request, response);
 				return;
 			}
-<<<<<<< HEAD
 			long pageNum = (Long) request.getAttribute("size")/10;
-=======
-			
-			Long pageNum = (Long) request.getAttribute("size")/10;
->>>>>>> 4d90902a3a63e3c962f57297a3f13f0642d8c322
     	%>
 	<div class="wrapper">
 		<div class="header">

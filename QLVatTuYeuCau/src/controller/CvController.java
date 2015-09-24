@@ -138,6 +138,7 @@ public class CvController extends HttpServlet{
 		request.setAttribute("donViList", donViList);
 		request.setAttribute("trangThaiList", trangThaiList);
 		request.setAttribute("yearList", yearList);
+		System.out.println(yearList.size());
 		request.setAttribute("size", size);
 		congVanDAO.disconnect();
 		donViDAO.disconnect();
