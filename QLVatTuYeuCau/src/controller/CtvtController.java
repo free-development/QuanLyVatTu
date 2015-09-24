@@ -88,8 +88,8 @@ public class CtvtController extends HttpServlet {
 			request.setAttribute("size", size);
 			session.setAttribute("ctVatTuList", ctVatTuList);
 			ArrayList<CTVatTu> allCTVatTuList =  (ArrayList<CTVatTu>) ctVatTuDAO.getAllCTVatTu();
-			session.setAttribute("allCTVatTuList", allCTVatTuList);
 			ctVatTuDAO.disconnect();
+			vatTuDAO.disconnect();
 			return new ModelAndView(siteMap.ctVatu);
 		}
 		vatTuDAO.disconnect();

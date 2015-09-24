@@ -297,15 +297,12 @@
 							cell.delete(len - 2, len);
 							out.println(cell);
 							%>
-<<<<<<< HEAD
 							 
 						</td>
 <%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
-=======
-						</td>
-<%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
-						</td>
->>>>>>> dcfaa30928f5b65b78fd026e5d12f910c2f8ce38
+<!-- 						</td> -->
+<%-- <%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%> --%>
+<!-- 						</td> -->
 					</tr>
 					<%} %>
 				</table>

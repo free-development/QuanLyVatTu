@@ -569,7 +569,7 @@ INSERT INTO FILE VALUES(14,14,"./vattu-1.xls","11111");
 INSERT INTO FILE VALUES(15,15,"./15M-FLD-004 Job Openning SW Engineer-1.pdf","file cong van");
 INSERT INTO FILE VALUES(16,16,"./6-quan_ly_tien_trinh-13-1.pdf","cong van");
 INSERT INTO FILE VALUES(17,17,"./jsapi-14.js","file json");
-INSERT INTO FILE VALUES(18,18,"./6-quan_ly_tien_trinh-1.pdf","file cong van"
+INSERT INTO FILE VALUES(18,18,"./6-quan_ly_tien_trinh-1.pdf","file cong van");
 INSERT INTO FILE VALUES(19,19,"./6-quan_ly_tien_trinh-2.pdf","file quan ly");
 INSERT INTO FILE VALUES(20,20,"./6-quan_ly_tien_trinh-3.pdf","file quan ly ");
 INSERT INTO FILE VALUES(21,21,"./vattu-4.xls","file vattu");
