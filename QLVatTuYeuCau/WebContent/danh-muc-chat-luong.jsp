@@ -133,32 +133,15 @@
 								<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
 								<li><a href="<%=siteMap.resetNguoiDung%>"/>Khôi phục tài khoản</li>
 							</ul>
-<<<<<<< HEAD
-				</li>
-				<%} %>
-				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-				<li><a>Báo cáo</a>
-					<ul>
-						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
-						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
-					</ul>
-				</li>
-				<%if (adminMa.equalsIgnoreCase(authentication.getChucDanh().getCdMa())) {%>
-				<li><a>Quản lý người dùng</a>
-					<ul>
-						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
-						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
-						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
-						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
-					</ul>
-				</li>
-				<%} %>
-				<li><a>Tài khoản</a>
-					<ul>
-						<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
-						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
-						</li>	
-					</ul>
+						</li>
+						<%} %>
+						<li><a>Tài khoản</a>
+							<ul>
+								<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
+								<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
+							</ul>
+						</li>		
+					</ul>	
 					<div class="clear"></div>
 				</div>
 				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
