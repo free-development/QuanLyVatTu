@@ -116,7 +116,7 @@ public class BackupDB {
 		BackupDB backupDB = new BackupDB(connection);
 		String path = "/home/quoioln/backup-vattu-(08-09-2015).sql";
 		String dumpExePath = "mysqldump";
-		backupDB.restoreDB(dumpExePath, path);
-		
+		//backupDB.restoreDB(dumpExePath, path);
+		backupDB.backupDB("mysqldump", "D:\\");
 	}
 }

@@ -142,7 +142,7 @@
 								<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
 							</ul>
 						</li>		
-					</ul>
+					</ul>	
 					<div class="clear"></div>
 				</div>
 				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
