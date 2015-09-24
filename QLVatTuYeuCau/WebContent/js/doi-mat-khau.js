@@ -45,6 +45,7 @@ function showForm(formId, check){
 				else
 						{
 							changePassWord(passNew);
+							alert("Đổi mật khẩu thành công!");
 						}
 				}
 			
@@ -75,7 +76,7 @@ function showForm(formId, check){
 				  	
 				  	success: function(result) {
 //				  		alert(result);
-				  		if(result === "success"){
+				  		if(result == "success"){
 				  			$('input:text[name=msnv]').val('');
 							$('input:password[name=passOld]').val('');
 				  			window.location.assign("home");

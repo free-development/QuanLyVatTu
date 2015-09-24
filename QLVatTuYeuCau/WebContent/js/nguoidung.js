@@ -234,7 +234,6 @@ function checkPassword()
 			}
 	}
 
-<<<<<<< HEAD
 $(document).ready(function() {
   	$('.page').click(function(){
 	var pageNumber = $(this).val();
@@ -463,7 +462,6 @@ $(document).ready(function() {
  	 			  	}
  	 			});
  	    }
->>>>>>> 4d90902a3a63e3c962f57297a3f13f0642d8c322
  function login() {
 		var msnv = $('input:text[name=msnv]').val();
 		var matkhau = $('input:password[name=matkhau]').val();
