@@ -58,7 +58,7 @@ public class BackupDB {
 							   + connection.getHost()  + " -u " + connection.getUser() + " " 
 							   + connection.getDatabase() + " -r \"" + path + "" + filepath + "\"";
 			}
-				 
+			System.out.println(batchCommand);
 			Runtime runtime = Runtime.getRuntime();
 			p = runtime.exec(batchCommand);
 			int processComplete = p.waitFor();
@@ -117,6 +117,6 @@ public class BackupDB {
 		String path = "/home/quoioln/backup-vattu-(08-09-2015).sql";
 		String dumpExePath = "mysqldump";
 		//backupDB.restoreDB(dumpExePath, path);
-		backupDB.backupDB("mysqldump", "D:\\");
+		backupDB.backupDB("mysqldump", "~/");
 	}
 }

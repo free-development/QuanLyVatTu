@@ -693,7 +693,11 @@ public class CvController extends HttpServlet{
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
 		
-		column = filter;
+		
+		if (filter.equals("mucDich"))
+			column = "mucDich."+"mdMa";
+		else
+			column = filter;
 		columnValue = filterValue;
 		CongVanDAO congVanDAO = new CongVanDAO();
 		FileDAO fileDAO = new FileDAO();
