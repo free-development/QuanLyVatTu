@@ -45,8 +45,7 @@ function showForm(formId, check){
 				else
 						{
 							changePassWord(passNew);
-							alert("Đổi mật khẩu thành công!");
-							showForm("add-form",false);
+							
 						}
 				}
 			
@@ -74,15 +73,17 @@ function showForm(formId, check){
 				  	contentType: 'application/json',
 				    mimeType: 'application/json',
 				  	success: function(result) {
-				  		alert("Ok");
+				  		alert(result);
 				  		if(result == "success"){
 				  			$('input:text[name=msnv]').val('');
 							$('input:password[name=passOld]').val('');
-							
-				  			window.location.assign("home");
+							alert("Đổi mật khẩu thành công!");
+							showForm("add-form",false);
+				  			//window.location.assign("home");
 				  		}
-				  		else 
+				  		else {
 				  			alert('Tên tài khoản hoặc mật khẩu chưa đúng');
+				  		}
 				  	}
 				});
 			}
