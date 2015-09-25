@@ -152,6 +152,9 @@ public class NdController extends HttpServlet {
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String changePass(@RequestParam("msnv") String msnv, @RequestParam("passOld") String passOld
 			, @RequestParam("passNew") String passNew) {
+		System.out.println(msnv);
+		System.out.println(passOld);
+		System.out.println(passNew);
 		CTNguoiDungDAO ctNguoiDungDAO = new CTNguoiDungDAO();
 		String result = "";
 		if (ctNguoiDungDAO.login(msnv, StringUtil.encryptMD5(passOld))==1) {

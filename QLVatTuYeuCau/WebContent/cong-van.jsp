@@ -337,8 +337,8 @@ hosting = '<%=hosting  %>';
 									</td>
 									<%if (capPhat) { %>
 										<td colspan="3" style="float: right;">
-											<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.ycvtManage + "?cvId=" + congVan.getCvId()%>'">
-												<i class="fa fa-spinner"></i>&nbsp;&nbsp;Cập vật tư yêu cầu
+											<button  class="button" type="button" style="width: 170px; height: 37px;" onclick="location.href='<%=siteMap.ycvtManage + "?cvId=" + congVan.getCvId()%>'">
+												<i class="fa fa-spinner"></i>&nbsp;&nbsp;Cập nhật yêu cầu vật tư
 											</button>									
 										</td>
 								<% 	}}}%>

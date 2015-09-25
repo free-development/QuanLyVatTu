@@ -74,10 +74,7 @@
 				return;
 			}
 			long pageNum = (Long) request.getAttribute("size")/10;
-<<<<<<< HEAD
 			
-=======
->>>>>>> 435cd42c668c4f5fedb14091771afa545f64a759
     	%>
 	<div class="wrapper">
 		<div class="header">
