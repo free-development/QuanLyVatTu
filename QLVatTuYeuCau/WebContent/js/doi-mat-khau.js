@@ -46,6 +46,7 @@ function showForm(formId, check){
 						{
 							changePassWord(passNew);
 							alert("Đổi mật khẩu thành công!");
+							showForm("add-form",false);
 						}
 				}
 			
@@ -73,12 +74,12 @@ function showForm(formId, check){
 				  	data: { "msnv": msnv, "passOld": passOld, "passNew": passNew},
 				  	contentType: 'application/json',
 				    mimeType: 'application/json',
-				  	
 				  	success: function(result) {
-//				  		alert(result);
+				  		alert(result);
 				  		if(result == "success"){
 				  			$('input:text[name=msnv]').val('');
 							$('input:password[name=passOld]').val('');
+							
 				  			window.location.assign("home");
 				  		}
 				  		else 

@@ -156,7 +156,7 @@
 					</table>
 				</div>
 				<div class="button-group">
-					<button class="button" type="button" onclick="checkPassword1">
+					<button class="button" type="button" onclick="checkPassword();">
 						<i class="fa fa-plus-circle"></i>&nbsp;Lưu lại
 					</button>
 					&nbsp;
