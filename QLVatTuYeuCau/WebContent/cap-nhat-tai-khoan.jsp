@@ -42,6 +42,7 @@
 <!--		<script type="text/javascript" src="js/check.js"></script>-->
 <!-- <script type="text/javascript" src="js/jquery-1.6.3.min.js"></script> -->
 <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+<script type="text/javascript" src="js/location.js"></script>
 <script type="text/javascript" src="js/nguoidung.js"></script>
 <script type="text/javascript" src="js/location.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -73,7 +74,10 @@
 				return;
 			}
 			long pageNum = (Long) request.getAttribute("size")/10;
+<<<<<<< HEAD
 			
+=======
+>>>>>>> 435cd42c668c4f5fedb14091771afa545f64a759
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -230,8 +234,8 @@
 				
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">
-						<button class="button" id="update" type="button"onclick="preUpdateNd('add-form', true)">
-							<i class="fa fa-pencil fa-fw"></i>&nbsp;sửa
+						<button class="button" id="update" type="button" onclick="preUpdateNd('add-form', true)">
+							<i class="fa fa-pencil fa-fw"></i>&nbsp;Sửa
 						</button>
 						<button type="reset" class="button" type="button">
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Bỏ qua

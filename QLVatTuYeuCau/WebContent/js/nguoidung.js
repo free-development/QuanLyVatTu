@@ -120,12 +120,10 @@ function confirmLockNd(){
 		}
 function preUpdateNd(formId, check) {
 	var msnv = $('input:checkbox[name=msnv]:checked').val();
-	
 	var MsnvList = [];
 	$.each($("input[name='msnv']:checked"), function(){            
 		MsnvList.push($(this).val());
     });
-	
 	if (MsnvList.length == 0)
 		alert('Bạn phải chọn 1 tài khoản để thay đổi!!');
 	else if (MsnvList.length > 1)

@@ -64,8 +64,8 @@ public class CongVanDAO {
 	}
 	public Criteria getCriteria(String msnv) {
 		session.beginTransaction();
-		Criteria cr = session.createCriteria(CongVan.class);
-		
+		Criteria cr = session.createCriteria(CongVan.class, "congVan");
+		cr.createAlias("congVan.mucDich", "mucDich");
 		if (msnv != null) {
 			Criteria crVtCv = session.createCriteria(VTCongVan.class);
 			crVtCv.add(Restrictions.eq("msnv", msnv));
@@ -253,10 +253,6 @@ public class CongVanDAO {
 		
 		ArrayList<Integer> cvIdList = getCvIdByMsnv(msnv);
 				
-		if (cvIdList.size() == 0) {
-			return new ArrayList<Integer>();
-			
-		}
 		session.beginTransaction();
 		String sql = "select distinct YEAR(a.cvNgayNhan) from CongVan a where a.daXoa = 0 ";
 		if (msnv != null)
@@ -270,14 +266,11 @@ public class CongVanDAO {
 	}
 	public ArrayList<Integer> groupByMonth(final String msnv, final int year){
 		ArrayList<Integer> cvIdList = getCvIdByMsnv(msnv);
-		if (cvIdList.size() == 0)
-			return new ArrayList<Integer>();
-			
 		session.beginTransaction();
 		String sql = "select distinct MONTH(a.cvNgayNhan) from CongVan a where a.daXoa = 0 and YEAR(cvNgayNhan) = :year";
 		if (msnv != null)
 				sql	+= "  and a.cvId in (select distinct(b.cvId) from VTCongVan b where msnv = '" + msnv + "')";
-		sql += " order by cvId DESC";
+		sql += " order by cvNgayNhan DESC";
 		Query query = session.createQuery(sql);
 		query.setParameter("year", year);
 		
@@ -287,9 +280,7 @@ public class CongVanDAO {
 	}
 	public ArrayList<Integer> groupByDate(final String msnv, final int year, final int month){
 		ArrayList<Integer> cvIdList = getCvIdByMsnv(msnv);
-		if (cvIdList.size() == 0)
-			return new ArrayList<Integer>();
-		
+
 		session.beginTransaction();
 		String sql = "select distinct DAY(a.cvNgayNhan) from CongVan a where a.daXoa = 0 and YEAR(cvNgayNhan) = :year and MONTH(cvNgayNhan) = :month "
 					+ "";

@@ -1,3 +1,4 @@
+<%@page import="javax.swing.JOptionPane"%>
 <%@page import="model.NguoiDung"%>
 <%@page import="model.CTVatTu"%>
 <%@page import="model.VatTu"%>
@@ -19,6 +20,7 @@
 	type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-1.6.3.min.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/location.js"></script>
 <script type="text/javascript" src="js/chi-tiet-vat-tu.js"></script>
 <script>
     $(document).ready(function() {
@@ -57,15 +59,16 @@
 	<%
     
     	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) session.getAttribute("ctVatTuList");
-		if (listCTVatTu ==  null) {
-			int index = siteMap.ctvtManage.lastIndexOf("/");
-			String url = siteMap.ctvtManage.substring(index);
-			RequestDispatcher dispatcher =  request.getRequestDispatcher(url +  "?action=manageCtvt");
-			dispatcher.forward(request, response);
-			return;
-		}
-		Long size = (Long) request.getAttribute("page");
-		Long pageNum = (Long) request.getAttribute("size")/10;
+		Long size = (Long) request.getAttribute("size");
+		if (listCTVatTu !=  null && size != null) {
+// 			int index = siteMap.ctvtManage.lastIndexOf("/");
+// 			String url = siteMap.ctvtManage.substring(index);
+// 			RequestDispatcher dispatcher =  request.getRequestDispatcher(url +  "?action=manageCtvt");
+// 			System.out.println(url +  "?action=manageCtvt");
+// 			dispatcher.forward(request, response);
+// 			return;
+		//}
+		Long pageNum = size/10;
    		
     %>
 	<div class="wrapper">
@@ -231,8 +234,15 @@
 								<input value="Thoát" onclick="showForm('import-form',false);" type="button" class="button">
 								</div>
 						</form>
-				
 	
 	</div>
+	<%} else {
+			int index = siteMap.ctvtManage.lastIndexOf("/");
+			String url = siteMap.ctvtManage.substring(index);
+			RequestDispatcher dispatcher =  request.getRequestDispatcher(url +  "?action=manageCtvt");
+			System.out.println(url +  "?action=manageCtvt");
+			dispatcher.forward(request, response);
+			return;
+	} %>
 </body>
 </html>

@@ -130,6 +130,7 @@ public class CvController extends HttpServlet{
 				nguoiXlCongVan.add(nguoiXl);
 			}
 			request.setAttribute("nguoiXlCongVan", nguoiXlCongVan);
+			
 		}
 		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp,5);
 		request.setAttribute("congVanList", congVanList);
@@ -138,6 +139,7 @@ public class CvController extends HttpServlet{
 		request.setAttribute("donViList", donViList);
 		request.setAttribute("trangThaiList", trangThaiList);
 		request.setAttribute("yearList", yearList);
+		System.out.println(yearList.size());
 		request.setAttribute("size", size);
 		congVanDAO.disconnect();
 		donViDAO.disconnect();
@@ -691,7 +693,11 @@ public class CvController extends HttpServlet{
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
 		
-		column = filter;
+		
+		if (filter.equals("mucDich"))
+			column = "mucDich."+"mdMa";
+		else
+			column = filter;
 		columnValue = filterValue;
 		CongVanDAO congVanDAO = new CongVanDAO();
 		FileDAO fileDAO = new FileDAO();

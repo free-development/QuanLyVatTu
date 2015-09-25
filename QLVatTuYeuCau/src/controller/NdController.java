@@ -139,12 +139,7 @@ public class NdController extends HttpServlet {
 	@RequestMapping(value="/updateNd", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String updateNd(@RequestParam("msnv") String msnv, @RequestParam("hoten") String hoten, @RequestParam("chucdanh") String chucdanh, @RequestParam("email") String email, @RequestParam("diachi") String diachi, @RequestParam("sdt") String sdt) {
-		System.out.println(msnv);
-		System.out.println(hoten);
-		System.out.println(chucdanh);
-		System.out.println(email);
-		System.out.println(diachi);
-		System.out.println(sdt);
+
 		NguoiDung nd = new NguoiDung(msnv, hoten,diachi,email,sdt,new ChucDanh(chucdanh));
 		NguoiDungDAO nguoiDungDAO=new NguoiDungDAO();
 		nguoiDungDAO.updateNguoiDung(nd);

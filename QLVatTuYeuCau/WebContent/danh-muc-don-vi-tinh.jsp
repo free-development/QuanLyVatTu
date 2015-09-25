@@ -151,6 +151,10 @@
 					</ul>
 					<div class="clear"></div>
 				</div>
+<<<<<<< HEAD
+=======
+<%-- 		<div id="greeting">Chào <%=authentication.getHoTen() %></div> --%>
+>>>>>>> 435cd42c668c4f5fedb14091771afa545f64a759
 		<div id="main-content">
 				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 			<div id="title-content">Danh mục đơn vị tính</div>
