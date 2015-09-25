@@ -273,11 +273,11 @@
 			<div class="group-button">
 				<input type="hidden" name="action" value="deleteVatTu">
 				<button type="button" class="button"
-					onclick="showForm('add-form', true)">
+					onclick="showForm2('vattu','add-form', true)">
 					<i class="fa fa-plus-circle"></i>&nbsp;Thêm
 				</button>
 				<button type="button" class="button"
-					onclick="preEditVattu('update-form', true);">
+					onclick="preEditVattu('vattu','update-form', true);">
 					<i class="fa fa-pencil fa-fw"></i>&nbsp;Thay đổi
 				</button>
 				<button type="button" class="button" onclick="confirmDeleteVT();">
@@ -301,7 +301,7 @@
 </div>
 					<!-- add-form-->
 			
-			<form id="add-form" method="get" action="<%=siteMap.vattuManage + "?action=manageVattu"%>">
+			<form id="add-form" method="get" action="<%=siteMap.vattuManage + "?action=manageVattu"%>" style="top: 250px;">
 				<div class="input-table">
 					<table>
 						<div class="form-title" style="padding: 10px">Thêm vật tư</div>
@@ -347,11 +347,11 @@
 <!-- 						<i class="fa fa-plus-circle"></i>&nbsp;Thêm chi tiết -->
 					</button> 
 					<button type="reset" class="button"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại</button>
-					<button type="button" class="button" onclick="showForm('add-form', false)"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
+					<button type="button" class="button" onclick="showForm2('vattu','add-form', false);"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
 				</div>
 			</form>
 			
-			<form id="update-form">
+			<form id="update-form" style="top: 250px;">
 				<div class="input-table">
 					<table>
 						<div class="form-title">Cập nhật Vật tư</div>
@@ -397,7 +397,7 @@
 				<div class="group-button">
 					<button type="button" class="button" onclick="confirmUpdateVattu();" ><i class="fa fa-floppy-o"></i>&nbsp;Lưu lại</button> 
 					<button type="button" class="button" onclick="resetUpdateVT();"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại</button>
-					<button type="button" class="button" onclick="showForm('update-form',false)"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
+					<button type="button" class="button" onclick="showForm2('vattu','update-form', false);"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
 				</div>
 			</form>
 			
@@ -446,7 +446,7 @@
 <!-- 					</tr>			 -->
 <!-- 				</table> -->
 			
-				<div id="view-table-chi-tiet" style="height: 350px; width: 910px; overflow:auto">
+				<div id="view-table-chi-tiet" style="height: 350px; width: 1024px; overflow:auto">
 
 				<table>
 					<tr style="background: #199e5e">
@@ -512,8 +512,8 @@
 		</form>
 		
 			<!-- add-chitiet -->
-			<form id="add-chitiet">
-									<div class="input-table">
+			<form id="add-chitiet" style="top: 250px;">
+									<div class="input-table" >
 					<table>
 						<div class="form-title" style="padding: 10px">Thêm chi tiết vật tư</div>
 						<tr>
@@ -584,7 +584,7 @@
 				<div class="group-button">
 					<button type="button" class="button" onclick="addCTVattu();"><i class="fa fa-plus-circle"></i>&nbsp;Thêm</button>
 					<button type="button" class="button" onclick="resetAddCTVT();"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại</button>
-					<button type="button" class="button" onclick="showForm('add-chitiet', false)"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
+					<button type="button" class="button" onclick="showForm2('chitiet' ,'add-chitiet', false);"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
 				</div>
 			</form>
 			
