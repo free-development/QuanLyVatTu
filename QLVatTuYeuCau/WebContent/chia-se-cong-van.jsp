@@ -328,7 +328,7 @@
 				<%}%>
 				</div>
 			</div>
-			<div id="update-form" style="top:60%;position:absolute;width:900px;left:20%;" >
+			<div id="update-form" style="top:30%;position:absolute;width:900px;left:20%;" >
 				<div id="view-table-cap-nhat"class="scroll">
 				<div id="title-content" style="margin-bottom: 10px;">Cập nhật chia sẻ</div>
 				<table style="width:900px;"></table>

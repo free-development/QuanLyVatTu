@@ -44,13 +44,13 @@ public class BackupDB {
 			Process p = null;
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 			Date date = new Date();
-			String filepath = "backup-" + connection.getDatabase() + "-" + "-(" + dateFormat.format(date) + ").sql";
+			String filepath = "backup-" + connection.getDatabase()  + "-(" + dateFormat.format(date) + ").sql";
 				 
 			String batchCommand = "";
 			if (connection.getPassword().length() > 0) {
 				//only backup the data not included create database
 				batchCommand = dumpExePath + " -h " + connection.getHost() + " --port " 
-							   + connection.getHost() + " -u " + connection.getUser() + " --password=" 
+							   + connection.getPort() + " -u " + connection.getUser() + " --password=" 
 							   + connection.getPassword() + " " + connection.getDatabase() + " -r \"" 
 							   + path + "" + filepath + "\"";
 			} else {
@@ -117,6 +117,6 @@ public class BackupDB {
 		String path = "/home/quoioln/backup-vattu-(08-09-2015).sql";
 		String dumpExePath = "mysqldump";
 		//backupDB.restoreDB(dumpExePath, path);
-		backupDB.backupDB("mysqldump", "~/");
+		backupDB.backupDB("mysqldump", "/home/quoioln/");
 	}
 }

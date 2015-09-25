@@ -201,18 +201,25 @@
 						<%}%>
 					</table>
 					</div>
-										<div id ="paging" style="text-align: center;">
-							<%
-										String str = "";
-										String pages = ""; 
-										long p = (pageNum < 10 ? pageNum : 10);
-									for(int j = 0; j <= p; j++) {
-										str += "<input type=\"button\" value=\"" + (j+1) + "\" class=\"page\" onclick=\"loadPageNd(" + j +")\">&nbsp;";
-									}
-									if (pageNum > 10)
-										str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">";
-									out.println(str);	
-								%>
+					<div id ="paging" style="text-align: center;">
+					<table style ="border-style: none;">
+								<tr>
+									<td>Trang</td>
+									<td>
+									<%
+												String str = "";
+												String pages = ""; 
+												long p = (pageNum < 10 ? pageNum : 10);
+											for(int j = 0; j <= p; j++) {
+												str += "<input type=\"button\" value=\"" + (j+1) + "\" class=\"page\" onclick=\"loadPageNd(" + j +")\">&nbsp;";
+											}
+											if (pageNum > 10)
+												str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">";
+											out.println(str);	
+										%>
+										</td>
+										</tr>
+										</table>
 						</div>
 					<div class="button-group">
 					<button class="button" type="button" onclick="confirmResetMK();">

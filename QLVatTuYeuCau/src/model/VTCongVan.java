@@ -10,11 +10,12 @@ public class VTCongVan implements Serializable{
 	private int vtId;
 
 	private String msnv;
-	
+	private int daXoa;
 	public VTCongVan() {
 		this.cvId = 0;
 		this.vtId = 0;
 		this.msnv = "";
+		this.daXoa = 0;
 	}
 
 	/**
@@ -26,6 +27,19 @@ public class VTCongVan implements Serializable{
 		this.cvId = cvId;
 		this.vtId = vtId;
 		this.msnv = msnv;
+	}
+	public VTCongVan(int cvId, int vtId, String msnv,int daXoa) {
+		this.cvId = cvId;
+		this.vtId = vtId;
+		this.msnv = msnv;
+		this.daXoa = daXoa;
+	}
+	public int getDaXoa() {
+		return daXoa;
+	}
+
+	public void setDaXoa(int daXoa) {
+		this.daXoa = daXoa;
 	}
 
 	/**

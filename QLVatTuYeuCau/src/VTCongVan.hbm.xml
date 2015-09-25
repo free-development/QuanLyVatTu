@@ -20,5 +20,8 @@
 			<key-property name="msnv" column="MSNV" type="string"></key-property>
 			<key-property name="vtId" column="VTID" type="int"></key-property>
 		</composite-id>
+		<property name="daXoa" type="int" access="field"> 
+ 			<column name="DAXOA" /> 
+ 		</property>
 	</class>
 </hibernate-mapping>

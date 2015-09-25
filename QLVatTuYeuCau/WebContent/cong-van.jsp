@@ -157,7 +157,13 @@ hosting = '<%=hosting  %>';
 			<div id="content-form">
 			<div id="title-content">Công văn</div>
 				<!--            <form id="main-form">-->
-				<div class="left-content" >
+				<table>
+				<tr>
+				<td>
+				<div class="left-content">
+				<table style="margin-bottom: 275px;">
+				<tr>
+				<td>
 					<div id="scroll_time">
 						<ol class="tree">
 						<% for (Integer year : yearList) {%>
@@ -173,26 +179,27 @@ hosting = '<%=hosting  %>';
 							<%} %>
 						</ol>		
 					</div>
-					<table style="margin-left:18px;">
-						<tr>
-						<th style="text-align: center;">
-							--Văn bản đến--
-						</th>
-						</tr>
-						<tr>
-						<td style="text-align: center;">
-						<select id = "ttFilter" class="select" name="trangThai">
-							<option value = "" style="text-align: center;font-weight: bold;">Tất cả</option>
-							<option value = "CGQ" style="text-align: center;font-weight: bold;">Chưa giải quyết</option>
-							<option value = "DGQ" style="text-align: center;font-weight: bold;">Đang giải quyết</option>
-							<option value = "DaGQ" style="text-align: center;font-weight: bold;">Đã giải quyết</option>
-						</select>
-						</td>
+					</td>
+					</tr>
+					<tr>
+							<th style="text-align: center;">
+								--Văn bản đến--
+							</th>
+							</tr>
+							<tr>
+							<td style="text-align: center;">
+							<select id = "ttFilter" class="select" name="trangThai">
+								<option value = "" style="text-align: center;font-weight: bold;">Tất cả</option>
+								<option value = "CGQ" style="text-align: center;font-weight: bold;">Chưa giải quyết</option>
+								<option value = "DGQ" style="text-align: center;font-weight: bold;">Đang giải quyết</option>
+								<option value = "DaGQ" style="text-align: center;font-weight: bold;">Đã giải quyết</option>
+							</select>
+							</td>
 						</tr>
 					</table>
-					<br> <br>
-					
 			</div>
+			</td>
+			<td>
 				<div class="right-content">
 					<form id="search-form">
 						<div id="title-table">
@@ -337,8 +344,8 @@ hosting = '<%=hosting  %>';
 									</td>
 									<%if (capPhat) { %>
 										<td colspan="3" style="float: right;">
-											<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.ycvtManage + "?cvId=" + congVan.getCvId()%>'">
-												<i class="fa fa-spinner"></i>&nbsp;&nbsp;Cập vật tư yêu cầu
+											<button  class="button" type="button" style="width: 170px; height: 37px;" onclick="location.href='<%=siteMap.ycvtManage + "?cvId=" + congVan.getCvId()%>'">
+												<i class="fa fa-spinner"></i>&nbsp;&nbsp;Cập nhật yêu cầu vật tư
 											</button>									
 										</td>
 								<% 	}}}%>
@@ -402,6 +409,9 @@ hosting = '<%=hosting  %>';
 						</div>
 					</form>
 				</div>
+				</td>
+				</tr>
+				</table>
 
 <!-- 				</div> -->
 

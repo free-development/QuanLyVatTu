@@ -301,7 +301,7 @@
 						</td>
 <%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
 <!-- 						</td> -->
-<%-- <%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%> --%>
+<%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
 <!-- 						</td> -->
 					</tr>
 					<%} %>

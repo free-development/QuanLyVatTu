@@ -168,7 +168,7 @@
 		<div id="main-content">
 			<form id="add-yeu-cau-form">
 			</form>
- 			<div style="color: #CC3333;height:20px;text-align: right;margin-right: 40px;">Số công văn:&nbsp;<%=congVan.getCvSo() %></div>
+<%--  			<div style="color: #CC3333;height:20px;text-align: right;margin-right: 40px;">Số công văn:&nbsp;<%=congVan.getCvSo() %></div> --%>
 			<form id="danh-sach-vat-tu">
 			<div class="form-title-vat-tu">Danh sách vật tư</div>
 			<div id="yc-table">
@@ -226,6 +226,10 @@
 				</div>
 			</form>				
 				<div id = "paging" >
+				<table style ="border-style: none;">
+								<tr>
+									<td>Trang</td>
+									<td>
 									<%
 										String str = "";
 										long p = (pageNum < 10 ? pageNum : 10);
@@ -236,6 +240,9 @@
 								str += "<input type=\"button\" value=\">>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
 									out.println(str);	
 								%>
+								</td>
+								</tr>
+								</table>
 					</div>
 			<form id="main-form">
 			<div class="form-title-vat-tu" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 

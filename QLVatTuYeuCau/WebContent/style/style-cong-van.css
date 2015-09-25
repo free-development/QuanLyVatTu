@@ -1,10 +1,10 @@
-.left-content {
+/*.left-content {
 	position: relative;
 	width: 20%;
 	top:36%;
 	position: absolute;
 	
-}
+}*/
 
 #paging table {
 	margin: 0 auto;
@@ -19,13 +19,12 @@
 	font-size: 15px;
 }
 
-.right-content {
-	/*position: relative; */
+/* .right-content  
 	position: absolute;
 	top:30%;
-	left:30%;
+	left:29.5%;
 	display: table-cell;
-}
+}*/
 #content-form{
 	background-color: #dceaf5;;
 	height:750px;

@@ -10,6 +10,18 @@
 	padding-bottom: 20px;
 	margin: 0 auto;
 }
+#paging table {
+	margin: 0 auto;
+	margin-top: 20px;
+	border-style: none;
+}
+#paging table tr td{
+	border-style: none;
+}
+#paging table tr td a {
+	color: blue;
+	font-size: 15px;
+}
 
 .text-search{
 	border-radius: 5px;

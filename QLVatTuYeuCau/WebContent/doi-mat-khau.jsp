@@ -156,7 +156,7 @@
 					</table>
 				</div>
 				<div class="button-group">
-					<button class="button" type="button" onclick="checkPassword()">
+					<button class="button" type="button" onclick="checkPassword();">
 						<i class="fa fa-plus-circle"></i>&nbsp;Lưu lại
 					</button>
 					&nbsp;
@@ -164,8 +164,8 @@
 						<i class="fa fa-refresh"></i>&nbsp;Nhập lại
 					</button>
 					&nbsp;
-					<button class="button" type="button">
-						<i class="fa fa-sign-out"></i>&nbsp;Thoát
+					<button type="button" class="button" onclick="location.href='<%=siteMap.home%>'">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
 				</div>
 			</form>
