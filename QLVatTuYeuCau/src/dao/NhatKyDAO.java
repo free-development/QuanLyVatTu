@@ -83,7 +83,7 @@ public class NhatKyDAO {
 	public ArrayList<NhatKy> getByMsnv(String msnv) {
 			session.beginTransaction();
 			Criteria cr = session.createCriteria(NhatKy.class);
-			Criterion expMsnv = Restrictions.eq("cvId", msnv);
+			Criterion expMsnv = Restrictions.eq("msnv", msnv);
 //			LogicalExpression andExp = Restrictions.and(expCv, xoaYc);
 			cr.add(expMsnv);
 			ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) cr.list(); 

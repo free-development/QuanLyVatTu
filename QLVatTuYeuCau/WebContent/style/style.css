@@ -215,18 +215,32 @@ td.input {
 }
 
 .view-tbao table tr{
-	color: #FF0000;
-	text-align: center;
+	
+	
 	font-size: 20px;
 	
 }
-.view-cvnew table tr td a{
-	color: #3399CC;
-	text-align: center;
-	font-size: 17px;
+.view-tbao table tr td{
+	
+/* 	cell-spacing: 0px; */
+	border: 1px;
+	font-size: 20px;
 	
 }
 
+.view-cvnew table tr th{
+	color: black;
+	text-align: center;
+	font-size: 17px;
+	text-align: center;
+}
+.view-cvnew table tr td{
+	color: black;
+	text-align: center;
+	font-size: 17px;
+	text-align: center;
+	
+}
 .view-cvnew{
 	position: absolute;
 	left:10%;
@@ -241,12 +255,26 @@ td.input {
 	border-width: 1px;
 	border-radius: 5px;
 	border-color: #2CCAAE;
-	width:450px;
-	height:200px;
+	width:350px;
+	max-height:350px;
 }
-.view-nky table tr td a{
-	color: #FF0000;
+.view-nky table {
+	border: 2px;
+}
+
+.view-nky table tr th{
+	color: black;
 	text-align: center;
+	font-size: 17px;
+	
+}
+.view-nky table tr td{
+	color: black;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	font: 17px;
+		
 }
 .view-nky{
 	/*top:28%;
@@ -257,8 +285,8 @@ td.input {
 	border-width: 1px;
 	border-radius: 5px;
 	border-color: #2CCAAE;
-	width:450px;
-	height:200px;
+	width:550px;
+	max-height:350px;
 	
 }
 .search-form {

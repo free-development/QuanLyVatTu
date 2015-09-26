@@ -46,23 +46,22 @@ public class HomeController extends HttpServlet {
 			HashMap<String, Object> conditions = new HashMap<String, Object>();
 			conditions.put("trangThai.ttMa", "CGQ");
 			HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
-			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(null, conditions, orderBy, 0, 5);
+			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(null, conditions, orderBy, 0, 10);
 			request.setAttribute("congVanList", congVanList);
 			NhatKyDAO nhatKyDAO = new NhatKyDAO();
-			ArrayList<NhatKy> nhatKyList = nhatKyDAO.getByMsnv(truongPhongMa);
+			ArrayList<NhatKy> nhatKyList = nhatKyDAO.getLimitByMsnv(authentication.getMsnv(), 0, 10);
+			nhatKyDAO.disconnect();
+			congVanDAO.disconnect();
+			request.setAttribute("nhatKyList", nhatKyList);
+			return new ModelAndView("home");
+		}
+		else if (cdMa.equals(vanThuMa)) {
+			NhatKyDAO nhatKyDAO = new NhatKyDAO();
+			ArrayList<NhatKy> nhatKyList = nhatKyDAO.getLimitByMsnv(authentication.getMsnv(), 0, 10);
 			nhatKyDAO.disconnect();
 			request.setAttribute("nhatKyList", nhatKyList);
 			return new ModelAndView("home");
 		}
-//		else if (cdMa.equals(vanThuMa)) {
-//			CongVanDAO congVanDAO = new CongVanDAO();
-//			HashMap<String, Object> conditions = new HashMap<String, Object>();
-//			HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
-//			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(null, conditions, orderBy, 0, 5);
-//			System.out.println("size of cong van = " +  congVanList.size());
-//			request.setAttribute("congVanList", congVanList);
-//			return new ModelAndView("home");
-//		}
 //		else if (cdMa.equals(nhanVienMa)) {
 //			CongVanDAO congVanDAO = new CongVanDAO();
 //			HashMap<String, Object> conditions = new HashMap<String, Object>();

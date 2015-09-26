@@ -21,15 +21,16 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.CTVatTuDAO;
 import dao.ChatLuongDAO;
 import dao.CongVanDAO;
+import dao.NhatKyDAO;
 import dao.NoiSanXuatDAO;
-import dao.VaiTroDAO;
 import dao.YeuCauDAO;
 import map.siteMap;
 import model.CTVatTu;
 import model.ChatLuong;
+import model.CongVan;
+import model.NguoiDung;
+import model.NhatKy;
 import model.NoiSanXuat;
-import model.VaiTro;
-import model.VatTu;
 import model.YeuCau;
 import util.JSonUtil;
 
@@ -95,13 +96,23 @@ public class YcController extends HttpServlet {
 	}
 	@RequestMapping(value="/addSoLuong", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String addSoLuong(@RequestParam("soLuong") String soLuong) {
+	 public @ResponseBody String addSoLuong(HttpSession session, @RequestParam("soLuong") String soLuong) {
 		YeuCauDAO ycDAO = new YeuCauDAO();
 		int cvId = (Integer) session.getAttribute("cvId");
 		int ctvtId = (Integer) session.getAttribute("ctvtId");
 		int sl = Integer.parseInt(soLuong);
 		YeuCau yeuCau = ycDAO.addSoLuong(cvId, ctvtId, sl);
 		ycDAO.disconnect();
+		CongVanDAO congVanDAO = new CongVanDAO();
+		CTVatTuDAO ctvtDAO = new CTVatTuDAO();
+		CTVatTu ctvt = ctvtDAO.getCTVatTuById(ctvtId);		
+		CongVan congVan = congVanDAO.getCongVan(cvId);
+		congVanDAO.disconnect();
+    	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+		NhatKyDAO nhatKyDAO = new NhatKyDAO();
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã cập nhật số lượng cho vât tư có mã " + ctvt.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctvt.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctvt.getChatLuong().getClMa() + "của công văn  " + congVan.getSoDen());
+		nhatKyDAO.addNhatKy(nhatKy);
+		nhatKyDAO.disconnect();
 		return JSonUtil.toJson(yeuCau);
 	}
 	
@@ -116,6 +127,18 @@ public class YcController extends HttpServlet {
 			ycDAO.deleteYeuCau(id);
 		}
 		ycDAO.disconnect();
+		
+//		CongVanDAO congVanDAO = new CongVanDAO();
+//		CTVatTuDAO ctvtDAO = new CTVatTuDAO();
+//		CTVatTu ctvt = ctvtDAO.getCTVatTuById(ctvtId);		
+//		CongVan congVan = congVanDAO.getCongVan(cvId);
+//		congVanDAO.disconnect();
+//    	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+//		NhatKyDAO nhatKyDAO = new NhatKyDAO();
+//		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã cập nhật số lượng cho vât tư có mã " + ctvt.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctvt.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctvt.getChatLuong().getClMa() + "của công văn  " + congVan.getSoDen());
+//		nhatKyDAO.addNhatKy(nhatKy);
+//		nhatKyDAO.disconnect();
+		
 		return JSonUtil.toJson("success");
 	}
 	@RequestMapping(value="/preUpdateYc", method=RequestMethod.GET, 
