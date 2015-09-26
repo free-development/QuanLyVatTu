@@ -158,14 +158,12 @@ public class NdController extends HttpServlet {
 	public @ResponseBody String changePass(@RequestParam("msnv") String msnv, @RequestParam("passOld") String passOld
 			, @RequestParam("passNew") String passNew) {
 		CTNguoiDungDAO ctNguoiDungDAO = new CTNguoiDungDAO();
-		System.out.println(msnv);
-		System.out.println(passOld);
-		System.out.println(passNew);
 		String result = "";
-		if (ctNguoiDungDAO.login(msnv, StringUtil.encryptMD5(passOld))==1) {
-			ctNguoiDungDAO.updateCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(passNew),0));
+		CTNguoiDung ctNguoiDung = ctNguoiDungDAO.getCTNguoiDung(msnv);
+		if (ctNguoiDung == null || !ctNguoiDung.getMatKhau().equals(passOld)) {
+			ctNguoiDung.setMatKhau(StringUtil.encryptMD5(passNew));
+			ctNguoiDungDAO.updateCTNguoiDung(ctNguoiDung);
 			result = "success";
-			System.out.println(result);
 		}
 		else
 		{
@@ -173,6 +171,7 @@ public class NdController extends HttpServlet {
 			System.out.println(result);
 		}
 		ctNguoiDungDAO.disconnect();
+		ctNguoiDungDAO.close();
 		return JSonUtil.toJson(result);
 	}
 	@RequestMapping(value="/logout")

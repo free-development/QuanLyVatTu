@@ -133,6 +133,9 @@
 				</div>
 						<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 				<div id="main-content">
+				<table>
+				<tr>
+				<td>
 					<div class="view-tbao">
 						<table>
 						<tr >
@@ -142,6 +145,8 @@
 						</tr>
 						</table>
 					</div>
+				</td>
+				<td>
 					<div class="view-nky">
 						<table>
 						<tr>
@@ -151,6 +156,9 @@
 						</tr>
 						</table>
 					</div>
+					</td>
+					</tr>
+				</table>
 				</div>
 				
         </div>

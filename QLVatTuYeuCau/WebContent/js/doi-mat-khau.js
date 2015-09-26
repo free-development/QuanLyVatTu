@@ -73,7 +73,7 @@ function showForm(formId, check){
 				  	contentType: 'application/json',
 				    mimeType: 'application/json',
 				  	success: function(result) {
-				  		alert(result);
+				  		//alert(result);
 				  		if(result == "success"){
 				  			$('input:text[name=msnv]').val('');
 							$('input:password[name=passOld]').val('');
