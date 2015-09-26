@@ -133,7 +133,7 @@
 				</div>
 						<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 				<div id="main-content">
-				<table>
+				<table style = "margin: 0 auto;width: 900px;">
 				<tr>
 				<td>
 					<div class="view-tbao">
