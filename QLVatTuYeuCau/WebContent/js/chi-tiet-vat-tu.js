@@ -71,7 +71,6 @@
 							+ dvt +'</td><td class=\"col\">'
 							+ dinhMuc +'</td><td class=\"col\">'
 							+ soLuongTon +'</td></tr>');
-			  		
 					$('#add-chitiet select[name=noiSanXuat]').val('');
 					$('#add-chitiet select[name=chatLuong]').val('');
 					
@@ -129,7 +128,7 @@
 						$('#update-chitiet input[name=dinhMucUpdate]').val(vt.dinhMuc);
 						$('#update-chitiet input[name=soLuongTonUpdate]').val(vt.soLuongTon);
 					  	
-					  	showForm(formId, check);
+						showForm2('chitiet' ,'update-chitiet', check);
 					}
 					
 				});
@@ -187,7 +186,7 @@
 						$('input[name=soLuongTonUpdate]').val('');
 						
 				  		alert("Sửa thành công chi tiết vật tư có mã "+ vtMaUpdate+ " !");
-				  		showForm("update-chitiet", false);	
+				  		showForm2('add-chitiet' ,'chitiet', true);
 				  	}
 				});
  	}
@@ -300,8 +299,8 @@
  								style = 'style=\"background : #CCFFFF;\"';
 		 					cells = '<td class=\"col\">' + ctvt.vatTu.vtMa + '</td>'
 		 							+'<td class=\"col\" style=\"text-align: left;\">' + ctvt.vatTu.vtTen + '</td>'
-	 								+ '<td class=\"col\">' + ctvt.noiSanXuat.nsxTen+ '</td>'
-	 								+ '<td class=\"col\">' + ctvt.chatLuong.clTen+ '</td>'
+	 								+ '<td class=\"col\" style=\"text-align: left;\">' + ctvt.noiSanXuat.nsxTen+ '</td>'
+	 								+ '<td class=\"col\" style=\"text-align: left;\">' + ctvt.chatLuong.clTen+ '</td>'
 	 								+ '<td class=\"col\">' + ctvt.vatTu.dvt.dvtTen+ '</td>'
 	 								+ '<td class=\"col\">' + ctvt.dinhMuc+ '</td>'
 	 								+ '<td class=\"col\">' + ctvt.soLuongTon+ '</td>'
@@ -317,9 +316,9 @@
 							if (t > size)
 								break;
 						}
-						button = '<input type=\"button\" value=\"<<Trước\" onclick= \"loadPageCTVatTu(\'Previous\')\">&nbsp;'  + button;
+						button = '<input type=\"button\" class=\"pageMove\" value=\"<<Trước\" onclick= \"loadPageCTVatTu(\'Previous\')\">&nbsp;'  + button;
 						if ((p + 1) * 5 < size)
-							button += '<input type=\"button\" value=\"Sau>>\" onclick= \"loadPageCTVatTu(\'Next\');\">';
+							button += '<input type=\"button\" class=\"pageMove\" value=\"Sau>>\" onclick= \"loadPageCTVatTu(\'Next\');\">';
 						$('#paging').html(button);
 						$('.page')[5].focus();
 					} else if (pageNumber == 'Previous'){
@@ -328,9 +327,9 @@
 						for (var i = 0; i < 10; i++)
 							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageCTVatTu(' + (p * 5 + i)  +')\">&nbsp;';
 						
-						button = button + '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageCTVatTu(\'Next\');\">';
+						button = button + '<input type=\"button\" class=\"pageMove\" value=\"Sau >>\" onclick= \"loadPageCTVatTu(\'Next\');\">';
 						if (p >= 1)
-							button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageCTVatTu(\'Previous\')\">&nbsp;' + button;
+							button = '<input type=\"button\" class=\"pageMove\" value=\"<< Trước\" onclick= \"loadPageCTVatTu(\'Previous\')\">&nbsp;' + button;
 						$('#paging').html(button);	
 						$('.page')[4].focus();
 					}

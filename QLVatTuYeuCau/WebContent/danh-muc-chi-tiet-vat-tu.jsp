@@ -161,12 +161,12 @@
 		<div id="main-content">
 			<div id="title-content">Danh mục chi tiết vật tư</div>
 			<form id="main-form">
-					<div id="view-table-chi-tiet" style="height: 480px; margin: 0 auto;">
+					<div id="view-table-chi-tiet" style="height: 350px; margin: 0 auto; overflow: auto;" class="scroll_content">
 						<table>
 							<tr style="background: #199e5e">
 <!-- 								<th class="left-column"><input type="checkbox" -->
 <!-- 									class="checkAll"></th> -->
-								<th class="six-column">Mã vật tư</th>
+								<th class="four-column">Mã vật tư</th>
 								<th class="three-column">Tên vật tư</th>
 								<th class="six-column">Nơi sản xuất</th>
 								<th class="six-column">Chất lượng</th>
@@ -185,8 +185,8 @@
 <%-- 									value="<%=ctVatTu.getVatTu().getVtMa() %>" class="checkbox"></td> --%>
 								<td class="col"><%=ctVatTu.getVatTu().getVtMa() %></td>
 								<td class="col" style="text-align: left;"><%=ctVatTu.getVatTu().getVtTen() %></td>
-								<td class="col"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
-								<td class="col"><%=ctVatTu.getChatLuong().getClTen() %></td>
+								<td class="col" style="text-align: left;"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
+								<td class="col" style="text-align: left;"><%=ctVatTu.getChatLuong().getClTen() %></td>
 								<td class="col"><%=ctVatTu.getVatTu().getDvt().getDvtTen() %></td>
 								<td class="col"><%=ctVatTu.getDinhMuc() %></td>
 								<td class="col"><%=ctVatTu.getSoLuongTon() %></td>
@@ -207,7 +207,7 @@
 										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick=\"loadPageCTVatTu(" + i +")\">&nbsp;";
 									}
 									if (pageNum > 10)
-										str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageCTVatTu(\'Next\');\">";
+										str += "<input type=\"button\" class=\"pageMove\" value=\"Sau >>\" onclick= \"loadPageCTVatTu(\'Next\');\">";
 									out.println(str);	
 								%>
 					

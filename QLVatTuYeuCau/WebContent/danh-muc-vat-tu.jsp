@@ -161,7 +161,7 @@
 					<div class="clear"></div>
 				</div>
 				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
-		<div id="main-vattu">
+		<div id="main-vattu" style="height: 600px;">
 			<div id="title-content">Danh mục vật tư</div>
 <!-- 					<h3>* Tìm kiếm mã</h3> -->
 <!-- 						<input type="text" id="country" name="country"/> -->
@@ -210,8 +210,7 @@
 				</table>
 			
 			
-			<div id="view-table-vat-tu" style="height: 400px; margin: 0 auto;">
-
+			<div id="view-table-vat-tu" style="height: 370px; margin: 0 auto; overflow: auto;" class="scroll_content">
 				<table>
 					<tr style="background: #199e5e; height: 30px">
 						<th class="left-column"><input type="checkbox"
@@ -231,7 +230,7 @@
 						<td class="left-column"><input type="checkbox" name="vtMa"
 							value="<%=vatTu.getVtMa() %>" class="checkbox"></td>
 						<td class="col" style="text-align: left;" ><%=vatTu.getVtMa() %></td>
-						<td class="col" style="text-align: left;"><%=vatTu.getVtTen() %></td>
+						<td class="col" style="text-align: left; width: 200px;"><%=vatTu.getVtTen() %></td>
 						<td class="col" style="text-align: center;"><%=vatTu.getDvt().getDvtTen() %></td>
 						<td style="text-align: center;"><button type="button" class="button-xem" value="Xem" onclick="showCTVatTu(<%=vatTu.getVtMa()%>);">Xem</button></td>
 					</tr>
@@ -264,7 +263,7 @@
 									}
 									if (pageNum > 10)
 										// str = "<input type=\"button\" value=\"<<Previous\" onclick= \"loadPageCtvtYc(\'Previous\')\">&nbsp;"  + str + "<input type=\"button\" value=\"Next>>\" onclick= \"loadPageCtvtYc(\'Next\');\">";
-										str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageVatTu(\'Next\');\">";
+										str += "<input type=\"button\" class=\"pageMove\" value=\"Sau >>\" onclick= \"loadPageVatTu(\'Next\');\">";
 									out.println(str);	
 								%>
 <!-- 									<input type="button" value="Next>>"></td> -->
@@ -637,7 +636,7 @@
 				<div class="group-button">
 					<button type="button" class="button" onclick="confirmUpdateCTVattu();"><i class="fa fa-plus-circle"></i>&nbsp;Lưu</button>
 					<button type="button" class="button" onclick="resetUpdateCTVT();"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại</button>
-					<button type="button" class="button" onclick="showForm('update-chitiet', false)"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
+					<button type="button" class="button" onclick="showForm2('chitiet' ,'update-chitiet', false);"><i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát</button>
 				</div>
 			</form>
 		</div>
