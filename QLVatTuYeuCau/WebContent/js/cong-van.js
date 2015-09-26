@@ -573,27 +573,33 @@ function loadPageNumber(p, pageNumber, size) {
 		$('.page')[0].focus();
 	}
 }
-//function addCongVan() {
-//	var nsxMa = $('#add-form input:text[name=nsxMa]').val();
-//	var nsxTen = $('#add-form input:text[name=nsxTen]').val();
-//	$.ajax({
-//		url: getRoot() +  "/addNsx.html",	
-//	  	type: "GET",
-//	  	dateType: "JSON",
-//	  	data: { "nsxMa": nsxMa, "nsxTen": nsxTen},
-//	  	contentType: 'application/json',
-//	    mimeType: 'application/json',
-//	  	
-//	  	success: function(nsx) {
-//		  	$('input:text[name=nsxMa]').val(nsx.nsxMa);
-//		  	$('input:text[name=nsxTen]').val(nsx.nsxTen);
-//	  		$('#view-table table tr:first').after('<tr><td class=\"left-column\"><input type=\"checkbox\" name=\"nsxMa\" value=\"' +nsx.nsxMa + '\"</td><td class=\"col\">'+ nsxMa +'</td><td class=\"col\">' + nsxTen+'</td></tr>');
-//	  		$('#add-form input:text[name=nsxMa]').val('');
-//			$('#add-form input:text[name=nsxTen]').val('');
-//	  		showForm("add-form", false);	
-//	  	}
-//	});
-//}
+function addCongVan() {
+	var cvSo = $('#add-form input:text[name=cvSo]').val();
+	var ngayGoi = $('#add-form input[name=ngayGoi]').val();
+	var mucDich = $('#add-form select[name=mucDich]').val();
+	var donVi = $('#add-form select[name=donVi]').val();
+	var trichYeu = $('#add-form textarea[name=trichYeu]').val();
+	var butPhe = $('#add-form textarea[name=butPhe]').val();
+	var moTa = $('#add-form textarea[name=moTa]').val();
+	
+	$.ajax({
+		url: getRoot() +  "/addCongVan.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: { "nsxMa": nsxMa, "nsxTen": nsxTen},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	  	
+	  	success: function(nsx) {
+		  	$('input:text[name=nsxMa]').val(nsx.nsxMa);
+		  	$('input:text[name=nsxTen]').val(nsx.nsxTen);
+	  		$('#view-table table tr:first').after('<tr><td class=\"left-column\"><input type=\"checkbox\" name=\"nsxMa\" value=\"' +nsx.nsxMa + '\"</td><td class=\"col\">'+ nsxMa +'</td><td class=\"col\">' + nsxTen+'</td></tr>');
+	  		$('#add-form input:text[name=nsxMa]').val('');
+			$('#add-form input:text[name=nsxTen]').val('');
+	  		showForm("add-form", false);	
+	  	}
+	});
+}
 //function preUpdateCv() {
 //	
 //	showForm('main-form','update-form', true);

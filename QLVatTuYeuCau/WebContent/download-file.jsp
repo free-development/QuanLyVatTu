@@ -26,10 +26,10 @@
 // 	GstFormsAttachFile gstFormFile = (GstFormsAttachFile) request.getAttribute("gstFormFile"); 
 	
 	response.setContentType("APPLICATION/OCTET-STREAM");   
-	java.io.File file = (java.io.File) request.getAttribute("file");
-// 		java.io.File file = new java.io.File(gstFormFile.getPath());
+	String path = (String) request.getAttribute("path");
+	java.io.File file = new java.io.File (path);
 	response.setHeader("Content-Disposition","attachment; filename=\"" + FileUtil.getNameFile(file) + "." + FileUtil.getExtension(file));
-	
+	 
 	java.io.FileInputStream fileInputStream=new java.io.FileInputStream(file);  
 	          
 	int i;   

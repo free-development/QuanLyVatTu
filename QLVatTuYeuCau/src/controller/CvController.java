@@ -174,9 +174,9 @@ public class CvController extends HttpServlet{
 				FileDAO fileDAO = new FileDAO();
 				int cvId = Integer.parseInt(request.getParameter("file"));
 				model.File f = fileDAO.getByCongVanId(cvId);
-				java.io.File file = new java.io.File(f.getDiaChi());
+//				java.io.File file = new java.io.File(f.getDiaChi());
 				fileDAO.close();
-				return new ModelAndView(siteMap.fileDownload, "file", file);
+				return new ModelAndView(siteMap.fileDownload, "path", f.getDiaChi());
 				
 			} catch (NumberFormatException e){
 				System.out.println("Cannot convert to int");

@@ -39,6 +39,7 @@ public class CTNguoiDungDAO {
 		return ctNguoiDung;
 	}
 	public int login(final String msnv, final String matkhau) {
+		
 		CTNguoiDung ctNguoiDung = getCTNguoiDung(msnv);
 		if (ctNguoiDung == null)
 		{

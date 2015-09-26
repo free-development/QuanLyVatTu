@@ -1,4 +1,6 @@
 
+<%@page import="model.CongVan"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.NguoiDung"%>
 <%@page import="map.siteMap"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -40,6 +42,8 @@
     			dispatcher.forward(request, response);
     			return;
     		}
+    		String congVanList = (String) request.getAttribute("string");
+    		System.out.println("view cong van = " + congVanList);
     		String adminMa = request.getServletContext().getInitParameter("adminMa");
     		String chucDanh = authentication.getChucDanh().getCdMa();
     		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
@@ -133,6 +137,9 @@
 				</div>
 						<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 				<div id="main-content">
+				<table style = "margin: 0 auto;width: 900px;">
+				<tr>
+				<td>
 					<div class="view-tbao">
 						<table>
 						<tr >
@@ -142,6 +149,8 @@
 						</tr>
 						</table>
 					</div>
+				</td>
+				<td>
 					<div class="view-nky">
 						<table>
 						<tr>
@@ -151,6 +160,9 @@
 						</tr>
 						</table>
 					</div>
+					</td>
+					</tr>
+				</table>
 				</div>
 				
         </div>

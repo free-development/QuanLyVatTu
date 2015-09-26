@@ -82,13 +82,13 @@ public class ReadExcel extends HttpServlet {
 			String fileName = fi.getName();
 			String extenstionFile = FileUtil.getExtensionByPath(fileName);
 			File file;
-			if ("xls".equals(extenstionFile)) {
+			if ("xls".equalsIgnoreCase(extenstionFile)) {
 				file = new File("temp.xls");
 				fi.write(file);
 				if(!ReadExcelCtvt.readXls(file))
 					return new ModelAndView("import-excel", "status", "formatException");
 			}
-			else if ("xlsx".equals(extenstionFile)) {
+			else if ("xlsx".equalsIgnoreCase(extenstionFile)) {
 				file = new File("temp.xlsx");
 				fi.write(file);
 				if(!ReadExcelCtvt.readXlsx(file))

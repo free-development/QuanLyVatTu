@@ -197,6 +197,7 @@ function updateYc() {
 	  			$('input[name=soLuongUpdate]').val('0');	
 				$('#view-table-yc table tr #soLuong' + ycId).html(soLuong);
 				showForm('add-yeu-cau-form','update-so-luong-form',false);
+				$('input[name="yeuCau"]:checked').prop('checked',false);
 		  		$('#danh-sach-vat-tu').show();
 		  		$('#main-form').show();
 	  		}
@@ -256,6 +257,8 @@ function capVatTu() {
 	  			alert('Cấp phát vật tư thành công');
 	  			$('input[name=soLuongCap]').val('0');	
 				$('#view-table-yc table tr #soLuongCap' + ycVatTu.ycId).html(ycVatTu.capSoLuong);
+//				$('#view-table-yc table tr td').has('input[name="yeuCau"]:checked').prop('checked',false);
+				$('input[name="yeuCau"]:checked').prop('checked',false);
 	  		}
 	  		showForm('add-yeu-cau-form','cap-so-luong-form',false);
 	  		$('#danh-sach-vat-tu').show();
