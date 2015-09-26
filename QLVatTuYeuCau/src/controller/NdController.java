@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -225,7 +226,7 @@ public class NdController extends HttpServlet {
 		return JSonUtil.toJson(ndList);
 		}
 	@RequestMapping("/login")
-	public ModelAndView login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void login (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		String msnv = request.getParameter("msnv");
 		String matKhau = request.getParameter("matkhau");
@@ -236,43 +237,16 @@ public class NdController extends HttpServlet {
 		if (check==1) {
 			NguoiDung nguoiDung =  ndDAO. getNguoiDung(msnv);
 			session.setAttribute("nguoiDung", nguoiDung);
-//			int index = siteMap.cvManage.lastIndexOf("/");
-//    		String url = siteMap.cvManage.substring(index);
-			String forward = "index";
-//			String url = (String) session.getAttribute("url");
-//			if (url != null) {
-//				int index = url.lastIndexOf("/");
-//				String page = url.substring(index);
-//				forward = page;
-//			}
-			return new ModelAndView(forward);
-//			ctndDAO.disconnect();
-//			ndDAO.disconnect();
-//			return new ModelAndView("index");
+			session.setMaxInactiveInterval(86400000);
+			response.sendRedirect("home.html");
 		} else {
-			return new ModelAndView("login", "status", "fail");
+			request.setAttribute("status", "fail");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			dispatcher.forward(request, response);
 		}
 		
 	}
-	
-	/*
-	@RequestMapping(value="/login", method=RequestMethod.POST) 
-//			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String login(@RequestParam("msnv") String msnv, @RequestParam("matkhau") String matkhau)
-	{
-//		HttpSession session =  
-		String result = "";
-		if (new CTNguoiDungDAO().login(msnv, StringUtil.encryptMD5(matkhau))) {
-			result = "success";
-			HttpServletResponse response;
-//			response.sendRedirect("home.jsp");
-		}
-		else {
-			result = "fail";
-		}
-		return JSonUtil.toJson(result);
-	}
-	*/
+
 	@RequestMapping("lockNguoiDung")
 	public ModelAndView lockNguoiDung(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);

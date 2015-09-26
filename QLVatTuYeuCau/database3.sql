@@ -152,7 +152,7 @@ create table FILE
 (
    FILEID int not null,
    CVID  int not null,
-   DIACHI               varchar(100),
+   DIACHI               varchar(200),
    MOTA                 text,
    primary key (FILEID)
 ) ENGINE = InnoDB
