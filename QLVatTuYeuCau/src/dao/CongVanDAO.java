@@ -340,7 +340,12 @@ public class CongVanDAO {
 				if (object instanceof Integer && (key.equalsIgnoreCase("year") || key.equalsIgnoreCase("month") || key.equalsIgnoreCase("day"))) {
 					cr.add(Restrictions.sqlRestriction(key.toUpperCase() + "(cvNgayNhan) = " + conditions.get(key)));
 				} else if (conditions.get(key) != null){ 
-					cr.add(Restrictions.eq(key, conditions.get(key)));
+					if (key.indexOf("!") != -1) {
+						key = key.substring(0);
+						cr.add(Restrictions.not(Restrictions.eq(key, object)));
+					}
+					else
+						cr.add(Restrictions.eq(key, conditions.get(key)));
 				}
 			}
 		}
