@@ -41,11 +41,21 @@ public class CTNguoiDungDAO {
 	public int login(final String msnv, final String matkhau) {
 		CTNguoiDung ctNguoiDung = getCTNguoiDung(msnv);
 		if (ctNguoiDung == null)
+		{
 			return -1;
+		}
 		else if (!matkhau.equals(ctNguoiDung.getMatKhau()))
+		{
 			return 0;
+		}
 		return 1;
 	}
+//	public boolean login(final String msnv, final String matkhau) {
+//		CTNguoiDung ctNguoiDung = getCTNguoiDung(msnv);
+//		if (ctNguoiDung == null || !matkhau.equals(ctNguoiDung.getMatKhau()))
+//			return false;
+//		return true;
+//	}
 	public List<CTNguoiDung> getAllCTNguoiDung() {
 		session.beginTransaction();
 		List<CTNguoiDung> ctNguoiDungList = (List<CTNguoiDung>) session.createCriteria(CTNguoiDung.class).list();
@@ -175,7 +185,7 @@ public class CTNguoiDungDAO {
 		int k = 8;
 		String mk = random.randomCharacter(k);
 		CTNguoiDungDAO ctnguoiDungDAO = new CTNguoiDungDAO();
-		CTNguoiDung ctNd = new CTNguoiDung(msnv, mk);
+		CTNguoiDung ctNd = new CTNguoiDung(msnv, mk,0);
 		ctNd.setMatKhau(StringUtil.encryptMD5(mk));
 		ctnguoiDungDAO.updateCTNguoiDung(ctNd);
 		session.getTransaction().commit(); 

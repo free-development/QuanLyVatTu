@@ -315,7 +315,7 @@
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">
 						<button class="button" id="update" type="button">
-							<i class="fa fa-pencil fa-fw"></i>&nbsp;sửa
+							<i class="fa fa-pencil fa-fw"></i>&nbsp;Sửa
 						</button>
 						<button type="reset" class="button" type="button">
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Bỏ qua
@@ -328,7 +328,7 @@
 				<%}%>
 				</div>
 			</div>
-			<div id="update-form" style="top:60%;position:absolute;width:900px;left:20%;" >
+			<div id="update-form" style="top:30%;position:absolute;width:900px;left:20%;" >
 				<div id="view-table-cap-nhat"class="scroll">
 				<div id="title-content" style="margin-bottom: 10px;">Cập nhật chia sẻ</div>
 				<table style="width:900px;"></table>

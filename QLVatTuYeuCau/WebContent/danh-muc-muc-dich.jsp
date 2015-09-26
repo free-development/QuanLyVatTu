@@ -186,19 +186,18 @@
 						<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<%if(pageNum >1) {%>
-											<td>Trang</td>
-											<td>
-												<%
-		 											//long pageNum = size / 10;
-													for(int i = 0; i < pageNum; i++) { %>
-														<input type="button" value="<%=i+1%>" class="page">
-												<%} %>
-											</td>
-									<%} %>
+									<td>Trang</td>
+									<td>
+										<%
+// 											long pageNum = size / 10;
+											for(int i = 0; i <= pageNum; i++) { %>
+												<input type="button" value="<%=i+1%>" class="page">
+										<%} %>
+									</td>
+<!-- 									<td><input type="button" value="Next>>"></td> -->
 								</tr>
-							</table>
-						</div>
+ 							</table> 
+						</div> 
 
 						<div class="group-button">
 							<input type="hidden" name="action" value="deleteMd">

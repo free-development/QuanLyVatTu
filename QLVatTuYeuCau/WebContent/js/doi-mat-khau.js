@@ -45,6 +45,7 @@ function showForm(formId, check){
 				else
 						{
 							changePassWord(passNew);
+							
 						}
 				}
 			
@@ -64,7 +65,6 @@ function showForm(formId, check){
 			function changePassWord(passNew){
 				var msnv = $('input:text[name=msnv]').val();
 				var passOld = $('input:password[name=passOld]').val();
-				
 				$.ajax({
 					url: getRoot() +  "/changePass.html",	
 				  	type: "GET",
@@ -72,16 +72,18 @@ function showForm(formId, check){
 				  	data: { "msnv": msnv, "passOld": passOld, "passNew": passNew},
 				  	contentType: 'application/json',
 				    mimeType: 'application/json',
-				  	
 				  	success: function(result) {
-//				  		alert(result);
-				  		if(result === "success"){
+				  		alert(result);
+				  		if(result == "success"){
 				  			$('input:text[name=msnv]').val('');
 							$('input:password[name=passOld]').val('');
-				  			window.location.assign("home");
+							alert("Đổi mật khẩu thành công!");
+							showForm("add-form",false);
+				  			//window.location.assign("home");
 				  		}
-				  		else 
+				  		else {
 				  			alert('Tên tài khoản hoặc mật khẩu chưa đúng');
+				  		}
 				  	}
 				});
 			}

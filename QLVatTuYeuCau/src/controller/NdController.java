@@ -79,7 +79,7 @@ public class NdController extends HttpServlet {
 			String email = request.getParameter("email");
 			String diachi = request.getParameter("diachi");
 			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh)));
-			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau)));
+			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau),0));
 			
 			ArrayList<NguoiDung> nguoiDungList =  (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(new ArrayList<String>());
 			return new ModelAndView("them-nguoi-dung", "nguoiDungList", nguoiDungList);
@@ -111,7 +111,7 @@ public class NdController extends HttpServlet {
 		if((nguoiDungDAO.getNguoiDung(msnv)==null)&&(ctNguoiDungDAO.getCTNguoiDung(msnv)==null))
 		{
 			nguoiDungDAO.addNguoiDung(new NguoiDung(msnv, hoten, diachi, email, sdt, new ChucDanh(chucdanh)));
-			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau)));
+			ctNguoiDungDAO.addCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(matkhau),0));
 			
 //			System.out.println("success");
 			result = "success";	
@@ -140,7 +140,12 @@ public class NdController extends HttpServlet {
 	@RequestMapping(value="/updateNd", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String updateNd(@RequestParam("msnv") String msnv, @RequestParam("hoten") String hoten, @RequestParam("chucdanh") String chucdanh, @RequestParam("email") String email, @RequestParam("diachi") String diachi, @RequestParam("sdt") String sdt) {
-
+		System.out.println(msnv);
+		System.out.println(hoten);
+		System.out.println(chucdanh);
+		System.out.println(email);
+		System.out.println(diachi);
+		System.out.println(sdt);
 		NguoiDung nd = new NguoiDung(msnv, hoten,diachi,email,sdt,new ChucDanh(chucdanh));
 		NguoiDungDAO nguoiDungDAO=new NguoiDungDAO();
 		nguoiDungDAO.updateNguoiDung(nd);
@@ -154,14 +159,19 @@ public class NdController extends HttpServlet {
 	public @ResponseBody String changePass(@RequestParam("msnv") String msnv, @RequestParam("passOld") String passOld
 			, @RequestParam("passNew") String passNew) {
 		CTNguoiDungDAO ctNguoiDungDAO = new CTNguoiDungDAO();
+		System.out.println(msnv);
+		System.out.println(passOld);
+		System.out.println(passNew);
 		String result = "";
 		if (ctNguoiDungDAO.login(msnv, StringUtil.encryptMD5(passOld))==1) {
-			ctNguoiDungDAO.updateCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(passNew)));
+			ctNguoiDungDAO.updateCTNguoiDung(new CTNguoiDung(msnv, StringUtil.encryptMD5(passNew),0));
 			result = "success";
+			System.out.println(result);
 		}
 		else
 		{
 			result = "fail";
+			System.out.println(result);
 		}
 		ctNguoiDungDAO.disconnect();
 		return JSonUtil.toJson(result);

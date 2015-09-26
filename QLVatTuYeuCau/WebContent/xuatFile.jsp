@@ -97,7 +97,7 @@ display:none;
 		<% if((ngaybd!=null)&&(ngaykt!=null)){%>
 		<div style="text-align: center;">Từ ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaybd)%>&nbsp;&nbsp;đến ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaykt)%></div>
 		<% }%>
-		<div style="margin-right: 10px;padding-left: 800px;">Ngày in:&nbsp;&nbsp;&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
+		<div style="margin-right: 10px;padding-left: 750px;">Ngày in:&nbsp;&nbsp;&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
 				<div id="view-table-bao-cao" >
 					<table  style="border: solid 1px black;width:960px;">
 						<thead >

@@ -44,6 +44,7 @@
 <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
 <script type="text/javascript" src="js/location.js"></script>
 <script type="text/javascript" src="js/nguoidung.js"></script>
+<script type="text/javascript" src="js/location.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
 </head>
@@ -73,6 +74,7 @@
 				return;
 			}
 			long pageNum = (Long) request.getAttribute("size")/10;
+			
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -207,17 +209,24 @@
 					</table>
 					</div>
 					<div id ="paging" style="text-align: center;">
-							<%
-										String str = "";
-										String pages = ""; 
-										long p = (pageNum < 10 ? pageNum : 10);
-									for(int j = 0; j <= p; j++) {
-										str += "<input type=\"button\" value=\"" + (j+1) + "\" class=\"page\" onclick=\"loadPageNd(" + j +")\">&nbsp;";
-									}
-									if (pageNum > 10)
-										str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">";
-									out.println(str);	
-								%>
+					<table style ="border-style: none;">
+								<tr>
+									<td>Trang</td>
+									<td>
+									<%
+												String str = "";
+												String pages = ""; 
+												long p = (pageNum < 10 ? pageNum : 10);
+											for(int j = 0; j <= p; j++) {
+												str += "<input type=\"button\" value=\"" + (j+1) + "\" class=\"page\" onclick=\"loadPageNd(" + j +")\">&nbsp;";
+											}
+											if (pageNum > 10)
+												str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">";
+											out.println(str);	
+										%>
+								</td>
+								</tr>
+								</table>
 						</div>
 				
 					<div class="group-button">
