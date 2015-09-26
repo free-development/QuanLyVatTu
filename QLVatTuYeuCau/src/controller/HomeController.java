@@ -43,7 +43,10 @@ public class HomeController extends HttpServlet {
 			HashMap<String, Object> conditions = new HashMap<String, Object>();
 			HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
 			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(null, conditions, orderBy, 0, 5);
-			
+			System.out.println("size of cong van = " +  congVanList.size());
+//			return new ModelAndView("index" , "a", congVanList);
+			request.setAttribute("congVanList", congVanList);
+			return new ModelAndView("home");
 		}
 		return new ModelAndView(siteMap.login);
 	}

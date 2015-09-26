@@ -1,4 +1,6 @@
 
+<%@page import="model.CongVan"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.NguoiDung"%>
 <%@page import="map.siteMap"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -40,6 +42,8 @@
     			dispatcher.forward(request, response);
     			return;
     		}
+    		String congVanList = (String) request.getAttribute("string");
+    		System.out.println("view cong van = " + congVanList);
     		String adminMa = request.getServletContext().getInitParameter("adminMa");
     		String chucDanh = authentication.getChucDanh().getCdMa();
     		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");

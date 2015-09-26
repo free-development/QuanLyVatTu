@@ -286,7 +286,6 @@ public class CongVanDAO {
 					+ "";
 		if (msnv != null) {
 				sql	+= "  and a.cvId in (select distinct(b.cvId) from VTCongVan b where msnv = '" + msnv + "')";
-				System.out.println(sql);
 		}
 		sql += " order by cvId DESC";
 		Query query = session.createQuery(sql);
