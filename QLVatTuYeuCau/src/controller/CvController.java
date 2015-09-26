@@ -33,6 +33,7 @@ import dao.DonViDAO;
 import dao.FileDAO;
 import dao.MucDichDAO;
 import dao.NguoiDungDAO;
+import dao.NhatKyDAO;
 import dao.TrangThaiDAO;
 import dao.VTCongVanDAO;
 import map.siteMap;
@@ -41,6 +42,7 @@ import model.DonVi;
 import model.File;
 import model.MucDich;
 import model.NguoiDung;
+import model.NhatKy;
 import model.TrangThai;
 import model.VaiTro;
 import util.DateUtil;
@@ -287,6 +289,11 @@ public class CvController extends HttpServlet{
 				mail.setContent(content);
 				sendMail.send(mail);
 			}
+			NhatKyDAO nhatKyDAO = new NhatKyDAO();
+			NhatKy nhatKy = new NhatKy(vanThuMa, cvId, "Công văn số" + soDen + " được thêm mới");
+			nhatKyDAO.addNhatKy(nhatKy);
+			nhatKyDAO.disconnect();
+			
     	}
 		congVanDAO.close();
 		fileDAO.close();

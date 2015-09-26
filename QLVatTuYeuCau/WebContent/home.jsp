@@ -41,8 +41,7 @@
     			dispatcher.forward(request, response);
     			return;
     		}
-    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList");
-    		if (congVanList != null) {
+    		
     			
     		String adminMa = request.getServletContext().getInitParameter("adminMa");
     		String chucDanh = authentication.getChucDanh().getCdMa();
@@ -137,6 +136,10 @@
 				</div>
 						<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 				<div id="main-content">
+				<% if (chucDanh.equalsIgnoreCase(truongPhongMa)){%>
+				<table style = "margin: 0 auto;width: 900px;">
+				<tr>
+				<td>
 					<div class="view-tbao">
 						<table>
 						<tr >
@@ -146,6 +149,8 @@
 						</tr>
 						</table>
 					</div>
+				</td>
+				<td>
 					<div class="view-nky">
 						<table>
 						<tr>
@@ -155,13 +160,12 @@
 						</tr>
 						</table>
 					</div>
+					</td>
+					</tr>
+				</table>
+				<%} %>
 				</div>
 				
         </div>
-        <%} else {
-        	RequestDispatcher dispatcher = request.getRequestDispatcher("home.html");
-			dispatcher.forward(request, response);
-			return;
-        	}%>
     </body>
 </html>
