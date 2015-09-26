@@ -42,7 +42,8 @@
     			return;
     		}
     		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList");
-    		System.out.println("view cong van = " + congVanList.size());
+    		if (congVanList != null) {
+    			
     		String adminMa = request.getServletContext().getInitParameter("adminMa");
     		String chucDanh = authentication.getChucDanh().getCdMa();
     		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
@@ -157,5 +158,10 @@
 				</div>
 				
         </div>
+        <%} else {
+        	RequestDispatcher dispatcher = request.getRequestDispatcher("home.html");
+			dispatcher.forward(request, response);
+			return;
+        	}%>
     </body>
 </html>
