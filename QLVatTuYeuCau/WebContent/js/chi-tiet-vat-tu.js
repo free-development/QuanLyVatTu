@@ -9,11 +9,22 @@
 			s.filter = 'alpha(opacity='+opacity+')';
 			for(var i=0; i<f.length; i++) f[i].disabled = check;
 		}	
+		function showForm2(formId1, formId2, check){
+			if (check)
+				document.getElementById(formId2).style.display="block";
+			else document.getElementById(formId2).style.display="none";
+			var f = document.getElementById(formId1), s, opacity;
+			s = f.style;
+			opacity = check? '10' : '100';
+			s.opacity = s.MozOpacity = s.KhtmlOpacity = opacity/100;
+			s.filter = 'alpha(opacity='+opacity+')';
+			for(var i=0; i<f.length; i++) f[i].disabled = check;
+		}	
 		function preAddCTVatTu(formId, check){
 			var vtMa = $('#add-chitiet input:text[name=vtMa]').val();
 			
 			if(vtMa != null){
-				showForm(formId,check);
+				showForm2('chitiet' ,'add-chitiet', check);
 			}
 		}
 		function addCTVattu() {

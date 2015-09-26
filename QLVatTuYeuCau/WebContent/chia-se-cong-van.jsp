@@ -315,7 +315,7 @@
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">
 						<button class="button" id="update" type="button">
-							<i class="fa fa-pencil fa-fw"></i>&nbsp;sửa
+							<i class="fa fa-pencil fa-fw"></i>&nbsp;Sửa
 						</button>
 						<button type="reset" class="button" type="button">
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Bỏ qua

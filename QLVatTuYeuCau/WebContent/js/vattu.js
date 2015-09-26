@@ -104,7 +104,8 @@
 							$('#add-chitiet input:text[name=vtTen]').val(vtTen);
 							$('#add-chitiet input:text[name=dvt]').val(dvt);
 							
-					  		showForm("add-form", false);			
+					  		showForm2('vattu','add-form', false);	
+					  		
 					  		alert("Vật tư "+ vtMa + " đã được thêm ");
 						}
 				  		else{
@@ -116,7 +117,7 @@
  			}
  		}
 
-		function preEditVattu(formId, check){
+		function preEditVattu(formId1,formId2, check){
 			vtMa = $('input:checkbox[name=vtMa]:checked').val();
 			//alert(vtMa);
 			var vtMaList = [];
@@ -142,7 +143,7 @@
 					  	$('input:text[name=vtTenUpdate]').val(vt.vtTen);
 						$('#donvitinhUp option[value='+vt.dvt.dvtId+']').prop('selected',true);
 						$('#aa').focus();
-					  	showForm(formId, check);
+					  	showForm2(formId1,formId2, check);
 					}
 					
 				});
