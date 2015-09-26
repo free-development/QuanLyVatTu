@@ -254,7 +254,7 @@ hosting = '<%=hosting  %>';
 					</form>	
 
 
-                     <form name="main-form" method="get" action="<%=siteMap.ycvtManage%>">
+                     <form name="main-form" id = "main-form" method="get" action="<%=siteMap.ycvtManage%>">
                      <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
 						<%
 					
