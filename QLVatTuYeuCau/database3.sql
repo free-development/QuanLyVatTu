@@ -300,8 +300,10 @@ create table VTCONGVAN
    CVID                 int not null,
    MSNV                 varchar(10) not null,
    VTID                 int not null,
+   TTMA varchar(10) not null,
    DAXOA int(2),
-   primary key (CVID, MSNV, VTID)
+   primary key (CVID, MSNV, VTID),
+   constraint fk_ttMa foreign key (TTMA) references TRANGTHAI(TTMA),
 ) ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
