@@ -265,7 +265,7 @@ public class CvController extends HttpServlet{
 			file.setMoTa(moTa);
 			fileDAO.updateFile(file);
 			NhatKyDAO nhatKyDAO = new NhatKyDAO();
-			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), congVanCheck.getCvId(), "Bạn đã thêm công văn số " + soDen);
+			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), congVanCheck.getCvId() + "#Bạn đã thêm công văn số " + soDen);
 			nhatKyDAO.addNhatKy(nhatKy);
 			nhatKyDAO.disconnect();
 		} else {
@@ -292,7 +292,7 @@ public class CvController extends HttpServlet{
 				sendMail.send(mail);
 			}
 			NhatKyDAO nhatKyDAO = new NhatKyDAO();
-			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId, "Bạn đã thêm công văn số " + soDen);
+			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId+"#Bạn đã thêm công văn số " + soDen);
 			nhatKyDAO.addNhatKy(nhatKy);
 			nhatKyDAO.disconnect();
 			
@@ -372,7 +372,7 @@ public class CvController extends HttpServlet{
 		HttpSession session = request.getSession(false);
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
 		NhatKyDAO nhatKyDAO = new NhatKyDAO();
-		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId, "Bạn đã thay đổi công văn số " + soDen);
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId + "#Bạn đã thay đổi công văn số " + soDen);
 		nhatKyDAO.addNhatKy(nhatKy);
 		nhatKyDAO.disconnect();
 		return getCongvan(request);
@@ -395,7 +395,7 @@ public class CvController extends HttpServlet{
 		HttpSession session = request.getSession(false);
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
 		NhatKyDAO nhatKyDAO = new NhatKyDAO();
-		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 1, "Bạn đã xóa công văn số " + soDens.toString());
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), "Bạn đã xóa công văn số " + soDens.toString());
 		nhatKyDAO.addNhatKy(nhatKy);
 		nhatKyDAO.disconnect();
 		return JSonUtil.toJson(cvId);

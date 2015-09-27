@@ -193,9 +193,13 @@
 						</tr>
 						<%
 						int count2 = 0;
-						for (NhatKy nhatKy : nhatKyList) {%>
+						for (NhatKy nhatKy : nhatKyList) {
+							String[] temp = nhatKy.getNoiDung().split("\\#");
+							String cvId = temp[0];
+							String noiDung = temp[1];
+						%>
 						<tr style = "<% if (count2 % 2 == 0) out.print("background: #CCFFFF; ");%>";>
-							<td><a style="color: blue; text-decoration: underline;" href="<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + nhatKy.getCvId()%>"><%=nhatKy.getNoiDung() %></td>
+							<td><a style="color: blue; text-decoration: underline;" href="<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + cvId%>"><%=noiDung %></td>
 						</tr>
 						<%count2++;} %>
 						</table>
@@ -229,14 +233,16 @@
 						for (NhatKy nhatKy : nhatKyList) {
 						String noiDung = nhatKy.getNoiDung();
 						int checkXoa = noiDung.indexOf("xóa");
+						int index = noiDung.indexOf("#");
+						String cvId = noiDung.substring(0, index);
 						String href = "";
 						if (checkXoa == -1)
-							href = siteMap.searchCongVan + "?congVan=" + nhatKy.getCvId();
+							href = siteMap.searchCongVan + "?congVan=" + cvId;
 						else 
 							href = siteMap.cvManage+ "?action=manageCv";
 						%>
 						<tr style = "<% if (count2 % 2 == 0) out.print("background: #CCFFFF; ");%>";>
-							<td><a style="color: blue; text-decoration: underline;" href="<%=href%>"><%=noiDung %></a></td>
+							<td><a style="color: blue; text-decoration: underline;" href="<%=href%>"><%=noiDung.substring(index+1) %></a></td>
 						</tr>
 						<%count2++;} %>
 						</table>
@@ -288,9 +294,13 @@
 						</tr>
 						<%
 						int count2 = 0;
-						for (NhatKy nhatKy : nhatKyList) {%>
+						for (NhatKy nhatKy : nhatKyList) {
+							String noiDung = nhatKy.getNoiDung();
+							int index = noiDung.indexOf("#");
+							String cvId = noiDung.substring(0, index);
+						%>
 						<tr style = "<% if (count2 % 2 == 0) out.print("background: #CCFFFF; ");%>";>
-							<td><a style="color: blue; text-decoration: underline;" href="<%=siteMap.ycvtManage + "?cvId=" + nhatKy.getCvId()%>"><%=nhatKy.getNoiDung() %></a></td>
+							<td><a style="color: blue; text-decoration: underline;" href="<%=siteMap.ycvtManage + "?cvId=" + cvId%>"><%=noiDung.substring(index + 1)%></a></td>
 						</tr>
 						<%count2++;} %>
 						</table>

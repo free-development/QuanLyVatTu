@@ -10,7 +10,6 @@ package model;
 public class NhatKy {
 	private int nkId;
 	private String msnv;
-	private int cvId;
 	private String noiDung;
 	
 	/**
@@ -22,7 +21,6 @@ public class NhatKy {
 	public NhatKy() {
 		this.nkId = 0;
 		this.msnv = "";
-		this.cvId = 0;
 		this.noiDung = "";
 	}
 	
@@ -31,9 +29,8 @@ public class NhatKy {
 	 * @param cvId
 	 * @param noiDung
 	 */
-	public NhatKy(String msnv, int cvId, String noiDung) {
+	public NhatKy(String msnv, String noiDung) {
 		this.msnv = msnv;
-		this.cvId = cvId;
 		this.noiDung = noiDung;
 	}
 	
@@ -43,10 +40,9 @@ public class NhatKy {
 	 * @param cvId
 	 * @param noiDung
 	 */
-	public NhatKy(int nkId, String msnv, int cvId, String noiDung) {
+	public NhatKy(int nkId, String msnv, String noiDung) {
 		this.nkId = nkId;
 		this.msnv = msnv;
-		this.cvId = cvId;
 		this.noiDung = noiDung;
 	}
 
@@ -76,20 +72,6 @@ public class NhatKy {
 	 */
 	public void setMsnv(String msnv) {
 		this.msnv = msnv;
-	}
-
-	/**
-	 * @return the cvId
-	 */
-	public int getCvId() {
-		return cvId;
-	}
-
-	/**
-	 * @param cvId the cvId to set
-	 */
-	public void setCvId(int cvId) {
-		this.cvId = cvId;
 	}
 
 	/**

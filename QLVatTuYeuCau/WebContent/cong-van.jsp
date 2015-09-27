@@ -316,13 +316,13 @@ hosting = '<%=hosting  %>';
 											out.println(cellHoTen.toString());
 										}%>
 									</td>
-									<%if (chucDanh.equals(truongPhongMa)) { %>
+<%-- 									<%if (chucDanh.equals(truongPhongMa)) { %> --%>
 									<td colspan="2" style="float: right;">
 										<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
 											<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
 										</button>
 									</td>
-									<%} %>
+<%-- 									<%} %> --%>
 								<%} else {%>
 									<td class="left-column-first" style="font-weight: bold;">Vai trò</td>
 									<td class="column-color"colspan="3">
