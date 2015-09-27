@@ -184,7 +184,7 @@
 									</td>
 					</tr>					
 				</table>
-				<div id="view-table-chia-se">
+				<div id="view-table-chia-se" style="height: 370px; margin: 0 auto; overflow: auto;" class="scroll_content">
 					<table >
 						<tr bgcolor= "#199e5e">
 						<th style="text-align: center;">Chọn</th>
@@ -209,25 +209,18 @@
 					</table>
 					</div>
 					<div id ="paging" style="text-align: center;">
-					<table style ="border-style: none;">
-								<tr>
-									<td>Trang</td>
-									<td>
-									<%
-												String str = "";
-												String pages = ""; 
-												long p = (pageNum < 10 ? pageNum : 10);
-											for(int j = 0; j <= p; j++) {
-												str += "<input type=\"button\" value=\"" + (j+1) + "\" class=\"page\" onclick=\"loadPageNd(" + j +")\">&nbsp;";
-											}
-											if (pageNum > 10)
-												str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">";
-											out.println(str);	
-										%>
-								</td>
-								</tr>
-								</table>
-						</div>
+							<%
+										String str = "";
+										String pages = ""; 
+										long p = (pageNum < 10 ? pageNum : 10);
+									for(int j = 0; j <= p; j++) {
+										str += "<input type=\"button\" value=\"" + (j+1) + "\" class=\"page\" onclick=\"loadPageNd(" + j +")\">&nbsp;";
+									}
+									if (pageNum > 10)
+										str += "<input type=\"button\" class=\"pageMove\"  value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">";
+									out.println(str);	
+								%>
+						</div>		
 				
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">

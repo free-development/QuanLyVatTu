@@ -249,15 +249,15 @@
 <!-- 						<table> -->
 <!-- 						<tr ><th style="text-align: center; width: 300px; font-size: 20px;">Công việc</th></tr> -->
 <%-- 						<%int count = 0;  --%>
-// 						for (CongVan congVan : congVanList) {
-// 							String style ="";
+<!-- // 						for (CongVan congVan : congVanList) { -->
+<!-- // 							String style =""; -->
 							
-// 							TrangThai trangThai = congVan.getTrangThai();
-// 							String ttMa = trangThai.getTtMa();
-// 							if (ttMa.equalsIgnoreCase("CGQ"))
-// 								style = "color: red";
-// 							else
-// 								style = "color: yello";
+<!-- // 							TrangThai trangThai = congVan.getTrangThai(); -->
+<!-- // 							String ttMa = trangThai.getTtMa(); -->
+<!-- // 							if (ttMa.equalsIgnoreCase("CGQ")) -->
+<!-- // 								style = "color: red"; -->
+<!-- // 							else -->
+<!-- // 								style = "color: yello"; -->
 							
 <%-- 						%> --%>
 <%-- 						<tr style = "<% if (count % 2 == 1) out.print("background: #CCFFFF; ");%>";> --%>
@@ -277,7 +277,7 @@
 <!-- 						</th> -->
 <!-- 						</tr> -->
 <%-- 						<% --%>
-// 						int count2 = 0;
+<!-- // 						int count2 = 0; -->
 <%-- 						for (NhatKy nhatKy : nhatKyList) {%> --%>
 <%-- 						<tr style = "<% if (count2 % 2 == 0) out.print("background: #CCFFFF; ");%>";> --%>
 <%-- 							<td><a style="color: blue; text-decoration: underline;" href="<%=siteMap.ycvtManage + "?cvId=" + nhatKy.getCvId()%>"><%=nhatKy.getNoiDung() %></a></td> --%>

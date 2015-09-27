@@ -232,45 +232,6 @@ function checkPassword()
 			}
 	}
 
-$(document).ready(function() {
-  	$('.page').click(function(){
-	var pageNumber = $(this).val();
-    	$.ajax({
-			url: getRoot() +  "/loadPageNd.html",	
-		  	type: "GET",
-		  	dateType: "JSON",
-		  	data: { "pageNumber": pageNumber},
-		  	contentType: 'application/json',
-		    mimeType: 'application/json',
-		  	
-		  	success: function(ndList) {
-		  		$('#view-table-chia-se table .rowContent').remove();
-				if(ndList.length>0){
-					for(i = 0;i < ndList.length; i++ ) {
-						var nd = ndList[i] ;
-						var style = '';	
-						if (i % 2 == 0)
-							style = 'style=\"background : #CCFFFF;\"';
-						var str = '';
-						str = '<tr class=\"rowContent\" ' + style + '>'
-							+ '<td class=\"left-column\"><input type=\"checkbox\" name=\"msnv\" value=\"' 
-							+ nd.msnv +'\" class=\"checkbox\"></td>'
-							+ '<td class=\"col\">' + nd.msnv + '</td>'
-							+ '<td class=\"col\">' + nd.hoTen + '</td>'
-							+ '<td class=\"col\">' + nd.chucDanh.cdTen + '</td>'
-							+ '<td class=\"col\">' + nd.email + '</td>'
-							+ '<td class=\"col\">' + nd.diaChi + '</td>'
-							+ '<td class=\"col\">' + nd.sdt + '</td>'
-							
-							+ '</tr>';
-						$('#view-table-chia-se table tr:first').after(str);
-					}
-				}
-		  	}
-		});
-    });	
-})  
-
 //$(document).ready(function() {
 //  	$('.page').click(function(){
 //	var pageNumber = $(this).val();
@@ -312,7 +273,7 @@ $(document).ready(function() {
  		if (pageNumber == 'Next') {
  			var lastPage = document.getElementsByClassName('page')[9].value;
  			var p = (lastPage) / 5;
- 			var page = p * 5;
+ 			var page = lastPage;
  		}
  		else if (pageNumber == 'Previous') {
  			var firstPage = document.getElementsByClassName('page')[0].value;
@@ -320,7 +281,7 @@ $(document).ready(function() {
  			var page =  firstPage-2;
  		}
  		else {
- 			var page = pageNumber;
+ 			page = pageNumber;
  		}
  	    	$.ajax({
  				url: getRoot() +  "/loadPageNd.html",	
@@ -364,9 +325,9 @@ $(document).ready(function() {
 							if (t > size)
 								break;
 						}
-						button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNd(\'Previous\')\">&nbsp;'  + button;
+						button = '<input type=\"button\" class=\"pageMove\" value=\"<< Trước\" onclick= \"loadPageNd(\'Previous\')\">&nbsp;'  + button;
 						if ((p + 1) * 5 < size)
-							button += '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">';
+							button += '<input type=\"button\" class=\"pageMove\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">';
 						$('#paging').html(button);
 						$('.page')[5].focus();
 					} else if (pageNumber == 'Previous'){
@@ -375,9 +336,9 @@ $(document).ready(function() {
 						for (var i = 0; i < 10; i++)
 							button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageNd(' + (p * 5 + i)  +')\">&nbsp;';
 						
-						button = button + '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">';
+						button = button + '<input type=\"button\"  class=\"pageMove\"  value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">';
 						if (p >= 1)	
-							button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNd(\'Previous\')\">&nbsp;' + button;
+							button = '<input type=\"button\" class=\"pageMove\" value=\"<< Trước\" onclick= \"loadPageNd(\'Previous\')\">&nbsp;' + button;
 						$('#paging').html(button);	
 						$('.page')[4].focus();
 					}
@@ -388,7 +349,7 @@ $(document).ready(function() {
  	 		if (pageNumber == 'Next') {
  	 			var lastPage = document.getElementsByClassName('page')[9].value;
  	 			var p = (lastPage) / 5;
- 	 			var page = p * 5;
+ 	 			var page = lastPage;
  	 		}
  	 		else if (pageNumber == 'Previous') {
  	 			var firstPage = document.getElementsByClassName('page')[0].value;
@@ -396,7 +357,7 @@ $(document).ready(function() {
  	 			var page =  firstPage-2;
  	 		}
  	 		else {
- 	 			var page = pageNumber;
+ 	 			page = pageNumber;
  	 		}
  	 	    	$.ajax({
  	 				url: getRoot() +  "/loadPageNdKP.html",	
@@ -440,9 +401,9 @@ $(document).ready(function() {
  								if (t > size)
  									break;
  							}
- 							button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNdKP(\'Previous\')\">&nbsp;'  + button;
+ 							button = '<input type=\"button\" class=\"pageMove\" value=\"<< Trước\" onclick= \"loadPageNdKP(\'Previous\')\">&nbsp;'  + button;
  							if ((p + 1) * 5 < size)
- 								button += '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNdKP(\'Next\');\">';
+ 								button += '<input type=\"button\" class=\"pageMove\" value=\"Sau >>\" onclick= \"loadPageNdKP(\'Next\');\">';
  							$('#paging').html(button);
  							$('.page')[5].focus();
  						} else if (pageNumber == 'Previous'){
@@ -451,9 +412,9 @@ $(document).ready(function() {
  							for (var i = 0; i < 10; i++)
  								button += '<input type=\"button\" value=\"' + (p * 5 + i + 1) + '\" class=\"page\" onclick= \"loadPageNdKP(' + (p * 5 + i)  +')\">&nbsp;';
  							
- 							button = button + '<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNdKP(\'Next\');\">';
+ 							button = button + '<input type=\"button\" class=\"pageMove\" value=\"Sau >>\" onclick= \"loadPageNdKP(\'Next\');\">';
  							if (p >= 1)	
- 								button = '<input type=\"button\" value=\"<< Trước\" onclick= \"loadPageNdKP(\'Previous\')\">&nbsp;' + button;
+ 								button = '<input type=\"button\" class=\"pageMove\" value=\"<< Trước\" onclick= \"loadPageNdKP(\'Previous\')\">&nbsp;' + button;
  							$('#paging').html(button);	
  							$('.page')[4].focus();
  						}

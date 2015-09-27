@@ -22,7 +22,14 @@
 	color: blue;
 	font-size: 15px;
 }
-
+.scroll_content {
+	height: 370px;
+	width: 810px;
+	display: auto;
+	font-size: 16px;
+	border: 1px solid #CCCCCC;
+	margin: 0 auto;
+}
 .text-search{
 	border-radius: 5px;
 	border-style: solid;
