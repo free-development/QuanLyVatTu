@@ -181,7 +181,7 @@ function deleteCv(cvId) {
 	  	contentType: 'application/json',
 	    mimeType: 'application/json',
 	  	success: function() {
-			$('table').has('input[name="cvId"]:checked').remove();
+			$('#main-form table').has('input[name="cvId"]:checked').remove();
 			alert("Cong van da bi xoa");
 	    } 
 	});  

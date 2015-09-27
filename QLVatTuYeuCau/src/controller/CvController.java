@@ -395,7 +395,7 @@ public class CvController extends HttpServlet{
 		HttpSession session = request.getSession(false);
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
 		NhatKyDAO nhatKyDAO = new NhatKyDAO();
-		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã xóa công văn số " + soDens.toString());
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 1, "Bạn đã xóa công văn số " + soDens.toString());
 		nhatKyDAO.addNhatKy(nhatKy);
 		nhatKyDAO.disconnect();
 		return JSonUtil.toJson(cvId);
