@@ -100,7 +100,7 @@ public class ReadExcel extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		request.setAttribute("status", "success");
 		return new ModelAndView(siteMap.ctVatu);
 		
 	}
