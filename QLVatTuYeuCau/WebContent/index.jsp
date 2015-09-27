@@ -43,6 +43,8 @@
     			return;
     		}
     		String congVanList = (String) request.getAttribute("string");
+    		if (congVanList == null)
+    			response.sendRedirect("home.html");
     		System.out.println("view cong van = " + congVanList);
     		String adminMa = request.getServletContext().getInitParameter("adminMa");
     		String chucDanh = authentication.getChucDanh().getCdMa();

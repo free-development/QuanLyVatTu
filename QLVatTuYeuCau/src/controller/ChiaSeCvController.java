@@ -23,13 +23,14 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.CTNguoiDungDAO;
 import dao.CongVanDAO;
 import dao.NguoiDungDAO;
+import dao.NhatKyDAO;
 import dao.VTCongVanDAO;
 import dao.VaiTroDAO;
 import map.siteMap;
-import model.CTNguoiDung;
 import model.CongVan;
 //import model.Mailer;
 import model.NguoiDung;
+import model.NhatKy;
 import model.VTCongVan;
 import model.VaiTro;
 import util.JSonUtil;
@@ -120,7 +121,9 @@ public class ChiaSeCvController extends HttpServlet {
 			}
 			HashMap<String, NguoiDung> vtNguoiDungHash = vtCongVanDAO.getNguoiXuLy(cvId);
 			HashMap<String, HashMap<Integer, VaiTro>> vaiTroHash = new HashMap<String, HashMap<Integer, VaiTro>>();
+			StringBuilder hotens = new StringBuilder("");
 			for (String msnv : vtNguoiDungHash.keySet()) {
+				
 				ArrayList<VTCongVan> vtcvList = vtCongVanDAO.getVTCongVan(cvId, msnv);
 				HashMap<Integer, VaiTro> vtHash = vtCongVanDAO.toVaiTro(vtcvList);
 				vaiTroHash.put(msnv, vtHash);
@@ -132,6 +135,7 @@ public class ChiaSeCvController extends HttpServlet {
 				SendMail sendMail = new SendMail(account, password);
 				vtHash = vaiTroHash.get(msnv);
 				NguoiDung nguoiDung = vtNguoiDungHash.get(msnv);
+				
 				for(Integer vtId : vtHash.keySet()) {
 					vt = vtHash.get(vtId);
 					str1 += "\t+" + vt.getVtTen() + ".\n ";
@@ -145,7 +149,18 @@ public class ChiaSeCvController extends HttpServlet {
 				content += host + siteMap.searchCongVan + "?congVan=" + cvId + "\nThân mến!";
 				mail.setContent(content);
 				sendMail.send(mail);
+				
+				hotens.append(nguoiDung.getHoTen() + ", ");
+				
 			}
+			if(hotens.length() > 0)
+				hotens.delete(hotens.length()-2, hotens.length());
+			String truongPhongMa = context.getInitParameter("truongPhongMa");
+			NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+			NhatKy nhatKy = new NhatKy(nguoiDung.getMsnv(), cvId, "Bạn đã chia sẽ cho công văn số " + congVan.getSoDen() + " cho " + hotens.toString());
+			NhatKyDAO nhatKyDAO = new NhatKyDAO();
+			nhatKyDAO.addNhatKy(nhatKy);
+			nhatKyDAO.disconnect();
 			request.setAttribute("vaiTroHash", vaiTroHash);
 			request.setAttribute("vtNguoiDungHash", vtNguoiDungHash);
 			vtCongVanDAO.disconnect();

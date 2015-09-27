@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -14,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionListener;
-import javax.swing.JOptionPane;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -141,7 +138,6 @@ public class CvController extends HttpServlet{
 		request.setAttribute("donViList", donViList);
 		request.setAttribute("trangThaiList", trangThaiList);
 		request.setAttribute("yearList", yearList);
-		System.out.println(yearList.size());
 		request.setAttribute("size", size);
 		congVanDAO.disconnect();
 		donViDAO.disconnect();
@@ -199,6 +195,8 @@ public class CvController extends HttpServlet{
     @RequestMapping("addCongVan")
     public ModelAndView addCV(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //    	request.ge
+    	HttpSession session = request.getSession(false);
+    	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
     	root =  request.getRealPath("/");
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
@@ -266,6 +264,10 @@ public class CvController extends HttpServlet{
 			file.setDiaChi(root + pathFile + fileName);
 			file.setMoTa(moTa);
 			fileDAO.updateFile(file);
+			NhatKyDAO nhatKyDAO = new NhatKyDAO();
+			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), congVanCheck.getCvId(), "Bạn đã thêm công văn số " + soDen);
+			nhatKyDAO.addNhatKy(nhatKy);
+			nhatKyDAO.disconnect();
 		} else {
 			
 			congVanDAO.addCongVan(new CongVan (soDen, cvSo, cvNgayNhan, cvNgayGoi, trichYeu, butPhe, new MucDich(mdMa), new TrangThai("CGQ",""), new DonVi(dvMa),0));
@@ -290,11 +292,12 @@ public class CvController extends HttpServlet{
 				sendMail.send(mail);
 			}
 			NhatKyDAO nhatKyDAO = new NhatKyDAO();
-			NhatKy nhatKy = new NhatKy(vanThuMa, cvId, "Công văn số" + soDen + " được thêm mới");
+			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId, "Bạn đã thêm công văn số " + soDen);
 			nhatKyDAO.addNhatKy(nhatKy);
 			nhatKyDAO.disconnect();
 			
     	}
+		
 		congVanDAO.close();
 		fileDAO.close();
 		return getCongvan(request);
@@ -366,7 +369,12 @@ public class CvController extends HttpServlet{
 			fileDAO.close();
 		}
 		congVanDAO.close();
-		
+		HttpSession session = request.getSession(false);
+    	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+		NhatKyDAO nhatKyDAO = new NhatKyDAO();
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId, "Bạn đã thay đổi công văn số " + soDen);
+		nhatKyDAO.addNhatKy(nhatKy);
+		nhatKyDAO.disconnect();
 		return getCongvan(request);
     }
 	@RequestMapping(value="/deleteCv", method=RequestMethod.GET, 
@@ -374,11 +382,22 @@ public class CvController extends HttpServlet{
 	 public @ResponseBody String deleteNsx(@RequestParam("cvId") String cvId, HttpServletRequest request,
 	            HttpServletResponse response) {
 		String[] congVanList = cvId.split("\\, ");
+		CongVanDAO congVanDAO = new CongVanDAO();
+		StringBuilder soDens = new StringBuilder("");
 		for (String s : congVanList) {
 			int id = Integer.parseInt(s);
-			new CongVanDAO().deleteCongVan(id);
+			CongVan congVan = congVanDAO.getCongVan(id);
+			soDens.append(congVan.getSoDen() + ", ");
+			congVanDAO.deleteCongVan(id);
 		}
-		
+		soDens.delete(soDens.length() - 2, soDens.length());
+		congVanDAO.disconnect();
+		HttpSession session = request.getSession(false);
+    	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+		NhatKyDAO nhatKyDAO = new NhatKyDAO();
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã xóa công văn số " + soDens.toString());
+		nhatKyDAO.addNhatKy(nhatKy);
+		nhatKyDAO.disconnect();
 		return JSonUtil.toJson(cvId);
 	}
 	

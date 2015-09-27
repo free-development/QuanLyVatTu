@@ -1,4 +1,6 @@
 
+<%@page import="model.TrangThai"%>
+<%@page import="model.NhatKy"%>
 <%@page import="model.CongVan"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.NguoiDung"%>
@@ -12,6 +14,7 @@
         <link rel="stylesheet" href="style/style-giao-dien-chinh.css" type="text/css">
 		<link rel="stylesheet" href="style/style.css" type="text/css">
     <link href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery.min.js">
 	<script type="text/javascript">
 		function showForm(formId, check){
 			if (check)
@@ -26,7 +29,15 @@
 		}
 		function confirmDelete(){
 			return confirm('Bạn có chắc xóa');
-		}
+		};
+		$(window).load(function(){
+// 			$("body").css("cursor", "auto");		
+			//Set the cursor ASAP to "Wait"
+		    document.body.style.cursor='wait';
+
+		    //When the window has finished loading, set it back to default...
+		    window.onload=function(){document.body.style.cursor='wait';} 
+		});
 	</script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />  
@@ -136,33 +147,147 @@
 				</div>
 						<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 				<div id="main-content">
-				<% if (chucDanh.equalsIgnoreCase(truongPhongMa)){%>
-				<table style = "margin: 0 auto;width: 900px;">
+				<% if (chucDanh.equalsIgnoreCase(truongPhongMa)){
+					ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList"); 
+					ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) request.getAttribute("nhatKyList");
+				%>
+				<table style = "margin: 0 auto;width: 900px; vertical-align:top ;">
 				<tr>
 				<td>
 					<div class="view-tbao">
 						<table>
-						<tr >
-							<td>
-							<i class="fa fa-sign-out"></i>&nbsp;Thông báo
-							</td>
+						<tr ><th colspan = "2" style="text-align: center; width: 300px; font-size: 20px;">Công việc</th></tr>
+						<tr style="background: #CCFFFF">
+<!-- 							<td style="text-align: center;" colspan="2"> -->
+<!-- 							<i class="fa fa-sign-out"></i>&nbsp;Thông báo -->
+<!-- 							</td> -->
+							<th style="text-align: center; width: 180px;">Công văn cần xử lý</th>
+							<th>Trạng thái</th>
 						</tr>
+						<%int count = 0; 
+						for (CongVan congVan : congVanList) {
+							String style ="";
+							
+							TrangThai trangThai = congVan.getTrangThai();
+							String ttMa = trangThai.getTtMa();
+							if (ttMa.equalsIgnoreCase("CGQ"))
+								style = "color: red";
+							else
+								style = "color: yello";
+							
+						%>
+						<tr style = "<% if (count % 2 == 1) out.print("background: #CCFFFF; ");%>";>
+							<td style="text-align: center;"><a style="color: blue; text-decoration: underline; " href='<%=siteMap.searchCongVan + "?congVan=" + congVan.getCvId() %>'> Công văn số <%=congVan.getSoDen() %></a></td>
+							<td style="text-align: center;"><div style="<%=style%>"><%=trangThai.getTtTen() %></div></td>
+						</tr>
+						<%count ++;} %>
 						</table>
 					</div>
 				</td>
-				<td>
-					<div class="view-nky">
+				<td style="vertical-align:top ;">
+					<div class="view-nky" >
 						<table>
 						<tr>
-						<td>
-							<a href=""><i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động</a>
-						</td>
+						<th style="text-align: center; font-size: 20px;">
+							<i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động
+						</th>
 						</tr>
+						<%
+						int count2 = 0;
+						for (NhatKy nhatKy : nhatKyList) {%>
+						<tr style = "<% if (count2 % 2 == 0) out.print("background: #CCFFFF; ");%>";>
+							<td><a style="color: blue; text-decoration: underline;" href="<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + nhatKy.getCvId()%>"><%=nhatKy.getNoiDung() %></td>
+						</tr>
+						<%count2++;} %>
 						</table>
 					</div>
 					</td>
 					</tr>
 				</table>
+				<%} else if (chucDanh.equalsIgnoreCase(vanThuMa)){
+// 					ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList"); 
+					ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) request.getAttribute("nhatKyList");
+				%>
+				<table style = "margin: 0 auto;width: 900px; ">
+				<tr>
+				<td style="vertical-align:top ;">
+					<div class="view-tbao" ">
+						<table>
+						<tr ><th colspan = "2" style="text-align: center; width: 300px; font-size: 20px;">Công việc</th></tr>
+						</table>
+					</div>
+				</td>
+				<td style="vertical-align:top ;">
+					<div class="view-nky" >
+						<table>
+						<tr>
+						<th style="text-align: center; font-size: 20px;">
+							<i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động
+						</th>
+						</tr>
+						<%
+						int count2 = 0;
+						for (NhatKy nhatKy : nhatKyList) {%>
+						<tr style = "<% if (count2 % 2 == 0) out.print("background: #CCFFFF; ");%>";>
+							<td><a style="color: blue; text-decoration: underline;" href="<%=siteMap.searchCongVan + "?congVan=" + nhatKy.getCvId()%>"><%=nhatKy.getNoiDung() %></a></td>
+<%-- 							<a style=color: red; text-decoration: underline; " href="<%=siteMap.searchCongVan + "?congVan=" + nhatKy.getCvId()%>"> " + soDen + "</a>" --%>
+						</tr>
+						<%count2++;} %>
+						</table>
+					</div>
+					</td>
+					</tr>
+				</table>
+				<%} else {
+// 					ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList"); 
+// 					ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) request.getAttribute("nhatKyList");
+// 				%> 
+<!-- 					<table style = "margin: 0 auto;width: 900px; "> -->
+<!-- 				<tr> -->
+<!-- 				<td style="vertical-align:top ;"> -->
+<!-- 					<div class="view-tbao" "> -->
+<!-- 						<table> -->
+<!-- 						<tr ><th style="text-align: center; width: 300px; font-size: 20px;">Công việc</th></tr> -->
+<%-- 						<%int count = 0;  --%>
+// 						for (CongVan congVan : congVanList) {
+// 							String style ="";
+							
+// 							TrangThai trangThai = congVan.getTrangThai();
+// 							String ttMa = trangThai.getTtMa();
+// 							if (ttMa.equalsIgnoreCase("CGQ"))
+// 								style = "color: red";
+// 							else
+// 								style = "color: yello";
+							
+<%-- 						%> --%>
+<%-- 						<tr style = "<% if (count % 2 == 1) out.print("background: #CCFFFF; ");%>";> --%>
+<%-- 							<td style="text-align: center;"><a style="color: blue; text-decoration: underline; " href='<%=siteMap.searchCongVan + "?congVan=" + congVan.getCvId() %>'> Công văn số <%=congVan.getSoDen() %></a></td> --%>
+<%-- 							<td style="text-align: center;"><div style="<%=style%>"><%=trangThai.getTtTen() %></div></td> --%>
+<!-- 						</tr> -->
+<%-- 						<%count ++;} %> --%>
+<!-- 						</table> -->
+<!-- 					</div> -->
+<!-- 				</td> -->
+<!-- 				<td style="vertical-align:top ;"> -->
+<!-- 					<div class="view-nky" > -->
+<!-- 						<table> -->
+<!-- 						<tr> -->
+<!-- 						<th style="text-align: center; font-size: 20px;"> -->
+<!-- 							<i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động -->
+<!-- 						</th> -->
+<!-- 						</tr> -->
+<%-- 						<% --%>
+// 						int count2 = 0;
+<%-- 						for (NhatKy nhatKy : nhatKyList) {%> --%>
+<%-- 						<tr style = "<% if (count2 % 2 == 0) out.print("background: #CCFFFF; ");%>";> --%>
+<%-- 							<td><a style="color: blue; text-decoration: underline;" href="<%=siteMap.ycvtManage + "?cvId=" + nhatKy.getCvId()%>"><%=nhatKy.getNoiDung() %></a></td> --%>
+<!-- 						</tr> -->
+<%-- 						<%count2++;} %> --%>
+<!-- 						</table> -->
+<!-- 					</div> -->
+<!-- 					</td> -->
+<!-- 					</tr> -->
+<!-- 				</table> -->
 				<%} %>
 				</div>
 				
