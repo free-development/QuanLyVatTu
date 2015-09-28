@@ -107,8 +107,7 @@ hosting = '<%=hosting  %>';
 										mục chất lượng</a></li>
 								<li><a href="<%=siteMap.vattuManage + "?action=manageVattu"%>">Danh
 										mục vật tư</a></li>
-								<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Danh
-										mục chi tiết vật tư</a></li>
+								<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Vật tư tồn kho</a></li>
 								<li><a href="<%=siteMap.bpsdManage +  "?action=manageBpsd"%>">Danh
 										mục bộ phận sử dụng</a></li>
 								<li><a href="<%=siteMap.mdManage + "?action=manageMd"%>">Danh
@@ -375,7 +374,7 @@ hosting = '<%=hosting  %>';
 						
 							for (int i = 0; i < p; i++) {
 						%>
-							<input type="button" name = "page" class="page" value="<%=i+1 %>" onclick = "loadPage(<%=i%>)">
+							<input type="button" name = "page" class="page" value="<%=i+1 %>" onclick="loadPage(<%=i%>)">
 						<%}
 							if(pageNum > 10) {
 						%>
@@ -512,7 +511,7 @@ hosting = '<%=hosting  %>';
 							<tr>
 								<th style="text-align: left"><label for="mucDich" class="input">Mục
 										đích</label></th>
-								<td><select class="select" name="mucDichUpdate" id="mucDich" onchange="changeMucDichUp();">
+								<td><select class="select" name="mucDichUpdate" id="mucDichUpdate" onchange="changeMucDichUp();">
 										<option disabled selected value="">Chọn mục đích</option>
 										<%for(MucDich mucDich : mucDichList) {%>
 										<option value="<%=mucDich.getMdMa()%>" name="mucDich"><%=mucDich.getMdTen()%></option>
@@ -536,7 +535,7 @@ hosting = '<%=hosting  %>';
 							</tr>
 							<tr>
 								<th style="text-align: left;"><label for="file" class="input" name="file">Tệp đính kèm: </label></th>
-								<td><input type="file" id="file" name="file" onchange="changeFileUp();"><div id="requireFileUp" style="color: red"></div></td>
+								<td><input type="file" value="ac" id="file" name="file" onchange="changeFileUp();"><div id="requireFileUp" style="color: red"></div></td>
 							</tr>
 							<tr>
 								<th style="text-align: left"><label for="TT">Trạng

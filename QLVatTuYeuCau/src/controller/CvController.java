@@ -406,10 +406,21 @@ public class CvController extends HttpServlet{
 	 public @ResponseBody String preUpdateCv(@RequestParam("congVan") String congVan, HttpServletRequest request,
 	            HttpServletResponse responses) {
 		CongVanDAO congVanDAO = new CongVanDAO();
+		FileDAO fileDAO = new FileDAO();
 		int id = Integer.parseInt(congVan);
 		CongVan cv = congVanDAO.getCongVan(id);
+		File file = fileDAO.getByCongVanId(id);
+		String path = file.getDiaChi();
+		int index = path.indexOf("-");
+		String fileName = path.substring(0, index) + path.substring(index);
+		
+		fileDAO.disconnect();
 		congVanDAO.close();
-		return JSonUtil.toJson(cv);
+		ArrayList<Object> objectList = new ArrayList<Object>();
+		objectList.add(cv);
+		objectList.add(fileName);
+		
+		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/loadByYear", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -44,6 +44,9 @@
 </head>
 <body>
 	<%
+		String status = (String) request.getAttribute("status");
+		if (status != null && status.equals("success"))
+			out.println("<script>alert('Import dữ liệu thành công!')</script>");
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
@@ -113,8 +116,7 @@
 												mục chất lượng</a></li>
 										<li><a href="<%=siteMap.vattuManage + "?action=manageVattu"%>">Danh
 												mục vật tư</a></li>
-										<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Danh
-												mục chi tiết vật tư</a></li>
+										<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Vật tư tồn kho</a></li>
 										<li><a href="<%=siteMap.bpsdManage +  "?action=manageBpsd"%>">Danh
 												mục bộ phận sử dụng</a></li>
 										<li><a href="<%=siteMap.mdManage + "?action=manageMd"%>">Danh
@@ -159,7 +161,7 @@
 				</div>
 				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 		<div id="main-content">
-			<div id="title-content">Danh mục chi tiết vật tư</div>
+			<div id="title-content">Vật tư tồn kho</div>
 			<form id="main-form">
 					<div id="view-table-chi-tiet" style="height: 350px; margin: 0 auto; overflow: auto;" class="scroll_content">
 						<table>

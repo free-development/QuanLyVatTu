@@ -109,10 +109,10 @@ public class YcController extends HttpServlet {
 		CongVan congVan = congVanDAO.getCongVan(cvId);
 		congVanDAO.disconnect();
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
-		NhatKyDAO nhatKyDAO = new NhatKyDAO();
-		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã cập nhật số lượng cho vât tư có mã " + ctvt.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctvt.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctvt.getChatLuong().getClMa() + "của công văn  " + congVan.getSoDen());
-		nhatKyDAO.addNhatKy(nhatKy);
-		nhatKyDAO.disconnect();
+//		NhatKyDAO nhatKyDAO = new NhatKyDAO();
+//		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã cập nhật số lượng cho vât tư có mã " + ctvt.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctvt.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctvt.getChatLuong().getClMa() + "của công văn  " + congVan.getSoDen());
+//		nhatKyDAO.addNhatKy(nhatKy);
+//		nhatKyDAO.disconnect();
 		return JSonUtil.toJson(yeuCau);
 	}
 	
