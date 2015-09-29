@@ -253,62 +253,8 @@
 				<%} else if (chucDanh.equals(adminMa)){
 					
 				%>	
-				
-				<%} else {	
-					ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList"); 
-					ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) request.getAttribute("nhatKyList");
-				%>
-					<table style = "margin: 0 auto;width: 900px; ">
-				<tr>
-				<td style="vertical-align:top ;">
-					<div class="view-tbao" ">
-						<table>
-						<tr ><th style="text-align: center; width: 300px; font-size: 20px;">Công việc</th></tr>
-						<%int count = 0; 
-						for (CongVan congVan : congVanList) {
-							String style ="";
-							
-							TrangThai trangThai = congVan.getTrangThai();
-							String ttMa = trangThai.getTtMa();
-							if (ttMa.equalsIgnoreCase("CGQ"))
-								style = "color: red";
-							else
-								style = "color: yello";
-							
-						%>
-						<tr style = "<% if (count % 2 == 1) out.print("background: #CCFFFF; ");%>";>
-							<td style="text-align: center;"><a style="color: blue; text-decoration: underline; " href='<%=siteMap.searchCongVan + "?congVan=" + congVan.getCvId() %>'> Công văn số <%=congVan.getSoDen() %></a></td>
-							<td style="text-align: center;"><div style="<%=style%>"><%=trangThai.getTtTen() %></div></td>
-						</tr>
-						<%count ++;} %>
-						</table>
-					</div>
-				</td>
-				<td style="vertical-align:top ;">
-					<div class="view-nky" >
-						<table>
-						<tr>
-						<th style="text-align: center; font-size: 20px;">
-							<i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động
-						</th>
-						</tr>
-						<%
-						int count2 = 0;
-						for (NhatKy nhatKy : nhatKyList) {
-							String noiDung = nhatKy.getNoiDung();
-							int index = noiDung.indexOf("#");
-							String cvId = noiDung.substring(0, index);
-						%>
-						<tr style = "<% if (count2 % 2 == 0) out.print("background: #CCFFFF; ");%>";>
-							<td><a style="color: blue; text-decoration: underline;" href="<%=siteMap.ycvtManage + "?cvId=" + cvId%>"><%=noiDung.substring(index + 1)%></a></td>
-						</tr>
-						<%count2++;} %>
-						</table>
-					</div>
-					</td>
-					</tr>
-				</table>
 				<%} %>
+				
 				</div>
         </div>
     </body>

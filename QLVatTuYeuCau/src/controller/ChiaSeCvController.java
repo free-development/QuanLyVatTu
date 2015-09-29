@@ -117,6 +117,7 @@ public class ChiaSeCvController extends HttpServlet {
 				VTCongVan vtCongVan = new VTCongVan();
 				vtCongVan.setCvId(cvId);
 				vtCongVan.setMsnv(str[0]);
+				vtCongVan.setTrangThai(new TrangThai("CGQ"));
 				vtCongVan.setVtId(Integer.parseInt(str[1]));
 				vtCongVanDAO.addOrUpdateVTCongVan(vtCongVan);
 			}

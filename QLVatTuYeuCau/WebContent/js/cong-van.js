@@ -1,3 +1,4 @@
+
 function showForm(formId1, formId2, check){
     if (check)
         document.getElementById(formId2).style.display="block";
@@ -76,9 +77,9 @@ function changeDonViUp(){
 function changeFileUp(){
 	$('#requireFileUp').html('');
 } 	
-function changeTrangThaiUp(){
-	$('#requireTrangThaiUp').html('');
-}
+//function changeTrangThaiUp(){
+//	$('#requireTrangThaiUp').html('');
+//}
 function checkUp(){
 	var ngayNhan = $('#update-form input:text[name=ngayNhanUpdate]').val();
 	var mucDich = $('#update-form select[name=mucDichUpdate]').val();
@@ -160,7 +161,6 @@ function preUpdateCv(cv) {
 	  		//alert(congVan.trangThai.ttMa);
 	  		var congVan = objectList[0];
 	  		var fileName = objectList[1];
-	  		
 	  		$('#update-form input:text[name=soDen]').val(congVan.soDen);
 	  		$('#update-form input:text[name=cvSo]').val(congVan.cvSo);
 	  		$('#update-form input:text[name=ngayGoiUpdate]').val(congVan.cvNgayGoi);
@@ -171,7 +171,7 @@ function preUpdateCv(cv) {
 	  		$('#update-form select[name=mucDichUpdate] option[value=' + congVan.mucDich.mdMa+']').prop('selected',true);
 	  		$('#update-form textarea[name=trichYeuUpdate]').val(congVan.trichYeu);
 	  		$('#update-form textarea[name=butPheUpdate]').val(congVan.butPhe);
-	  		$('#update-form input:radio[name=ttMaUpdate][value='+congVan.trangThai.ttMa+']').prop('checked',true);
+//	  		$('#update-form input:radio[name=ttMaUpdate][value='+congVan.trangThai.ttMa+']').prop('checked',true);
 	  		showForm('main-form','update-form', true);
 	  		
 	    }
@@ -237,7 +237,8 @@ function loadByYear(year) {
 	    	var fileList = objectList[1];
 	    	var size = objectList[3];
 	    	var unknownList = objectList[4];
-	    	loadCongVan(congVanList, fileList, unknownList);
+	    	var ttMaList = objectList[5];
+	    	loadCongVan(congVanList, fileList, unknownList, ttMaList);
 	    	loadPageNumber(0, '',size);
 	    } 
 	});  
@@ -268,12 +269,13 @@ function loadByMonth(year, month) {
 	    	var fileList = objectList[1];
 	    	var size = objectList[3];
 	    	var unknownList = objectList[4];
-	    	loadCongVan(congVanList, fileList, unknownList);
+	    	var ttMaList = objectList[5];
+	    	loadCongVan(congVanList, fileList, unknownList, ttMaList);
 	    	loadPageNumber(0, '',size);
 	    } 
 	});  
 }
-function loadCongVan(congVanList, fileList, unknownList) {
+function loadCongVan(congVanList, fileList, unknownList, ttMaList) {
 	$('.tableContent').remove();
 	var length = congVanList.length;
 	var tables = '';
@@ -290,7 +292,7 @@ function loadCongVan(congVanList, fileList, unknownList) {
 			tables +=     '<table class=\"tableContent\" ' + style + ' class=\"border-congvan\">'
 						+ '<tr >';
 						if(chucDanhMa == vanThuMa) {
-						tables += '<td class=\"column-check\" rowspan=\"7\">'
+						tables += '<td class=\"column-check\" rowspan=\"8\">'
 						+ '<input title=\"Click để chọn công văn\" type=\"checkbox\" name=\"cvId\" value=\"' + congVan.cvId + '\">'
 						+ '</td>';
 						}
@@ -388,9 +390,23 @@ function loadCongVan(congVanList, fileList, unknownList) {
 						+ '</a> '
 						+ '</td>'
 						+ '</tr>'
-						+ '</table>'
-						+'<br>'
-						+'<hr>';
+						;
+						
+				tables += '<tr>' 
+					+ '<th style="text-align: left"><label for=\"TT\">Trạng thái</label></th>'
+					+ '<td style=\"text-align: left; padding-left: 10px;\" colspan = \"5\">'
+					+ '<input type=\"radio\"' + ('CGQ'== ttMaList[i] ? ' checked ' : '') + 'name=\"ttMaUpdate\"  value=\"' + congVan.cvId +'#' + 'CGQ\"' + 'id=\"' + congVan.cvId +'#' + 'CGQ\" onchange=\"changeTrangThai()\">'
+					+ '<label for=\"' + congVan.cvId + '#CGQ\">Chưa giải quyết</label>&nbsp;&nbsp;&nbsp'
+					+ '<input type=\"radio\"' + ('DGQ'==ttMaList[i] ? ' checked ' : '') + 'name=\"ttMaUpdate\"  value=\"' + congVan.cvId +'#' + 'DGQ\"' + 'id=\"' + congVan.cvId +'#' + 'DGQ\" onchange=\"changeTrangThai()\">'
+					+ '<label for=\"' + congVan.cvId + '#DGQ\">Còn thiếu hàng</label>&nbsp;&nbsp;&nbsp'
+					+ '<input type=\"radio\"' + ('DaGQ'==ttMaList[i] ? ' checked ' : '') + 'name=\"ttMaUpdate\"  value=\"' + congVan.cvId +'#' + 'DaGQ\"' + 'id=\"' + congVan.cvId +'#' + 'DaGQ\" onchange=\"changeTrangThai()\">'
+					+ '<label for=\"' + congVan.cvId + '#DaGQ\">Đã cấp đủ hàng</label>&nbsp;&nbsp;&nbsp'
+					+'<div id="requireTrangThaiUp" style="color: red"></div>'
+					+ '</td>'
+					+ '</tr>'
+					+ '</table>'
+					+'<br>'
+					+'<hr>';
 			
 		}
 	} else{
@@ -414,7 +430,8 @@ function loadByDate(year, month, date) {
 	    	var fileList = objectList[1];
 	    	var size = objectList[2];
 	    	var unknownList = objectList[3];
-	    	loadCongVan(congVanList, fileList, unknownList);
+	    	var ttMaList = objectList[4];
+	    	loadCongVan(congVanList, fileList, unknownList, ttMaList);
 	    	loadPageNumber(0, '',size);
 	    } 
 	});
@@ -433,7 +450,9 @@ function filterData(filter, filterValue) {
 	    	var fileList = objectList[1];
 	    	var size = objectList[2];
 	    	var unknownList = objectList[3];
-	    	loadCongVan(congVanList, fileList, unknownList);
+	    	var ttMaList = objectList[4];
+	    	alert(ttMaList.length);
+	    	loadCongVan(congVanList, fileList, unknownList, ttMaList);
 	    	loadPageNumber('',size);
 	    } 
 	});
@@ -452,7 +471,8 @@ function searchByTrangThai(trangThai) {
 	    	var fileList = objectList[1];
 	    	var size = objectList[2];
 	    	var unknownList = objectList[3];
-	    	loadCongVan(congVanList, fileList, unknownList);
+	    	var ttMaList = objectList[4];
+	    	loadCongVan(congVanList, fileList, unknownList, ttMaList);
 			 loadPageNumber(0, '',size)
 	    } 
 	});
@@ -530,7 +550,8 @@ function loadPage(pageNumber) {
 	  		var congVanList = objectList[0];
 	  		var fileList = objectList[1];
 	  		var unknownList = objectList[3];
-	    	loadCongVan(congVanList, fileList, unknownList);
+	  		var ttMaList = objectList[4];
+	    	loadCongVan(congVanList, fileList, unknownList, ttMaList);
 	  		loadPageNumber(p, pageNumber,size) ;
 					
 	  	}
@@ -667,9 +688,59 @@ $(document).ready(function(){
 		filterData(filter, filterValue);
 	});
 });
+function getDonVi() {
+	var content = '';
+	$.ajax({
+		url: getRoot() +  "/getDonVi.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	  	
+	  	success: function(donViList) {
+	  		for (i = 0; i < donViList.length; i++) {
+	  			content += '<option value=\"' + donViList[i].dvMa + '\">' + donViList[i].dvTen + '</option>';
+	  		}
+	  		content = '<select class=\"select\" id=\"filterValue\" name=\"filterValue\">' + content + '</select>';
+	  		$('#searchContent').html(content);
+	  	}
+	
+	}); 
+}
+function getMucDich() {
+	var content = '';
+	$.ajax({
+		url: getRoot() +  "/getMucDich.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	  	
+	  	success: function(mucDichList) {
+	  		for (i = 0; i < mucDichList.length; i++) {
+	  			content += '<option value=\"' + mucDichList[i].mdMa + '\">' + mucDichList[i].mdTen + '</option>';
+	  		}
+	  		content = '<select class=\"select\" id=\"filterValue\" name=\"filterValue\">' + content + '</select>';
+	  		$('#searchContent').html(content);
+	  	}
+	
+	}); 
+}
 $(document).ready(function(){
 	$('#filter').change(function(){
 		var filter = $(this).val();
+		if (filter == 'mdMa') {
+			getMucDich();
+		}
+		else if (filter == 'dvMa') {
+			getDonVi();
+		}
+		else if (filter == 'cvNgayNhan' || filter == 'cvNgayDi')
+			$('#searchContent').html('<input class = \"text\" type = \"date\" name = \"filterValue\" id=\"filterValue\">');
+		else 
+			$('#searchContent').html('<input type=\"search\" autofocus class=\"text\" name=\"filterValue\" id=\"filterValue\" readonly style=\"background: #D1D1E0;\" placeholder=\"Nội dung tìm kiếm\" />');
+//		alert(donViList.length);
+		
 		if (filter == '') {
 			$('#filterValue').val('');
 			$('#filterValue').prop('readonly', true);
@@ -694,3 +765,21 @@ $(document).ready(function(){
 //	$('.date').prop('checked', false);
 //	$('#'+dateId).prop('checked', true);
 //}
+function changeTrangThai(){
+	var trangThai = $('input:radio[name=ttMaUpdate]:checked').val();
+	$.ajax({
+		url: getRoot() +  "/changeTrangThai.html",	
+	  	type: "GET",
+	  	dateType: "JSON",
+	  	data: { "trangThai": trangThai},
+	  	contentType: 'application/json',
+	    mimeType: 'application/json',
+	  	
+	  	success: function(status) {
+		  if (status == "success")
+			  alert("Bạn đã thay đổi trạng thái của công văn thành công!!!");
+		  else
+			  alert("Bạn không thể thay đổi trạng thái của công văn!!!");
+	  	}
+	});
+};
