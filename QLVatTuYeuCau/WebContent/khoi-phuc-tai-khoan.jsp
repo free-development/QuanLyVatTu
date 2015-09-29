@@ -142,7 +142,7 @@
 		<div id="main-content">
 		<form id="main-form">
 				<div id="title-content">Danh sách tài khoản bị khóa</div>
-				<table style="margin-left: 60px;margin-bottom: 10px;">		
+				<table style="margin:0 auto;margin-bottom: 10px;">		
 					<tr>		
 					<th  style="text-align: left; color: black; font-size: 19px;">*Tìm kiếm mã</th>
 								<td>
@@ -167,7 +167,7 @@
 					</tr>					
 				</table>
 				<div id="view-table-chia-se">
-					<table >
+					<table style="width:1024px;">
 						<tr bgcolor= "#199e5e">
 						<th style="text-align: center;">Chọn</th>
 						<th>Msnv</th><th>Họ tên</th><th>Chức danh</th><th>Email</th><th>Địa chỉ</th><th>Số điện thoại</th>

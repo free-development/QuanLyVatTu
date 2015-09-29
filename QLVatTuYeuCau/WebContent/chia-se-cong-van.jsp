@@ -183,7 +183,7 @@
 							</tr>
 						</table>
 					</div>
-					<table style="margin-left: 60px;margin-bottom: 10px;">		
+					<table style="margin-left: 150px;margin-bottom: 10px;">		
 					<tr>		
 					<th  style="text-align: left; color: black; font-size: 19px;">*Tìm kiếm mã</th>
 								<td>

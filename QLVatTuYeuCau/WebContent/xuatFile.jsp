@@ -69,30 +69,26 @@ display:none;
 		    <table style = "margin: 0 auto;width:960px;">
 		<tr>
 			<td></td>
+			<td style="text-align: left;font-size: 17px;width:350px;">CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>
 			<td></td>
-			<td></td>
-			<td style="text-align: left;">TỔNG CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			
-			
-			<td style="text-align: right;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
 		</tr>
 		<tr>
 			<td></td>
-			<td></td>
-			<td></td>
-			<td style="text-align: left;">Địa chỉ: 06 Nguyễn Trãi, Q.Ninh Kiều, TP.Cần Thơ.</td>
-			<td></td>
-			<td></td>
+			<td style="font-size: 17px; text-align: left;">PHÒNG VẬT TƯ</td>
 			<td></td>
 			
 			
-			<td style="text-align: right;">Độc lập - Tự do - Hạnh phúc</td>
+			<td style="text-align: left;font-size: 17px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
 			
 		</tr>
+		<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td style="font-size: 17px; padding-left:70px;">Độc lập - Tự do - Hạnh phúc</td>
+		</tr>
 		</table>
+		<br>
 			<div style="text-align: center;font-size: 30px;font-weight: bold;color: #199e5e;">Báo cáo chi tiết vật tư thiếu</div>
 		<% if((ngaybd!=null)&&(ngaykt!=null)){%>
 		<div style="text-align: center;">Từ ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaybd)%>&nbsp;&nbsp;đến ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaykt)%></div>
@@ -142,7 +138,15 @@ display:none;
 						<%} %>
 					</table>
 				</div>
-	
+				<br>
+				<br>
+				<br>
+				<table style = "margin: 0 auto;width:960px;">
+					<tr>
+						<td style="padding-left:100px;font-size: 17px;font-weight: bold;">Lập biểu</td>
+						<td style="font-size: 17px;padding-left:500px;font-weight: bold;">Trưởng phòng vật tư</td>
+					</tr>
+				</table>
 				<div class="group-button">
 					
 					 <%
@@ -170,21 +174,27 @@ display:none;
 	   		HashMap<Integer, Integer> yeuCauHash = (HashMap<Integer, Integer>) session.getAttribute("yeuCau"); %>
 	   		<table style = "margin: 0 auto;width:960px;">
 		<tr>
-			<td style="text-align: left;">TỔNG CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>
 			<td></td>
+			<td style="text-align: left;font-size: 17px;width:350px;">CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>
 			<td></td>
-			<td></td>
-			<td style="text-align: right;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
 		</tr>
 		<tr>
-			<td style="text-align: left;">Địa chỉ: 06 Nguyễn Trãi, Q.Ninh Kiều, TP.Cần Thơ.</td>
 			<td></td>
+			<td style="font-size: 17px; text-align: left;">PHÒNG VẬT TƯ</td>
 			<td></td>
-			<td></td>
-			<td style="text-align: right;">Độc lập - Tự do - Hạnh phúc</td>
+			
+			
+			<td style="text-align: left;font-size: 17px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
 			
 		</tr>
+		<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td style="font-size: 17px; padding-left:70px;">Độc lập - Tự do - Hạnh phúc</td>
+		</tr>
 		</table>
+		<br>
 	   		<div style="text-align: center;font-size: 20px;font-weight: bold;color: #199e5e;">Báo cáo tổng hợp vật tư thiếu</div>
 		<% if((ngaybd!=null)&&(ngaykt!=null)){%>
 		<div style="text-align: center;">Từ ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaybd)%>&nbsp;&nbsp;đến ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaykt)%></div>
@@ -220,6 +230,15 @@ display:none;
 					<%} %>
 				</table>
 			</div>		
+			<br>
+				<br>
+				<br>
+				<table style = "margin: 0 auto;width:960px;">
+					<tr>
+						<td style="padding-left:100px;font-size: 17px;font-weight: bold;">Lập biểu</td>
+						<td style="font-size: 17px;padding-left:500px;font-weight: bold;">Trưởng phòng vật tư</td>
+					</tr>
+				</table>
 				 <%
         			if (exportToExcel == null) {
    				 %>

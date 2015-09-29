@@ -151,12 +151,12 @@
 					ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList"); 
 					ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) request.getAttribute("nhatKyList");
 				%>
-				<table style = "margin: 0 auto;width: 900px; vertical-align:top ;">
+				<table style = "margin: 0 auto;width: 960px; vertical-align:top ;">
 				<tr>
 				<td>
 					<div class="view-tbao">
 						<table>
-						<tr ><th colspan = "2" style="text-align: center; width: 300px; font-size: 20px;">Công việc</th></tr>
+						<tr ><th colspan = "2" style="text-align: left; width: 300px; font-size: 20px;color: red;"><i class="fa fa-sign-out"></i>&nbsp;Công việc</th></tr>
 						<tr style="background: #CCFFFF">
 <!-- 							<td style="text-align: center;" colspan="2"> -->
 <!-- 							<i class="fa fa-sign-out"></i>&nbsp;Thông báo -->
@@ -188,7 +188,7 @@
 					<div class="view-nky" >
 						<table>
 						<tr>
-						<th style="text-align: center; font-size: 20px;">
+						<th style="text-align: left; font-size: 20px;color: red;">
 							<i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động
 						</th>
 						</tr>
@@ -213,7 +213,7 @@
 				<td style="vertical-align:top ;">
 					<div class="view-tbao" ">
 						<table>
-						<tr ><th colspan = "2" style="text-align: center; width: 300px; font-size: 20px;">Công việc</th></tr>
+						<tr ><th colspan = "2" style="text-align: left; width: 300px; font-size: 20px;color: red;"><i class="fa fa-sign-out"></i>&nbsp;Công việc</th></tr>
 						</table>
 					</div>
 				</td>
@@ -221,7 +221,7 @@
 					<div class="view-nky" >
 						<table>
 						<tr>
-						<th style="text-align: center; font-size: 20px;">
+						<th style="text-align: center; font-size: 20px;color: red;">
 							<i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động
 						</th>
 						</tr>
@@ -249,15 +249,15 @@
 <!-- 						<table> -->
 <!-- 						<tr ><th style="text-align: center; width: 300px; font-size: 20px;">Công việc</th></tr> -->
 <%-- 						<%int count = 0;  --%>
-// 						for (CongVan congVan : congVanList) {
-// 							String style ="";
+<!-- // 						for (CongVan congVan : congVanList) { -->
+<!-- // 							String style =""; -->
 							
-// 							TrangThai trangThai = congVan.getTrangThai();
-// 							String ttMa = trangThai.getTtMa();
-// 							if (ttMa.equalsIgnoreCase("CGQ"))
-// 								style = "color: red";
-// 							else
-// 								style = "color: yello";
+<!-- // 							TrangThai trangThai = congVan.getTrangThai(); -->
+<!-- // 							String ttMa = trangThai.getTtMa(); -->
+<!-- // 							if (ttMa.equalsIgnoreCase("CGQ")) -->
+<!-- // 								style = "color: red"; -->
+<!-- // 							else -->
+<!-- // 								style = "color: yello"; -->
 							
 <%-- 						%> --%>
 <%-- 						<tr style = "<% if (count % 2 == 1) out.print("background: #CCFFFF; ");%>";> --%>
@@ -277,7 +277,7 @@
 <!-- 						</th> -->
 <!-- 						</tr> -->
 <%-- 						<% --%>
-// 						int count2 = 0;
+<!-- // 						int count2 = 0; -->
 <%-- 						for (NhatKy nhatKy : nhatKyList) {%> --%>
 <%-- 						<tr style = "<% if (count2 % 2 == 0) out.print("background: #CCFFFF; ");%>";> --%>
 <%-- 							<td><a style="color: blue; text-decoration: underline;" href="<%=siteMap.ycvtManage + "?cvId=" + nhatKy.getCvId()%>"><%=nhatKy.getNoiDung() %></a></td> --%>

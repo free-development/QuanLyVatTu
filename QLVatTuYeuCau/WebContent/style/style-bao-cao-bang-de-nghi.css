@@ -54,10 +54,10 @@
 	margin: 0 auto;
 	width: 960px;
 }
-#view-table-baocao {
+#view-table-baocao table{
 	margin: 0 auto;
 	text-align: center;
-	width: 1300px;
+	width: 1500px;
 }
 #view-table-bao-cao table tr td {
 	border-width: 1px;
@@ -70,8 +70,6 @@
 }
 
 #view-table-bao-cao table tr th {
-	width: 900px;
-	height: 40px;
 	color: white;
 	border-width: 1px;
 	margin: 0px;
@@ -90,6 +88,7 @@
 #view-table table {
 	border-spacing: 0px;
 	margin: 0 auto;
+	width: 1220px;
 }
 
 #view-table table tr td {
@@ -105,9 +104,6 @@
 
 #view-table table tr th {
 	border-style: dotted;
-	width: 900px;
-	height: 40px;
-	//color: white;
 	border-width: 1px;
 	margin: 0px;
 	border-spacing: 0px border-spacing: 0px;
@@ -139,7 +135,7 @@
 	margin: 0 auto;
 }
 
-.a-column {
+/*.a-column {
 	width: 30px;
 	text-align: center;
 }
@@ -185,7 +181,7 @@
 .m-column {
 	width: 50px;
 	text-align: center;
-}
+}*/
 .btn {
 	background: #199e5e;
 	border-radius: 5px;
@@ -234,8 +230,9 @@
 	overflow: scroll;
 }
 #main-content {
-	height: 800px;
+	height: 1000px;
 	background-color: while;
+	
 }
 #a-content {
 	text-align: center;

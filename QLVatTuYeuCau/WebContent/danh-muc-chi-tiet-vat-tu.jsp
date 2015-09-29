@@ -185,8 +185,8 @@
 <%-- 									value="<%=ctVatTu.getVatTu().getVtMa() %>" class="checkbox"></td> --%>
 								<td class="col"><%=ctVatTu.getVatTu().getVtMa() %></td>
 								<td class="col" style="text-align: left;"><%=ctVatTu.getVatTu().getVtTen() %></td>
-								<td class="col"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
-								<td class="col"><%=ctVatTu.getChatLuong().getClTen() %></td>
+								<td class="col" style="text-align: left;"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
+								<td class="col" style="text-align: left;"><%=ctVatTu.getChatLuong().getClTen() %></td>
 								<td class="col"><%=ctVatTu.getVatTu().getDvt().getDvtTen() %></td>
 								<td class="col"><%=ctVatTu.getDinhMuc() %></td>
 								<td class="col"><%=ctVatTu.getSoLuongTon() %></td>

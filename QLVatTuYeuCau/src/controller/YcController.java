@@ -47,6 +47,7 @@ public class YcController extends HttpServlet {
 		session = request.getSession(false);
 		
 		String[] s = request.getParameterValues("cvId");
+		String cvSo = request.getParameter("cvSo");
 		if(s[0] == null)
 			return new ModelAndView(siteMap.cvManage + "?action=manageCv");
 		int cvId =  Integer.parseInt(s[0]);
@@ -55,23 +56,27 @@ public class YcController extends HttpServlet {
     	YeuCauDAO yeuCauDAO = new YeuCauDAO();
     	NoiSanXuatDAO nsxDAO = new NoiSanXuatDAO();
     	ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
-    	
+    	CongVanDAO congVanDAO = new CongVanDAO();
     	ArrayList<CTVatTu> ctVatTuList = (ArrayList<CTVatTu>) ctvtDAO.limit((pageCtvt - 1)*10, 10);
     	
     	ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
     	ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) nsxDAO.getAllNoiSanXuat();
     	ArrayList<ChatLuong> chatLuongList = (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();
+    	CongVan congVan = (CongVan)congVanDAO.getByCvSo(cvSo);
     	long sizeCtvt = ctvtDAO.size();
     	request.setAttribute("page", sizeCtvt / 10);
     	request.setAttribute("ctVatTuList", ctVatTuList);
     	request.setAttribute("yeuCauList", yeuCauList);
     	request.setAttribute("nsxList", nsxList);
     	request.setAttribute("chatLuongList", chatLuongList);
+    	request.setAttribute("congVan", congVan);
+    	//request.setAttribute("congVanList", congVanList);
     	chatLuongDAO.disconnect();
     	ctvtDAO.disconnect();
     	yeuCauDAO.disconnect();
     	nsxDAO.disconnect();
     	chatLuongDAO.disconnect();
+    	congVanDAO.disconnect();
     	
     	return new ModelAndView(siteMap.ycVatTu);
     	//return new ModelAndView(siteMap.login);
