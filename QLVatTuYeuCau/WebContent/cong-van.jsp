@@ -1,3 +1,4 @@
+<%@page import="javax.swing.JOptionPane"%>
 <%@page import="model.VaiTro"%>
 <%@page import="dao.VaiTroDAO"%>
 <%@page import="model.NguoiDung"%>
@@ -270,7 +271,7 @@ hosting = '<%=hosting  %>';
                      %>
 					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : #FFFFFF;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
 						<tr >
-						<% if (chucDanhMa.equals(vanThuMa)) {%>
+						<% if (chucDanhMa.equals(vanThuMa) || chucDanhMa.equals(adminMa)) {%>
 							<td class="column-check" rowspan="8" style="margin-right: 30px;">
 								Chọn <input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>"> 
 							</td>
@@ -313,7 +314,7 @@ hosting = '<%=hosting  %>';
 						<tr>
 							
 							<%
-								if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)) { %>
+								if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)  || chucDanh.equals(adminMa)) { %>
 									<td class="left-column-first" style="font-weight: bold;">Người xử lý</td>
 									<td class="column-color"colspan="3">
 									<%
@@ -435,7 +436,7 @@ hosting = '<%=hosting  %>';
 						<div class="group-button">
 							<input type="hidden" name="action" value="update-yeu-cau">
 							<%
-								if (vanThuMa.equalsIgnoreCase(chucDanh)) {
+								if (vanThuMa.equalsIgnoreCase(chucDanh) || chucDanh.equals(adminMa)) {
 							%>
 							<button type="button" class="button" onclick="loadDataCv();">
 								<i class="fa fa-plus-circle"></i>&nbsp;Thêm mới

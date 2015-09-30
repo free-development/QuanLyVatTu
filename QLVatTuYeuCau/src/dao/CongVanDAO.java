@@ -416,7 +416,6 @@ public long size(String msnv, HashMap<String, Object> conditions) {
 //		session.getTransaction().commit();
 //		return null;
 //	}
-	
 	public static void main(String[] args) {
 		System.out.println(new CongVanDAO().size("b1203959"));
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
