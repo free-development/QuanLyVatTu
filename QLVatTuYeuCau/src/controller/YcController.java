@@ -48,10 +48,12 @@ public class YcController extends HttpServlet {
 //	    	congVan
 		session = request.getSession(false);
 		
-		String[] s = request.getParameterValues("cvId");
-		if(s[0] == null)
+		String s = request.getParameter("cvId");
+		JOptionPane.showConfirmDialog(null, s);
+		if(s == null)
 			return new ModelAndView(siteMap.cvManage + "?action=manageCv");
-		int cvId =  Integer.parseInt(s[0]);
+		int cvId =  Integer.parseInt(s);
+		JOptionPane.showConfirmDialog(null, s);
 		session.setAttribute("cvId", cvId);
     	CTVatTuDAO ctvtDAO =  new CTVatTuDAO();
     	YeuCauDAO yeuCauDAO = new YeuCauDAO();
@@ -59,7 +61,7 @@ public class YcController extends HttpServlet {
     	ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
     	
     	ArrayList<CTVatTu> ctVatTuList = (ArrayList<CTVatTu>) ctvtDAO.limit((pageCtvt - 1)*10, 10);
-    	
+    	JOptionPane.showConfirmDialog(null, "ok");
     	ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
     	ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) nsxDAO.getAllNoiSanXuat();
     	ArrayList<ChatLuong> chatLuongList = (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();

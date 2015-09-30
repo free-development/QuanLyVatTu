@@ -251,7 +251,7 @@
 							
 						%>
 						<tr style = " <% if (count % 2 == 1) out.print("background: #CCFFFF; ");%>";>
-							<td style="text-align: left;"><a style="color: blue; text-decoration: underline; " href='<%=siteMap.searchCongVan + "?congVan=" + congVan.getCvId() %>'> Công văn số <%=noiDung %></a></td>
+							<td style="text-align: left;"><a style="color: blue; text-decoration: underline; " href="<%=siteMap.searchCongVan + "?congVan=" + congVan.getCvId()%>"> Công văn số <%=noiDung %></a></td>
 						</tr>
 						<%count ++;} %>
 						</table>

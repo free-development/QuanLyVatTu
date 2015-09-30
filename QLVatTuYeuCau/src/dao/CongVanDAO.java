@@ -343,7 +343,7 @@ public class CongVanDAO {
 				if (object instanceof Integer && (key.equalsIgnoreCase("year") || key.equalsIgnoreCase("month") || key.equalsIgnoreCase("day"))) {
 					cr.add(Restrictions.sqlRestriction(key.toUpperCase() + "(cvNgayNhan) = " + conditions.get(key)));
 				} else if (conditions.get(key) != null){ 
-					if (key.equals("soDen") || key.equals("cvNgayDi") || key.equals("cvNgayNhan"))
+					if (key.equals("cvId") || key.equals("soDen") || key.equals("cvNgayDi") || key.equals("cvNgayNhan"))
 						cr.add(Restrictions.eq(key, conditions.get(key)));
 					else
 						cr.add(Restrictions.like(key, (String)conditions.get(key), MatchMode.START));
