@@ -31,6 +31,7 @@ import model.CongVan;
 //import model.Mailer;
 import model.NguoiDung;
 import model.NhatKy;
+import model.TrangThai;
 import model.VTCongVan;
 import model.VaiTro;
 import util.JSonUtil;
@@ -157,7 +158,7 @@ public class ChiaSeCvController extends HttpServlet {
 				hotens.delete(hotens.length()-2, hotens.length());
 			String truongPhongMa = context.getInitParameter("truongPhongMa");
 			NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
-			NhatKy nhatKy = new NhatKy(nguoiDung.getMsnv(), cvId, "Bạn đã chia sẽ cho công văn số " + congVan.getSoDen() + " cho " + hotens.toString());
+			NhatKy nhatKy = new NhatKy(nguoiDung.getMsnv(), cvId + "#Bạn đã chia sẽ cho công văn số " + congVan.getSoDen() + " cho " + hotens.toString());
 			NhatKyDAO nhatKyDAO = new NhatKyDAO();
 			nhatKyDAO.addNhatKy(nhatKy);
 			nhatKyDAO.disconnect();
@@ -213,7 +214,7 @@ public class ChiaSeCvController extends HttpServlet {
 		if (vaiTroList.length() != 0) {
 			for (String s : vtList) {
 				int vtId = Integer.parseInt(s);
-				vtCongVanDAO.addVTCongVan(new VTCongVan(cvId, vtId, msnvUpdate));
+				vtCongVanDAO.addVTCongVan(new VTCongVan(cvId, vtId, msnvUpdate, new TrangThai("CGQ")));
 				// String vt = vtCongVanDAO.getVaiTro(vtId);
 				// str.append(vt + "<br>");
 				VaiTro vt = vaiTroDAO.getVaiTro(vtId);

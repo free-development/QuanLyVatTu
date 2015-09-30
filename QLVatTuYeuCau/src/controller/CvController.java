@@ -265,7 +265,7 @@ public class CvController extends HttpServlet{
 			file.setMoTa(moTa);
 			fileDAO.updateFile(file);
 			NhatKyDAO nhatKyDAO = new NhatKyDAO();
-			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), congVanCheck.getCvId(), "Bạn đã thêm công văn số " + soDen);
+			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), congVanCheck.getCvId() + "#Bạn đã thêm công văn số " + soDen);
 			nhatKyDAO.addNhatKy(nhatKy);
 			nhatKyDAO.disconnect();
 		} else {
@@ -292,7 +292,7 @@ public class CvController extends HttpServlet{
 				sendMail.send(mail);
 			}
 			NhatKyDAO nhatKyDAO = new NhatKyDAO();
-			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId, "Bạn đã thêm công văn số " + soDen);
+			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId+"#Bạn đã thêm công văn số " + soDen);
 			nhatKyDAO.addNhatKy(nhatKy);
 			nhatKyDAO.disconnect();
 			
@@ -372,7 +372,7 @@ public class CvController extends HttpServlet{
 		HttpSession session = request.getSession(false);
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
 		NhatKyDAO nhatKyDAO = new NhatKyDAO();
-		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId, "Bạn đã thay đổi công văn số " + soDen);
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId + "#Bạn đã thay đổi công văn số " + soDen);
 		nhatKyDAO.addNhatKy(nhatKy);
 		nhatKyDAO.disconnect();
 		return getCongvan(request);
@@ -395,7 +395,7 @@ public class CvController extends HttpServlet{
 		HttpSession session = request.getSession(false);
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
 		NhatKyDAO nhatKyDAO = new NhatKyDAO();
-		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã xóa công văn số " + soDens.toString());
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), "Bạn đã xóa công văn số " + soDens.toString());
 		nhatKyDAO.addNhatKy(nhatKy);
 		nhatKyDAO.disconnect();
 		return JSonUtil.toJson(cvId);
@@ -406,10 +406,21 @@ public class CvController extends HttpServlet{
 	 public @ResponseBody String preUpdateCv(@RequestParam("congVan") String congVan, HttpServletRequest request,
 	            HttpServletResponse responses) {
 		CongVanDAO congVanDAO = new CongVanDAO();
+		FileDAO fileDAO = new FileDAO();
 		int id = Integer.parseInt(congVan);
 		CongVan cv = congVanDAO.getCongVan(id);
+		File file = fileDAO.getByCongVanId(id);
+		String path = file.getDiaChi();
+		int index = path.indexOf("-");
+		String fileName = path.substring(0, index) + path.substring(index);
+		
+		fileDAO.disconnect();
 		congVanDAO.close();
-		return JSonUtil.toJson(cv);
+		ArrayList<Object> objectList = new ArrayList<Object>();
+		objectList.add(cv);
+		objectList.add(fileName);
+		
+		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/loadByYear", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)

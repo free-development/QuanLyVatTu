@@ -232,4 +232,8 @@ public class VTCongVanDAO {
 		VTCongVanDAO l = new VTCongVanDAO();
 		System.out.println(l.getVaiTroByCvId(44));
 	}
+	public ArrayList<Integer> groupByMsnv(String msnv) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -44,6 +44,9 @@
 </head>
 <body>
 	<%
+		String status = (String) request.getAttribute("status");
+		if (status != null && status.equals("success"))
+			out.println("<script>alert('Import dữ liệu thành công!')</script>");
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
@@ -113,8 +116,7 @@
 												mục chất lượng</a></li>
 										<li><a href="<%=siteMap.vattuManage + "?action=manageVattu"%>">Danh
 												mục vật tư</a></li>
-										<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Danh
-												mục chi tiết vật tư</a></li>
+										<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Vật tư tồn kho</a></li>
 										<li><a href="<%=siteMap.bpsdManage +  "?action=manageBpsd"%>">Danh
 												mục bộ phận sử dụng</a></li>
 										<li><a href="<%=siteMap.mdManage + "?action=manageMd"%>">Danh
@@ -159,14 +161,14 @@
 				</div>
 				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 		<div id="main-content">
-			<div id="title-content">Danh mục chi tiết vật tư</div>
+			<div id="title-content">Vật tư tồn kho</div>
 			<form id="main-form">
-					<div id="view-table-chi-tiet" style="height: 480px; margin: 0 auto;">
+					<div id="view-table-chi-tiet" style="height: 350px; margin: 0 auto; overflow: auto;" class="scroll_content">
 						<table>
 							<tr style="background: #199e5e">
 <!-- 								<th class="left-column"><input type="checkbox" -->
 <!-- 									class="checkAll"></th> -->
-								<th class="six-column">Mã vật tư</th>
+								<th class="four-column">Mã vật tư</th>
 								<th class="three-column">Tên vật tư</th>
 								<th class="six-column">Nơi sản xuất</th>
 								<th class="six-column">Chất lượng</th>
@@ -207,7 +209,7 @@
 										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick=\"loadPageCTVatTu(" + i +")\">&nbsp;";
 									}
 									if (pageNum > 10)
-										str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageCTVatTu(\'Next\');\">";
+										str += "<input type=\"button\" class=\"pageMove\" value=\"Sau >>\" onclick= \"loadPageCTVatTu(\'Next\');\">";
 									out.println(str);	
 								%>
 					

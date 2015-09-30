@@ -10,9 +10,6 @@
  		<property name="msnv" type="string" access="field"> 
  			<column name="MSNV" /> 
  		</property>
- 		<property name="cvId" type="int" access="field"> 
- 			<column name="CVID" /> 
- 		</property> 
  		<property name="noiDung" type="string" access="field"> 
  			<column name="NOIDUNG" /> 
  		</property> 

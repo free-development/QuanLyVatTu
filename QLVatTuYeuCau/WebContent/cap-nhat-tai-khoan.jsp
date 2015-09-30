@@ -112,8 +112,7 @@
 												mục chất lượng</a></li>
 										<li><a href="<%=siteMap.vattuManage + "?action=manageVattu"%>">Danh
 												mục vật tư</a></li>
-										<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Danh
-												mục chi tiết vật tư</a></li>
+										<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Vật tư tồn kho</a></li>
 										<li><a href="<%=siteMap.bpsdManage +  "?action=manageBpsd"%>">Danh
 												mục bộ phận sử dụng</a></li>
 										<li><a href="<%=siteMap.mdManage + "?action=manageMd"%>">Danh
@@ -209,25 +208,18 @@
 					</table>
 					</div>
 					<div id ="paging" style="text-align: center;">
-					<table style ="border-style: none;">
-								<tr>
-									<td>Trang</td>
-									<td>
-									<%
-												String str = "";
-												String pages = ""; 
-												long p = (pageNum < 10 ? pageNum : 10);
-											for(int j = 0; j <= p; j++) {
-												str += "<input type=\"button\" value=\"" + (j+1) + "\" class=\"page\" onclick=\"loadPageNd(" + j +")\">&nbsp;";
-											}
-											if (pageNum > 10)
-												str += "<input type=\"button\" value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">";
-											out.println(str);	
-										%>
-								</td>
-								</tr>
-								</table>
-						</div>
+							<%
+										String str = "";
+										String pages = ""; 
+										long p = (pageNum < 10 ? pageNum : 10);
+									for(int j = 0; j <= p; j++) {
+										str += "<input type=\"button\" value=\"" + (j+1) + "\" class=\"page\" onclick=\"loadPageNd(" + j +")\">&nbsp;";
+									}
+									if (pageNum > 10)
+										str += "<input type=\"button\" class=\"pageMove\"  value=\"Sau >>\" onclick= \"loadPageNd(\'Next\');\">";
+									out.println(str);	
+								%>
+						</div>		
 				
 					<div class="group-button">
 					<input type="hidden" value="save" name="action">
@@ -313,6 +305,5 @@
 				</div>
 			</form>
 		</div>
-	
 </body>
 </html>

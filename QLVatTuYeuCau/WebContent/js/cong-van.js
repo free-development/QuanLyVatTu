@@ -154,21 +154,26 @@ function preUpdateCv(cv) {
 	  	data: { "congVan": cv},
 	  	contentType: 'application/json',
 	    mimeType: 'application/json',
-	  	success: function(congVan) {
+	  	success: function(objectList) {
 //			$('table').has('input[name="cvId"]:checked').remove();
 //			alert("Cong van da bi xoa");
 	  		//alert(congVan.trangThai.ttMa);
+	  		var congVan = objectList[0];
+	  		var fileName = objectList[1];
+	  		
 	  		$('#update-form input:text[name=soDen]').val(congVan.soDen);
 	  		$('#update-form input:text[name=cvSo]').val(congVan.cvSo);
 	  		$('#update-form input:text[name=ngayGoiUpdate]').val(congVan.cvNgayGoi);
 	  		$('#update-form input:text[name=ngayNhanUpdate]').val(congVan.cvNgayNhan);
 	  		$('#update-form select[name=donViUpdate] option[value=' + congVan.donVi.dvMa+']').prop('selected',true);
 //	  		$('#dvtUp option[value='+vt.dvt.dvtTen+']').prop('selected',true);
+//	  		$('#update-form input[name=file]').val(fileName);
 	  		$('#update-form select[name=mucDichUpdate] option[value=' + congVan.mucDich.mdMa+']').prop('selected',true);
 	  		$('#update-form textarea[name=trichYeuUpdate]').val(congVan.trichYeu);
 	  		$('#update-form textarea[name=butPheUpdate]').val(congVan.butPhe);
 	  		$('#update-form input:radio[name=ttMaUpdate][value='+congVan.trangThai.ttMa+']').prop('checked',true);
 	  		showForm('main-form','update-form', true);
+	  		
 	    }
 	});  
 }
@@ -181,7 +186,7 @@ function deleteCv(cvId) {
 	  	contentType: 'application/json',
 	    mimeType: 'application/json',
 	  	success: function() {
-			$('table').has('input[name="cvId"]:checked').remove();
+			$('#main-form table').has('input[name="cvId"]:checked').remove();
 			alert("Cong van da bi xoa");
 	    } 
 	});  

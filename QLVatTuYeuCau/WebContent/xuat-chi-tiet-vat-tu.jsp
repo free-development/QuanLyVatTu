@@ -84,70 +84,65 @@ display:none;
 				</div>
 		<table style = "margin: 0 auto;width:960px;">
 		<tr>
-			<td></td>
-			<td style="text-align: left;font-size: 17px;width:350px;">CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>
-			<td></td>
+			<td style="text-align: left; width: 500px;font-size: 17px;">CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>		
+		<tr>
+			<td style="text-align: left; width: 350px;font-size: 17px;left: 20px;">PHÒNG VẬT TƯ</td>
 		</tr>
 		<tr>
-			<td></td>
-			<td style="font-size: 17px; text-align: left;">PHÒNG VẬT TƯ</td>
-			<td></td>
-			
-			
-			<td style="text-align: left;font-size: 17px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
-			
+			<td style="text-align: center; width: 350px;font-size: 17px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
 		</tr>
 		<tr>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td style="font-size: 17px; padding-left:70px;">Độc lập - Tự do - Hạnh phúc</td>
+			<td style="text-align: center; width: 350px;font-size: 17px;">Độc lập - Tự do - Hạnh phúc</td>		
 		</tr>
 		</table>
-		<br>
-		<div style="text-align: center;font-size: 40px;font-weight: bold;color: solid black;margin-top:20px;">Báo cáo chi tiết vật tư</div>
+		<div style="text-align: center;font-size: 30px;font-weight: bold;color: solid black;margin-top:20px;">BÁO CÁO VẬT TƯ TỒN KHO</div>
 			
-		<div style="margin-right: 10px;padding-left: 750px;font-size: 17px;">Ngày in:&nbsp;&nbsp;&nbsp;&nbsp; <%=DateUtil.toString(new java.util.Date())%></div>
+		<div style="margin-right: 10px;padding-left: 800px;font-size: 17px;">Ngày in:&nbsp;<%=DateUtil.toString(new java.util.Date())%></div>
 			<div id="view-table-bao-cao">
 					<table  style="border: solid 1px black;width:960px;font-size: 12px;">
 					<thead>
-						<tr bgcolor="#199e5e" style="border: 1px solid black;">
-						<th style="border: 1px solid black;font-size: 17px;" class="four-column">Mã vật tư</th>
-						<th style="border: 1px solid black;font-size: 17px;" class="six-column">Tên vật tư</th>
-						<th style="border: 1px solid black;font-size: 17px;" class="three-column">Nơi sản xuất</th>
-						<th style="border: 1px solid black;font-size: 17px;" class="a-column">Chất lượng</th>
-						<th style="border: 1px solid black;font-size: 17px;" class="four-column">Đơn vị tính</th>
-						<th style="border: 1px solid black;font-size: 17px;" class="four-column">Định mức</th>
-						<th style="border: 1px solid black;font-size: 17px;" class="four-column">Số lượng tồn</th>
-							
+						<tr style="border: 1px solid black;">
+						<th style="border: 1px solid black;font-size: 17px;width: 5px;">STT</th>
+						<th style="border: 1px solid black;font-size: 17px;width: 10px;">Mã VT</th>
+						<th style="border: 1px solid black;font-size: 17px;width: 300px;">Tên vật tư</th>
+						<th style="border: 1px solid black;font-size: 17px;width: 140px;">Nơi sản xuất</th>
+						<th style="border: 1px solid black;font-size: 17px;width: 140px;">Chất lượng</th>
+						<th style="border: 1px solid black;font-size: 17px;width: 5px;">ĐVT</th>
+						<th style="border: 1px solid black;font-size: 17px;width: 80px;">Định mức</th>
+						<th style="border: 1px solid black;font-size: 17px;width: 110px;">Số lượng tồn</th>
 						</tr>
 						</thead>
 									<tbody>
 											<%
 										if(listCTVatTu != null) {
+											int i = 1;
 										for(CTVatTu ctVatTu : listCTVatTu) { %>
 			
 												<tr style= "border-style: solid;border-color:black;" class="rowContent">
-													<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getVatTu().getVtMa() %></td>
-													<td style="border: 1px solid black;font-size: 17px;" class="col" style="text-align: left"><%=ctVatTu.getVatTu().getVtTen() %></td>
-													<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
-													<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getChatLuong().getClTen() %></td>
-													<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getVatTu().getDvt().getDvtTen() %></td>
-													<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getDinhMuc() %></td>
-													<td style="border: 1px solid black;font-size: 17px;" class="col"><%=ctVatTu.getSoLuongTon() %></td>
+													<td style="border: 1px solid black;font-size: 17px;"><%=i++%></td>
+													<td style="border: 1px solid black;font-size: 17px;"><%=ctVatTu.getVatTu().getVtMa() %></td>
+													<td style="border: 1px solid black;font-size: 17px;text-align: left"><%=ctVatTu.getVatTu().getVtTen() %></td>
+													<td style="border: 1px solid black;font-size: 17px;width: 40px;text-align: center;"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
+													<td style="border: 1px solid black;font-size: 17px;text-align: center;"><%=ctVatTu.getChatLuong().getClTen() %></td>
+													<td style="border: 1px solid black;font-size: 17px;text-align: center;"><%=ctVatTu.getVatTu().getDvt().getDvtTen() %></td>
+													<td style="border: 1px solid black;font-size: 17px;text-align: center;"><%=ctVatTu.getDinhMuc() %></td>
+													<td style="border: 1px solid black;font-size: 17px;text-align: center;"><%=ctVatTu.getSoLuongTon() %></td>
 												</tr>
 												<%} }%>
 									</tbody>
 				</table>
 				</div>
-				<br>
-				<br>
-				<br>
-				<table style = "margin: 0 auto;width:960px;">
-					<tr>
-						<td style="padding-left:100px;font-size: 17px;font-weight: bold;">Lập biểu</td>
-						<td style="font-size: 17px;padding-left:500px;font-weight: bold;">Trưởng phòng vật tư</td>
-					</tr>
-				</table>
+				<div style="width:800px;font-size: 22px;margin: auto;">
+						<table style="width:800px;font-size: 22px;;">
+								<tr>
+									<td></td>
+									<td style="text-align: right;">Ngày.....tháng.....năm.....</td>
+								</tr>
+								<tr>
+									<td style="text-align: left;font-weight: bold;">Người lập biểu</td>
+									<td style="text-align: right;font-weight: bold;">Trưởng Phòng Vật Tư</td>
+								</tr>
+						</table>
+				</div>
 		</body>
 		</html>

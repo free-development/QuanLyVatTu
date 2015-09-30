@@ -108,6 +108,7 @@ public class siteMap {
 	public static final String  xuatCTVatTu = "xuat-chi-tiet-vat-tu";
 	
 	// map home page
-	public static final String homePageManage = "manageHome.html";
+	public static final String homePageManage = home + "home.html";
 	public static final String homePage = "index";
+	
 }

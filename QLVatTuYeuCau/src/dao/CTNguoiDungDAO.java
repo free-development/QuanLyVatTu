@@ -49,6 +49,8 @@ public class CTNguoiDungDAO {
 		{
 			return 0;
 		}
+		else if (ctNguoiDung.getKhoa() == 1)
+			return -2;
 		return 1;
 	}
 //	public boolean login(final String msnv, final String matkhau) {

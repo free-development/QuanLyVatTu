@@ -130,7 +130,7 @@ public class NhatKyDAO {
 //		System.out.println(new NhatKyDAO().size(congVanList));
 		NhatKyDAO nhatKyDAO = new NhatKyDAO();
 		
-		nhatKyDAO.addNhatKy(new NhatKy("quoioln", 3, "chia se cong van"));
+		nhatKyDAO.addNhatKy(new NhatKy("quoioln", "chia se cong van"));
 		nhatKyDAO.disconnect();
 		nhatKyDAO.close();
 	}
