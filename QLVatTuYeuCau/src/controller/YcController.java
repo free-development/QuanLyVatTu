@@ -32,6 +32,7 @@ import model.NguoiDung;
 import model.NhatKy;
 import model.NoiSanXuat;
 import model.YeuCau;
+import util.DateUtil;
 import util.JSonUtil;
 
 @Controller
@@ -41,6 +42,7 @@ public class YcController extends HttpServlet {
 	private int pageCtvt = 1;
 	private String searchTen = "";
 	private String searchMa = "";
+//	private NhatKy nhatKy = null;
 	@RequestMapping("ycvtManage")
     public ModelAndView updateYeuCau(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //	    	congVan
@@ -113,6 +115,17 @@ public class YcController extends HttpServlet {
 //		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã cập nhật số lượng cho vât tư có mã " + ctvt.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctvt.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctvt.getChatLuong().getClMa() + "của công văn  " + congVan.getSoDen());
 //		nhatKyDAO.addNhatKy(nhatKy);
 //		nhatKyDAO.disconnect();
+    	NhatKy nhatKy = (NhatKy) session.getAttribute("nhatKy");
+    	if (nhatKy == null) {
+    		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
+    		nhatKy = new NhatKy(authentication.getMsnv(), currentDate, cvId + "#Bạn đã cập nhật vật tư thiếu cho công văn có số đến " + congVan.getSoDen() + " nhận ngày " + congVan.getCvNgayNhan() + ":<br> ");
+    	}
+    	
+    	String noiDung = nhatKy.getNoiDung();
+    	noiDung += "&nbsp;&nbsp;+" + "Vật tư có mã: " + ctvt.getVatTu().getVtMa() 
+    			+ ", mã nơi sản xuất: "  + ctvt.getNoiSanXuat().getNsxMa() + ""
+    			+ ", mã chất lượng: " + ctvt.getChatLuong().getClMa() + " số lượng "  + yeuCau.getYcSoLuong() + ctvt.getVatTu().getDvt().getDvtTen();
+    	nhatKy.setNoiDung(noiDung);
 		return JSonUtil.toJson(yeuCau);
 	}
 	

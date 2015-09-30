@@ -404,6 +404,19 @@ public long size(String msnv, HashMap<String, Object> conditions) {
 		if (session.isConnected())
 			session.disconnect();
 	}
+	
+//	public ArrayList<CongVan> getByCongVanId(ArrayList<Integer> cvIdList) {
+//		session.beginTransaction();
+//		Criteria cr = session.createCriteria("CongVan");
+//		cr.createAlias("congVan.trangThai", "trangThai");
+//		cr.createAlias("congVan.mucDich", "mucDich");
+//		cr.createAlias("donVi", "donVi");
+////		cr.
+//		ArrayList<CongVan> congVanList = cr.
+//		session.getTransaction().commit();
+//		return null;
+//	}
+	
 	public static void main(String[] args) {
 		System.out.println(new CongVanDAO().size("b1203959"));
 		HashMap<String, Object> conditions = new HashMap<String, Object>();

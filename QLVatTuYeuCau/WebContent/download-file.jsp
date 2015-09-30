@@ -28,14 +28,16 @@
 	response.setContentType("APPLICATION/OCTET-STREAM");   
 	String path = (String) request.getAttribute("path");
 	java.io.File file = new java.io.File (path);
+// 	response.setContent
 	response.setHeader("Content-Disposition","attachment; filename=\"" + FileUtil.getNameFile(file) + "." + FileUtil.getExtension(file));
 	 
-	java.io.FileInputStream fileInputStream=new java.io.FileInputStream(file);  
+	java.io.FileInputStream fileInputStream = new java.io.FileInputStream(file);  
 	          
-	int i;   
-	while ((i=fileInputStream.read()) != -1) {  
+	int i;   	
+	while ((i = fileInputStream.read()) != -1) {  
 	  out.write(i);   
-	}   
+	}
+	response.flushBuffer();
 	fileInputStream.close();
  %>
 </body>
