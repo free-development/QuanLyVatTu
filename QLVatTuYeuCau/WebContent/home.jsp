@@ -248,7 +248,6 @@
 				<%} else if (chucDanh.equals(adminMa)){
 					
 				%>	
-				
 				<%} else {	
 					ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList"); 
 					ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) request.getAttribute("nhatKyList");
@@ -300,7 +299,6 @@
 				</table>
 				<%} %>
 				</div>
-				
         </div>
     </body>
 </html>

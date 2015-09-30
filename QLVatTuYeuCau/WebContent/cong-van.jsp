@@ -12,7 +12,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html>	
 <html>
 <head>
 <title>Văn phòng điện tử công ty điện lực Cần Thơ</title>
@@ -42,28 +42,7 @@
    			return;
    		}
    	%>
-<script type="text/javascript">
-<% 
-String chucDanh = authentication.getChucDanh().getCdMa();
-String chucDanhMa = chucDanh;
-%>
-check = <% if (vanThuMa.equals(chucDanhMa) ) out.print("false"); else out.print("true");%>;
-capVatTuId = '<%=capPhatMa  %>';
-chucDanhMa = '<%=chucDanhMa  %>';
-vanThuMa = '<%=vanThuMa  %>';
-truongPhongMa = '<%=truongPhongMa  %>';
-hosting = '<%=hosting  %>';
-// || capPhatMa.equals(chucDanhMa)
-
-</script>
-<script type="text/javascript" src="js/cong-van.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
-
-</head>
-<body>
-	
-	<%
+   	<%
 		request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -88,9 +67,33 @@ hosting = '<%=hosting  %>';
     	Long size = (Long) request.getAttribute("size");
     	ArrayList<ArrayList<VaiTro>> vtCongVanList = (ArrayList<ArrayList<VaiTro>>) request.getAttribute("vtCongVanList");
     	ArrayList<ArrayList<String>> nguoiXlCongVan = (ArrayList<ArrayList<String>>) request.getAttribute("nguoiXlCongVan");
+    	ArrayList<String> ttMaList = (ArrayList<String>) request.getAttribute("ttMaList");
     	
     	try {
     %>
+<script type="text/javascript">
+<% 
+String chucDanh = authentication.getChucDanh().getCdMa();
+String chucDanhMa = chucDanh;
+%>
+check = <% if (vanThuMa.equals(chucDanhMa) ) out.print("false"); else out.print("true");%>;
+capVatTuId = '<%=capPhatMa  %>';
+chucDanhMa = '<%=chucDanhMa  %>';
+vanThuMa = '<%=vanThuMa  %>';
+truongPhongMa = '<%=truongPhongMa  %>';
+hosting = '<%=hosting  %>';
+
+// || capPhatMa.equals(chucDanhMa)
+
+</script>
+<script type="text/javascript" src="js/cong-van.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
+
+</head>
+<body>
+	
+	
     
 	<div class="wrapper">
 		<jsp:include page="header.jsp" /> 
@@ -120,7 +123,6 @@ hosting = '<%=hosting  %>';
 							</ul>
 				</li>
 				<%} %>
-				<%if (!chucDanh.equalsIgnoreCase(adminMa)) {%>
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
 				<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
 				<li><a>Báo cáo</a>
@@ -129,7 +131,7 @@ hosting = '<%=hosting  %>';
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<%}} %>
+				<%} %>
 				<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
 				<li><a>Quản lý người dùng</a>
 					<ul>
@@ -205,14 +207,19 @@ hosting = '<%=hosting  %>';
 						<table>
 							<tr>
 								<th class="column-loc">Tìm kiếm: </th>
-								<td><select class="select" name="filter" id="filter">
+								<td id = "type"><select class="select" name="filter" id="filter">
 										<option value =""> Tất cả </option>
 <!-- 										<option>Ngày đến</option> -->
 										<option value="soDen">Số đến</option>
-										<option value="mucDich">Mục đích nhận</option>
+										<option value="cvSo">Số công văn đến</option>
+										<option value="mdMa">Mục đích nhận</option>
+										<option value="cvNgayDi">Ngày gửi</option>
+										<option value="cvNgayNhan">Ngày nhận</option>
+										<option value="dvMa">Đơn vị gửi</option>
 <!-- 										<option>Nơi gửi</option> -->
 										<option value="trichYeu">Trích yếu</option>
 										<option value="butPhe">Bút phê</option>
+										
 <!-- 										<option>Nơi GQ chính</option> -->
 
 								</select>
@@ -229,8 +236,8 @@ hosting = '<%=hosting  %>';
                             </td>-->
 								<td>
 									<!--                                 <div class="search-form">-->
-									<span class="search-text"> <!--								&nbsp;--> <input
-										type="search" class="text" name="filterValue" id="filterValue" readonly style="background: #D1D1E0;"
+									<span class="search-text" id="searchContent"> <!--								&nbsp;--> 
+									<input type="search" class="text" name="filterValue" id="filterValue" readonly style="background: #D1D1E0;"
 										placeholder="Nội dung tìm kiếm" />
 								</span> <span class="search-button">
 										<button class="btn-search" id = "buttonSearch" type="button">
@@ -264,7 +271,7 @@ hosting = '<%=hosting  %>';
 					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : #FFFFFF;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
 						<tr >
 						<% if (chucDanhMa.equals(vanThuMa)) {%>
-							<td class="column-check" rowspan="7" style="margin-right: 30px;">
+							<td class="column-check" rowspan="8" style="margin-right: 30px;">
 								<input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
 							</td>
 							<%} %>
@@ -353,13 +360,29 @@ hosting = '<%=hosting  %>';
 						<tr>
 							<td class="left-column-first" style="font-weight: bold;">Xem công văn: </td>
 							<td colspan="5">
-<%-- 								<a href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>"> --%>
-<%-- 									<div class="mo-ta"><%=fileHash.get(congVan.getCvId()).getMoTa() %></div> --%>
-<!-- 								</a> -->
-								<button><%=fileHash.get(congVan.getCvId()).getMoTa() %></button>
+								<a href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
+									<div class="mo-ta"><%=fileHash.get(congVan.getCvId()).getMoTa() %></div>
+								</a>
+<%-- 								<button><%=fileHash.get(congVan.getCvId()).getMoTa() %></button> --%>
 							</td>
 							
 						</tr>
+						<tr>
+							<th style="text-align: left"><label>Trạng
+									thái</label></th>
+							<td style="text-align: left; padding-left: 10px;" colspan = "5">
+								
+								<input type="radio" <%if ("CGQ".equals(ttMaList.get(count - 1))) out.println(" checked ");%> name="ttMaUpdate"  value="<%=congVan.getCvId()+"#"+"CGQ"%>" id="<%=congVan.getCvId()+"#"+"CGQ"%>" onchange="changeTrangThai()">
+								<label for="<%=congVan.getCvId()+"#"+"CGQ"%>">Chưa giải quyết</label>&nbsp;&nbsp;&nbsp;
+								
+								<input type="radio" <%if ("DGQ".equals(ttMaList.get(count - 1))) out.println(" checked ");%> name="ttMaUpdate"  value="<%=congVan.getCvId()+"#"+"DGQ"%>" id="<%=congVan.getCvId()+"#"+"DGQ"%>" onchange="changeTrangThai()">
+								<label for="<%=congVan.getCvId()+"#"+"DGQ"%>">Còn thiếu hàng</label>&nbsp;&nbsp;&nbsp;
+								
+								<input type="radio" <%if ("DaGQ".equals(ttMaList.get(count - 1))) out.println(" checked ");%> name="ttMaUpdate"  value="<%=congVan.getCvId()+"#"+"DaGQ"%>" id="<%=congVan.getCvId()+"#"+"DaGQ"%>" onchange="changeTrangThai()">
+								<label for="<%=congVan.getCvId()+"#"+"DaGQ"%>">Đã cấp đủ hàng</label>&nbsp;&nbsp;&nbsp;
+								<div id="requireTrangThaiUp" style="color: red"></div>
+							</td>
+						</tr>	
 					</table>
 					<br>
 					<hr>
@@ -427,12 +450,13 @@ hosting = '<%=hosting  %>';
 <!-- 								<td colspan="3"><input type = "text" class="text" readonly value="123" style="background: #D1D1E0;" sise="5" name="soDen"></td> -->
 <!-- 							</tr> -->
 							<tr style="margin-bottom: 20px;">
-								<th style="text-align: left" colspan="1"> <label for="soDen" style="text-align: left">Số công văn: </label></th>
-								<td colspan="3"><input type="text" class="text" name="cvSo" id="cvSo" onkeypress="changeSoCv();"><div id="requireSoCv" style="color: red"></div></td>
-							</tr>	
-							<tr style="margin-bottom: 20px;">	
+								<th style="text-align: left" colspan="1"> <label for="cvSo" style="text-align: left">Số công văn: </label></th>
+								<td colspan="1"><input type="text" class="text" name="cvSo" id="cvSo" onkeypress="changeSoCv();"><div id="requireSoCv" style="color: red"></div></td>
 								<th style="text-align: left"><label for="ngayGoi" class="input">Ngày gởi: </label></th>
 								<td><input type="date" class="text" name="ngayGoi" id="ngayGoi" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %> ></td>
+							</tr>	
+							<tr style="margin-bottom: 20px;">	
+								
 								<th style="text-align: left"><label for="ngayNhan" class="input">Ngày nhận: </label></th>
 								<td><input type="date" class="text" name="ngayNhan" id="ngayNhan" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %> onkeypress="changeNgayNhan();"><div id="requireNgayNhan" style="color: red"></div></td>
 							</tr>
@@ -468,7 +492,7 @@ hosting = '<%=hosting  %>';
 							<tr>	
 							</tr>
 								<th  style="text-align: left;"><label
-										for="moTa" class="input" >Mô tả file: </label></th>
+										for="moTa" class="input" >Ghi chú: </label></th>
 								<td colspan="3"><textarea class="txtarea" name="moTa" onkeypress="changeMoTa();"></textarea><div id="requireMoTa" style="color: red"></div></td>
 							<tr>
 						</table>
@@ -536,18 +560,9 @@ hosting = '<%=hosting  %>';
 							</tr>
 							<tr>
 								<th style="text-align: left;"><label for="file" class="input" name="file">Tệp đính kèm: </label></th>
-								<td><input type="file" value="ac" id="file" name="file" onchange="changeFileUp();"><div id="requireFileUp" style="color: red"></div></td>
+								<td><input type="file" id="file" name="file" onchange="changeFileUp();"><div id="requireFileUp" style="color: red"></div></td>
 							</tr>
-							<tr>
-								<th style="text-align: left"><label for="TT">Trạng
-										thái</label></th>
-								<td style="text-align: right; padding-left: 10px;">
-									<% for (TrangThai trangThai : trangThaiList) {%>
-									<input type="radio" name="ttMaUpdate" value="<%=trangThai.getTtMa()%>" id="<%=trangThai.getTtMa()%>" onchange="changeTrangThaiUp();"> 
-									<label for="<%=trangThai.getTtMa()%>"><%=trangThai.getTtTen()%></label>&nbsp;&nbsp;&nbsp;
-									<%}%>
-								<div id="requireTrangThaiUp" style="color: red"></div></td>
-							</tr>	
+							
 						</table>
 						
 					</div>

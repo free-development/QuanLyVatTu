@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -41,6 +43,7 @@ import model.MucDich;
 import model.NguoiDung;
 import model.NhatKy;
 import model.TrangThai;
+import model.VTCongVan;
 import model.VaiTro;
 import util.DateUtil;
 import util.FileUtil;
@@ -67,7 +70,7 @@ public class CvController extends HttpServlet{
     private int date = 0;
     private String ttMa = "";
     private String column = "";
-    private String columnValue = "";
+    private Object columnValue = "";
     
     private String truongPhongMa = "";
     private String vanThuMa = "";
@@ -109,15 +112,20 @@ public class CvController extends HttpServlet{
 		// danh sach nguoi xu ly cong van
     	ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
-		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> ();
+		ArrayList<String> ttMaList =  new ArrayList<String>();
 		if (msnvTemp != null) {
+			
 			for(CongVan congVan : congVanList) {
 				int cvId = congVan.getCvId();
 				fileHash.put(cvId, fileDAO.getByCongVanId(cvId));
 				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
 				vtCongVanList.add(vtCongVan);
+				ArrayList<VTCongVan> vtcvList = vtcvDAO.getVTCongVan(cvId, msnvTemp);
+				ttMaList.add(vtcvList.get(0).getTrangThai().getTtMa());
 			}
 			request.setAttribute("vtCongVanList", vtCongVanList);
+			
 		}
 		else if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa)) {
 			for(CongVan congVan : congVanList) {
@@ -127,6 +135,7 @@ public class CvController extends HttpServlet{
 				
 				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
 				nguoiXlCongVan.add(nguoiXl);
+				ttMaList.add(congVan.getTrangThai().getTtMa());
 			}
 			request.setAttribute("nguoiXlCongVan", nguoiXlCongVan);
 			
@@ -136,9 +145,9 @@ public class CvController extends HttpServlet{
 		request.setAttribute("fileHash", fileHash);
 		request.setAttribute("mucDichList", mucDichList);
 		request.setAttribute("donViList", donViList);
-		request.setAttribute("trangThaiList", trangThaiList);
 		request.setAttribute("yearList", yearList);
 		request.setAttribute("size", size);
+		request.setAttribute("ttMaList", ttMaList);
 		congVanDAO.disconnect();
 		donViDAO.disconnect();
 		trangThaiDAO.disconnect();
@@ -333,7 +342,6 @@ public class CvController extends HttpServlet{
 		String dvMa = multipartRequest.getParameter("donViUpdate");
 		String trichYeu = multipartRequest.getParameter("trichYeuUpdate");
 		String butPhe = multipartRequest.getParameter("butPheUpdate");
-		String ttMa = multipartRequest.getParameter("ttMaUpdate");
 		String fileFullName = "";
 		Enumeration<String> listFileName = multipartRequest.getFileNames();		
 		String fileName = "";
@@ -358,7 +366,6 @@ public class CvController extends HttpServlet{
 		congVan.setCvNgayNhan(cvNgayNhan);
 		congVan.setDonVi(new DonVi(dvMa));
 		congVan.setMucDich(new MucDich(mdMa));
-		congVan.setTrangThai(new TrangThai(ttMa));
 		congVan.setTrichYeu(trichYeu);
 		congVanDAO.updateCongVan(congVan);
 //    	File
@@ -443,9 +450,9 @@ public class CvController extends HttpServlet{
 			conditions.put("year", year);
 		if (ttMa.length() > 0)
 			conditions.put("trangThai.ttMa", ttMa);
-		if (column.length() > 0 && columnValue.length() > 0) {
+		if (column.length() > 0 && ((String) columnValue).length() > 0) {
 			if (column.equals("soDen"))
-				conditions.put(column, Integer.parseInt(columnValue));
+				conditions.put(column, Integer.parseInt((String) columnValue));
 			else
 				conditions.put(column, columnValue);
 		}
@@ -460,6 +467,7 @@ public class CvController extends HttpServlet{
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
 		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		ArrayList<String> ttMaList =  new ArrayList<String>();
 		VTCongVanDAO vtcvDAO = new VTCongVanDAO();
 		if (msnvTemp != null) {
 			for (CongVan congVan : congVanList) {
@@ -468,6 +476,8 @@ public class CvController extends HttpServlet{
 				int cvId = congVan.getCvId();
 				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
 				vtCongVanList.add(vtCongVan);
+				ArrayList<VTCongVan> vtcvList = vtcvDAO.getVTCongVan(cvId, msnvTemp);
+				ttMaList.add(vtcvList.get(0).getTrangThai().getTtMa());
 			}
 		} else {
 			for(CongVan congVan : congVanList) {
@@ -477,6 +487,7 @@ public class CvController extends HttpServlet{
 				int cvId = congVan.getCvId();
 				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
 				nguoiXlCongVan.add(nguoiXl);
+				ttMaList.add(congVan.getTrangThai().getTtMa());
 			}
 		}
 		long size = congVanDAO.size(msnvTemp, conditions);
@@ -493,6 +504,7 @@ public class CvController extends HttpServlet{
 		} else {
 			objectList.add(vtCongVanList);
 		}
+		objectList.add(ttMaList);
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/loadByMonth", method=RequestMethod.GET, 
@@ -517,9 +529,9 @@ public class CvController extends HttpServlet{
 			conditions.put("month", month);
 		if (ttMa.length() > 0)
 			conditions.put("trangThai.ttMa", ttMa);
-		if (column.length() > 0 && columnValue.length() > 0) {
+		if (column.length() > 0 && ((String) columnValue).length() > 0) {
 			if (column.equals("soDen"))
-				conditions.put(column, Integer.parseInt(columnValue));
+				conditions.put(column, Integer.parseInt((String) columnValue));
 			else
 				conditions.put(column, columnValue);
 		}
@@ -534,6 +546,7 @@ public class CvController extends HttpServlet{
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
 		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		ArrayList<String> ttMaList =  new ArrayList<String>();
 		VTCongVanDAO vtcvDAO = new VTCongVanDAO();
 		if (msnvTemp != null) {
 			for (CongVan congVan : congVanList) {
@@ -542,6 +555,8 @@ public class CvController extends HttpServlet{
 				int cvId = congVan.getCvId();
 				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
 				vtCongVanList.add(vtCongVan);
+				ArrayList<VTCongVan> vtcvList = vtcvDAO.getVTCongVan(cvId, msnvTemp);
+				ttMaList.add(vtcvList.get(0).getTrangThai().getTtMa());
 			}
 		} else {
 			for(CongVan congVan : congVanList) {
@@ -551,6 +566,7 @@ public class CvController extends HttpServlet{
 				int cvId = congVan.getCvId();
 				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
 				nguoiXlCongVan.add(nguoiXl);
+				ttMaList.add(congVan.getTrangThai().getTtMa());
 			}
 		}
 		long size = congVanDAO.size(msnvTemp, conditions);
@@ -562,13 +578,13 @@ public class CvController extends HttpServlet{
 		objectList.add(fileList);
 		objectList.add(dateList);
 		long page = (size % 3 == 0 ? size/3 : (size/3) +1 );
-		System.out.println(page);
 		objectList.add(page);
 		if (msnvTemp == null) {
 			objectList.add(nguoiXlCongVan);
 		} else {
 			objectList.add(vtCongVanList);
 		}
+		objectList.add(ttMaList);
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/loadByDate", method=RequestMethod.GET, 
@@ -595,9 +611,9 @@ public class CvController extends HttpServlet{
 			conditions.put("day", date);
 		if (ttMa.length() > 0)
 			conditions.put("trangThai.ttMa", ttMa);
-		if (column.length() > 0 && columnValue.length() > 0) {
+		if (column.length() > 0 && ((String) columnValue).length() > 0) {
 			if (column.equals("soDen"))
-				conditions.put(column, Integer.parseInt(columnValue));
+				conditions.put(column, Integer.parseInt((String) columnValue));
 			else
 				conditions.put(column, columnValue);
 		}
@@ -611,6 +627,7 @@ public class CvController extends HttpServlet{
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
 		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		ArrayList<String> ttMaList =  new ArrayList<String>();
 		VTCongVanDAO vtcvDAO = new VTCongVanDAO();
 		if (msnvTemp != null) {
 			for (CongVan congVan : congVanList) {
@@ -619,6 +636,8 @@ public class CvController extends HttpServlet{
 				int cvId = congVan.getCvId();
 				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
 				vtCongVanList.add(vtCongVan);
+				ArrayList<VTCongVan> vtcvList = vtcvDAO.getVTCongVan(cvId, msnvTemp);
+				ttMaList.add(vtcvList.get(0).getTrangThai().getTtMa());
 			}
 		} else {
 			for(CongVan congVan : congVanList) {
@@ -628,6 +647,7 @@ public class CvController extends HttpServlet{
 				int cvId = congVan.getCvId();
 				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
 				nguoiXlCongVan.add(nguoiXl);
+				ttMaList.add(congVan.getTrangThai().getTtMa());
 			}
 		}
 		long size = congVanDAO.size(msnvTemp, conditions);
@@ -643,6 +663,7 @@ public class CvController extends HttpServlet{
 		} else {
 			objectList.add(vtCongVanList);
 		}
+		objectList.add(ttMaList);
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/searchByTrangThai", method=RequestMethod.GET, 
@@ -668,9 +689,9 @@ public class CvController extends HttpServlet{
 			conditions.put("day", date);
 		if (ttMa.length() > 0)
 			conditions.put("trangThai.ttMa", ttMa);
-		if (column.length() > 0 && columnValue.length() > 0)  {
+		if (column.length() > 0 && ((String) columnValue).length() > 0)  {
 			if (column.equals("soDen"))
-				conditions.put(column, Integer.parseInt(columnValue));
+				conditions.put(column, Integer.parseInt((String) columnValue));
 			else
 				conditions.put(column, columnValue);
 		}
@@ -686,6 +707,7 @@ public class CvController extends HttpServlet{
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
 		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		ArrayList<String> ttMaList =  new ArrayList<String>();
 		VTCongVanDAO vtcvDAO = new VTCongVanDAO();
 		if (msnvTemp != null) {
 			for (CongVan congVan : congVanList) {
@@ -694,6 +716,8 @@ public class CvController extends HttpServlet{
 				int cvId = congVan.getCvId();
 				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
 				vtCongVanList.add(vtCongVan);
+				ArrayList<VTCongVan> vtcvList = vtcvDAO.getVTCongVan(cvId, msnvTemp);
+				ttMaList.add(vtcvList.get(0).getTrangThai().getTtMa());
 			}
 		} else {
 			for(CongVan congVan : congVanList) {
@@ -703,6 +727,7 @@ public class CvController extends HttpServlet{
 				int cvId = congVan.getCvId();
 				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
 				nguoiXlCongVan.add(nguoiXl);
+				ttMaList.add(congVan.getTrangThai().getTtMa());
 			}
 		}
 		long size = congVanDAO.size(msnvTemp, conditions);
@@ -718,6 +743,7 @@ public class CvController extends HttpServlet{
 		} else {
 			objectList.add(vtCongVanList);
 		}
+		objectList.add(ttMaList);
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/filter", method=RequestMethod.GET, 
@@ -731,11 +757,15 @@ public class CvController extends HttpServlet{
     	String msnv = nguoiDung.getMsnv();
 		
 		
-		if (filter.equals("mucDich"))
+		if (filter.equals("mdMa"))
 			column = "mucDich."+"mdMa";
+		else if (filter.equals("dvMa"))
+			column = "donVi."+"dvMa";
 		else
 			column = filter;
 		columnValue = filterValue;
+		if (filter.equals("cvNgayNhan") || filter.equals("cvNgayDi"))
+			columnValue = DateUtil.parseDate((String) columnValue);
 		CongVanDAO congVanDAO = new CongVanDAO();
 		FileDAO fileDAO = new FileDAO();
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
@@ -748,9 +778,9 @@ public class CvController extends HttpServlet{
 			conditions.put("day", date);
 		if (ttMa.length() > 0)
 			conditions.put("trangThai.ttMa", ttMa);
-		if (column.length() > 0 && columnValue.length() > 0)  {
+		if (column.length() > 0 && columnValue.toString().length() > 0)  {
 			if (column.equals("soDen"))
-				conditions.put(column, Integer.parseInt(columnValue));
+				conditions.put(column, Integer.parseInt((String) columnValue));
 			else
 				conditions.put(column, columnValue);
 		}
@@ -766,6 +796,7 @@ public class CvController extends HttpServlet{
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
 		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
+		ArrayList<String> ttMaList =  new ArrayList<String>();
 		VTCongVanDAO vtcvDAO = new VTCongVanDAO();
 		if (msnvTemp != null) {
 			for (CongVan congVan : congVanList) {
@@ -774,6 +805,8 @@ public class CvController extends HttpServlet{
 				int cvId = congVan.getCvId();
 				ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
 				vtCongVanList.add(vtCongVan);
+				ArrayList<VTCongVan> vtcvList = vtcvDAO.getVTCongVan(cvId, msnvTemp);
+				ttMaList.add(vtcvList.get(0).getTrangThai().getTtMa());
 			}
 		} else {
 			for(CongVan congVan : congVanList) {
@@ -783,6 +816,7 @@ public class CvController extends HttpServlet{
 				int cvId = congVan.getCvId();
 				ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
 				nguoiXlCongVan.add(nguoiXl);
+				ttMaList.add(congVan.getTrangThai().getTtMa());
 			}
 		}
 		long size = congVanDAO.size(msnvTemp, conditions);
@@ -798,6 +832,11 @@ public class CvController extends HttpServlet{
 		} else {
 			objectList.add(vtCongVanList);
 		}
+		objectList.add(ttMaList);
+		System.out.println(congVanList.size());
+		System.out.println(msnv);
+		for (String key : conditions.keySet())
+			System.out.println("key = " + key + "\t value = " +conditions.get(key));//
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/loadPageCongVan", method=RequestMethod.GET, 
@@ -824,9 +863,9 @@ public class CvController extends HttpServlet{
 				conditions.put("day", date);
 			if (ttMa.length() > 0)
 				conditions.put("trangThai.ttMa", ttMa);
-			if (column.length() > 0 && columnValue.length() > 0)  {
+			if (column.length() > 0 && ((String) columnValue).length() > 0)  {
 				if (column.equals("soDen"))
-					conditions.put(column, Integer.parseInt(columnValue));
+					conditions.put(column, Integer.parseInt((String) columnValue));
 				else
 					conditions.put(column, columnValue);
 			}
@@ -844,6 +883,7 @@ public class CvController extends HttpServlet{
 			// array list vai tro nguoi dung
 			ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
 			VTCongVanDAO vtcvDAO = new VTCongVanDAO();
+			ArrayList<String> ttMaList = new ArrayList<String>(); 
 			if (msnvTemp != null) {
 				for (CongVan congVan : congVanList) {
 					File file = fileDAO.getByCongVanId(congVan.getCvId());
@@ -851,6 +891,8 @@ public class CvController extends HttpServlet{
 					int cvId = congVan.getCvId();
 					ArrayList<VaiTro> vtCongVan = vtcvDAO.getVaiTro(cvId, msnv);
 					vtCongVanList.add(vtCongVan);
+					ArrayList<VTCongVan> vtcvList = vtcvDAO.getVTCongVan(cvId, msnvTemp);
+					ttMaList.add(vtcvList.get(0).getTrangThai().getTtMa());
 				}
 			} else {
 				for(CongVan congVan : congVanList) {
@@ -859,8 +901,10 @@ public class CvController extends HttpServlet{
 					int cvId = congVan.getCvId();
 					ArrayList<String> nguoiXl = vtcvDAO.getNguoiXl(cvId);
 					nguoiXlCongVan.add(nguoiXl);
+					ttMaList.add(congVan.getTrangThai().getTtMa());
 				}
 			}
+			
 			long size = congVanDAO.size(msnvTemp, conditions);
 			congVanDAO.disconnect();
 			fileDAO.disconnect();
@@ -874,6 +918,7 @@ public class CvController extends HttpServlet{
 			} else {
 				objectList.add(vtCongVanList);
 			}
+			objectList.add(ttMaList);
 //			session.setMaxInactiveInterval(5000);
 			return JSonUtil.toJson(objectList);
 		} catch (NumberFormatException | NullPointerException e) {
@@ -885,5 +930,59 @@ public class CvController extends HttpServlet{
 			}
 			return null;
 		}
+	}
+	@RequestMapping(value="/changeTrangThai", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody String changeTrangThai(@RequestParam("trangThai") String trangThai, HttpServletRequest request,
+	            HttpServletResponse response, HttpSession session) {
+		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+		String cdMa = authentication.getChucDanh().getCdMa();
+		truongPhongMa = context.getInitParameter("truongPhongMa");
+    	vanThuMa = context.getInitParameter("vanThuMa");
+		String[] temp = trangThai.split("\\#");
+		int cvId = Integer.parseInt(temp[0]);
+		String ttMa = temp[1];
+		try {
+			if (cdMa.equals(truongPhongMa) || cdMa.equals(vanThuMa)) {
+				CongVanDAO congVanDAO = new CongVanDAO();
+				
+				CongVan congVan = congVanDAO.getCongVan(cvId);
+				
+				congVan.setTrangThai(new TrangThai(ttMa));
+				congVanDAO.updateCongVan(congVan);
+				congVanDAO.disconnect();
+			} else {
+				VTCongVanDAO vtCongVanDAO = new VTCongVanDAO();
+				ArrayList<VTCongVan> vtCongVanList = vtCongVanDAO.getVTCongVan(cvId, authentication.getMsnv());
+				for (VTCongVan vtCongVan : vtCongVanList) {
+					vtCongVan.setTrangThai(new TrangThai(ttMa));
+					vtCongVanDAO.updateVTCongVan(vtCongVan);
+				}
+				vtCongVanDAO.disconnect();
+			}
+			return JSonUtil.toJson("success");
+		}
+		catch (HibernateException e) {
+			return JSonUtil.toJson("fail");
+		}
+		
+	}
+	@RequestMapping(value="/getDonVi", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody String getDonVi(HttpServletRequest request,
+	            HttpServletResponse response, HttpSession session) {
+		DonViDAO donViDAO = new DonViDAO();
+		ArrayList<DonVi> donViList = (ArrayList<DonVi>) donViDAO.getAllDonVi();
+		donViDAO.disconnect();
+		return JSonUtil.toJson(donViList);
+	}
+	@RequestMapping(value="/getMucDich", method=RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	 public @ResponseBody String getMucDich(HttpServletRequest request,
+	            HttpServletResponse response, HttpSession session) {
+		MucDichDAO donViDAO = new MucDichDAO();
+		ArrayList<MucDich> mucDichList = (ArrayList<MucDich>) donViDAO.getAllMucDich();
+		donViDAO.disconnect();
+		return JSonUtil.toJson(mucDichList);
 	}
 }
