@@ -48,15 +48,13 @@ public class YcController extends HttpServlet {
 //	    	congVan
 		session = request.getSession(false);
 		
-<<<<<<< HEAD
-		String[] s = request.getParameterValues("cvId");
-		String cvSo = request.getParameter("cvSo");
-		if(s[0] == null)
-=======
+		//sString[] s = request.getParameterValues("cvId");
 		String s = request.getParameter("cvId");
+		String cvSo = request.getParameter("cvSo");
+		//if(s[0] == null)
+		
 		JOptionPane.showConfirmDialog(null, s);
 		if(s == null)
->>>>>>> c74545ffeb344004250b3dfaa6394e8ac39e0018
 			return new ModelAndView(siteMap.cvManage + "?action=manageCv");
 		int cvId =  Integer.parseInt(s);
 		JOptionPane.showConfirmDialog(null, s);

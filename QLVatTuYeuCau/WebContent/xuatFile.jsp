@@ -141,12 +141,18 @@ display:none;
 				<br>
 				<br>
 				<br>
-				<table style = "margin: 0 auto;width:960px;">
-					<tr>
-						<td style="padding-left:100px;font-size: 17px;font-weight: bold;">Lập biểu</td>
-						<td style="font-size: 17px;padding-left:500px;font-weight: bold;">Trưởng phòng vật tư</td>
-					</tr>
-				</table>
+				<div style="width:960px;font-size: 18px;margin: auto;">
+						<table style="width:960px;font-size: 18px;;">
+								<tr>
+									<td></td>
+									<td style="text-align: right;">Ngày.....tháng.....năm.....</td>
+								</tr>
+								<tr>
+									<td style="text-align: left;font-weight: bold;">Người lập biểu</td>
+									<td style="text-align: right;font-weight: bold;">Trưởng Phòng Vật Tư</td>
+								</tr>
+						</table>
+				</div>
 				<div class="group-button">
 					
 					 <%
@@ -233,12 +239,18 @@ display:none;
 			<br>
 				<br>
 				<br>
-				<table style = "margin: 0 auto;width:960px;">
-					<tr>
-						<td style="padding-left:100px;font-size: 17px;font-weight: bold;">Lập biểu</td>
-						<td style="font-size: 17px;padding-left:500px;font-weight: bold;">Trưởng phòng vật tư</td>
-					</tr>
-				</table>
+				<div style="width:960px;font-size: 18px;margin: auto;">
+						<table style="width:960px;font-size: 18px;;">
+								<tr>
+									<td></td>
+									<td style="text-align: right;">Ngày.....tháng.....năm.....</td>
+								</tr>
+								<tr>
+									<td style="text-align: left;font-weight: bold;">Người lập biểu</td>
+									<td style="text-align: right;font-weight: bold;">Trưởng Phòng Vật Tư</td>
+								</tr>
+						</table>
+				</div>
 				 <%
         			if (exportToExcel == null) {
    				 %>

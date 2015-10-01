@@ -28,7 +28,7 @@
 	type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/location.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/congvan.js"></script>
+
 <%
 		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
 		String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
@@ -159,7 +159,7 @@ hosting = '<%=hosting  %>';
 			<div id="content-form">
 			<div id="title-content">Công văn</div>
 				<!--            <form id="main-form">-->
-				<table style="margin: 0 auto;width:960px;">
+				<table style="margin: 0 auto;">
 				<tr>
 				<td>
 				<div class="left-content">
@@ -380,7 +380,6 @@ hosting = '<%=hosting  %>';
 								<a href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
 									<div class="mo-ta"><%=fileName %></div>
 								</a>
-<%-- 								<button><%=fileHash.get(congVan.getCvId()).getMoTa() %></button> --%>
 							</td>
 							<td class="left-column-first" style="font-weight: bold;">Ghi chú: </td>
 							<td colspan="3">

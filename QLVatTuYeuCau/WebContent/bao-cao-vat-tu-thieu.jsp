@@ -201,6 +201,8 @@
 								<th style="border: 1px dotted black;width: 250px;" class="three-column">Đơn vị xin</th>
 								<th style="border: 1px dotted black;width: 50px;" class="six-column">Đơn vị tính</th>
 								<th style="border: 1px dotted black;width: 50px;" class="one-column">Số lượng thiếu</th>
+								<th style="border: 1px dotted black;width: 50px;" class="one-column">Số lượng tồn</th>
+								
 <!-- 								<th style="border: 1px dotted black;">Link công văn</th> -->
 							</tr>
 						
@@ -225,6 +227,7 @@
 										<td class="d-column"style="text-align: left;"><%=congVan.getDonVi().getDvTen()%></td>
 										<td class="e-column"style="text-align: center;"><%=yeuCau.getCtVatTu().getVatTu().getDvt().getDvtTen() %></td>
 										<td class="e-column"style="text-align: center;"><%=yeuCau.getYcSoLuong() %></td>
+										<td class="e-column"style="text-align: center;"><%=yeuCau.getCtVatTu().getSoLuongTon() %></td>
 <%-- 										<td style="text-align: center;"><a style="color: blue;text-decoration: underline;" href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">Xem</td> --%>
 									</tr>	
 								<%}} }%>			
@@ -264,7 +267,7 @@
 						<th style="border: 1px dottedblack;width: 350px;" class="three-column">Đơn vị xin</th>
 						<th style="border: 1px dotted black;width: 50px;" class="six-column">Đơn vị tính</th>
 						<th style="border: 1px dotted black;width: 50px;" class="one-column">Tổng số lượng thiếu</th>
-						<th style="border: 1px dotted black;width: 50px;" class="one-column">Tổng số lượng thiếu</th>
+						<th style="border: 1px dotted black;width: 50px;" class="one-column">Số lượng tồn</th>
 						<th style="border: 1px dotted black;width: 150px;" class="one-column">Công văn liên quan (số đến)</th>
 					</tr >
 								<%
@@ -285,7 +288,7 @@
 						<td class="d-column"style="text-align: left;"><%=congVan.getDonVi().getDvTen()%></td>
 						<td class="e-column"style="text-align: center;"><%=ctvt.getVatTu().getDvt().getDvtTen() %></td>
 						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
-						<td class="e-column"style="text-align: center;"><%=yeuCauHash.get(key) %></td>
+						<td class="d-column"style="text-align: center;"><%=ctvt.getSoLuongTon()%></td>
 						<td>
 							<%
 							ArrayList<Integer> cvIdList = cvIdHash.get(key);
