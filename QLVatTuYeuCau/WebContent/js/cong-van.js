@@ -160,7 +160,14 @@ function preUpdateCv(cv) {
 //			alert("Cong van da bi xoa");
 	  		//alert(congVan.trangThai.ttMa);
 	  		var congVan = objectList[0];
-	  		var fileName = objectList[1];
+	  		var file = objectList[1];
+	  		var path = file.diaChi;
+			var index = path.indexOf("/");
+			var index2 = path.indexOf("-");
+			var index3 = path.lastIndexOf(".");
+			fileName = path.substring(index + 1, index2);
+			if (index3 != -1)
+				fileName += path.substring(index3);
 	  		$('#update-form input:text[name=soDen]').val(congVan.soDen);
 	  		$('#update-form input:text[name=cvSo]').val(congVan.cvSo);
 	  		$('#update-form input:text[name=ngayGoiUpdate]').val(congVan.cvNgayGoi);
@@ -172,6 +179,11 @@ function preUpdateCv(cv) {
 	  		$('#update-form textarea[name=trichYeuUpdate]').val(congVan.trichYeu);
 	  		$('#update-form textarea[name=butPheUpdate]').val(congVan.butPhe);
 //	  		$('#update-form input:radio[name=ttMaUpdate][value='+congVan.trangThai.ttMa+']').prop('checked',true);
+//	  		$('#linkCv').html('<a href=\"' + path + '\" target=\"_blank\">Xem công văn</a>')
+	  		$('#linkCv').html(fileName);
+	  		$('#linkCv').attr('href', getRoot() + '?action=download&file=' + congVan.cvId);
+	  		$('#update-form textarea[name=butPheUpdate]').val(congVan.butPhe);
+	  		$('#update-form textarea[name=moTa]').val(file.moTa);
 	  		showForm('main-form','update-form', true);
 	  		
 	    }
@@ -292,28 +304,29 @@ function loadCongVan(congVanList, fileList, unknownList, ttMaList) {
 			tables +=     '<table class=\"tableContent\" ' + style + ' class=\"border-congvan\">'
 						+ '<tr >';
 						if(chucDanhMa == vanThuMa) {
-						tables += '<td class=\"column-check\" rowspan=\"8\">'
-						+ '<input title=\"Click để chọn công văn\" type=\"checkbox\" name=\"cvId\" value=\"' + congVan.cvId + '\">'
+						tables += '<td class=\"column-check\" rowspan=\"8\" style=\"margin-right: 30px;\">'
+						+ 'Chọn <input title=\"Click để chọn công văn\" type=\"checkbox\" name=\"cvId\" value=\"' + congVan.cvId + '\">'
 						+ '</td>';
 						}
 						tables += '<td class=\"left-column-soden\" style=\"font-weight: bold;\">Số đến: &nbsp;&nbsp;</td>'
 						+ '<td class=\"column-so-den\" style=\"text-align: left\">' + congVan.soDen + '</td>'
-						+ '<td class=\"left-column-socv\" style=\"font-weight: bold;\">Số công văn: &nbsp;&nbsp;</td>'
-						+ '<td class=\"column-socv\" style=\"text-align: left;color:red;\">' + congVan.cvSo + '</td>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Ngày đến: &nbsp;&nbsp;</td>'
-						+ '<td class=\"column-date\" style=\"text-align: left;color:blue;\">' + congVan.cvNgayNhan + '</td>'
+						+ '<td colspan =\"3\" class=\"column-date\" style=\"text-align: left;color:blue;\">' + congVan.cvNgayNhan + '</td>'
+//						+ '<td colspan=\"1\" style=\"font-weight: bold;\">Trạng thái</td>'
+//						+ '<td colspan=\"1\" style=\"color:red;font-weight: bold;font-style: oblique;\">' + congVan.trangThai.ttTen + '</td>'
 						+ '</tr>'
 						+ '<tr>'
-						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Mục đích: &nbsp;&nbsp;</td>'
-						+ '<td class=\"column-color\" colspan=\"3\" style=\"text-align: left\">' + congVan.mucDich.mdTen + '</td>'
-						+ '<th class=\"left-column-ngdi\" style=\"font-weight: bold;\">Ngày công văn đi:&nbsp;&nbsp;</th>'
+						+ '<td class=\"left-column-socv\" style=\"font-weight: bold;\">Số công văn đến: &nbsp;&nbsp;</td>'
+						+ '<td colspan=\"3\" class=\"column-socv\" style=\"text-align: left;color:red;\">' + congVan.cvSo + '</td>'
+						+ '<th  class=\"left-column-ngdi\" style=\"font-weight: bold;\">Ngày công văn đi:&nbsp;&nbsp;</th>'
 						+ '<td class=\"column-date\" style=\"text-align: left;color:blue;\">' + congVan.cvNgayDi+ '</td>'
 						+ '</tr>'
 						+ '<tr>'
+						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Mục đích: &nbsp;&nbsp;</td>'
+						+ '<td class=\"column-color\"  colspan=\"3\"  style=\"text-align: left\">' + congVan.mucDich.mdTen + '</td>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Nơi gửi: &nbsp;&nbsp;</td>'
-						+ '<td class=\"column-color\" colspan=\"3\" style=\"text-align: left\">' +  congVan.donVi.dvTen + '</td>'
-						+ '<td colspan=\"1\" style=\"font-weight: bold;\">Trạng thái</td>'
-						+ '<td colspan=\"1\" style=\"color:red;font-weight: bold;font-style: oblique;\">' + congVan.trangThai.ttTen + '</td>'
+						+ '<td class=\"column-color\" style=\"text-align: left\">' +  congVan.donVi.dvTen + '</td>'
+						
 						+ '</tr>'
 						+ '<tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Trích yếu: &nbsp;&nbsp;</td>'
@@ -348,14 +361,13 @@ function loadCongVan(congVanList, fileList, unknownList, ttMaList) {
 						}
 						tables += '<td class=\"left-column-first\" style=\"font-weight: bold;\">Người xử lý</td>'
 						+ '<td class=\"column-color\" colspan=\"3\">' + cellNguoiXl + '</td>';
-						if (chucDanhMa == truongPhongMa) {
 							tables += '<td colspan=\"3\" style=\"float: right;\">'
 							+ '<button  class=\"button-chia-se\" id=\"chiaSe\" type=\"button\" style=\"width: 170px; height: 30px;\"' 
 							+ '  onclick=\"location.href=\'/QLVatTuYeuCau/cscvManage.html?action=chiaSeCv&congVan=' + congVan.cvId + '\'\">'
 							+ '<i class=\"fa fa-spinner\"></i>&nbsp;&nbsp;Chia sẻ công văn'
 							+ '</button>'
 							+ '</td>';
-						}
+
 					} else {
 						var cellVaiTro = '';
 						var capPhat = false;
@@ -381,25 +393,33 @@ function loadCongVan(congVanList, fileList, unknownList, ttMaList) {
 							+ '</td>';
 						}
 					}
-
+			  		var path = file.diaChi;
+					var index = path.lastIndexOf("/");
+					var index2 = path.lastIndexOf("-");
+					var index3 = path.lastIndexOf(".");
+					fileName = path.substring(index + 1, index2);
+					if (index3 != -1)
+						fileName += path.substring(index3);
 				tables	+= '</tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Xem công văn: </td>'
 						+ '<td colspan=\"1\">'
-						+ '<a href=\"' + '/QLVatTuYeuCau/cvManage.html' + '?action=download&file=' + congVan.cvId + '\">'
-						+ '<div class=\"mo-ta\">' + file.moTa + '</div>'
+						+ '<a href=\"' + getRoot() + '/cvManage.html' + '?action=download&file=' + congVan.cvId + '\">'
+						+ '<div class=\"mo-ta\">' + fileName + '</div>'
 						+ '</a> '
 						+ '</td>'
+						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Ghi chú</td>'
+						+ '<td>' + file.moTa + '</td>'
 						+ '</tr>'
 						;
 						
 				tables += '<tr>' 
 					+ '<th style="text-align: left"><label for=\"TT\">Trạng thái</label></th>'
 					+ '<td style=\"text-align: left; padding-left: 10px;\" colspan = \"5\">'
-					+ '<input type=\"radio\"' + ('CGQ'== ttMaList[i] ? ' checked ' : '') + 'name=\"ttMaUpdate\"  value=\"' + congVan.cvId +'#' + 'CGQ\"' + 'id=\"' + congVan.cvId +'#' + 'CGQ\" onchange=\"changeTrangThai()\">'
-					+ '<label for=\"' + congVan.cvId + '#CGQ\">Chưa giải quyết</label>&nbsp;&nbsp;&nbsp'
-					+ '<input type=\"radio\"' + ('DGQ'==ttMaList[i] ? ' checked ' : '') + 'name=\"ttMaUpdate\"  value=\"' + congVan.cvId +'#' + 'DGQ\"' + 'id=\"' + congVan.cvId +'#' + 'DGQ\" onchange=\"changeTrangThai()\">'
+					+ '<input type=\"radio\"' + ('CGQ'== ttMaList[i] ? ' checked ' : '') + 'name=' + congVan.cvId  + ' value=\"' + congVan.cvId +'#' + 'CGQ\"' + ' class=\"ttMaUpdate\" >' //onchange=\"changeTrangThai()\"
+					+ '&nbsp;<label for=\"' + congVan.cvId + '#CGQ\">Chưa giải quyết</label>&nbsp;&nbsp;&nbsp'
+					+ '<input type=\"radio\"' + ('DGQ'==ttMaList[i] ? ' checked ' : '') + 'name=' + congVan.cvId + ' value=\"' + congVan.cvId +'#' + 'DGQ\"' + 'DGQ\" class=\"ttMaUpdate\">'
 					+ '<label for=\"' + congVan.cvId + '#DGQ\">Còn thiếu hàng</label>&nbsp;&nbsp;&nbsp'
-					+ '<input type=\"radio\"' + ('DaGQ'==ttMaList[i] ? ' checked ' : '') + 'name=\"ttMaUpdate\"  value=\"' + congVan.cvId +'#' + 'DaGQ\"' + 'id=\"' + congVan.cvId +'#' + 'DaGQ\" onchange=\"changeTrangThai()\">'
+					+ '<input type=\"radio\"' + ('DaGQ'==ttMaList[i] ? ' checked ' : '') + 'name=' + congVan.cvId + ' value=\"' + congVan.cvId +'#' + 'DaGQ\"  class=\"ttMaUpdate\">'
 					+ '<label for=\"' + congVan.cvId + '#DaGQ\">Đã cấp đủ hàng</label>&nbsp;&nbsp;&nbsp'
 					+'<div id="requireTrangThaiUp" style="color: red"></div>'
 					+ '</td>'
@@ -409,10 +429,27 @@ function loadCongVan(congVanList, fileList, unknownList, ttMaList) {
 					+'<hr>';
 			
 		}
+//		var s = '   <script type="text/javascript">$(\'.ttMaUpdate\').change(function(){ '
+//			+ ' var trangThai = $(this).val(); '
+//			+ ' alert(trangThai); '
+//			+ ' $.ajax({ '
+//			+ ' url: getRoot() +  \"/changeTrangThai.html\", type: \"GET\", dateType: \"JSON\", data: { \"trangThai\": trangThai}, contentType: \'application/json\', mimeType: \'application/json\','
+//			  	
+//			+ 'success: function(status) {'
+//			+ ' if (status == \"success\")'
+//			+ ' alert(\"Bạn đã thay đổi trạng thái của công văn thành công!!!\"); '
+//			+ ' else '
+//			+ 'alert(\"Bạn không thể thay đổi trạng thái của công văn!!!\");'
+//			+ '};});});	</script>';
+		var s = '  <script type=\"text/javascript\">$(\'.ttMaUpdate\').bind(\'change\', function(){'
+			+ 'var trangThai = $(this).val(); '
+			+ ' changeTrangThai(trangThai) ;'
+		+ '}); </script>';
+//		var s = '';
 	} else{
 		alert('Không tồn tại công văn');
 	}
-	$('.scroll_content').html(tables);
+	$('.scroll_content').html(tables + s);
 	if (check == false) {
 		$('.button-chia-se').hide();;
 	}
@@ -657,18 +694,6 @@ $(document).ready(function(){
 			loadByYear(year);
 	});
 });
-//$(document).ready(function(){
-//	$('.month').change(function(){
-//		var month = $(this).val();
-//		loadByMonth(month);
-//	});
-//});	
-//$(document).ready(function(){
-//	$('.date').click(function(){
-//		var date = $(this).val();
-//		loadByDate(date);
-//	});
-//});	
 $(document).ready(function(){
 	$('#ttFilter').change(function(){
 //		alert($(this).val());
@@ -678,13 +703,8 @@ $(document).ready(function(){
 });	
 $(document).ready(function(){
 	$('#buttonSearch').click(function(){
-//		alert($(this).val());
 		var filterValue = $('#filterValue').val()+'';
 		var filter = $('#filter').val();
-
-//		alert(trangThai);
-		//if (filterValue == '')
-		
 		filterData(filter, filterValue);
 	});
 });
@@ -739,8 +759,6 @@ $(document).ready(function(){
 			$('#searchContent').html('<input class = \"text\" type = \"date\" name = \"filterValue\" id=\"filterValue\">');
 		else 
 			$('#searchContent').html('<input type=\"search\" autofocus class=\"text\" name=\"filterValue\" id=\"filterValue\" readonly style=\"background: #D1D1E0;\" placeholder=\"Nội dung tìm kiếm\" />');
-//		alert(donViList.length);
-		
 		if (filter == '') {
 			$('#filterValue').val('');
 			$('#filterValue').prop('readonly', true);
@@ -753,20 +771,7 @@ $(document).ready(function(){
 		}
 	});
 });	
-//function propCheckYear(yearId) {
-//	$('.year').prop('checked', false);
-//	$('#'+yearId).prop('checked', true);
-//}
-//function propCheckMonth(monthId) {
-//	$('.month').prop('checked', false);
-//	$('#'+monthId).prop('checked', true);
-//}
-//function propCheckDate(dateId) {
-//	$('.date').prop('checked', false);
-//	$('#'+dateId).prop('checked', true);
-//}
-function changeTrangThai(){
-	var trangThai = $('input:radio[name=ttMaUpdate]:checked').val();
+function changeTrangThai(trangThai) {
 	$.ajax({
 		url: getRoot() +  "/changeTrangThai.html",	
 	  	type: "GET",
@@ -782,4 +787,4 @@ function changeTrangThai(){
 			  alert("Bạn không thể thay đổi trạng thái của công văn!!!");
 	  	}
 	});
-};
+}

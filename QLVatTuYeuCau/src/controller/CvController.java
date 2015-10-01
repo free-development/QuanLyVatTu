@@ -71,44 +71,62 @@ public class CvController extends HttpServlet{
     private String ttMa = "";
     private String column = "";
     private Object columnValue = "";
+    private Integer cvId = 0;
     
     private String truongPhongMa = "";
+    private String adminMa = "";
     private String vanThuMa = "";
     private int vtCapVt = 0;
-    
     public ModelAndView getCongvan( HttpServletRequest request) {
     	truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
+    	adminMa = context.getInitParameter("adminMa");
     	vtCapVt = Integer.parseInt(context.getInitParameter("capPhatId"));
     	session = request.getSession(false);
     	NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
     	
     	VTCongVanDAO vtcvDAO =  new VTCongVanDAO();
-    	MucDichDAO mucDichDAO =  new MucDichDAO();
-    	DonViDAO donViDAO =  new DonViDAO();
+    	
     	TrangThaiDAO trangThaiDAO =  new TrangThaiDAO();
     	CongVanDAO congVanDAO =  new CongVanDAO();
     	FileDAO fileDAO =  new FileDAO();
     	String cdMa = nguoiDung.getChucDanh().getCdMa();
 		String msnvTemp = msnv;
 		
-		if (truongPhongMa.equalsIgnoreCase(cdMa) || vanThuMa.equalsIgnoreCase(cdMa)) {
+		if (truongPhongMa.equalsIgnoreCase(cdMa) || vanThuMa.equalsIgnoreCase(cdMa) || adminMa.equalsIgnoreCase(cdMa)) {
 			msnvTemp = null;
 			// danh sach vai tro nguoi dung doi voi cong van
 		}
 		Integer cv = (Integer) request.getAttribute("cvId");
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
+		if (cv != null) {
+			conditions.put("cvId", cv);
+			this.cvId = cv;
+		}	
+		
 		orderBy.put("cvId", false);
-		conditions.put("cvId", cv);
     	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(msnvTemp, conditions, null, 0, 3);
     	//chung
 		HashMap<Integer, File> fileHash = new HashMap<Integer, File>();
-		ArrayList<DonVi> donViList = (ArrayList<DonVi>) donViDAO.getAllDonVi();
-		ArrayList<MucDich> mucDichList = (ArrayList<MucDich>) mucDichDAO.getAllMucDich();
-		ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) trangThaiDAO.getAllTrangThai();
-		long size = congVanDAO.size(msnvTemp, null);
+		if (cdMa.equals(vanThuMa) || cdMa.equals(truongPhongMa) || cdMa.equals(adminMa)) {
+			MucDichDAO mucDichDAO =  new MucDichDAO();
+	    	DonViDAO donViDAO =  new DonViDAO();
+			ArrayList<DonVi> donViList = (ArrayList<DonVi>) donViDAO.getAllDonVi();
+			ArrayList<MucDich> mucDichList = (ArrayList<MucDich>) mucDichDAO.getAllMucDich();
+	//		ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) trangThaiDAO.getAllTrangThai();
+			donViDAO.disconnect();
+			mucDichDAO.disconnect();
+			request.setAttribute("mucDichList", mucDichList);
+			request.setAttribute("donViList", donViList);
+			
+		}
+		long size = 0;
+		if (cv != null)
+			size = 1;
+		else
+			size = congVanDAO.size(msnvTemp, null);
 		// danh sach nguoi xu ly cong van
     	ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
@@ -127,7 +145,7 @@ public class CvController extends HttpServlet{
 			request.setAttribute("vtCongVanList", vtCongVanList);
 			
 		}
-		else if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa)) {
+		else if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || adminMa.equals(cdMa)) {
 			for(CongVan congVan : congVanList) {
 				System.out.println(congVan.getSoDen());
 				int cvId = congVan.getCvId();
@@ -140,27 +158,29 @@ public class CvController extends HttpServlet{
 			request.setAttribute("nguoiXlCongVan", nguoiXlCongVan);
 			
 		}
-		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp,5);
+		ArrayList<Integer> yearList = new ArrayList<Integer>();
+		if (cv != null)
+			yearList.add(congVanList.get(0).getCvNgayNhan().getYear() + 1900);
+		else 
+			yearList = congVanDAO.groupByYearLimit(msnvTemp, 5);
 		request.setAttribute("congVanList", congVanList);
 		request.setAttribute("fileHash", fileHash);
-		request.setAttribute("mucDichList", mucDichList);
-		request.setAttribute("donViList", donViList);
+		
 		request.setAttribute("yearList", yearList);
 		request.setAttribute("size", size);
 		request.setAttribute("ttMaList", ttMaList);
 		congVanDAO.disconnect();
-		donViDAO.disconnect();
+		
 		trangThaiDAO.disconnect();
 		fileDAO.disconnect();
-		mucDichDAO.disconnect();
+		
 		vtcvDAO.disconnect();
+		
 		return new ModelAndView(siteMap.congVan);
     }
     
     @RequestMapping("/cvManage")
 	public ModelAndView manageCV(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	truongPhongMa = context.getInitParameter("truongPhongMa");
-    	vanThuMa = context.getInitParameter("vanThuMa");
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -171,8 +191,8 @@ public class CvController extends HttpServlet{
 			response.sendRedirect("login.jsp");
 		
 		String action = request.getParameter("action");
-		
 		if("manageCv".equalsIgnoreCase(action)) {
+			this.cvId = 0;
 			return getCongvan(request);
 		}
 	
@@ -274,7 +294,8 @@ public class CvController extends HttpServlet{
 			file.setMoTa(moTa);
 			fileDAO.updateFile(file);
 			NhatKyDAO nhatKyDAO = new NhatKyDAO();
-			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), congVanCheck.getCvId() + "#Bạn đã thêm công văn số " + soDen);
+			Date currentDate = DateUtil.convertToSqlDate(new java.util.Date ());
+			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), currentDate, congVanCheck.getCvId() + "#Bạn đã thêm công văn số " + soDen);
 			nhatKyDAO.addNhatKy(nhatKy);
 			nhatKyDAO.disconnect();
 		} else {
@@ -301,7 +322,8 @@ public class CvController extends HttpServlet{
 				sendMail.send(mail);
 			}
 			NhatKyDAO nhatKyDAO = new NhatKyDAO();
-			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId+"#Bạn đã thêm công văn số " + soDen);
+			Date currentDate = DateUtil.convertToSqlDate(new java.util.Date ());
+			NhatKy nhatKy = new NhatKy(authentication.getMsnv(), currentDate , cvId+"#Bạn đã thêm công văn số " + soDen + " có ngày nhận " + DateUtil.toString(cvNgayNhan));
 			nhatKyDAO.addNhatKy(nhatKy);
 			nhatKyDAO.disconnect();
 			
@@ -379,7 +401,8 @@ public class CvController extends HttpServlet{
 		HttpSession session = request.getSession(false);
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
 		NhatKyDAO nhatKyDAO = new NhatKyDAO();
-		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId + "#Bạn đã thay đổi công văn số " + soDen);
+		Date currentDate = DateUtil.convertToSqlDate(new java.util.Date ());
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), currentDate, cvId + "#Bạn đã thay đổi công văn số " + soDen);
 		nhatKyDAO.addNhatKy(nhatKy);
 		nhatKyDAO.disconnect();
 		return getCongvan(request);
@@ -402,7 +425,8 @@ public class CvController extends HttpServlet{
 		HttpSession session = request.getSession(false);
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
 		NhatKyDAO nhatKyDAO = new NhatKyDAO();
-		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), "Bạn đã xóa công văn số " + soDens.toString());
+		Date currentDate = DateUtil.convertToSqlDate(new java.util.Date ());
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), currentDate, "Bạn đã xóa công văn số " + soDens.toString());
 		nhatKyDAO.addNhatKy(nhatKy);
 		nhatKyDAO.disconnect();
 		return JSonUtil.toJson(cvId);
@@ -417,15 +441,13 @@ public class CvController extends HttpServlet{
 		int id = Integer.parseInt(congVan);
 		CongVan cv = congVanDAO.getCongVan(id);
 		File file = fileDAO.getByCongVanId(id);
-		String path = file.getDiaChi();
-		int index = path.indexOf("-");
-		String fileName = path.substring(0, index) + path.substring(index);
+		
 		
 		fileDAO.disconnect();
 		congVanDAO.close();
 		ArrayList<Object> objectList = new ArrayList<Object>();
 		objectList.add(cv);
-		objectList.add(fileName);
+		objectList.add(file);
 		
 		return JSonUtil.toJson(objectList);
 	}
@@ -435,6 +457,7 @@ public class CvController extends HttpServlet{
 	            HttpServletResponse response) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
+    	adminMa = context.getInitParameter("adminMa");
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
 		
@@ -456,13 +479,21 @@ public class CvController extends HttpServlet{
 			else
 				conditions.put(column, columnValue);
 		}
+		if (this.cvId != 0) {
+			conditions.put("cvId", cvId);
+		}	
 		orderBy.put("cvId", true);
 		String cdMa = nguoiDung.getChucDanh().getCdMa();
 		String msnvTemp = msnv;
-		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa))
+		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || adminMa.equals(cdMa))
 			msnvTemp = null;
-		ArrayList<Integer> monthList = congVanDAO.groupByMonth(msnvTemp, year);
+		
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
+		ArrayList<Integer> monthList = new ArrayList<Integer>();
+		if (this.cvId != 0) 
+			monthList.add(congVanList.get(0).getCvNgayNhan().getMonth() + 1);
+		else
+			monthList = congVanDAO.groupByMonth(msnvTemp, year);
 		ArrayList<File> fileList = new ArrayList<File>();
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
@@ -470,6 +501,7 @@ public class CvController extends HttpServlet{
 		ArrayList<String> ttMaList =  new ArrayList<String>();
 		VTCongVanDAO vtcvDAO = new VTCongVanDAO();
 		if (msnvTemp != null) {
+			
 			for (CongVan congVan : congVanList) {
 				File file = fileDAO.getByCongVanId(congVan.getCvId());
 				fileList.add(file);
@@ -490,7 +522,11 @@ public class CvController extends HttpServlet{
 				ttMaList.add(congVan.getTrangThai().getTtMa());
 			}
 		}
-		long size = congVanDAO.size(msnvTemp, conditions);
+		long size = 0;
+		if (this.cvId != 0) 
+			size  = 1;
+		else
+			size = congVanDAO.size(msnvTemp, conditions);
 		congVanDAO.disconnect();
 		fileDAO.disconnect();
 		ArrayList<Object> objectList = new ArrayList<Object>(); 
@@ -513,6 +549,8 @@ public class CvController extends HttpServlet{
 	            HttpServletResponse response) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
+    	adminMa = context.getInitParameter("adminMa");
+    	
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
 		year = Integer.parseInt(yearRequest);
@@ -535,14 +573,23 @@ public class CvController extends HttpServlet{
 			else
 				conditions.put(column, columnValue);
 		}
+		if (this.cvId != 0) {
+			conditions.put("cvId", cvId);
+		}
 		orderBy.put("cvNgayNhan", true);
 		String cdMa = nguoiDung.getChucDanh().getCdMa();
 		String msnvTemp = msnv;
-		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa))
+		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa))
 			msnvTemp = null;
-		ArrayList<Integer> dateList = congVanDAO.groupByDate(msnvTemp, year, month);
+		
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
+		ArrayList<Integer> dateList = new ArrayList<Integer>();
+		if (cvId != 0)
+			dateList.add(congVanList.get(0).getCvNgayNhan().getDate());
+		else
+			dateList = congVanDAO.groupByDate(msnvTemp, year, month);
+		
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
 		ArrayList<ArrayList<VaiTro>> vtCongVanList = new ArrayList<ArrayList<VaiTro>> (); 
@@ -569,7 +616,11 @@ public class CvController extends HttpServlet{
 				ttMaList.add(congVan.getTrangThai().getTtMa());
 			}
 		}
-		long size = congVanDAO.size(msnvTemp, conditions);
+		long size = 0;
+		if (this.cvId != 0) 
+			size  = 1;
+		else
+			size = congVanDAO.size(msnvTemp, conditions);
 		
 		congVanDAO.disconnect();
 		fileDAO.disconnect();
@@ -593,7 +644,8 @@ public class CvController extends HttpServlet{
 	            HttpServletResponse response) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
-		
+    	adminMa = context.getInitParameter("adminMa");
+    	
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
     	year = Integer.parseInt(yearRequest);
@@ -617,10 +669,13 @@ public class CvController extends HttpServlet{
 			else
 				conditions.put(column, columnValue);
 		}
+		if (this.cvId != 0) {
+			conditions.put("cvId", cvId);
+		}
 		orderBy.put("cvNgayNhan", true);
 		String cdMa = nguoiDung.getChucDanh().getCdMa();
 		String msnvTemp = msnv;
-		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa))
+		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa))
 			msnvTemp = null;
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
@@ -650,7 +705,11 @@ public class CvController extends HttpServlet{
 				ttMaList.add(congVan.getTrangThai().getTtMa());
 			}
 		}
-		long size = congVanDAO.size(msnvTemp, conditions);
+		long size = 0;
+		if (this.cvId != 0) 
+			size  = 1;
+		else
+			size = congVanDAO.size(msnvTemp, conditions);
 		congVanDAO.disconnect();
 		fileDAO.disconnect();
 		ArrayList<Object> objectList = new ArrayList<Object>(); 
@@ -672,7 +731,7 @@ public class CvController extends HttpServlet{
 	            HttpServletResponse response) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
-		
+    	adminMa = context.getInitParameter("adminMa");
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
 		
@@ -695,12 +754,14 @@ public class CvController extends HttpServlet{
 			else
 				conditions.put(column, columnValue);
 		}
-			
+		if (this.cvId != 0) {
+			conditions.put("cvId", cvId);
+		}	
 		orderBy.put("cvNgayNhan", true);
 		orderBy.put("soDen", true);
 		String cdMa = nguoiDung.getChucDanh().getCdMa();
 		String msnvTemp = msnv;
-		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa))
+		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa))
 			msnvTemp = null;
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
@@ -730,7 +791,11 @@ public class CvController extends HttpServlet{
 				ttMaList.add(congVan.getTrangThai().getTtMa());
 			}
 		}
-		long size = congVanDAO.size(msnvTemp, conditions);
+		long size = 0;
+		if (this.cvId != 0) 
+			size  = 1;
+		else
+			size = congVanDAO.size(msnvTemp, conditions);
 		congVanDAO.disconnect();
 		fileDAO.disconnect();
 		ArrayList<Object> objectList = new ArrayList<Object>(); 
@@ -752,7 +817,7 @@ public class CvController extends HttpServlet{
 	            HttpServletResponse response) {
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
-		
+    	adminMa = context.getInitParameter("adminMa");
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
 		
@@ -784,12 +849,14 @@ public class CvController extends HttpServlet{
 			else
 				conditions.put(column, columnValue);
 		}
-			
+		if (this.cvId != 0) {
+			conditions.put("cvId", cvId);
+		}	
 		orderBy.put("cvNgayNhan", true);
 		
 		String cdMa = nguoiDung.getChucDanh().getCdMa();
 		String msnvTemp = msnv;
-		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa))
+		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa))
 			msnvTemp = null;
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnv, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
@@ -819,7 +886,11 @@ public class CvController extends HttpServlet{
 				ttMaList.add(congVan.getTrangThai().getTtMa());
 			}
 		}
-		long size = congVanDAO.size(msnvTemp, conditions);
+		long size = 0;
+		if (this.cvId != 0) 
+			size  = 1;
+		else
+			size = congVanDAO.size(msnvTemp, conditions);
 		congVanDAO.disconnect();
 		fileDAO.disconnect();
 		ArrayList<Object> objectList = new ArrayList<Object>(); 
@@ -835,8 +906,6 @@ public class CvController extends HttpServlet{
 		objectList.add(ttMaList);
 		System.out.println(congVanList.size());
 		System.out.println(msnv);
-		for (String key : conditions.keySet())
-			System.out.println("key = " + key + "\t value = " +conditions.get(key));//
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/loadPageCongVan", method=RequestMethod.GET, 
@@ -846,6 +915,7 @@ public class CvController extends HttpServlet{
 		try {
 			truongPhongMa = context.getInitParameter("truongPhongMa");
 	    	vanThuMa = context.getInitParameter("vanThuMa");
+	    	adminMa = context.getInitParameter("adminMa");
 			NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
 	    	String msnv = nguoiDung.getMsnv();
 			
@@ -869,12 +939,14 @@ public class CvController extends HttpServlet{
 				else
 					conditions.put(column, columnValue);
 			}
-				
+			if (this.cvId != 0) {
+				conditions.put("cvId", cvId);
+			}	
 			orderBy.put("cvNgayNhan", true);
 			orderBy.put("soDen", true);
 			String cdMa = nguoiDung.getChucDanh().getCdMa();
 			String msnvTemp = msnv;
-			if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa)) {
+			if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa)) {
 				msnvTemp = null;
 			}
 			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, (page) *3, 3);
@@ -904,8 +976,11 @@ public class CvController extends HttpServlet{
 					ttMaList.add(congVan.getTrangThai().getTtMa());
 				}
 			}
-			
-			long size = congVanDAO.size(msnvTemp, conditions);
+			long size = 0;
+			if (this.cvId != 0) 
+				size  = 1;
+			else
+				size = congVanDAO.size(msnvTemp, conditions);
 			congVanDAO.disconnect();
 			fileDAO.disconnect();
 			ArrayList<Object> objectList = new ArrayList<Object>(); 
@@ -939,11 +1014,12 @@ public class CvController extends HttpServlet{
 		String cdMa = authentication.getChucDanh().getCdMa();
 		truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
+    	adminMa = context.getInitParameter("adminMa");
 		String[] temp = trangThai.split("\\#");
 		int cvId = Integer.parseInt(temp[0]);
 		String ttMa = temp[1];
 		try {
-			if (cdMa.equals(truongPhongMa) || cdMa.equals(vanThuMa)) {
+			if (cdMa.equals(truongPhongMa) || cdMa.equals(vanThuMa) || cdMa.equals(adminMa)) {
 				CongVanDAO congVanDAO = new CongVanDAO();
 				
 				CongVan congVan = congVanDAO.getCongVan(cvId);

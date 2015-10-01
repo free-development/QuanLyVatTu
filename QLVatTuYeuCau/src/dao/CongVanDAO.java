@@ -343,7 +343,7 @@ public class CongVanDAO {
 				if (object instanceof Integer && (key.equalsIgnoreCase("year") || key.equalsIgnoreCase("month") || key.equalsIgnoreCase("day"))) {
 					cr.add(Restrictions.sqlRestriction(key.toUpperCase() + "(cvNgayNhan) = " + conditions.get(key)));
 				} else if (conditions.get(key) != null){ 
-					if (key.equals("soDen") || key.equals("cvNgayDi") || key.equals("cvNgayNhan"))
+					if (key.equals("cvId") || key.equals("soDen") || key.equals("cvNgayDi") || key.equals("cvNgayNhan"))
 						cr.add(Restrictions.eq(key, conditions.get(key)));
 					else
 						cr.add(Restrictions.like(key, (String)conditions.get(key), MatchMode.START));
@@ -404,6 +404,18 @@ public long size(String msnv, HashMap<String, Object> conditions) {
 		if (session.isConnected())
 			session.disconnect();
 	}
+	
+//	public ArrayList<CongVan> getByCongVanId(ArrayList<Integer> cvIdList) {
+//		session.beginTransaction();
+//		Criteria cr = session.createCriteria("CongVan");
+//		cr.createAlias("congVan.trangThai", "trangThai");
+//		cr.createAlias("congVan.mucDich", "mucDich");
+//		cr.createAlias("donVi", "donVi");
+////		cr.
+//		ArrayList<CongVan> congVanList = cr.
+//		session.getTransaction().commit();
+//		return null;
+//	}
 	public static void main(String[] args) {
 		System.out.println(new CongVanDAO().size("b1203959"));
 		HashMap<String, Object> conditions = new HashMap<String, Object>();

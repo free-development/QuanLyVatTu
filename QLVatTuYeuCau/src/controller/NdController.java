@@ -179,6 +179,8 @@ public class NdController extends HttpServlet {
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		session.removeAttribute("nguoiDung");
+		session.removeAttribute("nhatKy");
+		session.removeAttribute("url");
 		response.sendRedirect("login.jsp");
 	}
 	

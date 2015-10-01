@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,6 +35,7 @@ import model.NhatKy;
 import model.TrangThai;
 import model.VTCongVan;
 import model.VaiTro;
+import util.DateUtil;
 import util.JSonUtil;
 import util.Mail;
 import util.SendMail;
@@ -137,10 +139,11 @@ public class ChiaSeCvController extends HttpServlet {
 				SendMail sendMail = new SendMail(account, password);
 				vtHash = vaiTroHash.get(msnv);
 				NguoiDung nguoiDung = vtNguoiDungHash.get(msnv);
-				
+				StringBuilder str2 = new StringBuilder("");
 				for(Integer vtId : vtHash.keySet()) {
 					vt = vtHash.get(vtId);
 					str1 += "\t+" + vt.getVtTen() + ".\n ";
+					str2.append(vt.getVtTen() + ", ");
 				}
 				Mail mail = new Mail();
 				mail.setFrom(account);
@@ -151,18 +154,22 @@ public class ChiaSeCvController extends HttpServlet {
 				content += host + siteMap.searchCongVan + "?congVan=" + cvId + "\nThân mến!";
 				mail.setContent(content);
 				sendMail.send(mail);
-				
-				hotens.append(nguoiDung.getHoTen() + ", ");
+				str2.delete(str2.length()-2, str2.length());
+				hotens.append("  <br>&nbsp;&nbsp;+ " +nguoiDung.getHoTen() + ": " + str2 +".");
 				
 			}
 			if(hotens.length() > 0)
-				hotens.delete(hotens.length()-2, hotens.length());
+				hotens.delete(hotens.length()-1, hotens.length());
 			String truongPhongMa = context.getInitParameter("truongPhongMa");
 			NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
-			NhatKy nhatKy = new NhatKy(nguoiDung.getMsnv(), cvId + "#Bạn đã chia sẽ cho công văn số " + congVan.getSoDen() + " cho " + hotens.toString());
-			NhatKyDAO nhatKyDAO = new NhatKyDAO();
-			nhatKyDAO.addNhatKy(nhatKy);
-			nhatKyDAO.disconnect();
+			
+			Date currentDate = DateUtil.convertToSqlDate(new java.util.Date ());
+			NhatKy nhatKy = new NhatKy(nguoiDung.getMsnv(), currentDate, cvId + "#Bạn đã chia sẽ cho công văn số " + congVan.getSoDen() + " nhận ngày " + DateUtil.toString(congVan.getCvNgayNhan()) + " cho:   " + hotens.toString());
+//			NhatKyDAO nhatKyDAO = new NhatKyDAO();
+			
+			HttpSession session = request.getSession(false);
+			session.setAttribute("nhatKy", nhatKy);
+			
 			request.setAttribute("vaiTroHash", vaiTroHash);
 			request.setAttribute("vtNguoiDungHash", vtNguoiDungHash);
 			vtCongVanDAO.disconnect();
@@ -195,7 +202,7 @@ public class ChiaSeCvController extends HttpServlet {
 	}
 
 	@RequestMapping(value = "/updateYeuCau", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String updateYeuCau(@RequestParam("vaiTroList") String vaiTroList) throws IOException {
+	public @ResponseBody String updateYeuCau(HttpSession session, @RequestParam("vaiTroList") String vaiTroList) throws IOException {
 		NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 		VTCongVanDAO vtCongVanDAO = new VTCongVanDAO();
 		VaiTroDAO vaiTroDAO = new VaiTroDAO();
@@ -224,6 +231,52 @@ public class ChiaSeCvController extends HttpServlet {
 			}
 			// str.delete(str.length()-4, 4);
 		}
+		HashMap<String, NguoiDung> vtNguoiDungHash = vtCongVanDAO.getNguoiXuLy(cvId);
+		HashMap<String, HashMap<Integer, VaiTro>> vaiTroHash = new HashMap<String, HashMap<Integer, VaiTro>>();
+		StringBuilder hotens = new StringBuilder("");
+		for (String msnv : vtNguoiDungHash.keySet()) {
+			
+			ArrayList<VTCongVan> vtcvList = vtCongVanDAO.getVTCongVan(cvId, msnv);
+			HashMap<Integer, VaiTro> vtHash = vtCongVanDAO.toVaiTro(vtcvList);
+			vaiTroHash.put(msnv, vtHash);
+			String str1 = "";
+			VaiTro vt = new VaiTro();
+			String account = context.getInitParameter("account");
+			String password = context.getInitParameter("password");
+			String host = context.getInitParameter("hosting");
+			SendMail sendMail = new SendMail(account, password);
+			vtHash = vaiTroHash.get(msnv);
+			NguoiDung nguoiDung = vtNguoiDungHash.get(msnv);
+			StringBuilder str2 = new StringBuilder("");
+			for(Integer vtId : vtHash.keySet()) {
+				vt = vtHash.get(vtId);
+				str1 += "\t+" + vt.getVtTen() + ".\n ";
+				str2.append(vt.getVtTen() + ", ");
+			}
+			Mail mail = new Mail();
+			mail.setFrom(account);
+			mail.setTo(nguoiDung.getEmail());
+			mail.setSubject("Công việc được chia sẻ");
+			String content = "Bạn đã được chia sẻ công văn. Vui lòng vào hệ thống làm việc để kiểm tra.\n";
+			content += "Công việc được chia sẻ là: \n" + str1 + "\n" ;
+			content += host + siteMap.searchCongVan + "?congVan=" + cvId + "\nThân mến!";
+			mail.setContent(content);
+			sendMail.send(mail);
+			str2.delete(str2.length()-2, str2.length());
+			hotens.append("  <br>&nbsp;&nbsp;+ " +nguoiDung.getHoTen() + ": " + str2 +".");
+			
+		}
+		if(hotens.length() > 0)
+			hotens.delete(hotens.length()-1, hotens.length());
+		String truongPhongMa = context.getInitParameter("truongPhongMa");
+		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+		
+		Date currentDate = DateUtil.convertToSqlDate(new java.util.Date ());
+		NhatKy nhatKy = new NhatKy(nguoiDung.getMsnv(), currentDate, cvId + "#Bạn đã chia sẽ cho công văn số " + congVan.getSoDen() + " nhận ngày " + DateUtil.toString(congVan.getCvNgayNhan()) + " cho:   " + hotens.toString());
+		NhatKyDAO nhatKyDAO = new NhatKyDAO();
+		
+		session.setAttribute("nhatKy", nhatKy);
+		
 		objectList.add(list);
 		objectList.add(msnvUpdate);
 		// vtCongVanDAO.close();

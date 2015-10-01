@@ -32,6 +32,7 @@ import model.NguoiDung;
 import model.NhatKy;
 import model.NoiSanXuat;
 import model.YeuCau;
+import util.DateUtil;
 import util.JSonUtil;
 
 @Controller
@@ -41,16 +42,24 @@ public class YcController extends HttpServlet {
 	private int pageCtvt = 1;
 	private String searchTen = "";
 	private String searchMa = "";
+//	private NhatKy nhatKy = null;
 	@RequestMapping("ycvtManage")
     public ModelAndView updateYeuCau(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //	    	congVan
 		session = request.getSession(false);
 		
+<<<<<<< HEAD
 		String[] s = request.getParameterValues("cvId");
 		String cvSo = request.getParameter("cvSo");
 		if(s[0] == null)
+=======
+		String s = request.getParameter("cvId");
+		JOptionPane.showConfirmDialog(null, s);
+		if(s == null)
+>>>>>>> c74545ffeb344004250b3dfaa6394e8ac39e0018
 			return new ModelAndView(siteMap.cvManage + "?action=manageCv");
-		int cvId =  Integer.parseInt(s[0]);
+		int cvId =  Integer.parseInt(s);
+		JOptionPane.showConfirmDialog(null, s);
 		session.setAttribute("cvId", cvId);
     	CTVatTuDAO ctvtDAO =  new CTVatTuDAO();
     	YeuCauDAO yeuCauDAO = new YeuCauDAO();
@@ -58,7 +67,7 @@ public class YcController extends HttpServlet {
     	ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
     	CongVanDAO congVanDAO = new CongVanDAO();
     	ArrayList<CTVatTu> ctVatTuList = (ArrayList<CTVatTu>) ctvtDAO.limit((pageCtvt - 1)*10, 10);
-    	
+    	JOptionPane.showConfirmDialog(null, "ok");
     	ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
     	ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) nsxDAO.getAllNoiSanXuat();
     	ArrayList<ChatLuong> chatLuongList = (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();
@@ -118,6 +127,17 @@ public class YcController extends HttpServlet {
 //		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã cập nhật số lượng cho vât tư có mã " + ctvt.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctvt.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctvt.getChatLuong().getClMa() + "của công văn  " + congVan.getSoDen());
 //		nhatKyDAO.addNhatKy(nhatKy);
 //		nhatKyDAO.disconnect();
+    	NhatKy nhatKy = (NhatKy) session.getAttribute("nhatKy");
+    	if (nhatKy == null) {
+    		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
+    		nhatKy = new NhatKy(authentication.getMsnv(), currentDate, cvId + "#Bạn đã cập nhật vật tư thiếu cho công văn có số đến " + congVan.getSoDen() + " nhận ngày " + congVan.getCvNgayNhan() + ":<br> ");
+    	}
+    	
+    	String noiDung = nhatKy.getNoiDung();
+    	noiDung += "&nbsp;&nbsp;+" + "Vật tư có mã: " + ctvt.getVatTu().getVtMa() 
+    			+ ", mã nơi sản xuất: "  + ctvt.getNoiSanXuat().getNsxMa() + ""
+    			+ ", mã chất lượng: " + ctvt.getChatLuong().getClMa() + " số lượng "  + yeuCau.getYcSoLuong() + ctvt.getVatTu().getDvt().getDvtTen();
+    	nhatKy.setNoiDung(noiDung);
 		return JSonUtil.toJson(yeuCau);
 	}
 	
