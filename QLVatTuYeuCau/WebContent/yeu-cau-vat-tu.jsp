@@ -47,6 +47,7 @@
 <body>
 	<%
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
+		String soCv = request.getServletContext().getInitParameter("soCv");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		CongVan congVan = (CongVan) session.getAttribute("congVan");
    		if (authentication == null) {
@@ -71,6 +72,7 @@
 		ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) request.getAttribute("yeuCauList");
 		ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) request.getAttribute("nsxList");
 		ArrayList<ChatLuong> chatLuongList = (ArrayList<ChatLuong>) request.getAttribute("chatLuongList");
+		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList");
 		Long pageNum = (Long) request.getAttribute("page");
 		Integer cvId = (Integer) session.getAttribute("cvId");
 		if (cvId == null)
@@ -244,7 +246,7 @@
 								</table>
 					</div>
 			<form id="main-form">
-			<div class="form-title-vat-tu" style="padding-top: 10px;">Yêu cầu vật tư đã cập nhật</div> 
+			<div class="form-title-vat-tu" style="padding-top: 10px;">Yêu cầu vật tư còn thiếu cho công văn số <%=congVan%></div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
 							<table style= "width:960px; margin: 0 auto;" >
 								<tr>

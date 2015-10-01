@@ -194,19 +194,19 @@
 				</fieldset>
 				</form>
 			</div>
-			<div id="view-table" style="smax-height: 420px;width: 1024px;display: auto;border: 1px solid #CCCCCC;margin: 0 auto;margin-top: 20px;overflow: scroll;">
+			<div id="view-table" style="smax-height: 420px;width: 1224px;display: auto;border: 1px solid #CCCCCC;margin: 0 auto;margin-top: 20px;overflow: scroll;">
 				<table >
 					<tr bgcolor="lightgreen">
-						<th class="a-column">Số đến</th>
-						<th class="b-column">Ngày nhận</th>
-						<th class="c-column">Mã vật tư</th>
-						<th class="d-column">Tên vật tư</th>
-						<th class="e-column">Nơi sản xuất</th>
-						<th class="f-column">Đơn vị tính</th>
-						<th class="g-column">Trạng thái</th>
-						<th class="k-column">Đơn vị</th>
-						<th class="h-column">Chất lượng</th>
-						<th class="m-column">Số lượng</th>
+						<th style="width: 50px;">Số đến</th>
+						<th style="width: 100px;">Ngày nhận</th>
+						<th style="width: 50px;">Mã vật tư</th>
+						<th style="width: 350px;">Tên vật tư</th>
+						<th style="width: 100px;">Nơi sản xuất</th>
+						<th style="width: 50px;">Đơn vị tính</th>
+						<th style="width: 100px;">Trạng thái</th>
+						<th style="width: 150px;">Đơn vị</th>
+						<th style="width: 100px;">Chất lượng</th>
+						<th style="width: 100px;">Số lượng</th>
 						
 					</tr>
 							<%
@@ -219,16 +219,16 @@
 									
 					<tr
 						<%if (cnt % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>>
-						<td class="a-column"><%=congVan.getSoDen() %></td>
-						<td class="b-column"><%=congVan.getCvNgayNhan() %></td>
-						<td class="c-column"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
-						<td class="d-column"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
-						<td class="e-column"><%=yeuCau.getCtVatTu().getNoiSanXuat().getNsxTen() %></td>
-						<td class="f-column"><%=yeuCau.getCtVatTu().getVatTu().getDvt().getDvtTen() %></td>
-						<td class="g-column"><%=congVan.getTrangThai().getTtTen() %></td>
-						<td class="h-column"><%=congVan.getDonVi().getDvTen()%></td>
-						<td class="k-column"><%=yeuCau.getCtVatTu().getChatLuong().getClTen() %></td>
-						<td class="m-column"><%=yeuCau.getYcSoLuong() %></td>
+						<td style="width: 50px; text-align: center;"><%=congVan.getSoDen() %></td>
+						<td style="width: 100px; text-align: center;"><%=congVan.getCvNgayNhan() %></td>
+						<td style="width: 50px; text-align: center;"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
+						<td style="text-align: left; width: 300px;"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
+						<td style="text-align: left; width: 100px;"><%=yeuCau.getCtVatTu().getNoiSanXuat().getNsxTen() %></td>
+						<td style="width: 50px;"><%=yeuCau.getCtVatTu().getVatTu().getDvt().getDvtTen() %></td>
+						<td style="text-align: left; width: 100px;"><%=congVan.getTrangThai().getTtTen() %></td>
+						<td style="text-align: left; width: 150px;"><%=congVan.getDonVi().getDvTen()%></td>
+						<td style="text-align: left; width: 100px;"><%=yeuCau.getCtVatTu().getChatLuong().getClTen() %></td>
+						<td style="width: 50px; text-align: center;"><%=yeuCau.getYcSoLuong() %></td>
 
 					</tr>
 					<%} }}%>

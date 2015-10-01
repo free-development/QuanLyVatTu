@@ -209,11 +209,11 @@ td.input {
 	text-align: center;
 }
 
-#main-content {
-	height: 650px;
+/*#main-content {
+	height: 850px;
 	
 }
-
+*/
 .view-tbao table tr{
 	
 	
@@ -255,8 +255,8 @@ td.input {
 	border-width: 1px;
 	border-radius: 5px;
 	border-color: #2CCAAE;
-	width:350px;
-	max-height:350px;
+	width:450px;
+	
 }
 .view-nky table {
 	border: 2px;
@@ -285,8 +285,8 @@ td.input {
 	border-width: 1px;
 	border-radius: 5px;
 	border-color: #2CCAAE;
-	width:550px;
-	max-height:350px;
+	width:750px;
+	
 	
 }
 .search-form {

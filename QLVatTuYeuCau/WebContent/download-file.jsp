@@ -25,7 +25,6 @@
 <%
 // 	GstFormsAttachFile gstFormFile = (GstFormsAttachFile) request.getAttribute("gstFormFile"); 
 	
-	
 	String path = (String) request.getAttribute("path");
 	
 // 	response.setContent
@@ -39,7 +38,7 @@
 	  while ((i=fileInputStream.read()) != -1) {  
 	    out.write(i);   
 	  }   
-	  fileInputStream.close(); 
+	  fileInputStream.close();
  %>
 </body>
 </html>

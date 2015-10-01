@@ -48,8 +48,7 @@
 			<div id="top_title">Văn phòng điện tử</div>
 			<div id="bottom-title">Công ty điện lực cần thơ</div>
 			<div class="search_form" id="search">
-				<form action="<%=siteMap.changePass%>"-->
-					method="post">
+				<form action="<%=siteMap.changePass%>">
 					<span class="search-text"> &nbsp; <input type="search"
 						class="search" name="search_box" name="search"
 						placeholder="Tìm kiếm" />

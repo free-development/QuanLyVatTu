@@ -391,7 +391,6 @@
 	
 	alter table YEUCAU add constraint FK_RELATIONSHIP_7 foreign key (CTVTID)
 	    references CTVATTU (CTVTID) on delete restrict on update restrict;
-	insert into TRANGTHAI values('DGQ','Dang giai quyet');
 	
 	alter table NGUOIDUNG drop KHOA int (2);
 	alter table CTNGUOIDUNG ADD KHOA int(2) default 0;
@@ -406,7 +405,6 @@
 	ENGINE = InnoDB
 	DEFAULT CHARACTER SET = utf8;
 	
-	<<<<<<< HEAD
 	insert into VAITRO values(1,'Lập phiếu nhập',0);
 	insert into VAITRO values(2,'Mua vật tư',0);
 	insert into VAITRO values(3,'Cấp vật tư',0);
@@ -417,7 +415,7 @@
 	insert into CHUCDANH values ('NV', 'Nhân viên',0);
 	insert into CHUCDANH values ('TK', 'Thư ký',0);
 	insert into CHUCDANH values ('VT', 'Văn thư',0);
-	=======
+
 	insert into VAITRO values(1,'Lap phieu nhap', 0);
 	insert into VAITRO values(2,'Mua vat tu', 0);
 	insert into VAITRO values(3,'Cap vat tu', 0);
@@ -435,14 +433,13 @@
 	insert into CHUCDANH values ('NV', 'Nhan vien',0);
 	insert into CHUCDANH values ('TK', 'Thu ky',0);
 	insert into CHUCDANH values ('VT', 'Van thu',0);
-	>>>>>>> ee01301f12ecb25e05678969ebd78c9a651e34a0
 	
 	
-	insert into NGUOIDUNG values ('b1203959', 'GD', 'Vo Phu Quoi', 'An giang', 'quoipro94@gmail.com', '0979921380');
-	insert into NGUOIDUNG values ('b1203958', 'TK', 'Lê Thị Cẩm Tiên', 'An giang', 'quoipro94@gmail.com', '0979921380');
-	insert into NGUOIDUNG values ('b1203957', 'TP', 'Nguyễn Thị Cẩm Nhung', 'An giang', 'quoipro94@gmail.com', '0979921380');
-	insert into NGUOIDUNG values ('b1203955', 'VT', 'Trương Trung Hiếu', 'An giang', 'quoipro94@gmail.com', '0979921380');
-	insert into NGUOIDUNG values ('b1203954', 'NV', 'Trương Quốc Huy', 'An giang', 'quoipro94@gmail.com', '0979921380');
+	insert into NGUOIDUNG values ('b1203959', 'GD', 'Võ Phú Quới', 'An giang', 'camtien.le1994@gmail.com', '0979921380');
+	insert into NGUOIDUNG values ('b1203958', 'TK', 'Lê Thị Cẩm Tiên', 'An giang', 'camtien.le1994@gmail.com', '0979921380');
+	insert into NGUOIDUNG values ('b1203957', 'TP', 'Nguyễn Thị Cẩm Nhung', 'An giang', 'camtien.le1994@gmail.com', '0979921380');
+	insert into NGUOIDUNG values ('b1203955', 'VT', 'Trương Trung Hiếu', 'An giang', 'camtien.le1994@gmail.com', '0979921380');
+	insert into NGUOIDUNG values ('b1203954', 'NV', 'Trương Quốc Huy', 'An giang', 'camtien.le1994@gmail.com', '0979921380');
 	
 	
 	insert into CHUCDANH value('AD','Admin',0);
@@ -477,10 +474,11 @@
 	update CTVATTU set DAXOA = 0;
 	update CHATLUONG set DAXOA = 0;
 	update DONVITINH set DAXOA = 0;
+    update VAITRO set VTTEN = 'Mua lập phiếu xuất' where VTID = 4;
 	
-	INSERT INTO TRANGTHAI VALUES('CGQ','Chưa giải quyết');
-	INSERT INTO TRANGTHAI VALUES('DGQ','Dang giải quyết');
-	INSERT INTO TRANGTHAI VALUES('DaGQ','Đã giải quyết');
+	INSERT INTO TRANGTHAI VALUES('CGQ','Chưa giải quyết',0);
+	INSERT INTO TRANGTHAI VALUES('DGQ','Đang giải quyết',0);
+	INSERT INTO TRANGTHAI VALUES('DaGQ','Đã giải quyết',0);
 	-- ---------------------------
 	INSERT INTO DONVI VALUES('F02F09','Công ty Điện lực Cần Thơ', '0979921380' , 'vpdtevn@gmail.com', 'Can Tho', 0);
 	INSERT INTO DONVI VALUES('F09A01','Ban QLDA lưới điện', '0979921380' , 'vpdtevn@gmail.com', 'Can Tho', 0);
