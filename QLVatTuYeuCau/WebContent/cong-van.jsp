@@ -159,7 +159,7 @@ hosting = '<%=hosting  %>';
 			<div id="content-form">
 			<div id="title-content">Công văn</div>
 				<!--            <form id="main-form">-->
-				<table style="margin: 0 auto;">
+				<table style="style: margin: 0 auto;">
 				<tr>
 				<td>
 				<div class="left-content">

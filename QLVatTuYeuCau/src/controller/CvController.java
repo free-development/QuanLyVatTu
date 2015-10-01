@@ -904,8 +904,7 @@ public class CvController extends HttpServlet{
 			objectList.add(vtCongVanList);
 		}
 		objectList.add(ttMaList);
-		System.out.println(congVanList.size());
-		System.out.println(msnv);
+		System.out.println("size of congvan list " + congVanList.size());
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/loadPageCongVan", method=RequestMethod.GET, 
