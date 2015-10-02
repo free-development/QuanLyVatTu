@@ -393,6 +393,7 @@ function loadCongVan(congVanList, fileList, unknownList, ttMaList) {
 							+ '</td>';
 						}
 					}
+					
 			  		var path = file.diaChi;
 					var index = path.lastIndexOf("/");
 					var index2 = path.lastIndexOf("-");
