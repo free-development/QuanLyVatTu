@@ -61,7 +61,7 @@ public class MdController extends HttpServlet {
 		if("manageMd".equalsIgnoreCase(action)) {
 			long size = mucDichDAO.size();
 			ArrayList<MucDich> mucDichList =  (ArrayList<MucDich>) mucDichDAO.limit(page - 1, 10);
-			request.setAttribute("page", size/10);
+			request.setAttribute("size", size);
 			return new ModelAndView("danh-muc-muc-dich", "mucDichList", mucDichList);
 		}
 		mucDichDAO.disconnect();

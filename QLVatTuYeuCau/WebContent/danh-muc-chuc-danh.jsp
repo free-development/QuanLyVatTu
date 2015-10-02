@@ -113,7 +113,6 @@
 									</ul>
 						</li>
 						<%} %>
-						<%if (!chucDanh.equalsIgnoreCase(adminMa)) {%>
 							<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
 							<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
 							<li><a>Báo cáo</a>
@@ -122,7 +121,7 @@
 									<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 								</ul>
 							</li>
-							<%}} %>
+							<%} %>
 						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
 						<li><a>Quản lý người dùng</a>
 							<ul>
@@ -175,15 +174,17 @@
 				<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td>Trang</td>
+								<%long pageNum = size / 10;
+								long du = size % 10;
+								if(pageNum >0){ %>
+								<td>Trang</td>
 									<td>
 										<%
-											long pageNum = size / 10;
+											
 											for(int i = 0; i <= pageNum; i++) { %>
 												<input type="button" value="<%=i+1%>" class="page">
-										<%} %>
+										<%} }%>
 									</td>
-<!-- 									<td><input type="button" value="Next>>"></td> -->
 								</tr>
 							</table>
 						</div>

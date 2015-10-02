@@ -243,7 +243,6 @@ public class YeuCauDAO {
 		}
 		return yeuCau;
 	}
-	
 	// function cap vat tu
 	public YeuCau capVatTu(YeuCau yeuCau, final int soLuongCap) {
 		

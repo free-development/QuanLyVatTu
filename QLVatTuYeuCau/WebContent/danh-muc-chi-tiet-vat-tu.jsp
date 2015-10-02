@@ -129,7 +129,6 @@
 									</ul>
 						</li>
 						<%} %>
-						<%if (!chucDanh.equalsIgnoreCase(adminMa)) {%>
 							<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
 							<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
 							<li><a>Báo cáo</a>
@@ -138,7 +137,7 @@
 									<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 								</ul>
 							</li>
-							<%}} %>
+							<%} %>
 						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
 						<li><a>Quản lý người dùng</a>
 							<ul>
@@ -197,15 +196,13 @@
 							<%} }%>
 		
 						</table>
-								
-									
 					</div>
 			<div id = "paging" >
 								<%
 										String str = "";
 										String pages = ""; 
 										long p = (pageNum < 10 ? pageNum : 10);
-									for(int i = 0; i <= p; i++) {
+									for(int i = 0; i < p; i++) {
 										str += "<input type=\"button\" value=\"" + (i+1) + "\" class=\"page\" onclick=\"loadPageCTVatTu(" + i +")\">&nbsp;";
 									}
 									if (pageNum > 10)
@@ -217,7 +214,7 @@
 						<div class="group-button" style="text-align: center;">		
  						<button type="button" class="button" 
 							onclick="showForm('import-form', true)"> 
-							<i class="fa fa-pencil fa-fw"></i>&nbsp;Import 
+							<i class="fa fa-pencil fa-fw"></i>&nbsp;Import
 						</button>
 						
 						<button class="button" type="button" onclick="location.href='<%=siteMap.xuatCTVatTu+".jsp"%>'">

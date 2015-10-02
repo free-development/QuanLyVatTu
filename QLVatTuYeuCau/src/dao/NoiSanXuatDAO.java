@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ChucDanh;
+import model.DonViTinh;
 import model.NoiSanXuat;
 
 import org.hibernate.Criteria;
@@ -97,15 +98,20 @@ public class NoiSanXuatDAO {
 			session.disconnect();
 	}
 
-	public static void main(String[] args) {
-//		new NoiSanXuatDAO().deleteNoiSanXuat("Vn5");
-//		System.out.println(new NoiSanXuatDAO().size());
-		ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) new NoiSanXuatDAO().limit(0, 10);
-		int count = 0;
-		for (NoiSanXuat nsx : nsxList) {
-			count++;
-			System.out.println(count + nsx.getNsxTen()); }
+	public NoiSanXuat getByNameNsx(String nsxMa) {
+		session.beginTransaction();
+		String sql = "from NoiSanXuat where LOWER(nsxTen) = :nsxTen";
+		Query query = session.createQuery(sql);
+		query.setParameter("nsxTen", nsxMa.toLowerCase());
+		ArrayList<NoiSanXuat> list = (ArrayList<NoiSanXuat>) query.list();
+		NoiSanXuat nsx = null;
+		if(list.size() != 0)
+			nsx = list.get(0);
+		session.getTransaction().commit();
+		return nsx;
 	}
-	
+	public static void main(String[] args) {
+		System.out.println(new NoiSanXuatDAO().getByNameNsx("Việt Nam"));
+	}
 	
 }
