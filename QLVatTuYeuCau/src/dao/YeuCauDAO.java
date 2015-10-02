@@ -228,10 +228,14 @@ public class YeuCauDAO {
 			int ycId = getLastInsert()-1;
 			yeuCau = new YeuCauDAO().getByYcId(ycId);
 		}
-		else {
+		else if (yeuCau.getDaXoa() == 0){
 			int soLuongOld = yeuCau.getYcSoLuong();
-			if(yeuCau.getDaXoa() == 0)
-				soLuong += soLuongOld;
+			soLuong += soLuongOld;
+			yeuCau.setYcSoLuong(soLuong);
+			yeuCau.setDaXoa(0);
+			updateYeuCau(yeuCau);
+		}
+		else {
 			yeuCau.setYcSoLuong(soLuong);
 			yeuCau.setDaXoa(0);
 			yeuCau.setCapSoLuong(0);
@@ -239,7 +243,6 @@ public class YeuCauDAO {
 		}
 		return yeuCau;
 	}
-	
 	// function cap vat tu
 	public YeuCau capVatTu(YeuCau yeuCau, final int soLuongCap) {
 		

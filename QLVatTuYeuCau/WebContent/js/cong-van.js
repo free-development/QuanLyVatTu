@@ -11,7 +11,18 @@ function showForm(formId1, formId2, check){
     s.filter = 'alpha(opacity='+opacity+')';
     for(var i=0; i<f.length; i++) f[i].disabled = check;
 }
-
+function hideForm(formId, check){
+    if (check)
+        document.getElementById(formId).style.display="block";
+    else 
+        document.getElementById(formId).style.display="none";
+    var f = document.getElementById(formId), s, opacity;
+    s = f.style;
+    opacity = check? '10' : '100';
+    s.opacity = s.MozOpacity = s.KhtmlOpacity = opacity/100;
+    s.filter = 'alpha(opacity='+opacity+')';
+    for(var i=0; i<f.length; i++) f[i].disabled = check;
+}
 function checkAdd(){
 	var cvSo = $('#add-form input:text[name=cvSo]').val();
 	var ngayNhan = $('#add-form input:text[name=ngayNhan]').val();
@@ -140,20 +151,12 @@ function checkUpdate() {
 		congVanList.push($(this).val());
     });
 	
-	if (congVanList.length == 0){
+	if (congVanList.length == 0)
 		alert('Bạn phải chọn 1 công văn để sửa đổi!!');
-		$('input[name="cvId"]:checked').prop('checked',false);
-	}
 	else if (congVanList.length > 1)
-	{
 		alert('Bạn chỉ được chọn 1 công văn để  sửa đổi!!');
-		$('input[name="cvId"]:checked').prop('checked',false);
-	}
 	else if (congVanList.length == 1)
-	{
 		preUpdateCv(congVanList[0]);
-		$('input[name="cvId"]:checked').prop('checked',false);
-	}
 }
 function preUpdateCv(cv) {
 	$.ajax({
@@ -192,7 +195,7 @@ function preUpdateCv(cv) {
 	  		$('#linkCv').attr('href', getRoot() + '?action=download&file=' + congVan.cvId);
 	  		$('#update-form textarea[name=butPheUpdate]').val(congVan.butPhe);
 	  		$('#update-form textarea[name=moTa]').val(file.moTa);
-	  		showForm('main-form','update-form', true);
+	  		showForm('head-form','update-form', true);
 	  		
 	    }
 	});  
@@ -212,7 +215,10 @@ function deleteCv(cvId) {
 	});  
 }	
 function loadDataCv() {
-	showForm('main-form', 'add-form', true);
+//	showForm('main-form','add-form', true);
+	showForm('main-form','add-form', true);
+	hideForm('search-form', true);
+	hideForm('time-form', true);
 }
 function chiaSeCv() {
 //	var cvId = $('input:checkbox[name=cvId]:checked').val();
@@ -401,7 +407,6 @@ function loadCongVan(congVanList, fileList, unknownList, ttMaList) {
 							+ '</td>';
 						}
 					}
-					
 			  		var path = file.diaChi;
 					var index = path.lastIndexOf("/");
 					var index2 = path.lastIndexOf("-");
@@ -672,8 +677,7 @@ function addCongVan() {
 	  	}
 	});
 }
-//function pre
-Cv() {
+//function preUpdateCv() {
 //	
 //	showForm('main-form','update-form', true);
 //}

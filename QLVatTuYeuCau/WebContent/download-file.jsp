@@ -28,10 +28,9 @@
 	String path = (String) request.getAttribute("path");
 	
 // 	response.setContent
-	response.setContentType("APPLICATION/OCTET-STREAM");   
+	response.setContentType("APPLICATION/OCTET-STREAM"); 
 	java.io.File file = new java.io.File (path);
 	  response.setHeader("Content-Disposition","attachment; filename=\"" + FileUtil.getNameFile(file) + "." + FileUtil.getExtension(file) + "\"");   
-	  
 	  java.io.FileInputStream fileInputStream=new java.io.FileInputStream(file);  
 	            
 	  int i;   
