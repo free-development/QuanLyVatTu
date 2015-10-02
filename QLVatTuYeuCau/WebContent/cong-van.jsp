@@ -160,7 +160,6 @@ hosting = '<%=hosting  %>';
 			<div id="title-content">Công văn</div>
 				<!--            <form id="main-form">-->
 				<table style="margin: 0 auto;">
-				<table>
 				<tr>
 				<td>
 				<div class="left-content">
@@ -420,18 +419,24 @@ hosting = '<%=hosting  %>';
 						</div>
 					
 						<div id="paging">
-						<%
-							long pageNum = size / 3;
-							long p = (pageNum <= 10 ? pageNum : 10);
-						
-							for (int i = 0; i < p; i++) {
-						%>
-							<input type="button" name = "page" class="page" value="<%=i+1 %>" onclick="loadPage(<%=i%>)">
-						<%}
-							if(pageNum > 10) {
-						%>
-							<input type="button"  class="pageMove" value = "Sau >>" onclick = "loadPage('Next');">
-						<%}%>	
+						<table style ="border-style: none;">
+								<tr>
+									<td>Trang</td>
+									<td>
+								<%
+									long pageNum = size / 3;
+									long p = (pageNum <= 10 ? pageNum : 10);	
+									for (int i = 0; i < p; i++) {
+								%>
+									<input type="button" name = "page" class="page" value="<%=i+1 %>" onclick="loadPage(<%=i%>)">
+								<%}
+									if(pageNum > 10) {
+								%>
+									<input type="button"  class="pageMove" value = "Sau >>" onclick = "loadPage('Next');">
+								<%}%>	
+								</td>
+								</tr>
+								</table>
 						</div>
 						<script type="text/javascript">$('.page')[0].focus();</script>
 						<div class="group-button">
@@ -468,6 +473,7 @@ hosting = '<%=hosting  %>';
 
 				<!--    		</form>  -->
 				<!--                add-form-->
+				<%if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)  || chucDanh.equals(adminMa)) { %>
 				<form id="add-form" name="add-form" action="<%=siteMap.addCv %>" enctype="multipart/form-data" method="post">
 
 					<div class="form-title">Thêm công văn</div>
@@ -617,7 +623,7 @@ hosting = '<%=hosting  %>';
 						</button>
 					</div>
 				</form>
-				
+				<%} %>
 						</div>
 			</div>
 		</div>		

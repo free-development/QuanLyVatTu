@@ -140,12 +140,20 @@ function checkUpdate() {
 		congVanList.push($(this).val());
     });
 	
-	if (congVanList.length == 0)
+	if (congVanList.length == 0){
 		alert('Bạn phải chọn 1 công văn để sửa đổi!!');
+		$('input[name="cvId"]:checked').prop('checked',false);
+	}
 	else if (congVanList.length > 1)
+	{
 		alert('Bạn chỉ được chọn 1 công văn để  sửa đổi!!');
+		$('input[name="cvId"]:checked').prop('checked',false);
+	}
 	else if (congVanList.length == 1)
+	{
 		preUpdateCv(congVanList[0]);
+		$('input[name="cvId"]:checked').prop('checked',false);
+	}
 }
 function preUpdateCv(cv) {
 	$.ajax({
@@ -664,7 +672,8 @@ function addCongVan() {
 	  	}
 	});
 }
-//function preUpdateCv() {
+//function pre
+Cv() {
 //	
 //	showForm('main-form','update-form', true);
 //}
