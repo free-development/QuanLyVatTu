@@ -467,6 +467,7 @@ hosting = '<%=hosting  %>';
 
 				<!--    		</form>  -->
 				<!--                add-form-->
+				<%if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)  || chucDanh.equals(adminMa)) { %>
 				<form id="add-form" name="add-form" action="<%=siteMap.addCv %>" enctype="multipart/form-data" method="post">
 
 					<div class="form-title">Thêm công văn</div>
@@ -616,7 +617,7 @@ hosting = '<%=hosting  %>';
 						</button>
 					</div>
 				</form>
-				
+				<%} %>
 						</div>
 			</div>
 		</div>		

@@ -104,7 +104,8 @@ public class CvController extends HttpServlet{
 		if (cv != null) {
 			conditions.put("cvId", cv);
 			this.cvId = cv;
-		}	
+		} else 
+			this.cvId = 0;
 		
 		orderBy.put("cvId", false);
     	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(msnvTemp, conditions, null, 0, 3);
@@ -175,7 +176,7 @@ public class CvController extends HttpServlet{
 		fileDAO.disconnect();
 		
 		vtcvDAO.disconnect();
-		
+
 		return new ModelAndView(siteMap.congVan);
     }
     
@@ -237,6 +238,7 @@ public class CvController extends HttpServlet{
     	int cvId = congVanDAO.getLastInsert();
     	
     	MultipartRequest multipartRequest = new  MultipartRequest(request, root + tempPath, maxSize);
+    	
 		String action = multipartRequest.getParameter("action");
 		String cvSo = multipartRequest.getParameter("cvSo");
 //		System.out.println(cvSo);
@@ -274,7 +276,7 @@ public class CvController extends HttpServlet{
 			 }
 				
 			file.renameTo(new java.io.File(root + pathFile + fileName));
-			
+			System.out.println(root + pathFile + fileName);
 		}
 		
 		if (congVanCheck != null) {
@@ -904,7 +906,8 @@ public class CvController extends HttpServlet{
 			objectList.add(vtCongVanList);
 		}
 		objectList.add(ttMaList);
-		System.out.println("size of congvan list " + congVanList.size());
+		System.out.println(congVanList.size());
+		System.out.println(msnv);
 		return JSonUtil.toJson(objectList);
 	}
 	@RequestMapping(value="/loadPageCongVan", method=RequestMethod.GET, 
