@@ -60,7 +60,7 @@
 				dispatcher.forward(request, response);
 				return;
 			}
-			long pageNum = (Long) request.getAttribute("page");
+			long size = (Long) request.getAttribute("size");
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -158,7 +158,7 @@
 				<div id="main-content">
 
 					<form id="main-form">
-						<div id="view-table">
+						<div id="view-table" style="height: 600px; margin: 0 auto;">
 							<table>
 								<tr style="background: #199e5e">
 									<td class="left-column"><input type="checkbox" name=""
@@ -184,15 +184,17 @@
 						<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td>Trang</td>
+								<%long pageNum = size / 10;
+								long du = size % 10;
+								if(pageNum >0){ %>
+								<td>Trang</td>
 									<td>
 										<%
-// 											long pageNum = size / 10;
+											
 											for(int i = 0; i <= pageNum; i++) { %>
 												<input type="button" value="<%=i+1%>" class="page">
-										<%} %>
+										<%} }%>
 									</td>
-<!-- 									<td><input type="button" value="Next>>"></td> -->
 								</tr>
  							</table> 
 						</div> 

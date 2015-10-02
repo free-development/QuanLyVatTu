@@ -59,7 +59,7 @@ public class ChatLuongDAO {
 	}
 	public long size() {
 		session.beginTransaction();
-		String sql = "select count(clMa) from ChatLuong";
+		String sql = "select count(clMa) from ChatLuong where daXoa = 0";
 		Query query =  session.createQuery(sql);
 		long size = (long) query.list().get(0);
 		session.getTransaction().commit();
@@ -105,7 +105,22 @@ public class ChatLuongDAO {
 	public void disconnect() {
 		session.disconnect();
 	}
+	
+	public ChatLuong getByNameCl(String clTen) {
+		session.beginTransaction();
+		String sql = "from ChatLuong where LOWER(clTen) = :clTen";
+		Query query = session.createQuery(sql);
+		query.setParameter("clTen", clTen.toLowerCase());
+		ArrayList<ChatLuong> list = (ArrayList<ChatLuong>) query.list();
+		ChatLuong cl = null;
+		if(list.size() != 0)
+			cl = list.get(0);
+		session.getTransaction().commit();
+		return cl;
+	}
 	public static void main(String[] args) {
-		new ChatLuongDAO().deleteChatLuong("cl5");
+		System.out.println(new ChatLuongDAO().getByNameCl("Hàng mới"));
+		
+	
 	}
 }

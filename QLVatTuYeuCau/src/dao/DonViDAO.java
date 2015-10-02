@@ -54,7 +54,7 @@ public class DonViDAO {
 	}
 	public long size() {
 		session.beginTransaction();
-		String sql = "select count(dvMa) from DonVi";
+		String sql = "select count(dvMa) from DonVi where daXoa = 0";
 		Query query =  session.createQuery(sql);
 		long size = (long) query.list().get(0);
 		session.getTransaction().commit();

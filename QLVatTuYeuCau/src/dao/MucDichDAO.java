@@ -88,7 +88,7 @@ public class MucDichDAO {
 	}
 	public long size() {
 		session.beginTransaction();
-		String sql = "select count(mdMa) from MucDich";
+		String sql = "select count(mdMa) from MucDich where daXoa = 0";
 		Query query =  session.createQuery(sql);
 		long size = (long) query.list().get(0);
 		session.getTransaction().commit();

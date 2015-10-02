@@ -38,8 +38,6 @@ public class DonViTinhDAO {
 	}
 	public DonViTinh getDonViTinhByTen(final String dvtTen) {
 		session.beginTransaction();
-//		Criteria cr = session.createCriteria(DonViTinh.class);
-//		cr.add(Restrictions.eq("dvtTen", dvtTen));
 		String sql = "from DonViTinh where LOWER(dvtTen) = :dvtTen";
 		Query query = session.createQuery(sql);
 		query.setParameter("dvtTen", dvtTen.toLowerCase());
@@ -74,7 +72,7 @@ public class DonViTinhDAO {
 	}
 	public long size() {
 		session.beginTransaction();
-		String sql = "select count(dvtId) from DonViTinh";
+		String sql = "select count(dvtId) from DonViTinh where daXoa = 0";
 		Query query =  session.createQuery(sql);
 		long size = (long) query.list().get(0);
 		session.getTransaction().commit();
