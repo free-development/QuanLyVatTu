@@ -94,7 +94,7 @@ function addSoLuong(){
 					+ '<td>' + ctVatTu.chatLuong.clTen + '</td>'
 					+ '<td>' + ctVatTu.vatTu.dvt.dvtTen + '</td>'
 					+ '<td>' + yeuCau.ycSoLuong + '</td>'
-					+ '<td>' + yeuCau.capSoLuong + '</td>';
+					+ '<td id=\"soLuongCap' + yeuCau.ycId +'\">' + yeuCau.capSoLuong + '</td>';
 				
 	  			var row = '<tr id=\"' + yeuCau.ycId +'\"> ' + cells + + '</tr>';
 	  			var style = '';
@@ -255,8 +255,8 @@ function capVatTu() {
 	  			alert('Số lương cấp phát không hợp lệ! Số lượng cấp phát phải nhỏ hơn hoặc bằng tổng số lượng yêu cầu!!!');
 	  		else {
 	  			alert('Cấp phát vật tư thành công');
-	  			$('input[name=soLuongCap]').val('0');	
-				$('#view-table-yc table tr #soLuongCap' + ycVatTu.ycId).html(ycVatTu.capSoLuong);
+	  			$('input[name=soLuongCap]').val('0')	;	
+				$('#soLuongCap' + ycVatTu.ycId).html(ycVatTu.capSoLuong);
 //				$('#view-table-yc table tr td').has('input[name="yeuCau"]:checked').prop('checked',false);
 				$('input[name="yeuCau"]:checked').prop('checked',false);
 	  		}
