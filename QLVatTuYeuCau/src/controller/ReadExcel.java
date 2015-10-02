@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import dao.CTVatTuDAO;
 import dao.ChatLuongDAO;
 import dao.NoiSanXuatDAO;
-import dao.ReadExcelCtvt;
+import dao.ReadExcelTon;
 import dao.VatTuDAO;
 import map.siteMap;
 import model.CTVatTu;
@@ -39,6 +39,7 @@ import model.ChatLuong;
 import model.NoiSanXuat;
 import model.VatTu;
 import util.FileUtil;
+import dao.ReadExcelCT;
 
 /**
  * Servlet implementation class ReadExcel
@@ -85,13 +86,13 @@ public class ReadExcel extends HttpServlet {
 			if ("xls".equalsIgnoreCase(extenstionFile)) {
 				file = new File("temp.xls");
 				fi.write(file);
-				if(!ReadExcelCtvt.readXls(file))
+				if(!ReadExcelTon.readXls(file))
 					return new ModelAndView("import-excel", "status", "formatException");
 			}
 			else if ("xlsx".equalsIgnoreCase(extenstionFile)) {
 				file = new File("temp.xlsx");
 				fi.write(file);
-				if(!ReadExcelCtvt.readXlsx(file))
+				if(!ReadExcelTon.readXlsx(file))
 					return new ModelAndView("import-excel", "status", "formatException");
 			}
 			else {
@@ -104,5 +105,5 @@ public class ReadExcel extends HttpServlet {
 		return new ModelAndView(siteMap.ctVatu);
 		
 	}
-
+	
 }

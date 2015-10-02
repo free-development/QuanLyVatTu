@@ -63,7 +63,7 @@
 				return;
 			}
 // 			Long size = (Long) request.getAttribute("size");
-			long pageNum = (Long) request.getAttribute("size")/10;
+			long size = (Long) request.getAttribute("size");
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -179,15 +179,17 @@
 					<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
+								<%long pageNum = size / 10;
+								long du = size % 10;
+								if(pageNum >0){ %>
 								<td>Trang</td>
 									<td>
 										<%
- 											//long pageNum = size / 10;
+											
 											for(int i = 0; i <= pageNum; i++) { %>
 												<input type="button" value="<%=i+1%>" class="page">
-										<%} %>
+										<%} }%>
 									</td>
-<!-- 									<td><input type="button" value=">>"></td> -->
 								</tr>
 							</table>
 						</div>

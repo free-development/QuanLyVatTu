@@ -46,6 +46,9 @@
 </head>
 <body>
 	<%
+	String status = (String) request.getAttribute("status");
+	if (status != null && status.equals("success"))
+		out.println("<script>alert('Import dữ liệu thành công!')</script>");
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
@@ -60,13 +63,15 @@
    	%>
 	<%
     	ArrayList<VatTu> listVatTu = (ArrayList<VatTu>) request.getAttribute("vatTuList");
-		if (listVatTu ==  null) {
-			int index = siteMap.vtManage.lastIndexOf("/");
-			String url = siteMap.vtManage.substring(index);
-			RequestDispatcher dispatcher =  request.getRequestDispatcher(url + "?action=manageVattu");
-			dispatcher.forward(request, response);
-			return;
-		}
+	Long size = (Long) request.getAttribute("size");
+	if (listVatTu !=  null && size != null) {
+	//if (listVatTu ==  null) {
+// 			int index = siteMap.vtManage.lastIndexOf("/");
+// 			String url = siteMap.vtManage.substring(index);
+// 			RequestDispatcher dispatcher =  request.getRequestDispatcher(url + "?action=manageVattu");
+// 			dispatcher.forward(request, response);
+// 			return;
+// 		}
      	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) request.getAttribute("ctVatTuList");
    		ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) request.getAttribute("noiSanXuatList");
    		ArrayList<ChatLuong> listChatLuong = (ArrayList<ChatLuong>) request.getAttribute("chatLuongList");
@@ -268,7 +273,7 @@
 <!-- 									<input type="button" value="Next>>"></td> -->
 					
 			</div>
-			<div class="group-button">
+				<div class="group-button" style="text-align: center;">	
 				<input type="hidden" name="action" value="deleteVatTu">
 				<button type="button" class="button"
 					onclick="showForm2('vattu','add-form', true)">
@@ -277,6 +282,10 @@
 				<button type="button" class="button"
 					onclick="preEditVattu('vattu','update-form', true);">
 					<i class="fa fa-pencil fa-fw"></i>&nbsp;Thay đổi
+				</button>
+				<button type="button" class="button" 
+							onclick="showForm2('vattu','import-formct', true)"> 
+							<i class="fa fa-pencil fa-fw"></i>&nbsp;Import 
 				</button>
 				<button type="button" class="button" onclick="confirmDeleteVT();">
 					<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa
@@ -399,7 +408,13 @@
 				</div>
 			</form>
 			
-			
+						<form id="import-formct" action="<%=siteMap.readExcelCt %>" method="post" enctype="multipart/form-data" style="height: 200px;text-align: center;">
+									<input type="file" name="file" accept=".xls, .xlsx" class="text" style="padding-left: 0px;">
+									<div class="group-button">
+										<input value="uploadFile" name="action" type="submit" class="button" style="width: 100px;font-size: 17px;text-align: center;">
+										<input value="Thoát" onclick="showForm2('vattu','import-formct', false);" type="button" class="button"  style="width: 70px;text-align: center;font-size: 17px;">
+									</div>
+						</form>
 	<form id="chitiet" >
 	
 <!-- 			<table>		 -->
@@ -639,5 +654,13 @@
 				</div>
 			</form>
 		</div>
+		<%} else {
+			int index = siteMap.vattuManage.lastIndexOf("/");
+ 			String url = siteMap.vattuManage.substring(index);
+ 			RequestDispatcher dispatcher =  request.getRequestDispatcher(url + "?action=manageVattu");
+ 			System.out.println(url + "?action=manageVattu");
+ 			dispatcher.forward(request, response);
+ 			return;
+	} %>
 </body>
 </html>

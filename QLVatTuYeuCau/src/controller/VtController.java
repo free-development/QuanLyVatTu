@@ -57,6 +57,7 @@ public class VtController extends HttpServlet {
 		if("manageVt".equalsIgnoreCase(action)) {
 			long size = vaiTroDAO.size();
 			ArrayList<VaiTro> vaiTroList =  (ArrayList<VaiTro>) vaiTroDAO.limit(page - 1, 10);
+			System.out.println(size);
 			request.setAttribute("size", size);
 			vaiTroDAO.disconnect();
 			return new ModelAndView("danh-muc-vai-tro", "vaiTroList", vaiTroList);

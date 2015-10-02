@@ -160,13 +160,16 @@
 					<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-									<td>Trang</td>
+								<%long pageNum = size / 10;
+								long du = size % 10;
+								if(pageNum >0){ %>
+								<td>Trang</td>
 									<td>
 										<%
-											long pageNum = size / 10;
+											
 											for(int i = 0; i <= pageNum; i++) { %>
 												<input type="button" value="<%=i+1%>" class="page">
-										<%} %>
+										<%} }%>
 									</td>
 								</tr>
 							</table>

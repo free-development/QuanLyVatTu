@@ -72,7 +72,7 @@ public class VaiTroDAO {
 	}
 	public long size() {
 		session.beginTransaction();
-		String sql = "select count(vtId) from VaiTro";
+		String sql = "select count(vtId) from VaiTro where daXoa = 0";
 		Query query =  session.createQuery(sql);
 		long size = (long) query.list().get(0);
 		session.getTransaction().commit();

@@ -104,6 +104,8 @@ public class siteMap {
 		
 	//map readExel
 	public static final String readExcel = home + "readExcel.html";
+	
+	public static final String readExcelCt = home + "readExcelCt.html";
 	//xuat chi tiet vat tu
 	public static final String  xuatCTVatTu = "xuat-chi-tiet-vat-tu";
 	

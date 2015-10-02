@@ -20,6 +20,22 @@
 <link
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
 	type="text/css" rel="stylesheet">
+	<script >
+    $(document).ready(function() {
+        $('.checkAll').click(function(event) {  //on click 
+            if(this.checked) { // check select status
+                $('.checkbox').each(function() { //loop through each checkbox
+                    this.checked = true;  //select all checkboxes with class "checkbox1"               
+                });
+            }else{
+                $('.checkbox').each(function() { //loop through each checkbox
+                    this.checked = false; //deselect all checkboxes with class "checkbox1"                       
+                });         
+            }
+        });
+        
+    });
+	</script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/location.js"></script>
 <script type="text/javascript" src="js/noi-san-xuat.js"></script>
@@ -57,8 +73,8 @@
 				dispatcher.forward(request, response);
 				return;
 			}
-    		Long size = (Long) request.getAttribute("size");
-    		long pageNum = (Long) request.getAttribute("size")/10;
+     		Long size = (Long) request.getAttribute("size");
+//     		long pageNum = (Long) request.getAttribute("size")/10;
     	%>
 	<div class="wrapper">
 		<div class="header">
@@ -186,14 +202,17 @@
 				<div id = "paging" >
 							<table style ="border-style: none;">
 								<tr>
-										<td>Trang</td>
-										<td>
-												<%
-												for(int i = 0; i <= pageNum; i++) { %>
+								<%long pageNum = size / 10;
+								long du = size % 10;
+								if(pageNum >0){ %>
+								<td>Trang</td>
+									<td>
+										<%
+											
+											for(int i = 0; i <= pageNum; i++) { %>
 												<input type="button" value="<%=i+1%>" class="page">
-												<%} %>
-										</td>
-									
+										<%} }%>
+									</td>
 								</tr>
 							</table>
 						</div>
