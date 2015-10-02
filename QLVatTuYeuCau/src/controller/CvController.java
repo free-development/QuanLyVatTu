@@ -227,7 +227,8 @@ public class CvController extends HttpServlet{
 //    	request.ge
     	HttpSession session = request.getSession(false);
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
-    	root =  request.getRealPath("/");
+//    	root =  request.getRealPath("/");
+    	root =  "/home/quoioln/DATA/";
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -347,7 +348,8 @@ public class CvController extends HttpServlet{
     @RequestMapping("updateCongVan")
     public ModelAndView updateCongVan(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //    	request.ge
-    	root =  request.getRealPath("/");
+//    	root =  request.getRealPath("/");
+    	root =  "/home/quoioln/DATA/";
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");

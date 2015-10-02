@@ -53,11 +53,9 @@ public class YcController extends HttpServlet {
 		String cvSo = request.getParameter("cvSo");
 		//if(s[0] == null)
 		
-		JOptionPane.showConfirmDialog(null, s);
 		if(s == null)
 			return new ModelAndView(siteMap.cvManage + "?action=manageCv");
 		int cvId =  Integer.parseInt(s);
-		JOptionPane.showConfirmDialog(null, s);
 		session.setAttribute("cvId", cvId);
     	CTVatTuDAO ctvtDAO =  new CTVatTuDAO();
     	YeuCauDAO yeuCauDAO = new YeuCauDAO();
@@ -65,7 +63,6 @@ public class YcController extends HttpServlet {
     	ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
     	CongVanDAO congVanDAO = new CongVanDAO();
     	ArrayList<CTVatTu> ctVatTuList = (ArrayList<CTVatTu>) ctvtDAO.limit((pageCtvt - 1)*10, 10);
-    	JOptionPane.showConfirmDialog(null, "ok");
     	ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
     	ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) nsxDAO.getAllNoiSanXuat();
     	ArrayList<ChatLuong> chatLuongList = (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();
@@ -121,15 +118,16 @@ public class YcController extends HttpServlet {
 		CongVan congVan = congVanDAO.getCongVan(cvId);
 		congVanDAO.disconnect();
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
-//		NhatKyDAO nhatKyDAO = new NhatKyDAO();
-//		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã cập nhật số lượng cho vât tư có mã " + ctvt.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctvt.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctvt.getChatLuong().getClMa() + "của công văn  " + congVan.getSoDen());
-//		nhatKyDAO.addNhatKy(nhatKy);
-//		nhatKyDAO.disconnect();
-    	NhatKy nhatKy = (NhatKy) session.getAttribute("nhatKy");
-    	if (nhatKy == null) {
-    		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
-    		nhatKy = new NhatKy(authentication.getMsnv(), currentDate, cvId + "#Bạn đã cập nhật vật tư thiếu cho công văn có số đến " + congVan.getSoDen() + " nhận ngày " + congVan.getCvNgayNhan() + ":<br> ");
-    	}
+		NhatKyDAO nhatKyDAO = new NhatKyDAO();
+		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), currentDate, cvId+ "#Bạn đã cập nhật số lượng cho vât tư có mã " + ctvt.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctvt.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctvt.getChatLuong().getClMa() + "của công văn  " + congVan.getSoDen());
+		nhatKyDAO.addNhatKy(nhatKy);
+		nhatKyDAO.disconnect();
+//    	NhatKy nhatKy = (NhatKy) session.getAttribute("nhatKy");
+//    	if (nhatKy == null) {
+//    		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
+//    		nhatKy = new NhatKy(authentication.getMsnv(), currentDate, cvId + "#Bạn đã cập nhật vật tư thiếu cho công văn có số đến " + congVan.getSoDen() + " nhận ngày " + congVan.getCvNgayNhan() + ":<br> ");
+//    	}
     	
     	String noiDung = nhatKy.getNoiDung();
     	noiDung += "&nbsp;&nbsp;+" + "Vật tư có mã: " + ctvt.getVatTu().getVtMa() 
@@ -141,14 +139,22 @@ public class YcController extends HttpServlet {
 	
 	@RequestMapping(value="/deleteYc", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String deleteYc(@RequestParam("ycList") String ycList) {
+	 public @ResponseBody String deleteYc(@RequestParam("ycList") String ycList, HttpSession session) {
 //		int id = Integer.parseInt(ycId);
 		String[] ycIdList = ycList.split("\\, ");
+		int cvId = (Integer) session.getAttribute("cvId");
+//		String content = 
 		YeuCauDAO ycDAO = new YeuCauDAO();
 		for (String s : ycIdList) {
 			int id = Integer.parseInt(s);
 			ycDAO.deleteYeuCau(id);
 		}
+//		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+//		NhatKyDAO nhatKyDAO = new NhatKyDAO();
+//		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
+//		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), currentDate, cvId+ "#Bạn đã cập nhật số lượng cho vât tư có mã " + ctvt.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctvt.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctvt.getChatLuong().getClMa() + "của công văn  " + congVan.getSoDen());
+//		nhatKyDAO.addNhatKy(nhatKy);
+//		nhatKyDAO.disconnect();
 		ycDAO.disconnect();
 		
 //		CongVanDAO congVanDAO = new CongVanDAO();
