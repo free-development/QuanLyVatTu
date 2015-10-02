@@ -1,4 +1,3 @@
-
 <%@page import="model.NguoiDung"%>
 <%@page import="util.DateUtil"%>
 <%@page import="java.util.Date"%>
@@ -132,8 +131,8 @@ display:none;
 									</tbody>
 				</table>
 				</div>
-				<div style="width:800px;font-size: 22px;margin: auto;">
-						<table style="width:800px;font-size: 22px;;">
+				<div style="width:960px;font-size: 18px;margin: auto;">
+						<table style="width:960px;font-size: 18px;;">
 								<tr>
 									<td></td>
 									<td style="text-align: right;">Ngày.....tháng.....năm.....</td>

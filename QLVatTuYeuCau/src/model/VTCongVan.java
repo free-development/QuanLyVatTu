@@ -10,11 +10,13 @@ public class VTCongVan implements Serializable{
 	private int vtId;
 
 	private String msnv;
+	private TrangThai trangThai;
 	private int daXoa;
 	public VTCongVan() {
 		this.cvId = 0;
 		this.vtId = 0;
 		this.msnv = "";
+		this.trangThai = new TrangThai();
 		this.daXoa = 0;
 	}
 
@@ -23,17 +25,27 @@ public class VTCongVan implements Serializable{
 	 * @param vtId
 	 * @param msnv
 	 */
-	public VTCongVan(int cvId, int vtId, String msnv) {
+	public VTCongVan(int cvId, int vtId, String msnv, TrangThai trangThai) {
 		this.cvId = cvId;
 		this.vtId = vtId;
 		this.msnv = msnv;
+		this.trangThai = trangThai;
 	}
-	public VTCongVan(int cvId, int vtId, String msnv,int daXoa) {
+	public VTCongVan(int cvId, int vtId, String msnv, TrangThai trangThai, int daXoa) {
 		this.cvId = cvId;
 		this.vtId = vtId;
 		this.msnv = msnv;
+		this.trangThai = trangThai;
 		this.daXoa = daXoa;
 	}
+	public TrangThai getTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(TrangThai trangThai) {
+		this.trangThai = trangThai;
+	}
+
 	public int getDaXoa() {
 		return daXoa;
 	}

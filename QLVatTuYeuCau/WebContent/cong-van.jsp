@@ -1,3 +1,4 @@
+<%@page import="javax.swing.JOptionPane"%>
 <%@page import="model.VaiTro"%>
 <%@page import="dao.VaiTroDAO"%>
 <%@page import="model.NguoiDung"%>
@@ -12,7 +13,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html>	
 <html>
 <head>
 <title>Văn phòng điện tử công ty điện lực Cần Thơ</title>
@@ -42,28 +43,7 @@
    			return;
    		}
    	%>
-<script type="text/javascript">
-<% 
-String chucDanh = authentication.getChucDanh().getCdMa();
-String chucDanhMa = chucDanh;
-%>
-check = <% if (vanThuMa.equals(chucDanhMa) ) out.print("false"); else out.print("true");%>;
-capVatTuId = '<%=capPhatMa  %>';
-chucDanhMa = '<%=chucDanhMa  %>';
-vanThuMa = '<%=vanThuMa  %>';
-truongPhongMa = '<%=truongPhongMa  %>';
-hosting = '<%=hosting  %>';
-// || capPhatMa.equals(chucDanhMa)
-
-</script>
-<script type="text/javascript" src="js/cong-van.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
-
-</head>
-<body>
-	
-	<%
+   	<%
 		request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -88,9 +68,33 @@ hosting = '<%=hosting  %>';
     	Long size = (Long) request.getAttribute("size");
     	ArrayList<ArrayList<VaiTro>> vtCongVanList = (ArrayList<ArrayList<VaiTro>>) request.getAttribute("vtCongVanList");
     	ArrayList<ArrayList<String>> nguoiXlCongVan = (ArrayList<ArrayList<String>>) request.getAttribute("nguoiXlCongVan");
+    	ArrayList<String> ttMaList = (ArrayList<String>) request.getAttribute("ttMaList");
     	
     	try {
     %>
+<script type="text/javascript">
+<% 
+String chucDanh = authentication.getChucDanh().getCdMa();
+String chucDanhMa = chucDanh;
+%>
+check = <% if (vanThuMa.equals(chucDanhMa) ) out.print("false"); else out.print("true");%>;
+capVatTuId = '<%=capPhatMa  %>';
+chucDanhMa = '<%=chucDanhMa  %>';
+vanThuMa = '<%=vanThuMa  %>';
+truongPhongMa = '<%=truongPhongMa  %>';
+hosting = '<%=hosting  %>';
+
+// || capPhatMa.equals(chucDanhMa)
+
+</script>
+<script type="text/javascript" src="js/cong-van.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
+
+</head>
+<body>
+	
+	
     
 	<div class="wrapper">
 		<jsp:include page="header.jsp" /> 
@@ -120,7 +124,6 @@ hosting = '<%=hosting  %>';
 							</ul>
 				</li>
 				<%} %>
-				<%if (!chucDanh.equalsIgnoreCase(adminMa)) {%>
 				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
 				<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
 				<li><a>Báo cáo</a>
@@ -129,7 +132,7 @@ hosting = '<%=hosting  %>';
 						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 					</ul>
 				</li>
-				<%}} %>
+				<%} %>
 				<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
 				<li><a>Quản lý người dùng</a>
 					<ul>
@@ -156,7 +159,7 @@ hosting = '<%=hosting  %>';
 			<div id="content-form">
 			<div id="title-content">Công văn</div>
 				<!--            <form id="main-form">-->
-				<table>
+				<table style="margin: 0 auto;">
 				<tr>
 				<td>
 				<div class="left-content">
@@ -205,14 +208,19 @@ hosting = '<%=hosting  %>';
 						<table>
 							<tr>
 								<th class="column-loc">Tìm kiếm: </th>
-								<td><select class="select" name="filter" id="filter">
+								<td id = "type"><select class="select" name="filter" id="filter">
 										<option value =""> Tất cả </option>
 <!-- 										<option>Ngày đến</option> -->
 										<option value="soDen">Số đến</option>
-										<option value="mucDich">Mục đích nhận</option>
+										<option value="cvSo">Số công văn đến</option>
+										<option value="mdMa">Mục đích nhận</option>
+										<option value="cvNgayDi">Ngày gửi</option>
+										<option value="cvNgayNhan">Ngày nhận</option>
+										<option value="dvMa">Đơn vị gửi</option>
 <!-- 										<option>Nơi gửi</option> -->
 										<option value="trichYeu">Trích yếu</option>
 										<option value="butPhe">Bút phê</option>
+										
 <!-- 										<option>Nơi GQ chính</option> -->
 
 								</select>
@@ -229,8 +237,8 @@ hosting = '<%=hosting  %>';
                             </td>-->
 								<td>
 									<!--                                 <div class="search-form">-->
-									<span class="search-text"> <!--								&nbsp;--> <input
-										type="search" class="text" name="filterValue" id="filterValue" readonly style="background: #D1D1E0;"
+									<span class="search-text" id="searchContent"> <!--								&nbsp;--> 
+									<input type="search" class="text" name="filterValue" id="filterValue" readonly style="background: #D1D1E0;"
 										placeholder="Nội dung tìm kiếm" />
 								</span> <span class="search-button">
 										<button class="btn-search" id = "buttonSearch" type="button">
@@ -263,30 +271,36 @@ hosting = '<%=hosting  %>';
                      %>
 					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : #FFFFFF;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
 						<tr >
-						<% if (chucDanhMa.equals(vanThuMa)) {%>
-							<td class="column-check" rowspan="7" style="margin-right: 30px;">
-								<input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>">
+						<% if (chucDanhMa.equals(vanThuMa) || chucDanhMa.equals(adminMa)) {%>
+							<td class="column-check" rowspan="8" style="margin-right: 30px;">
+								Chọn <input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>"> 
 							</td>
+							
 							<%} %>
 							<td class="left-column-soden" style="font-weight: bold;">Số đến: &nbsp;&nbsp;</td>
 							<td class="column-so-den" style="text-align: left;"><%=congVan.getSoDen() %></td>
-							<td class="left-column-socv" style="font-weight: bold;">Số công văn: &nbsp;&nbsp;</td>
-							<td class="column-socv" style="text-align: left;color:red;font-weight: bold;"><%=congVan.getCvSo() %></td>
 							<td class="left-column-first" style="font-weight: bold;">Ngày đến: &nbsp;&nbsp;</td>
 							<td class="column-date" style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
+							<td colspan="1" style="font-weight: bold;">Trạng thái:</td>
+							<td colspan="1" style="color: red;font-weight: bold;font-style: oblique;"><%=congVan.getTrangThai().getTtTen() %></td>
+						</tr>
+						<tr>	
+							<td  class="left-column-socv" style="font-weight: bold;">Số công văn đến: &nbsp;&nbsp;</td>
+							<td colspan ="3" class="column-socv" style="text-align: left;color:red;font-weight: bold;"><%=congVan.getCvSo() %></td>
+							<td class="left-column-ngdi" style="font-weight: bold;">Ngày công văn đi:&nbsp;&nbsp;</td>
+							<td class="column-date" style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayDi())%></td>
+							
 						</tr>
 						<tr>
 							<td class="left-column-first" style="font-weight: bold;">Mục đích: &nbsp;&nbsp;</td>
 							<td class="column-color" colspan="3" style="text-align: left"><%=congVan.getMucDich().getMdTen() %></td>
-							<td class="left-column-ngdi" style="font-weight: bold;">Ngày công văn đi:&nbsp;&nbsp;</td>
-							<td class="column-date" style="text-align: left;color:blue;"><%=DateUtil.toString(congVan.getCvNgayDi())%></td>
-						</tr>
-						<tr>
+							
+<!-- 						</tr> -->
+<!-- 						<tr> -->
 							
 							<td class="left-column-first" style="font-weight: bold;">Nơi gửi: &nbsp;&nbsp;</td>
-							<td class="column-color" colspan="3" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
-							<td colspan="1" style="font-weight: bold;">Trạng thái:</td>
-							<td colspan="1" style="color: red;font-weight: bold;font-style: oblique;"><%=congVan.getTrangThai().getTtTen() %></td>
+							<td class="column-color" colspan="1" style="text-align: left"><%= congVan.getDonVi().getDvTen()%></td>
+							
 						</tr>
 						<tr>
 						
@@ -300,7 +314,7 @@ hosting = '<%=hosting  %>';
 						<tr>
 							
 							<%
-								if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)) { %>
+								if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)  || chucDanh.equals(adminMa)) { %>
 									<td class="left-column-first" style="font-weight: bold;">Người xử lý</td>
 									<td class="column-color"colspan="3">
 									<%
@@ -316,13 +330,13 @@ hosting = '<%=hosting  %>';
 											out.println(cellHoTen.toString());
 										}%>
 									</td>
-									<%if (chucDanh.equals(truongPhongMa)) { %>
+<%-- 									<%if (chucDanh.equals(truongPhongMa)) { %> --%>
 									<td colspan="2" style="float: right;">
 										<button  class="button" type="button" style="width: 170px; height: 30px;" onclick="location.href='<%=siteMap.cscvManage + "?action=chiaSeCv&congVan=" + congVan.getCvId()%>'">
 											<i class="fa fa-spinner"></i>&nbsp;&nbsp;Chia sẻ công văn
 										</button>
 									</td>
-									<%} %>
+<%-- 									<%} %> --%>
 								<%} else {%>
 									<td class="left-column-first" style="font-weight: bold;">Vai trò</td>
 									<td class="column-color"colspan="3">
@@ -352,40 +366,83 @@ hosting = '<%=hosting  %>';
 						</tr>
 						<tr>
 							<td class="left-column-first" style="font-weight: bold;">Xem công văn: </td>
-							<td colspan="5">
+							<%
+							File file = fileHash.get(congVan.getCvId());
+							String path = file.getDiaChi();
+							int index = path.lastIndexOf("/");
+							int index2 = path.lastIndexOf("-");
+							int index3 = path.lastIndexOf(".");
+							String fileName = path.substring(index + 1, index2);
+							if (index3 != -1)
+								fileName += path.substring(index3);
+							%>
+							<td colspan="1">
 								<a href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
-									<div class="mo-ta"><%=fileHash.get(congVan.getCvId()).getMoTa() %></div>
+									<div class="mo-ta"><%=fileName %></div>
 								</a>
 							</td>
-							
+							<td class="left-column-first" style="font-weight: bold;">Ghi chú: </td>
+							<td colspan="3">
+								<%=file.getMoTa() %>
+							</td>
 						</tr>
+						<tr>
+							<th style="text-align: left"><label>Trạng
+									thái</label></th>
+							<td style="text-align: left; padding-left: 10px;" colspan = "5">
+								
+								<input type="radio" <%if ("CGQ".equals(ttMaList.get(count - 1))) out.println(" checked ");%> name="<%=congVan.getCvId() %>"  value="<%=congVan.getCvId()+"#"+"CGQ"%>"  class="ttMaUpdate">
+								<label for="<%=congVan.getCvId()+"#"+"CGQ"%>">Chưa giải quyết</label>&nbsp;&nbsp;&nbsp;
+								
+								<input type="radio" <%if ("DGQ".equals(ttMaList.get(count - 1))) out.println(" checked ");%> name="<%=congVan.getCvId() %>"  value="<%=congVan.getCvId()+"#"+"DGQ"%>" class="ttMaUpdate" >
+								<label for="<%=congVan.getCvId()+"#"+"DGQ"%>">Còn thiếu hàng</label>&nbsp;&nbsp;&nbsp;
+								
+								<input type="radio" <%if ("DaGQ".equals(ttMaList.get(count - 1))) out.println(" checked ");%> name="<%=congVan.getCvId() %>"  value="<%=congVan.getCvId()+"#"+"DaGQ"%>" class="ttMaUpdate">
+								<label for="<%=congVan.getCvId()+"#"+"DaGQ"%>">Đã cấp đủ hàng</label>&nbsp;&nbsp;&nbsp;
+								<div id="requireTrangThaiUp" style="color: red"></div>
+							</td>
+						</tr>	
 					</table>
+				
 					<br>
 					<hr>
 
 							<%} %>
+					<script type="text/javascript">
+						$('.ttMaUpdate').bind('change', function() {
+							var trangThai = $(this).val(); 
+							changeTrangThai(trangThai) ;
+						}); 
+					</script>;	
+
 
 						</div>
 					
 						<div id="paging">
-						<%
-							long pageNum = size / 3;
-							long p = (pageNum <= 10 ? pageNum : 10);
-						
-							for (int i = 0; i < p; i++) {
-						%>
-							<input type="button" name = "page" class="page" value="<%=i+1 %>" onclick="loadPage(<%=i%>)">
-						<%}
-							if(pageNum > 10) {
-						%>
-							<input type="button"  class="pageMove" value = "Sau >>" onclick = "loadPage('Next');">
-						<%}%>	
+						<table style ="border-style: none;">
+								<tr>
+									<td>Trang</td>
+									<td>
+								<%
+									long pageNum = size / 3;
+									long p = (pageNum <= 10 ? pageNum : 10);	
+									for (int i = 0; i < p; i++) {
+								%>
+									<input type="button" name = "page" class="page" value="<%=i+1 %>" onclick="loadPage(<%=i%>)">
+								<%}
+									if(pageNum > 10) {
+								%>
+									<input type="button"  class="pageMove" value = "Sau >>" onclick = "loadPage('Next');">
+								<%}%>	
+								</td>
+								</tr>
+								</table>
 						</div>
 						<script type="text/javascript">$('.page')[0].focus();</script>
 						<div class="group-button">
 							<input type="hidden" name="action" value="update-yeu-cau">
 							<%
-								if (vanThuMa.equalsIgnoreCase(chucDanh)) {
+								if (vanThuMa.equalsIgnoreCase(chucDanh) || chucDanh.equals(adminMa)) {
 							%>
 							<button type="button" class="button" onclick="loadDataCv();">
 								<i class="fa fa-plus-circle"></i>&nbsp;Thêm mới
@@ -416,6 +473,7 @@ hosting = '<%=hosting  %>';
 
 				<!--    		</form>  -->
 				<!--                add-form-->
+				<%if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)  || chucDanh.equals(adminMa)) { %>
 				<form id="add-form" name="add-form" action="<%=siteMap.addCv %>" enctype="multipart/form-data" method="post">
 
 					<div class="form-title">Thêm công văn</div>
@@ -426,12 +484,13 @@ hosting = '<%=hosting  %>';
 <!-- 								<td colspan="3"><input type = "text" class="text" readonly value="123" style="background: #D1D1E0;" sise="5" name="soDen"></td> -->
 <!-- 							</tr> -->
 							<tr style="margin-bottom: 20px;">
-								<th style="text-align: left" colspan="1"> <label for="soDen" style="text-align: left">Số công văn: </label></th>
-								<td colspan="3"><input type="text" class="text" name="cvSo" id="cvSo" onkeypress="changeSoCv();"><div id="requireSoCv" style="color: red"></div></td>
-							</tr>	
-							<tr style="margin-bottom: 20px;">	
+								<th style="text-align: left" colspan="1"> <label for="cvSo" style="text-align: left">Số công văn đến: </label></th>
+								<td colspan="1"><input type="text" class="text" name="cvSo" id="cvSo" onkeypress="changeSoCv();"><div id="requireSoCv" style="color: red"></div></td>
 								<th style="text-align: left"><label for="ngayGoi" class="input">Ngày gởi: </label></th>
 								<td><input type="date" class="text" name="ngayGoi" id="ngayGoi" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %> ></td>
+							</tr>	
+							<tr style="margin-bottom: 20px;">	
+								
 								<th style="text-align: left"><label for="ngayNhan" class="input">Ngày nhận: </label></th>
 								<td><input type="date" class="text" name="ngayNhan" id="ngayNhan" value=<%=DateUtil.convertToSqlDate(new java.util.Date()) %> onkeypress="changeNgayNhan();"><div id="requireNgayNhan" style="color: red"></div></td>
 							</tr>
@@ -467,7 +526,7 @@ hosting = '<%=hosting  %>';
 							<tr>	
 							</tr>
 								<th  style="text-align: left;"><label
-										for="moTa" class="input" >Mô tả file: </label></th>
+										for="moTa" class="input" >Ghi chú: </label></th>
 								<td colspan="3"><textarea class="txtarea" name="moTa" onkeypress="changeMoTa();"></textarea><div id="requireMoTa" style="color: red"></div></td>
 							<tr>
 						</table>
@@ -498,7 +557,7 @@ hosting = '<%=hosting  %>';
 								<td colspan="3"><input type = "text" class="text" value="123" readonly style="background: #D1D1E0;" sise="5" name="soDen"></td>
 							</tr>
 							<tr style="margin-bottom: 20px;">
-								<th style="text-align: left" colspan="1"> <label for="cvSo" style="text-align: left">Số công văn: </label></th>
+								<th style="text-align: left" colspan="1"> <label for="cvSo" style="text-align: left">Số công văn đến: </label></th>
 								<td colspan="3"><input type="text" class="text" name="cvSo" id="cvSo" readonly style="background: #D1D1E0;"></td>
 							</tr>	
 							<tr style="margin-bottom: 20px;">	
@@ -535,18 +594,15 @@ hosting = '<%=hosting  %>';
 							</tr>
 							<tr>
 								<th style="text-align: left;"><label for="file" class="input" name="file">Tệp đính kèm: </label></th>
-								<td><input type="file" value="ac" id="file" name="file" onchange="changeFileUp();"><div id="requireFileUp" style="color: red"></div></td>
+								<td colspan="1"><a id="linkCv" style="text-decoration: underline; color: blue; cursor: pointer;"></a></td>
+								<th >Tải tệp mới</th>
+								<td><input type="file" id="file" name="file" onchange="changeFileUp();"><div id="requireFileUp" style="color: red"></div></td>
 							</tr>
 							<tr>
-								<th style="text-align: left"><label for="TT">Trạng
-										thái</label></th>
-								<td style="text-align: right; padding-left: 10px;">
-									<% for (TrangThai trangThai : trangThaiList) {%>
-									<input type="radio" name="ttMaUpdate" value="<%=trangThai.getTtMa()%>" id="<%=trangThai.getTtMa()%>" onchange="changeTrangThaiUp();"> 
-									<label for="<%=trangThai.getTtMa()%>"><%=trangThai.getTtTen()%></label>&nbsp;&nbsp;&nbsp;
-									<%}%>
-								<div id="requireTrangThaiUp" style="color: red"></div></td>
-							</tr>	
+								<th style="text-align: left;"><label for="moTa" class="input" name="moTa">Ghi chú: </label></th>
+								<td colspan="5"><textarea class="txtarea" name="moTa" ></textarea></td>
+							</tr>
+							
 						</table>
 						
 					</div>
@@ -567,7 +623,7 @@ hosting = '<%=hosting  %>';
 						</button>
 					</div>
 				</form>
-				
+				<%} %>
 						</div>
 			</div>
 		</div>		

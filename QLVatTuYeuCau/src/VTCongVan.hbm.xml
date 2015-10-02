@@ -20,6 +20,9 @@
 			<key-property name="msnv" column="MSNV" type="string"></key-property>
 			<key-property name="vtId" column="VTID" type="int"></key-property>
 		</composite-id>
+		<many-to-one name="trangThai" class="model.TrangThai" fetch ="join"  > 
+ 			<column name="TTMA" /> 
+ 		</many-to-one> 
 		<property name="daXoa" type="int" access="field"> 
  			<column name="DAXOA" /> 
  		</property>

@@ -7,19 +7,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import model.NguoiDung;
-import model.VTCongVan;
-import model.VaiTro;
-
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import model.NguoiDung;
+import model.TrangThai;
+import model.VTCongVan;
+import model.VaiTro;
 import util.HibernateUtil;
 
 
@@ -228,12 +227,56 @@ public class VTCongVanDAO {
 	public void disconnect() {
 		session.disconnect();
 	}
-	public static void main(String[] args) {
-		VTCongVanDAO l = new VTCongVanDAO();
-		System.out.println(l.getVaiTroByCvId(44));
+	public ArrayList<Integer> groupByMsnvLimit(String msnv, int first, int limit) {
+		session.beginTransaction();
+		String sql = "select distinct(cvId) from VTCongVan where  ttMa != 'DaGQ' and msnv = :msnv order by vtId desc";
+		Query query = session.createQuery(sql);
+		query.setParameter("msnv", msnv);
+		query.setFirstResult(first);
+		query.setMaxResults(limit);
+		
+		ArrayList<Integer> congVanIdList = (ArrayList<Integer>) query.list();
+		session.getTransaction().commit();
+		return congVanIdList;
 	}
-	public ArrayList<Integer> groupByMsnv(String msnv) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<ArrayList<VaiTro>> getVaiTroList(String msnv, ArrayList<Integer> cvIdList) {
+		ArrayList<ArrayList<VaiTro>> vaiTroList = new ArrayList<ArrayList<VaiTro>>();
+		for (Integer cvId : cvIdList) {
+			ArrayList<VaiTro> vtCongVanList = getVaiTro(cvId, msnv);
+			vaiTroList.add(vtCongVanList);
+		}
+		return vaiTroList;
+	}
+	public static void main(String[] args) {
+//		ArrayList<VaiTro> cvIdList = new VTCongVanDAO().getVaiTro(17, "b1203954");
+		VTCongVan vtCongVan = new VTCongVanDAO().getVTCongVan("b1203954", 17, 1);
+		System.out.println(vtCongVan.getMsnv());
+	}
+	public VTCongVan getVTCongVan(String msnv, int cvId, int vtId) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(VTCongVan.class);
+		cr.add(Restrictions.eq("msnv", msnv));
+		cr.add(Restrictions.eq("cvId", cvId));
+		VTCongVan vtCongVan = (VTCongVan) cr.list().get(0);
+		session.getTransaction().commit();
+		return vtCongVan;
+	}
+	public ArrayList<ArrayList<String>> getTrangThai(String msnv, ArrayList<Integer> cvIdList,
+			ArrayList<ArrayList<VaiTro>> vaiTroList) {
+		Criteria cr = session.createCriteria("VTCongVan");
+		ArrayList<ArrayList<String>> trangThaiList = new ArrayList<ArrayList<String>>();
+		int count = 0;
+		TrangThaiDAO trangThaiDAO = new TrangThaiDAO();
+		for (Integer cvId : cvIdList) {
+			ArrayList<String> trangThaiCongVanList = new ArrayList<String>();
+			ArrayList<VaiTro> vtCongVanList = vaiTroList.get(count);
+			for (VaiTro vaiTro : vtCongVanList) {
+				VTCongVan vtCongVan = getVTCongVan(msnv, cvId, vaiTro.getVtId());
+				trangThaiCongVanList.add(vtCongVan.getTrangThai().getTtTen());
+			}
+			trangThaiList.add(trangThaiCongVanList);
+			count ++;
+		}
+		return trangThaiList;
 	}
 }

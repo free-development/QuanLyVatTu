@@ -52,7 +52,8 @@ body {
 }
 
 .wrapper {
-	width: 1024px;
+	position: absolute;
+	width: 100%;
 	margin: 0px auto;
 	background-color: white;
 }
@@ -328,8 +329,8 @@ ul:first-child {
 
 #main-content {
 	margin: 0 auto;
-	width: 1024px;
-	
+	width: 1224px;
+	height: 1024px;
 }
 
 #title-content {

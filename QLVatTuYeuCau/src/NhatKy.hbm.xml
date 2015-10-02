@@ -10,8 +10,8 @@
  		<property name="msnv" type="string" access="field"> 
  			<column name="MSNV" /> 
  		</property>
- 		<property name="cvId" type="int" access="field"> 
- 			<column name="CVID" /> 
+ 		<property name="thoiGian" type="java.sql.Date" access="field"> 
+ 			<column name="thoiGian" /> 
  		</property> 
  		<property name="noiDung" type="string" access="field"> 
  			<column name="NOIDUNG" /> 

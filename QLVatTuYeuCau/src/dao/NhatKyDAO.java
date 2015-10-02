@@ -18,6 +18,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -86,6 +87,7 @@ public class NhatKyDAO {
 			Criterion expMsnv = Restrictions.eq("msnv", msnv);
 //			LogicalExpression andExp = Restrictions.and(expCv, xoaYc);
 			cr.add(expMsnv);
+			cr.addOrder(Order.asc("nkId"));
 			ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) cr.list(); 
 			session.getTransaction().commit();
 			return nhatKyList;
@@ -102,16 +104,20 @@ public class NhatKyDAO {
 	
 	public ArrayList<NhatKy> getLimitByMsnv(String msnv, int first, int limit) {
 		session.beginTransaction();
+		
 		Criteria cr = session.createCriteria(NhatKy.class);
 		Criterion expMsnv = Restrictions.eq("msnv", msnv);
 		cr.add(expMsnv);
+		cr.addOrder(Order.desc("nkId"));
 		cr.setFirstResult(first);
 		cr.setMaxResults(limit);
 		ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) cr.list();
 		session.getTransaction().commit();
 		return nhatKyList;
 	}
-	
+	public void refresh(Object object) {
+		session.refresh(object);
+	}
 	public void addOrUpdateNhatKy(NhatKy NhatKy){
 		session.beginTransaction();
 		session.saveOrUpdate(NhatKy);
@@ -129,8 +135,8 @@ public class NhatKyDAO {
 //		ArrayList<CongVan> congVanList = new CongVanDAO().getTrangThai("", "", null, null);
 //		System.out.println(new NhatKyDAO().size(congVanList));
 		NhatKyDAO nhatKyDAO = new NhatKyDAO();
-		
-		nhatKyDAO.addNhatKy(new NhatKy("quoioln", 3, "chia se cong van"));
+		Date currentDate = DateUtil.convertToSqlDate(new java.util.Date ());
+		nhatKyDAO.addNhatKy(new NhatKy("quoioln", currentDate, "chia se cong van"));
 		nhatKyDAO.disconnect();
 		nhatKyDAO.close();
 	}

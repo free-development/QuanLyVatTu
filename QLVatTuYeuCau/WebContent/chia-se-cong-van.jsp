@@ -135,7 +135,6 @@
 									</ul>
 						</li>
 						<%} %>
-						<%if (!chucDanh.equalsIgnoreCase(adminMa)) {%>
 							<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
 							<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
 							<li><a>Báo cáo</a>
@@ -144,7 +143,7 @@
 									<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 								</ul>
 							</li>
-							<%}} %>
+							<%} %>
 						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
 						<li><a>Quản lý người dùng</a>
 							<ul>
@@ -182,7 +181,7 @@
 							</tr>
 						</table>
 					</div>
-					<table style="margin-left: 60px;margin-bottom: 10px;">		
+					<table style="margin-left: 150px;margin-bottom: 10px;">		
 					<tr>		
 					<th  style="text-align: left; color: black; font-size: 19px;">*Tìm kiếm mã</th>
 								<td>

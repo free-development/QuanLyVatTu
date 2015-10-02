@@ -32,6 +32,7 @@ import model.NguoiDung;
 import model.NhatKy;
 import model.NoiSanXuat;
 import model.YeuCau;
+import util.DateUtil;
 import util.JSonUtil;
 
 @Controller
@@ -41,37 +42,48 @@ public class YcController extends HttpServlet {
 	private int pageCtvt = 1;
 	private String searchTen = "";
 	private String searchMa = "";
+//	private NhatKy nhatKy = null;
 	@RequestMapping("ycvtManage")
     public ModelAndView updateYeuCau(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //	    	congVan
 		session = request.getSession(false);
 		
-		String[] s = request.getParameterValues("cvId");
-		if(s[0] == null)
+		//sString[] s = request.getParameterValues("cvId");
+		String s = request.getParameter("cvId");
+		String cvSo = request.getParameter("cvSo");
+		//if(s[0] == null)
+		
+		JOptionPane.showConfirmDialog(null, s);
+		if(s == null)
 			return new ModelAndView(siteMap.cvManage + "?action=manageCv");
-		int cvId =  Integer.parseInt(s[0]);
+		int cvId =  Integer.parseInt(s);
+		JOptionPane.showConfirmDialog(null, s);
 		session.setAttribute("cvId", cvId);
     	CTVatTuDAO ctvtDAO =  new CTVatTuDAO();
     	YeuCauDAO yeuCauDAO = new YeuCauDAO();
     	NoiSanXuatDAO nsxDAO = new NoiSanXuatDAO();
     	ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
-    	
+    	CongVanDAO congVanDAO = new CongVanDAO();
     	ArrayList<CTVatTu> ctVatTuList = (ArrayList<CTVatTu>) ctvtDAO.limit((pageCtvt - 1)*10, 10);
-    	
+    	JOptionPane.showConfirmDialog(null, "ok");
     	ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
     	ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) nsxDAO.getAllNoiSanXuat();
     	ArrayList<ChatLuong> chatLuongList = (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();
+    	CongVan congVan = (CongVan)congVanDAO.getByCvSo(cvSo);
     	long sizeCtvt = ctvtDAO.size();
     	request.setAttribute("page", sizeCtvt / 10);
     	request.setAttribute("ctVatTuList", ctVatTuList);
     	request.setAttribute("yeuCauList", yeuCauList);
     	request.setAttribute("nsxList", nsxList);
     	request.setAttribute("chatLuongList", chatLuongList);
+    	request.setAttribute("congVan", congVan);
+    	//request.setAttribute("congVanList", congVanList);
     	chatLuongDAO.disconnect();
     	ctvtDAO.disconnect();
     	yeuCauDAO.disconnect();
     	nsxDAO.disconnect();
     	chatLuongDAO.disconnect();
+    	congVanDAO.disconnect();
     	
     	return new ModelAndView(siteMap.ycVatTu);
     	//return new ModelAndView(siteMap.login);
@@ -113,6 +125,17 @@ public class YcController extends HttpServlet {
 //		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã cập nhật số lượng cho vât tư có mã " + ctvt.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctvt.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctvt.getChatLuong().getClMa() + "của công văn  " + congVan.getSoDen());
 //		nhatKyDAO.addNhatKy(nhatKy);
 //		nhatKyDAO.disconnect();
+    	NhatKy nhatKy = (NhatKy) session.getAttribute("nhatKy");
+    	if (nhatKy == null) {
+    		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
+    		nhatKy = new NhatKy(authentication.getMsnv(), currentDate, cvId + "#Bạn đã cập nhật vật tư thiếu cho công văn có số đến " + congVan.getSoDen() + " nhận ngày " + congVan.getCvNgayNhan() + ":<br> ");
+    	}
+    	
+    	String noiDung = nhatKy.getNoiDung();
+    	noiDung += "&nbsp;&nbsp;+" + "Vật tư có mã: " + ctvt.getVatTu().getVtMa() 
+    			+ ", mã nơi sản xuất: "  + ctvt.getNoiSanXuat().getNsxMa() + ""
+    			+ ", mã chất lượng: " + ctvt.getChatLuong().getClMa() + " số lượng "  + yeuCau.getYcSoLuong() + ctvt.getVatTu().getDvt().getDvtTen();
+    	nhatKy.setNoiDung(noiDung);
 		return JSonUtil.toJson(yeuCau);
 	}
 	

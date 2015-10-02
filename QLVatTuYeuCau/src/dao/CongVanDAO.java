@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
@@ -66,6 +67,8 @@ public class CongVanDAO {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(CongVan.class, "congVan");
 		cr.createAlias("congVan.mucDich", "mucDich");
+		cr.createAlias("congVan.donVi", "donVi");
+		cr.createAlias("congVan.trangThai", "trangThai");
 		if (msnv != null) {
 			Criteria crVtCv = session.createCriteria(VTCongVan.class);
 			crVtCv.add(Restrictions.eq("msnv", msnv));
@@ -329,7 +332,7 @@ public class CongVanDAO {
 	
 	public ArrayList<CongVan> searchLimit(String msnv, HashMap<String, Object> conditions,  HashMap<String, Boolean> orderBy, int first, int limit) {
 		
-		Criteria cr = getCriteria(msnv);
+		Criteria cr = getCriteria(msnv); //
 		if (cr == null) {
 			return new ArrayList<CongVan>();
 		}
@@ -340,12 +343,11 @@ public class CongVanDAO {
 				if (object instanceof Integer && (key.equalsIgnoreCase("year") || key.equalsIgnoreCase("month") || key.equalsIgnoreCase("day"))) {
 					cr.add(Restrictions.sqlRestriction(key.toUpperCase() + "(cvNgayNhan) = " + conditions.get(key)));
 				} else if (conditions.get(key) != null){ 
-					if (key.indexOf("!") != -1) {
-						key = key.substring(0);
-						cr.add(Restrictions.not(Restrictions.eq(key, object)));
-					}
-					else
+					if (key.equals("cvId") || key.equals("soDen") || key.equals("cvNgayDi") || key.equals("cvNgayNhan"))
 						cr.add(Restrictions.eq(key, conditions.get(key)));
+					else
+						cr.add(Restrictions.like(key, (String)conditions.get(key), MatchMode.START));
+//					cr.add(Restrictions.eq(key, conditions.get(key)));
 				}
 			}
 		}
@@ -402,14 +404,27 @@ public long size(String msnv, HashMap<String, Object> conditions) {
 		if (session.isConnected())
 			session.disconnect();
 	}
+	
+//	public ArrayList<CongVan> getByCongVanId(ArrayList<Integer> cvIdList) {
+//		session.beginTransaction();
+//		Criteria cr = session.createCriteria("CongVan");
+//		cr.createAlias("congVan.trangThai", "trangThai");
+//		cr.createAlias("congVan.mucDich", "mucDich");
+//		cr.createAlias("donVi", "donVi");
+////		cr.
+//		ArrayList<CongVan> congVanList = cr.
+//		session.getTransaction().commit();
+//		return null;
+//	}
 	public static void main(String[] args) {
 		System.out.println(new CongVanDAO().size("b1203959"));
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
-		conditions.put("year", 2015);
-		conditions.put("month", 8);
-		ArrayList<CongVan> size =  new CongVanDAO().getTrangThai(new Date(115,6,20), new Date(115,9,20));
+//		conditions.put("year", 2015);
+//		conditions.put("month", 8);
+		conditions.put("trichYeu", "1");
+		ArrayList<CongVan> size =  new CongVanDAO().searchLimit("b1203959" , conditions, null, 0, 100);
 		for(CongVan year : size)
 			System.out.println(year);
-		
+		System.out.println(size.size());
 	}
 }

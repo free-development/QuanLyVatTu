@@ -48,8 +48,7 @@
 			<div id="top_title">Văn phòng điện tử</div>
 			<div id="bottom-title">Công ty điện lực cần thơ</div>
 			<div class="search_form" id="search">
-				<form action="<%=siteMap.changePass%>"-->
-					method="post">
+				<form action="<%=siteMap.changePass%>">
 					<span class="search-text"> &nbsp; <input type="search"
 						class="search" name="search_box" name="search"
 						placeholder="Tìm kiếm" />
@@ -88,7 +87,6 @@
 									</ul>
 						</li>
 						<%} %>
-						<%if (!chucDanh.equalsIgnoreCase(adminMa)) {%>
 							<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
 							<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
 							<li><a>Báo cáo</a>
@@ -97,7 +95,7 @@
 									<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
 								</ul>
 							</li>
-							<%}} %>
+							<%} %>
 						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
 						<li><a>Quản lý người dùng</a>
 							<ul>

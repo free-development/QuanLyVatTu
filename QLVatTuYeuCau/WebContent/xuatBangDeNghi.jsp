@@ -76,30 +76,26 @@ display:none;
 		<table style = "margin: 0 auto;width:960px;">
 		<tr>
 			<td></td>
+			<td style="text-align: left;font-size: 17px;width:350px;">CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>
 			<td></td>
-			<td></td>
-			<td style="text-align: left;font-size: 17px;">TỔNG CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			
-			
-			<td style="text-align: right;font-size: 17px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
 		</tr>
 		<tr>
 			<td></td>
-			<td></td>
-			<td></td>
-			<td style="text-align: left;font-size: 17px;">Địa chỉ: 06 Nguyễn Trãi, Q.Ninh Kiều, TP.Cần Thơ.</td>
-			<td></td>
-			<td></td>
+			<td style="font-size: 17px; text-align: left;">PHÒNG VẬT TƯ</td>
 			<td></td>
 			
 			
-			<td style="text-align: right;font-size: 17px;">Độc lập - Tự do - Hạnh phúc</td>
+			<td style="text-align: left;font-size: 17px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
 			
 		</tr>
+		<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td style="font-size: 17px; padding-left:70px;">Độc lập - Tự do - Hạnh phúc</td>
+		</tr>
 		</table>
+		<br>
 		<div style="text-align: center;font-size: 30px;font-weight: bold;color: solid black;margin-top:20px;">Báo cáo bảng đề nghị cấp vật tư</div>
 		<% if((ngaybd!=null)&&(ngaykt!=null)){%>
 			
@@ -152,6 +148,21 @@ display:none;
 							<%} 
 					%>
 				</table>
+				</div>
+				<br>
+				<br>
+				<br>
+				<div style="width:800px;font-size: 18px;margin: auto;">
+						<table style="width:800px;font-size: 18px;;">
+								<tr>
+									<td></td>
+									<td style="text-align: right;">Ngày.....tháng.....năm.....</td>
+								</tr>
+								<tr>
+									<td style="text-align: left;font-weight: bold;">Người lập biểu</td>
+									<td style="text-align: right;font-weight: bold;">Trưởng Phòng Vật Tư</td>
+								</tr>
+						</table>
 				</div>
 				<div class="group-button">
 					<%

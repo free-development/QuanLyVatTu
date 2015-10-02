@@ -26,7 +26,7 @@
 	display: table-cell;
 }*/
 #content-form{
-	background-color: #dceaf5;;
+	background-color: #dceaf5;
 	height:750px;
 }
 #content {
@@ -98,7 +98,7 @@
 .left-column-socv{
 	
 	text-align: left;
-	width: 60px;
+	width: 180px;
 }
 #title-table table{
 	margin-left: 100px;
@@ -108,11 +108,7 @@
 	font-size: 18px;
 	width:170px;
 }
-.left-column-socv{
-	
-	text-align: left;
-	width: 120px;
-}
+
 .column-so-den {
 	
 	
@@ -558,7 +554,7 @@
 }
 
 .txtarea {
-	width: 730px;
+	width: 650px;
 	height: 50px;
 	font-size: 16px;
 	padding-left: 10px;
