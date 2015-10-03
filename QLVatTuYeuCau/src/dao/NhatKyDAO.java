@@ -87,7 +87,7 @@ public class NhatKyDAO {
 			Criterion expMsnv = Restrictions.eq("msnv", msnv);
 //			LogicalExpression andExp = Restrictions.and(expCv, xoaYc);
 			cr.add(expMsnv);
-			cr.addOrder(Order.asc("nkId"));
+			cr.addOrder(Order.desc("nkId"));
 			ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) cr.list(); 
 			session.getTransaction().commit();
 			return nhatKyList;
@@ -136,7 +136,7 @@ public class NhatKyDAO {
 //		System.out.println(new NhatKyDAO().size(congVanList));
 		NhatKyDAO nhatKyDAO = new NhatKyDAO();
 		Date currentDate = DateUtil.convertToSqlDate(new java.util.Date ());
-		nhatKyDAO.addNhatKy(new NhatKy("quoioln", currentDate, "chia se cong van"));
+		nhatKyDAO.addNhatKy(new NhatKy("quoioln", "", currentDate, "chia se cong van"));
 		nhatKyDAO.disconnect();
 		nhatKyDAO.close();
 	}

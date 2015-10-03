@@ -191,7 +191,7 @@
 												<td><input type="checkbox" value="check" class="checkbox" style="text-align: center;" id="checkTen"/></td>
 												<td  style="text-align: center; color:#6600FF; font-size: 19px;">Theo tên</td>&nbsp;&nbsp;&nbsp;
 											</span>
-												<td> <span class="search-button"> &nbsp; <button type="button" id="search" class="btn-search" style="background-color: #00A69B;" onclick=""><i class="fa fa-search"></i></button></span></td>						
+												<td> <span class="search-button"> &nbsp; <button type="button" id="search" class="btn-search" style="background-color: #00A69B;" ><i class="fa fa-search"></i></button></span></td>						
 										</form>
 									</div>
 					</tr>					
@@ -201,7 +201,14 @@
 				<div id="view-table-ds">
 				<table style="width:960px;margin:0 auto;">
 <!-- 					<tr><th >Ma vat tu</th><th >Ten vat tu</th><th >Noi san xuat</th><th >Chat luong</th><th >Don vi tinh</th><th ></th></tr> -->
-					<tr style="background-color: #199e5e"><th style="text-align: center;" >Mã vật tư</th><th style="text-align: center;" >Tên vật tư</th><th style="text-align: center;">Nơi sản xuất</th><th style="text-align: center;" >Chất lượng</th><th style="text-align: center;" >Đơn vị tính</th><th style="text-align: center;">Thêm</th></tr>
+					<tr style="background-color: #199e5e">
+						<th style="text-align: center;" >Mã vật tư</th>
+						<th style="text-align: center;" >Tên vật tư</th>
+						<th style="text-align: center;">Nơi sản xuất</th>
+						<th style="text-align: center;" >Chất lượng</th>
+						<th style="text-align: center;" >Đơn vị tính</th>
+						<th style="text-align: center;" >Số lượng tồn</th>
+						<th style="text-align: center;">Thêm</th></tr>
 					<tr></tr>
 					<%
 						int countCtvt = 0;
@@ -217,6 +224,7 @@
 							<td style="text-align: center;"><%=nsx.getNsxTen() %></td>
 							<td style="text-align: center;"><%=chatLuong.getClTen() %></td>
 							<td style="text-align: center;"><%=vatTu.getDvt().getDvtTen() %></td>
+							<td style="text-align: center;"><%=ctVatTu.getSoLuongTon() %></td>
 							<td style="text-align: center;"><input class="radio"  type="radio" id="a" name="ctvtId" value="<%=ctVatTu.getCtvtId() %>" onchange="preAddSoLuong();"> </td>
 							
 						</tr>
@@ -245,7 +253,7 @@
 								</table>
 					</div>
 			<form id="main-form">
-			<div class="form-title-vat-tu" style="padding-top: 10px;">Yêu cầu vật tư còn thiếu cho công văn số <%=congVan%></div> 
+			<div class="form-title-vat-tu" style="padding-top: 10px;">Yêu cầu vật tư còn thiếu cho công văn số <%=congVan.getSoDen() %> nhận ngày <%=congVan.getCvNgayNhan() %></div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
 							<table style= "width:960px; margin: 0 auto;" >
 								<tr>
@@ -255,7 +263,8 @@
 									<th class="e-column"style="text-align: center;">Nơi sản xuất</th>
 									<th class="f-column"style="text-align: center;">Chất lượng</th>
 									<th class="g-column"style="text-align: center;">Đơn vị tính</th>
-									<th class="d-column"style="text-align: center;">Số lượng yêu cầu</th>
+									<th class="d-column"style="text-align: center;">Số lượng tồn</th>
+									<th class="d-column"style="text-align: center;">Số lượng thiếu</th>
 									<th >Đã cấp</th>
 								</tr>
 								<%
@@ -273,6 +282,7 @@
 									<td><%=nsx.getNsxTen()%></td>
 									<td><%=chatLuong.getClTen()%></td>
 									<td><%=vatTu.getDvt().getDvtTen()%></td>
+									<td><%=yeuCau.getCtVatTu().getSoLuongTon()%></td>
 									<td id="soLuong<%=yeuCau.getYcId()%>"><%=yeuCau.getYcSoLuong()%></td>
 									<td id="soLuongCap<%=yeuCau.getYcId()%>"><%=yeuCau.getCapSoLuong()%></td>
 								<%} %>
@@ -298,13 +308,14 @@
 			<div class="form-title" style="margin-top: 10px;">Thêm yêu cầu vật tư</div>
 			<div id="view-table-them">
 			<table style= "width:900px; margin: 0 auto;margin-top: 10px;"  >
-				<tr><th >Mã vật tư</th><th >Tên vật tư</th><th >Nơi sản xuất</th><th >Chất lượng</th><th >Đơn vị tính</th><th >Số lượng</th></tr>
+				<tr><th >Mã vật tư</th><th >Tên vật tư</th><th >Nơi sản xuất</th><th >Chất lượng</th><th >Đơn vị tính</th><th >Số lượng tồn</th><th >Số lượng thiếu</th></tr>
 				<tr>
 					<td><div id="vtMaAdd"></div></td>
 					<td><div id="vtTenAdd"></div></td>
 					<td><div id="clTenAdd"></div></td>
 					<td><div id="nsxTenAdd"></div></td>
 					<td><div id="dvtAdd"></div></td>
+					<td><div id="soLuongTonAdd"></div></td>
 <!-- 					<td><div id="vtMaAdd"></div></td> -->
 
 					<td><input type="number" min=0 autofocus  name="soLuongAdd" title="So luong phai la so!!!"  class="text" style="width: 80px;"></td>
@@ -319,16 +330,17 @@
 			<br>
 			<br>
 			<form id="update-so-luong-form" onsubmit="return false">
-			<div class = "form-title" style="margin-top: 10px;">Thay đổi số lượng yêu cầu</div>
+			<div class = "form-title" style="margin-top: 10px;">Thay đổi số lượng thiếu</div>
 			<div id="view-table-doi" class="scroll-vat-tu">
 			<table style= "width:900px; margin: 0 auto;" >
-				<tr><th >Mã vật tư</th><th >Tên vật tư</th><th >Nơi sản xuất</th><th >Chất lượng</th><th >Đơn vị tính</th><th >Số lượng</th></tr>
+				<tr><th >Mã vật tư</th><th >Tên vật tư</th><th >Nơi sản xuất</th><th >Chất lượng</th><th >Đơn vị tính</th><th >Số lượng tồn</th><th >Số lượng thiếu</th></tr>
 				<tr>
 					<td><div id="vtMaUpdate"></div></td>
 					<td><div id="vtTenUpdate"></div></td>
 					<td><div id="clTenUpdate"></div></td>
 					<td><div id="nsxTenUpdate"></div></td>
 					<td><div id="dvtUpdate"></div></td>
+					<td><div id="soLuongTonUpdate"></div></td>
 					<td><input type="number" min=0 autofocus  name="soLuongUpdate" title="So luong phai la so!!!"  class="text" style="width: 80px;"></td>
 					<td><button class="button" type="button" id="updateYc">Lưu lại</button></td>
 				</tr>
@@ -339,13 +351,14 @@
 			<div class = "form-title"style="margin-top: 10px;">Cấp phát vật tư</div>
 			<div id="view-table-cap" class="scroll-vat-tu">
 			<table style= "width:900px; margin: 0 auto;" >
-				<tr><th >Mã vật tư</th><th>Tên vật tư</th><th>Nơi sản xuất</th><th >Chất lượng</th><th >Đơn vị tính</th><th>Số lượng</th></tr>
+				<tr><th >Mã vật tư</th><th>Tên vật tư</th><th>Nơi sản xuất</th><th >Chất lượng</th><th >Đơn vị tính</th><th >Số lượng tồn</th><th>Số lượng thiếu</th></tr>
 				<tr>
 					<td><div id="vtMaCap"></div></td>
 					<td><div id="vtTenCap"></div></td>
 					<td><div id="clTenCap"></div></td>
 					<td><div id="nsxTenCap"></div></td>
 					<td><div id="dvtCap"></div></td>
+					<td><div id="soLuongTonCap"></div></td>
 					<td><input type="number" min=0 autofocus  name="soLuongCap" title="So luong phai la so!!!"  class="text" style="width: 80px;"></td>
 					<td><button class="button" type="button" id="capVatTu">Lưu lại</button></td>
 				</tr>
