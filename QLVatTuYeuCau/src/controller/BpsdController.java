@@ -28,6 +28,11 @@ public class BpsdController extends HttpServlet {
 	int page = 1;
 	@RequestMapping("/manageBpsd")
 	public ModelAndView manageBpsd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getCharacterEncoding();
+		response.getCharacterEncoding();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		DonViDAO donViDAO = new DonViDAO();
 		
 		String action = request.getParameter("action");
@@ -81,7 +86,7 @@ public class BpsdController extends HttpServlet {
 		String result = "";
 	//	System.out.println("MA: "+dvMa);
 		DonViDAO donViDAO = new DonViDAO();
-		if((donViDAO.getDonVi(dvMa)==null) || (donViDAO.getDonVi(dvMa)!=null &&donViDAO.getDonVi(dvMa).getDaXoa() == 1))
+		if((donViDAO.getDonVi(dvMa)==null) || (donViDAO.getDonVi(dvMa)!=null && donViDAO.getDonVi(dvMa).getDaXoa() == 1))
 		{
 			donViDAO.addOrUpdateDonVi(new DonVi(dvMa, dvTen, sdt, diaChi, email,0 ));
 			System.out.println("success");

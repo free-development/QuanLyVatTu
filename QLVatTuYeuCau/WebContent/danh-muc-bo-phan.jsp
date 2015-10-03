@@ -42,6 +42,9 @@
 </head>
 <body>
 	<%
+	String status = (String) request.getAttribute("status");
+	if (status != null && status.equals("success"))
+		out.println("<script>alert('Import dữ liệu thành công!')</script>");
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
    		if (authentication == null) {
@@ -127,14 +130,14 @@
 			<div id="title-content">Danh mục bộ phận sử dụng</div>
 
 				<form id="main-form">
-					<div id="view-table-bo-phan" style="height: 600px; margin: 0 auto;">
+					<div id="view-table-bo-phan" style="height: 600px;width: 1400px; margin: 0 auto;overflow: auto;" class="scroll_content">
 						<table>
 							<tr>
 								<th class="left-column"><input type="checkbox"
 									class="checkAll"></th>
 								<th class="mid-column">Mã BPSD</th>
 								<th class="column-2">Tên bộ phận</th>
-								<th class="mid-column">Số điện thoại</th>
+								<th class="column-3">Số điện thoại</th>
 								<th class="column-4">Địa chỉ</th>
 								<th class="column-5">Email</th>
 							</tr>
@@ -146,15 +149,14 @@
 								<%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>>
 								<td class="left-column"><input type="checkbox" name="dvMa"
 									value="<%=donVi.getDvMa() %>" class="checkbox"></td>
-								<td class="col"><%=donVi.getDvMa() %></td>
-								<td class="col"><%=donVi.getDvTen()%></td>
-								<td class="col"><%=donVi.getSdt()%></td>
-								<td class="col"><%=donVi.getDiaChi()%></td>
-								<td class="col"><%=donVi.getEmail()%></td>
+								<td class="mid-column" style="text-align: left;"><%=donVi.getDvMa() %></td>
+								<td class="column-2" style="text-align: left;"><%=donVi.getDvTen()%></td>
+								<td class="column-3" style="text-align: left;"><%=donVi.getSdt()%></td>
+								<td class="column-4" style="text-align: left;"><%=donVi.getDiaChi()%></td>
+								<td class="column-5" style="text-align: left;"><%=donVi.getEmail()%></td>
 							</tr>
 							<%} }%>
 						</table>
-					
 					</div>
 					<div id = "paging" >
 							<table style ="border-style: none;">
@@ -187,6 +189,11 @@
 						&nbsp;&nbsp;
 						<button class="button" type="button" onclick="confirmDelete()">
 							<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa
+						</button>
+						&nbsp;&nbsp;
+						<button type="button" class="button" 
+							onclick="showForm2('view-table-bo-phan','import-formct', true)"> 
+							<i class="fa fa-pencil fa-fw"></i>&nbsp;Import 
 						</button>
 						&nbsp;&nbsp;
 						<button class="button" type="reset">
@@ -338,6 +345,14 @@
 						</button>
 					</div>
 				</form>
+				
+				<form id="import-formct" action="<%=siteMap.readExcelBpsd %>" method="post" enctype="multipart/form-data" style="height: 200px;text-align: center;">
+									<input type="file" name="file" accept=".xls, .xlsx" class="text" style="padding-left: 0px;">
+									<div class="group-button">
+										<input value="uploadFile" name="action" type="submit" class="button" style="width: 100px;font-size: 17px;text-align: center;">
+										<input value="Thoát" onclick="showForm2('view-table-bo-phan','import-formct', false);" type="button" class="button"  style="width: 70px;text-align: center;font-size: 17px;">
+									</div>
+						</form>
 			</div>
 		</div>
 </body>

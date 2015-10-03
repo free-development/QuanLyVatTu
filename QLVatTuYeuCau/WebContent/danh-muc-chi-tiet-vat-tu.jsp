@@ -162,7 +162,7 @@
 		<div id="main-content">
 			<div id="title-content">Vật tư tồn kho</div>
 			<form id="main-form">
-					<div id="view-table-chi-tiet" style="height: 350px; margin: 0 auto; overflow: auto;" class="scroll_content">
+					<div id="view-table-chi-tiet" style="height: 350px; margin: 0 auto; overflow: auto;font-family: Tahoma,.vntime;" class="scroll_content">
 						<table>
 							<tr style="background: #199e5e">
 <!-- 								<th class="left-column"><input type="checkbox" -->
