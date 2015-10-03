@@ -139,7 +139,7 @@ public class ReadExcelBpsd {
 						}
 						count++;
 					}
-					if (dvMa.length() == 0 && dvTen.length() == 0)
+					if (dvMa.length() == 0 && dvTen.length() == 0 && diaChi.length() == 0)
 						break;
 					if (dvMa.length() == 0 || dvTen.length() == 0)
 						return false;
@@ -149,7 +149,7 @@ public class ReadExcelBpsd {
 					dvList.add(dv);
 				}
 				int lenght = dvList.size();
-				
+				System.out.print(lenght);
 				for (int i = 0; i< lenght; i++) {
 					
 					DonViDAO dvDAO = new DonViDAO();

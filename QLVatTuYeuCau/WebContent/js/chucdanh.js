@@ -37,7 +37,14 @@ function preUpdateCd(formId, check) {
 	});
 	}
 }
-
+function loadAddCd() {
+		showForm('add-form', false);
+		$('input[name="cdMa"]:checked').prop('checked',false);
+	}
+	function loadUpdateCd() {
+		showForm('update-form', false);
+		$('input[name="cdMa"]:checked').prop('checked',false);
+	}
 $(document).ready(function() {
 	  	$('.page').click(function(){
 		var pageNumber = $(this).val();
@@ -196,6 +203,7 @@ function confirmDeleteCd(){
 	  		$('#view-table table tr:first').after('<tr class="rowContent"><td class=\"left-column\"><input type=\"checkbox\" name=\"cdMa\" value=\"' +cdMaUpdate + '\"</td><td class=\"col\">'+ cdMaUpdate +'</td><td class=\"col\">' + cdTenUpdate+'</td></tr>');
 	  		$('input:text[name=cdMaUpdate]').val('');
 			cdTenUpdate = $('input:text[name=cdTenUpdate]').val('');
+			$('input[name="cdMa"]:checked').prop('checked',false);
 	  		showForm("update-form", false);	
 	  	}
 	});

@@ -129,10 +129,19 @@ function showForm(formId, check){
 					  		showForm("update-form", false);	
 					  		alert("Thay đổi thành công vai trò "+ vtTenUpdate);
 					  		vtTenUpdate = $('input:text[name=vtTenUpdate]').val('');
+					  		$('input[name="vtId"]:checked').prop('checked',false);
 					  	}
 					});
  			}
 		}
+ 	 	function loadAddVt() {
+ 	 		showForm('add-form', false);
+ 	 		$('input[name="vtId"]:checked').prop('checked',false);
+ 	 	}
+ 	 	function loadUpdateVt() {
+ 	 		showForm('update-form', false);
+ 	 		$('input[name="vtId"]:checked').prop('checked',false);
+ 	 	}
  	 	function resetUpdatevt(){
  	 		$('#update-form input:text[name=vtTenUpdate]').val('');
  	 	}

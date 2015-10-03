@@ -130,7 +130,7 @@
 			<div id="title-content">Danh mục bộ phận sử dụng</div>
 
 				<form id="main-form">
-					<div id="view-table-bo-phan" style="height: 600px;width: 1400px; margin: 0 auto;overflow: auto;" class="scroll_content">
+					<div id="view-table-bo-phan" style="height: 700px;width: 1000px; margin: 0 auto;overflow: auto;" class="scroll_content">
 						<table>
 							<tr>
 								<th class="left-column"><input type="checkbox"
@@ -270,7 +270,7 @@
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
 						</button>
 						<button type="button" class="button"
-							onclick="showForm('add-form', false)">
+							onclick="loadAddBp()">
 							<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 						</button>
 					</div>
@@ -340,17 +340,17 @@
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
 						</button>
 						<button type="button" class="button"
-							onclick="showForm('update-form', false)">
+							onclick="loadUpdateBp()">
 							<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 						</button>
 					</div>
 				</form>
 				
-				<form id="import-formct" action="<%=siteMap.readExcelBpsd %>" method="post" enctype="multipart/form-data" style="height: 200px;text-align: center;">
+				<form id="import-formct" action="<%=siteMap.readExcelBpsd %>" method="post" enctype="multipart/form-data" style="height: 200px;width:300px;text-align: center;">
 									<input type="file" name="file" accept=".xls, .xlsx" class="text" style="padding-left: 0px;">
 									<div class="group-button">
-										<input value="uploadFile" name="action" type="submit" class="button" style="width: 100px;font-size: 17px;text-align: center;">
-										<input value="Thoát" onclick="showForm2('view-table-bo-phan','import-formct', false);" type="button" class="button"  style="width: 70px;text-align: center;font-size: 17px;">
+										<input value="uploadFile" name="action" type="submit" class="button" style="width: 120px;font-size: 17px;text-align: center;">
+										<input value="Thoát" onclick="showForm2('view-table-bo-phan','import-formct', false);" type="button" class="button"  style="width: 100px;text-align: center;font-size: 17px;">
 									</div>
 						</form>
 			</div>

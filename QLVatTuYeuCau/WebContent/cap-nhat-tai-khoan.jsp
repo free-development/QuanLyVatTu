@@ -305,7 +305,7 @@
 						<i class="fa fa-refresh"></i>&nbsp;Nhập lại
 					</button>
 					&nbsp;
-					<button type="button" class="button" onclick="showForm2('add-form', false);">
+					<button type="button" class="button" onclick="loadAddNd()">
 							<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 						</button>
 				</div>

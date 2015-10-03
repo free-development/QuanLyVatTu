@@ -263,7 +263,7 @@ td.input {
 	
 }
 .view-cvnew{
-	position: absolute;
+/* 	position: absolute; */
 	left:10%;
 	
 }
@@ -306,7 +306,7 @@ td.input {
 	border-width: 1px;
 	border-radius: 5px;
 	border-color: #2CCAAE;
-	width:750px;
+	width:900px;
 	
 	
 }

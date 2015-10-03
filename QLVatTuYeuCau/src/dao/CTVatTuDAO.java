@@ -58,7 +58,7 @@ public class CTVatTuDAO {
 
 	public long size() {
 		session.beginTransaction();
-		String sql = "select count(ctvtId) from CTVatTu";
+		String sql = "select count(ctvtId) from CTVatTu where daXoa = 0";
 		Query query =  session.createQuery(sql);
 		long size = (long) query.list().get(0);
 		session.getTransaction().commit();

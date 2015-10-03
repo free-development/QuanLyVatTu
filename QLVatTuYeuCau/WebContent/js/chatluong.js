@@ -102,6 +102,15 @@
 			});
 		}
 	}
+ 	
+ 	function loadAddCl() {
+ 		showForm('add-form', false);
+ 		$('input[name="clMa"]:checked').prop('checked',false);
+ 	}
+ 	function loadUpdateCl() {
+ 		showForm('update-form', false);
+ 		$('input[name="clMa"]:checked').prop('checked',false);
+ 	}
  	function resetUpdateCL(){
 			$('#update-form input:text[name=clTenUpdate]').val('');
  	}
@@ -145,7 +154,8 @@
 		  		$('input:text[name=clMaUpdate]').val('');
 				clTenUpdate = $('input:text[name=clTenUpdate]').val('');
 		  		showForm("update-form", false);	
-		  		alert("Thay đổi thành công chất lượng có mã "+vtMaUpdate+ " !")
+		  		alert("Thay đổi thành công chất lượng có mã "+clMaUpdate+ " !");
+		  		$('input[name="clMa"]:checked').prop('checked',false);
 		  	}
 		});
 	}

@@ -186,7 +186,7 @@
 								$('select[name=dvtUpdate]').val('');
 								showForm2('vattu','update-form', false);
 						  		alert("Thay đổi thành công vật tư có mã "+vtMaUpdate+ " !");
-						  			
+						  		$('input[name="vtMa"]:checked').prop('checked',false);	
 						  		
 						  	}
 						});
@@ -196,6 +196,14 @@
  			$('#update-form input:text[name=vtTenUpdate]').val('');
 			$('#update-form select[name=dvtUpdate]').val('');
  		}
+ 		function loadAddVt() {
+ 			showForm2('vattu','add-form', false);
+ 	 		$('input[name="vtMa"]:checked').prop('checked',false);
+ 	 	}
+ 	 	function loadUpdateVt() {
+ 	 		showForm2('vattu','update-form', false);
+ 	 		$('input[name="vtMa"]:checked').prop('checked',false);
+ 	 	}
  	function confirmDeleteVT(){
  		var vtMa = $('input:checkbox[name=vtMa]:checked').val();
 		var vtMaList = [];

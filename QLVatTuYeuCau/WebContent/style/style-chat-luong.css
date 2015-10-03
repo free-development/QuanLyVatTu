@@ -49,8 +49,8 @@
 	display: none;
 	width: 35%;;
 	left: 35%;
-	height: 35%;
-	top: 45%;
+	top: 15%;
+	height: 20%;
 	position: absolute;
 	background-color: #DCEAF5;
 	border-radius: 10px;
@@ -64,10 +64,10 @@
 #update-form {
 	display: none;
 	width: 35%;
-	height: 35%;
 	left: 35%;
 	right: 35%;
-	top: 45%;
+	top: 15%;
+	height: 20%;
 	bottom: 65%;
 	position: absolute;
 	background-color: #DCEAF5;

@@ -42,6 +42,14 @@ function showForm(formId, check){
 				
 			}
 		}
+		function loadAddDvt() {
+	 		showForm('add-form', false);
+	 		$('input[name="dvtId"]:checked').prop('checked',false);
+	 	}
+	 	function loadUpdateDvt() {
+	 		showForm('update-form', false);
+	 		$('input[name="dvtId"]:checked').prop('checked',false);
+	 	}
 		function confirmDelete(){
 			vtId = $('input:checkbox[name=dvtId]:checked').val();
 			var vtMaList = [];
@@ -136,6 +144,7 @@ function showForm(formId, check){
 					  		showForm("update-form", false);	
 					  		alert("Thay đổi thành công đơn vị tính "+ dvtTenUpdate);
 					  		dvtTenUpdate = $('input:text[name=dvtTenUpdate]').val('');
+					  		$('input[name="dvtId"]:checked').prop('checked',false);
 					  	}
 					});
  			}
