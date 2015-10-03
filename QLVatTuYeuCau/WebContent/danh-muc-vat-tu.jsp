@@ -213,7 +213,7 @@
 				</table>
 			
 			
-			<div id="view-table-vat-tu" style="height: 370px; margin: 0 auto; overflow: auto;" class="scroll_content">
+			<div id="view-table-vat-tu" style="height: 370px; margin: 0 auto; overflow: auto;font-family: Tahoma,.vntime;" class="scroll_content">
 				<table>
 					<tr style="background: #199e5e; height: 30px">
 						<th class="left-column"><input type="checkbox"
