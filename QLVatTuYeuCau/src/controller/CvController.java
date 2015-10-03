@@ -168,7 +168,7 @@ public class CvController extends HttpServlet{
 		if (cv != null)
 			yearList.add(congVanList.get(0).getCvNgayNhan().getYear() + 1900);
 		else 
-			yearList = congVanDAO.groupByYearLimit(msnvTemp, 5);
+			yearList = congVanDAO.groupByYearLimit(msnvTemp, null, 5);
 		request.setAttribute("congVanList", congVanList);
 		request.setAttribute("fileHash", fileHash);
 		
@@ -206,8 +206,8 @@ public class CvController extends HttpServlet{
 		 date = 0;
 		 ttMa = "";
 		 column = "";
-		 columnValue = "";
-		 cvId = 0;
+		 Object columnValue = "";
+		 Integer cvId = 0;
 		
 		return new ModelAndView("login");
 	}
@@ -520,8 +520,11 @@ public class CvController extends HttpServlet{
 		HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
 		month = 0;
 		date = 0;
-		if (year != 0)
-			conditions.put("year", year);
+		String cdMa = nguoiDung.getChucDanh().getCdMa();
+		String msnvTemp = msnv;
+		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || adminMa.equals(cdMa))
+			msnvTemp = null;
+		
 		if (ttMa.length() > 0)
 			conditions.put("trangThai.ttMa", ttMa);
 		if (column.length() > 0 && ((String) columnValue).length() > 0) {
@@ -533,18 +536,16 @@ public class CvController extends HttpServlet{
 		if (this.cvId != 0) {
 			conditions.put("cvId", cvId);
 		}	
+		ArrayList<Integer> monthList = new ArrayList<Integer>();
+		
+		monthList = congVanDAO.groupByMonth(msnvTemp, conditions, year);
 		orderBy.put("cvId", true);
-		String cdMa = nguoiDung.getChucDanh().getCdMa();
-		String msnvTemp = msnv;
-		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || adminMa.equals(cdMa))
-			msnvTemp = null;
+		if (year != 0)
+			conditions.put("year", year);
+		
 		
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
-		ArrayList<Integer> monthList = new ArrayList<Integer>();
-		if (this.cvId != 0) 
-			monthList.add(congVanList.get(0).getCvNgayNhan().getMonth() + 1);
-		else
-			monthList = congVanDAO.groupByMonth(msnvTemp, year);
+		
 		ArrayList<File> fileList = new ArrayList<File>();
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
@@ -612,10 +613,7 @@ public class CvController extends HttpServlet{
 		
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
-		if (year != 0)
-			conditions.put("year", year);
-		if (month != 0)
-			conditions.put("month", month);
+		
 		if (ttMa.length() > 0)
 			conditions.put("trangThai.ttMa", ttMa);
 		if (column.length() > 0 && ((String) columnValue).length() > 0) {
@@ -627,19 +625,22 @@ public class CvController extends HttpServlet{
 		if (this.cvId != 0) {
 			conditions.put("cvId", cvId);
 		}
-		orderBy.put("cvNgayNhan", true);
 		String cdMa = nguoiDung.getChucDanh().getCdMa();
 		String msnvTemp = msnv;
 		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa))
 			msnvTemp = null;
+		ArrayList<Integer> dateList = new ArrayList<Integer>();
+			dateList = congVanDAO.groupByDate(msnvTemp, conditions, year, month);
+		if (year != 0)
+			conditions.put("year", year);
+		if (month != 0)
+			conditions.put("month", month);
+		orderBy.put("cvNgayNhan", true);
+		
 		
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
-		ArrayList<Integer> dateList = new ArrayList<Integer>();
-		if (cvId != 0)
-			dateList.add(congVanList.get(0).getCvNgayNhan().getDate());
-		else
-			dateList = congVanDAO.groupByDate(msnvTemp, year, month);
+		
 		
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
@@ -786,19 +787,20 @@ public class CvController extends HttpServlet{
     	vanThuMa = context.getInitParameter("vanThuMa");
     	adminMa = context.getInitParameter("adminMa");
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
+		
     	String msnv = nguoiDung.getMsnv();
+    	String cdMa = nguoiDung.getChucDanh().getCdMa();
+		String msnvTemp = msnv;
+		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa))
+			msnvTemp = null;
 		
 		ttMa = trangThai;
 		CongVanDAO congVanDAO = new CongVanDAO();
 		FileDAO fileDAO = new FileDAO();
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
-		if (year != 0)
-			conditions.put("year", year);
-		if (month != 0)
-			conditions.put("month", month);
-		if (date != 0)
-			conditions.put("day", date);
+		
+		
 		if (ttMa.length() > 0)
 			conditions.put("trangThai.ttMa", ttMa);
 		if (column.length() > 0 && ((String) columnValue).length() > 0)  {
@@ -810,12 +812,16 @@ public class CvController extends HttpServlet{
 		if (this.cvId != 0) {
 			conditions.put("cvId", cvId);
 		}	
+		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp, conditions, 5);
+		if (year != 0)
+			conditions.put("year", year);
+		if (month != 0)
+			conditions.put("month", month);
+		if (date != 0)
+			conditions.put("day", date);
 		orderBy.put("cvNgayNhan", true);
 		orderBy.put("soDen", true);
-		String cdMa = nguoiDung.getChucDanh().getCdMa();
-		String msnvTemp = msnv;
-		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa))
-			msnvTemp = null;
+		
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
@@ -874,7 +880,10 @@ public class CvController extends HttpServlet{
     	adminMa = context.getInitParameter("adminMa");
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     	String msnv = nguoiDung.getMsnv();
-		
+    	String cdMa = nguoiDung.getChucDanh().getCdMa();
+		String msnvTemp = msnv;
+		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa))
+			msnvTemp = null;
 		
 		if (filter.equals("mdMa"))
 			column = "mucDich."+"mdMa";
@@ -889,12 +898,7 @@ public class CvController extends HttpServlet{
 		FileDAO fileDAO = new FileDAO();
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 		HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
-		if (year != 0)
-			conditions.put("year", year);
-		if (month != 0)
-			conditions.put("month", month);
-		if (date != 0)
-			conditions.put("day", date);
+		
 		if (ttMa.length() > 0)
 			conditions.put("trangThai.ttMa", ttMa);
 		if (column.length() > 0 && columnValue.toString().length() > 0)  {
@@ -905,13 +909,18 @@ public class CvController extends HttpServlet{
 		}
 		if (this.cvId != 0) {
 			conditions.put("cvId", cvId);
-		}	
+		}
+		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp, conditions, 5);
+		
+		if (year != 0)
+			conditions.put("year", year);
+		if (month != 0)
+			conditions.put("month", month);
+		if (date != 0)
+			conditions.put("day", date);
 		orderBy.put("cvNgayNhan", true);
 		
-		String cdMa = nguoiDung.getChucDanh().getCdMa();
-		String msnvTemp = msnv;
-		if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa))
-			msnvTemp = null;
+		
 		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnv, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
@@ -973,19 +982,17 @@ public class CvController extends HttpServlet{
 	    	adminMa = context.getInitParameter("adminMa");
 			NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
 	    	String msnv = nguoiDung.getMsnv();
-			
+	    	String cdMa = nguoiDung.getChucDanh().getCdMa();
+			String msnvTemp = msnv;
+			if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa)) {
+				msnvTemp = null;
+			}
 			page = Integer.parseInt(pageNumber);
 			CongVanDAO congVanDAO = new CongVanDAO();
 			FileDAO fileDAO = new FileDAO();
 			HashMap<String, Object> conditions = new HashMap<String, Object>();
 			HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
 			
-			if (year != 0)
-				conditions.put("year", year);
-			if (month != 0)
-				conditions.put("month", month);
-			if (date != 0)
-				conditions.put("day", date);
 			if (ttMa.length() > 0)
 				conditions.put("trangThai.ttMa", ttMa);
 			if (column.length() > 0 && ((String) columnValue).length() > 0)  {
@@ -997,13 +1004,17 @@ public class CvController extends HttpServlet{
 			if (this.cvId != 0) {
 				conditions.put("cvId", cvId);
 			}	
+			ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp, conditions, 5);
+
+			if (year != 0)
+				conditions.put("year", year);
+			if (month != 0)
+				conditions.put("month", month);
+			if (date != 0)
+				conditions.put("day", date);
 			orderBy.put("cvNgayNhan", true);
 			orderBy.put("soDen", true);
-			String cdMa = nguoiDung.getChucDanh().getCdMa();
-			String msnvTemp = msnv;
-			if (truongPhongMa.equals(cdMa) || vanThuMa.equals(cdMa) || cdMa.equals(adminMa)) {
-				msnvTemp = null;
-			}
+			
 			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, (page) *3, 3);
 			ArrayList<File> fileList = new ArrayList<File>();
 			ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
