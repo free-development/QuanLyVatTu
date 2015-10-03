@@ -1,3 +1,4 @@
+
 #view-table-bo-phan {
 	margin: 0 auto;
 	width: 950px;
@@ -33,12 +34,12 @@
 }
 
 .left-column {
-	width: 70px;
+	width: 30px;
 	text-align: center;
 }
 
 .mid-column {
-	width: 200px;
+	width: 70px;
 	text-align: center;
 }
 
@@ -48,19 +49,19 @@
 }
 
 .column-2 {
-	width: 300px;
+	width: 400px;
 }
 
 .column-3 {
-	width: 20px;
+	width: 100px;
 }
 
 .column-4 {
-	width: 300px;
+	width: 650px;
 }
 
 .column-5 {
-	width: 300px;
+	width: 150px;
 	text-align: center;
 }
 

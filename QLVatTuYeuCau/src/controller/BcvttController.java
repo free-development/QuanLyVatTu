@@ -66,33 +66,29 @@ public class BcvttController extends HttpServlet {
     	else if ("tonghop".equalsIgnoreCase(action)){
     		String ngaybd = request.getParameter("ngaybd");
     		String ngaykt = request.getParameter("ngaykt");
-    		String cvSo = request.getParameter("cvSo");
+    		//sString cvSo = request.getParameter("cvSo");
     		System.out.println(ngaybd);
     		System.out.println(ngaykt);
+    		//CongVanDAO congVan = new CongVanDAO();
+    		//YeuCauDAO yeuCauDAO = new YeuCauDAO();
+    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>)congVanDAO.getAllCongVan();
     		CongVanDAO congVan = new CongVanDAO();
-//    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>)congVanDAO.getByCvSo(cvSo);
     		HashMap<Integer, Integer> yeuCauHash = new HashMap<Integer, Integer>();
     		
-//    			for(CongVan congVan: congVanList){
     		ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) yeuCauDAO.getVTThieu();
     		HashMap<Integer, CTVatTu> ctvtHash = new CTVatTuDAO().getHashMap();
     		
     		HashMap<Integer, ArrayList<Integer>> soDenHash = new HashMap<Integer, ArrayList<Integer>>();
     		HashMap<Integer, ArrayList<Integer>> cvIdHash = new HashMap<Integer, ArrayList<Integer>>();
     		
-//    		ArrayList<Integer> soDenList = new ArrayList<Integer>();
-//    		ArrayList<Integer> cvIdList = new ArrayList<Integer>();
     		for(YeuCau yeuCau: yeuCauList){
     				int ctVtId = yeuCau.getCtVatTu().getCtvtId();
-//    				soDenList.add(yeuCau.getCvId());
     				int cvId = yeuCau.getCvId();
-//    				cvIdList.add(cvId);
-//    				soDenList.
-//    				add(congVanDAO.getSoDen(cvId));
     				Integer slCu = yeuCauHash.get(ctVtId);
     				Integer soluong = yeuCau.getYcSoLuong();
-    				if (slCu != null)
+    				if (slCu != null){
     					soluong += slCu;
+    				}
 
     				
     				ArrayList<Integer> cvList = new ArrayList<Integer>();
@@ -101,8 +97,8 @@ public class BcvttController extends HttpServlet {
     				ArrayList<Integer> soDenList = new ArrayList<Integer>();
     				ArrayList<Integer> soDenListCu = soDenHash.get(ctVtId);
     				int soDen = congVanDAO.getSoDen(cvId);
-    				System.out.println(cvId);
-    				System.out.println(soDen);
+    				System.out.println("CV:"+cvId);
+    				System.out.println("SOden:"+soDen);
     				if (cvListCu != null) {
     					soDenList = soDenListCu;
     					cvList = cvListCu;
@@ -114,7 +110,7 @@ public class BcvttController extends HttpServlet {
     				cvIdHash.put(ctVtId, cvList);
     				
     				
-    				cvIdHash.put(ctVtId, cvList);
+    				//cvIdHash.put(ctVtId, cvList);
     				yeuCauHash.put(ctVtId,soluong);
     			}
 		    		session.setAttribute("ngaybd", DateUtil.parseDate(ngaybd));
@@ -123,9 +119,9 @@ public class BcvttController extends HttpServlet {
         			session.setAttribute("action", action);
         			session.setAttribute("cvIdHash", cvIdHash);
         			session.setAttribute("soDenHash", soDenHash);
-        			//session.setAttribute("congVan", congVan);
+        			session.setAttribute("congVanList", congVanList);
         			session.setAttribute("yeuCau", yeuCauHash);
-        			session.setAttribute("soDenHash", soDenHash);
+//        			session.setAttribute("soDenHash", soDenHash);
         			congVanDAO.disconnect();
         			yeuCauDAO.disconnect();
         			return new ModelAndView(siteMap.baoCaoVatTuThieu);

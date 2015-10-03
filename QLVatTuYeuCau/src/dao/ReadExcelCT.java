@@ -83,9 +83,9 @@ public class ReadExcelCT {
 					} 
 					count++;
 				}
-				if (vtMa == "" && vtTen == "" && dvt == "" && nsxMa == "" && clMa == "" )
+				if (vtMa.length() == 0 && vtTen.length() == 0 && dvt.length() == 0 && nsxMa.length() == 0 && clMa.length() == 0 )
 					break;
-				if (vtMa == "" || vtTen == "" || dvt == "" || nsxMa == "" || clMa == "" )
+				if (vtMa.length() == 0 || vtTen.length() == 0 || dvt.length() == 0 || nsxMa.length() == 0 || clMa.length() == 0 )
 					return false;
 				DonViTinh donViTinh = new DonViTinh(dvt, 0);
 					dvtList.add(donViTinh);
@@ -205,9 +205,9 @@ public class ReadExcelCT {
 						} 
 						count++;
 					}
-					if (vtMa == "" && vtTen == "" && dvt == "" && nsxMa == "" && clMa == "" )
+					if (vtMa.length() == 0 && vtTen.length() == 0 && dvt.length() == 0 && nsxMa.length() == 0 && clMa.length() == 0 )
 						break;
-					if (vtMa == "" || vtTen == "" || dvt == "" || nsxMa == "" || clMa == "" )
+					if (vtMa.length() == 0 || vtTen.length() == 0 || dvt.length() == 0 || nsxMa.length() == 0 || clMa.length() == 0 )
 						return false;
 					
 //						System.out.println("VTMa = "+vtMa+ "\n vtTen = "+ vtTen + "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
@@ -234,7 +234,7 @@ public class ReadExcelCT {
 					String nsxMa = nsxList.get(i);
 					String clMa = chatLuongList.get(i);
 					DonViTinh dvt = dvtList.get(i);
-					System.out.println("count = " + i + " \n  VTMa = "+vatTu.getVtMa()+ "\n vtTen = "+ vatTu.getVtTen() + "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
+					//System.out.println("count = " + i + " \n  VTMa = "+vatTu.getVtMa()+ "\n vtTen = "+ vatTu.getVtTen() + "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
 					
 					NoiSanXuat noisx = nsxDAO.getNoiSanXuat(nsxMa);
 					ChatLuong chatluong = clDAO.getChatLuong(clMa);

@@ -48,9 +48,9 @@ function loadPageCscv(pageNumber) {
 		url: getRoot() +  "/loadPageCscv.html",	
 	  	type: "GET",
 	  	dateType: "JSON",
+	  	contentType:"application/json; charset=utf-8",
 	  	data: { "pageNumber": page},
-	  	contentType: 'application/json',
-	    mimeType: 'application/json',
+	  	mimeType: 'application/json',
 	  	success: function(objectList) {
 	  		var size = objectList[1];
 	  		var ndList = objectList[0];
@@ -114,10 +114,11 @@ $(document).ready(function() {
 				url: getRoot() +  "/preUpdateYeuCau.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
+			  	contentType:"application/json; charset=utf-8",
 			  	data: { "msnv": msnv},
-			  	contentType: 'application/json',
 			    mimeType: 'application/json',
 			  	success: function(objectList) {
+			  		xmlHttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded; charset=UTF-8');
 			  		var nguoiDung = objectList[0];
 			  		var vaiTroList = objectList[1];
 			  		var vtCongVanList= objectList[2];

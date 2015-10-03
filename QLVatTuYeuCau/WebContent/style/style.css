@@ -7,6 +7,27 @@
 	
 }
 */
+
+body{
+	font-family:.vntime;
+}
+#import-formct {
+	display: none;
+	width: 20%;;
+	left: 35%;
+	height: 150px;
+	top: 30%;
+	/*bottom: 65%;*/
+	position: absolute;
+	background-color : #DCEAF5;
+	border-radius: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 20px;
+	font-size: 60px;	
+	border: outset;
+	border-color: #0000FF;
+}
 label {
 	font-size: 16px;
 /* 	margin-bottom: 10px; */

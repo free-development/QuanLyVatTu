@@ -1,3 +1,4 @@
+
 <%@page import="model.NguoiDung"%>
 <%@page import="model.YeuCau"%>
 <%@page import="java.util.HashMap"%>
@@ -46,7 +47,7 @@
 		<%
     		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
     		if (nguoiDung == null) {
-    			request.setAttribute("url", siteMap.bcbdnManage+ "?action=manageBcbdn");
+    			request.setAttribute("url", siteMap.bcvttManage+ "?action=manageBcvtt");
     			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
     			dispatcher.forward(request, response);
     			return;
@@ -184,8 +185,6 @@
 		   		HashMap<Integer, ArrayList<YeuCau>> yeuCauHash = (HashMap<Integer, ArrayList<YeuCau>>) session.getAttribute("yeuCau");
 		   		
 		    %>
-			
-				
 					<div style="text-align: center;font-size: 20px;color:firebrick;font-weight: bold;margin-top:10px;">Chi tiết vật tư thiếu</div>
 					<div id="view-table-bao-cao" style="max-height: 520px;width: 1200px;display: auto;border: 1px dotted #CCCCCC;margin: 0 auto;overflow: scroll;">
 					<table style="margin: 0 auto; width:1190px; border: 1px dotted black;">
@@ -253,8 +252,6 @@
 	   		HashMap<Integer, ArrayList<Integer>> soDenHash = (HashMap<Integer, ArrayList<Integer>>) session.getAttribute("soDenHash");
 	   		%>
 			
-<!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
-<!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
 				<div style="text-align: center;font-size: 20px;color:firebrick;font-weight: bold;margin-top:10px;">Tổng hợp vật tư thiếu</div>
 				<div id="view-table-bao-cao" style="max-height: 420px;width: 1200px;display: auto;border: 1px dotted #CCCCCC;margin: 0 auto;overflow: scroll;">
 				<table style="margin: 0 auto;width:1200px;border: 1px dotted black;" >
@@ -270,8 +267,9 @@
 						<th style="border: 1px dotted black;width: 150px;" class="one-column">Công văn liên quan (số đến)</th>
 					</tr >
 								<%
+								int count = 0;
 							if(yeuCauHash != null){
-							int count = 0;
+							
 							for (CongVan congVan : congVanList) {
 							for(Integer key  : yeuCauHash.keySet()) { count++;
 							CTVatTu ctvt = ctvtHash.get(key);
@@ -290,25 +288,22 @@
 						<td class="d-column"style="text-align: center;"><%=ctvt.getSoLuongTon()%></td>
 						<td>
 							<%
-							ArrayList<Integer> cvIdList = cvIdHash.get(key);
-							ArrayList<Integer> soDenList = soDenHash.get(key);
-							int length = cvIdList.size();
-							StringBuilder cell = new StringBuilder ("");
-							for(int i = 0; i < length; i++) {
-								int soDen = soDenList.get(i);
-								int cvId = cvIdList.get(i);
-								cell.append("<a style=\"color: red; text-decoration: underline; \" href=" + siteMap.searchCongVan + "?congVan=" + cvId + "> " + soDen + "</a>" + ", ");
-							}
-							int len = cell.length() ;
-							cell.delete(len - 2, len);
-							out.println(cell);
+								ArrayList<Integer> cvIdList = cvIdHash.get(key);
+								ArrayList<Integer> soDenList = soDenHash.get(key);
+								int length = soDenList.size();
+								System.out.print(length);
+								StringBuilder cell = new StringBuilder ("");
+								for(int i = 0; i < cvIdList.size(); i++) {
+									int soDen = soDenList.get(i);
+									int cvId = cvIdList.get(i);
+									cell.append("<a style=\"color: red; text-decoration: underline; \" href=" + siteMap.searchCongVan + "?congVan=" + cvId + "> " + soDen + "</a>" + ", ");
+								}
+								int len = cell.length();
+								cell.delete(len - 2, len);
+								out.println(cell);
 							%>
 							 
 						</td>
-<%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
-<!-- 						</td> -->
-<%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
-<!-- 						</td> -->
 					</tr>
 					<%} }%>
 				</table>

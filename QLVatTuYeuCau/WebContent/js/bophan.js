@@ -9,7 +9,17 @@ function showForm(formId, check){
 			s.filter = 'alpha(opacity='+opacity+')';
 			for(var i=0; i<f.length; i++) f[i].disabled = check;
 		}
-	
+function showForm2(formId1, formId2, check){
+	if (check)
+		document.getElementById(formId2).style.display="block";
+	else document.getElementById(formId2).style.display="none";
+	var f = document.getElementById(formId1), s, opacity;
+	s = f.style;
+	opacity = check? '10' : '100';
+	s.opacity = s.MozOpacity = s.KhtmlOpacity = opacity/100;
+	s.filter = 'alpha(opacity='+opacity+')';
+	for(var i=0; i<f.length; i++) f[i].disabled = check;
+}	
 		
 		function addBp() {
  			dvMa = $('#add-form input:text[name=dvMa]').val();
@@ -266,7 +276,7 @@ function showForm(formId, check){
  	 			    mimeType: 'application/json',
  	 			  	
  	 			  	success: function(dvList) {
- 	 			  		$('#view-table table .rowContent').remove();
+ 	 			  		$('#view-table-bo-phan table .rowContent').remove();
  	 					if(dvList.length>0){
  	 						for(i = 0;i < dvList.length; i++ ) {
  	 							var dv = dvList[i] ;
@@ -277,13 +287,13 @@ function showForm(formId, check){
  	 							str = '<tr class=\"rowContent\" ' + style + '>'
  	 								+ '<td class=\"left-column\"><input type=\"checkbox\" name=\"dvMa\" value=\"' 
  	 								+ dv.dvMa +'\" class=\"checkbox\"></td>'
- 	 								+ '<td class=\"col\">' + dv.dvMa + '</td>'
- 	 								+ '<td class=\"col\">' + dv.dvTen + '</td>'
- 	 								+ '<td class=\"col\">' + dv.sdt + '</td>'
- 	 								+ '<td class=\"col\">' + dv.email + '</td>'
- 	 								+ '<td class=\"col\">' + dv.diaChi + '</td>'
+ 	 								+ '<td class=\"mid-column\" style=\"font-family:.VnTime;text-align: left;\">' + dv.dvMa + '</td>'
+ 	 								+ '<td class=\"column-2\" style=\"text-align: left;\">' + dv.dvTen + '</td>'
+ 	 								+ '<td class=\"column-3\" style=\"text-align: left;\">' + dv.sdt + '</td>'
+ 	 								+ '<td class=\"column-4\" style=\"text-align: left;\">' + dv.diaChi + '</td>'
+ 	 								+ '<td class=\"column-5\" style=\"text-align: left;\">' + dv.email + '</td>'
  	 								+ '</tr>';
- 	 							$('#view-table table tr:first').after(str);
+ 	 							$('#view-table-bo-phan table tr:first').after(str);
  	 						}
  	 					}
  	 			  	}

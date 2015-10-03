@@ -40,6 +40,7 @@ import model.NoiSanXuat;
 import model.VatTu;
 import util.FileUtil;
 import dao.ReadExcelCT;
+import dao.ReadExcelBpsd;
 
 /**
  * Servlet implementation class ReadExcel
@@ -105,7 +106,96 @@ public class ReadExcel extends HttpServlet {
 		return new ModelAndView(siteMap.ctVatu);
 		
 	}
+	@RequestMapping("/readExcelCt")
+	protected ModelAndView readExcelCt(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		isMultipart = ServletFileUpload.isMultipartContent(request);
+		response.setContentType("text/html");
+		java.io.PrintWriter out = response.getWriter();
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		// maximum size that will be stored in memory
+		factory.setSizeThreshold(maxMemSize);
+		// Location to save data that is larger than maxMemSize.
+		factory.setRepository(new File(pathTemp));
+		// Create a new file upload handler
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		// maximum file size to be uploaded.
+		upload.setSizeMax(maxFileSize);
+		try {
+			// Parse the request to get file items.
+			List fileItems = upload.parseRequest(request);
+			// Process the uploaded file items
+			Iterator i = fileItems.iterator();
+			FileItem fi = (FileItem) i.next();
+			String fileName = fi.getName();
+			String extenstionFile = FileUtil.getExtensionByPath(fileName);
+			File file;
+			if ("xls".equalsIgnoreCase(extenstionFile)) {
+				file = new File("temp.xls");
+				fi.write(file);
+				if(!ReadExcelCT.readXls(file))
+					return new ModelAndView("import-excelCt", "status", "formatException");
+			}
+			else if ("xlsx".equalsIgnoreCase(extenstionFile)) {
+				file = new File("temp.xlsx");
+				fi.write(file);
+				if(!ReadExcelCT.readXlsx(file))
+					return new ModelAndView("import-excelCt", "status", "formatException");
+			}
+			else {
+				return new ModelAndView("import-excelCt", "status", "unknownFile");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("status", "success");
+		return new ModelAndView(siteMap.vatTu);
+	}
 	
+	@RequestMapping("/readExcelBpsd")
+	protected ModelAndView readExcelBpsd(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		isMultipart = ServletFileUpload.isMultipartContent(request);
+		response.setContentType("text/html");
+		java.io.PrintWriter out = response.getWriter();
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		// maximum size that will be stored in memory
+		factory.setSizeThreshold(maxMemSize);
+		// Location to save data that is larger than maxMemSize.
+		factory.setRepository(new File(pathTemp));
+		// Create a new file upload handler
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		// maximum file size to be uploaded.
+		upload.setSizeMax(maxFileSize);
+		try {
+			// Parse the request to get file items.
+			List fileItems = upload.parseRequest(request);
+			// Process the uploaded file items
+			Iterator i = fileItems.iterator();
+			FileItem fi = (FileItem) i.next();
+			String fileName = fi.getName();
+			String extenstionFile = FileUtil.getExtensionByPath(fileName);
+			File file;
+			if ("xls".equalsIgnoreCase(extenstionFile)) {
+				file = new File("temp.xls");
+				fi.write(file);
+				if(!ReadExcelBpsd.readXls(file))
+					return new ModelAndView("import-excelBpsd", "status", "formatException");
+			}
+			else if ("xlsx".equalsIgnoreCase(extenstionFile)) {
+				file = new File("temp.xlsx");
+				fi.write(file);
+				if(!ReadExcelBpsd.readXlsx(file))
+					return new ModelAndView("import-excelBpsd", "status", "formatException");
+			}
+			else {
+				return new ModelAndView("import-excelBpsd", "status", "unknownFile");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("status", "success");
+		return new ModelAndView(siteMap.boPhanSuDung);
+		
+	}
 }
-
-
