@@ -151,7 +151,7 @@
 				<div id="main-content">
 				
 				<table style = "margin: 0 auto;width: 1024spx; vertical-align:top ;">
-				<tr>
+				<tr  style="vertical-align:top ;">
 				<td>
 					<% if (chucDanh.equalsIgnoreCase(truongPhongMa) || chucDanh.equalsIgnoreCase(vanThuMa)){
 						ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList");

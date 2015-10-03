@@ -812,7 +812,6 @@ public class CvController extends HttpServlet{
 		if (this.cvId != 0) {
 			conditions.put("cvId", cvId);
 		}	
-		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp, conditions, 5);
 		if (year != 0)
 			conditions.put("year", year);
 		if (month != 0)
@@ -910,7 +909,7 @@ public class CvController extends HttpServlet{
 		if (this.cvId != 0) {
 			conditions.put("cvId", cvId);
 		}
-		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp, conditions, 5);
+//		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp, conditions, 5);
 		
 		if (year != 0)
 			conditions.put("year", year);

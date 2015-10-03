@@ -673,6 +673,7 @@ function loadPageNumber(p, pageNumber, size) {
 		if (size > 10)
 			buttons += '<input type=\"button\" class=\"pageMove\" value=\"Sau>>\" onclick= \"loadPage(\'Next\');\">';
 		$('#paging').html(buttons);
+		if (size > 0)
 		$('.page')[0].focus();
 	}
 }
