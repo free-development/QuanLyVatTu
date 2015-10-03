@@ -158,12 +158,13 @@ hosting = '<%=hosting  %>';
 		<div id="main-content">
 			<div id="content-form">
 			<div id="title-content">Công văn</div>
-				<!--            <form id="main-form">-->
+			
 				<table style="margin: 0 auto;">
 				<tr>
 				<td>
+				 <form id="time-form">
 				<div class="left-content">
-				<table style="margin-bottom: 275px;">
+				<table style="margin-bottom: 300px;">
 				<tr>
 				<td>
 					<div id="scroll_time">
@@ -199,7 +200,9 @@ hosting = '<%=hosting  %>';
 							</td>
 						</tr>
 					</table>
+					
 			</div>
+			</form>
 			</td>
 			<td>
 				<div class="right-content">
@@ -377,7 +380,7 @@ hosting = '<%=hosting  %>';
 								fileName += path.substring(index3);
 							%>
 							<td colspan="1">
-								<a href="<%=siteMap.cvManage + "?action=download&file=" + congVan.getCvId()%>">
+								<a href="<%="/QLVatTuYeuCau/downloadFileMn.html" + "?action=download&file=" + congVan.getCvId()%>">
 									<div class="mo-ta"><%=fileName %></div>
 								</a>
 							</td>
@@ -463,18 +466,17 @@ hosting = '<%=hosting  %>';
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
 						</div>
-					</form>
 				</div>
 				</td>
 				</tr>
 				</table>
-
+				</form>
 <!-- 				</div> -->
 
 				<!--    		</form>  -->
 				<!--                add-form-->
 				<%if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)  || chucDanh.equals(adminMa)) { %>
-				<form id="add-form" name="add-form" action="<%=siteMap.addCv %>" enctype="multipart/form-data" method="post">
+				<form id="add-form" action="<%=siteMap.addCv %>" enctype="multipart/form-data" method="post">
 
 					<div class="form-title">Thêm công văn</div>
 					<div class="input-table">
@@ -549,6 +551,7 @@ hosting = '<%=hosting  %>';
 				</form>
 				<!--            update-form-->
 				<form id="update-form" method="post" action="<%=siteMap.updateCv %>" enctype="multipart/form-data">
+				<div class="form-title">Sửa công văn</div>
 					<div class="input-table">
 						<div class="input-table">
 						<table>

@@ -197,20 +197,28 @@ public class CvController extends HttpServlet{
 			return getCongvan(request);
 		}
 	
-		if("download".equals(action)) {
+		
+		return new ModelAndView("login");
+	}
+    @RequestMapping("/downloadFileMn")
+   	public void downloadFileMn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String action = request.getParameter("action");
+    	if("download".equals(action)) {
 			try {
 				FileDAO fileDAO = new FileDAO();
 				int cvId = Integer.parseInt(request.getParameter("file"));
 				model.File f = fileDAO.getByCongVanId(cvId);
-//				java.io.File file = new java.io.File(f.getDiaChi());
+	//			java.io.File file = new java.io.File(f.getDiaChi());
 				fileDAO.close();
-				return new ModelAndView(siteMap.fileDownload, "path", f.getDiaChi());
+				RequestDispatcher dispatcher = request.getRequestDispatcher("downloadFile.html");
 				
+				request.setAttribute("path", f.getDiaChi());
+				dispatcher.forward(request, response);
+				return;
 			} catch (NumberFormatException e){
 				System.out.println("Cannot convert to int");
 			}
-		}
-		return new ModelAndView("login");
+    	}
 	}
     @RequestMapping("/searchCongVan")
    	public ModelAndView searchCongVan(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
