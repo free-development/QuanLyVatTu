@@ -69,13 +69,10 @@ public class BcvttController extends HttpServlet {
     		//sString cvSo = request.getParameter("cvSo");
     		System.out.println(ngaybd);
     		System.out.println(ngaykt);
-<<<<<<< HEAD
     		//CongVanDAO congVan = new CongVanDAO();
     		//YeuCauDAO yeuCauDAO = new YeuCauDAO();
     		ArrayList<CongVan> congVanList = (ArrayList<CongVan>)congVanDAO.getAllCongVan();
-=======
     		CongVanDAO congVan = new CongVanDAO();
->>>>>>> ca106f6ab7e9c58bd2bced50abb8b0d1ba6aa63a
     		HashMap<Integer, Integer> yeuCauHash = new HashMap<Integer, Integer>();
     		
     		ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) yeuCauDAO.getVTThieu();
