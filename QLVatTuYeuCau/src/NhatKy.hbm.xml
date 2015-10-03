@@ -12,7 +12,10 @@
  		</property>
  		<property name="thoiGian" type="java.sql.Date" access="field"> 
  			<column name="thoiGian" /> 
- 		</property> 
+ 		</property>
+ 		<property name="hoatDong" type="string" access="field"> 
+ 			<column name="HOATDONG" /> 
+ 		</property>  
  		<property name="noiDung" type="string" access="field"> 
  			<column name="NOIDUNG" /> 
  		</property> 

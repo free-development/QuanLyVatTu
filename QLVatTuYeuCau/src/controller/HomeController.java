@@ -17,10 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
 
+import dao.CTVatTuDAO;
 import dao.CongVanDAO;
 import dao.NhatKyDAO;
 import dao.VTCongVanDAO;
 import map.siteMap;
+import model.CTVatTu;
 import model.CongVan;
 import model.NguoiDung;
 import model.NhatKy;
@@ -38,20 +40,23 @@ public class HomeController extends HttpServlet {
 	   	String truongPhongMa = context.getInitParameter("truongPhongMa");
 	   	String vanThuMa = context.getInitParameter("vanThuMa");
 	   	String nhanVienMa = context.getInitParameter("nhanVienMa");
+	   	String adminMa = context.getInitParameter("adminMa");
 	   	int vtCapVt = Integer.parseInt(context.getInitParameter("capPhatId"));
 	   	NhatKyDAO nhatKyDAO = new NhatKyDAO();
 		HttpSession session = request.getSession();
-		NhatKy nhatKy = (NhatKy) session.getAttribute("nhatKy");
-		if (nhatKy != null) {
-			nhatKyDAO.addNhatKy(nhatKy);
-			session.removeAttribute("nhatKy");
-			nhatKyDAO.refresh(nhatKy);
-		}
+//		NhatKy nhatKy = (NhatKy) session.getAttribute("nhatKy");
+//		if (nhatKy != null) {
+//			nhatKyDAO.addNhatKy(nhatKy);
+//			session.removeAttribute("nhatKy");
+//			nhatKyDAO.refresh(nhatKy);
+//		}
 		
 		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
-		
+		ArrayList<NhatKy> nhatKyList = nhatKyDAO.getLimitByMsnv(authentication.getMsnv(), 0, 10);
+		nhatKyDAO.disconnect();
+		request.setAttribute("nhatKyList", nhatKyList);
 		String cdMa = authentication.getChucDanh().getCdMa();
-		if (cdMa.equals(truongPhongMa) || cdMa.equals(vanThuMa)) {
+		if (cdMa.equals(truongPhongMa) || cdMa.equals(vanThuMa) || cdMa.equals(adminMa)) {
 			CongVanDAO congVanDAO = new CongVanDAO();
 			HashMap<String, Object> conditions = new HashMap<String, Object>();
 			conditions.put("trangThai.ttMa", "CGQ");
@@ -59,10 +64,15 @@ public class HomeController extends HttpServlet {
 			ArrayList<CongVan> congVanList = congVanDAO.searchLimit(null, conditions, orderBy, 0, 10);
 			request.setAttribute("congVanList", congVanList);
 			
-			ArrayList<NhatKy> nhatKyList = nhatKyDAO.getLimitByMsnv(authentication.getMsnv(), 0, 10);
-			nhatKyDAO.disconnect();
+			
 			congVanDAO.disconnect();
-			request.setAttribute("nhatKyList", nhatKyList);
+			
+			if (cdMa.equals(truongPhongMa)) {
+				CTVatTuDAO ctVatTuDAO = new CTVatTuDAO();
+				ArrayList<CTVatTu> ctVatTuListAlert = ctVatTuDAO.getCtVatTuListAlert();
+				request.setAttribute("ctVatTuListAlert", ctVatTuListAlert);
+				ctVatTuDAO.disconnect();
+			}
 			return new ModelAndView("home");
 		}
 //		else if (cdMa.equals(vanThuMa)) {
@@ -89,7 +99,7 @@ public class HomeController extends HttpServlet {
 				}
 			}
 			
-			ArrayList<NhatKy> nhatKyList = nhatKyDAO.getByMsnv(msnv);
+//			ArrayList<NhatKy> nhatKyList = nhatKyDAO.getByMsnv(msnv);
 			vtCongVanDAO.disconnect();
 			congVanDAO.disconnect();
 			nhatKyDAO.disconnect();

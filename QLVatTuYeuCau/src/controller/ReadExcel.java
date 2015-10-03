@@ -3,6 +3,7 @@ package controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -48,6 +50,7 @@ import dao.ReadExcelBpsd;
 @Controller
 public class ReadExcel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	HttpSession session;  
 	int BUFFER_SIZE = 4096;
 	String filePath = "./";
 	String pathTemp = "./";
@@ -133,14 +136,33 @@ public class ReadExcel extends HttpServlet {
 			if ("xls".equalsIgnoreCase(extenstionFile)) {
 				file = new File("temp.xls");
 				fi.write(file);
-				if(!ReadExcelCT.readXls(file))
-					return new ModelAndView("import-excelCt", "status", "formatException");
+//				if(!ReadExcelCT.readXls(file))
+//					return new ModelAndView("import-excelCt", "status", "formatException");
+//				ArrayList<CTVatTu> ctvtListError = new ArrayList<CTVatTu>();
+//				ArrayList<CTVatTu> temp = new ArrayList<CTVatTu>();
+				
+				ArrayList<CTVatTu>  ctvtListError = ReadExcelCT.readXls(file);
+				
+//				long length = ReadExcelCT.readXls(file).size();
+//				System.out.println(length);
+//				for (int j = 0; j < length; j++)
+//				{
+//					ctvtListError.add(temp.get(j));
+//				}
+				
+				if(ctvtListError.size() != 0)
+				{
+					long size = ctvtListError.size();
+					request.setAttribute("size", size);
+					request.setAttribute("ctvtListError", ctvtListError);
+					return new ModelAndView("import-excelError", "status", "formatException");
+				}
 			}
 			else if ("xlsx".equalsIgnoreCase(extenstionFile)) {
 				file = new File("temp.xlsx");
 				fi.write(file);
-				if(!ReadExcelCT.readXlsx(file))
-					return new ModelAndView("import-excelCt", "status", "formatException");
+//				if(!ReadExcelCT.readXlsx(file))
+//					return new ModelAndView("import-excelCt", "status", "formatException");
 			}
 			else {
 				return new ModelAndView("import-excelCt", "status", "unknownFile");

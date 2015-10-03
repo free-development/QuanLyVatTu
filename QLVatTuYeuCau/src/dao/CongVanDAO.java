@@ -251,37 +251,63 @@ public class CongVanDAO {
 		session.getTransaction().commit();
 		return cvIdList;
 	}
-	public ArrayList<Integer> groupByYearLimit(String msnv, int limit){
+	
+	public ArrayList<Integer> groupByYearLimit(String msnv, HashMap<String, Object> conditions, int limit){
 		
 		
 		ArrayList<Integer> cvIdList = getCvIdByMsnv(msnv);
 				
 		session.beginTransaction();
 		String sql = "select distinct YEAR(a.cvNgayNhan) from CongVan a where a.daXoa = 0 ";
+		
 		if (msnv != null)
 			sql	+= "  and a.cvId in (select distinct(b.cvId) from VTCongVan b where msnv = '" + msnv + "')";
+		
+		if (conditions != null) {
+			for (String key : conditions.keySet()) {
+					sql += " and " + key + " = :" + key;
+				}
+		}
 		sql += " order by cvNgayNhan DESC";
 		Query query = session.createQuery(sql);
+		if (conditions != null) {
+			for (String key : conditions.keySet()) {
+				Object object = conditions.get(key);
+					query.setParameter(key, object);
+				}
+		}
 		query.setMaxResults(limit);
 		ArrayList<Integer> yearList = (ArrayList<Integer>) query.list();
 		session.getTransaction().commit();
 		return yearList;
 	}
-	public ArrayList<Integer> groupByMonth(final String msnv, final int year){
+	
+	public ArrayList<Integer> groupByMonth(final String msnv, HashMap<String, Object> conditions, final int year){
 		ArrayList<Integer> cvIdList = getCvIdByMsnv(msnv);
 		session.beginTransaction();
 		String sql = "select distinct MONTH(a.cvNgayNhan) from CongVan a where a.daXoa = 0 and YEAR(cvNgayNhan) = :year";
 		if (msnv != null)
 				sql	+= "  and a.cvId in (select distinct(b.cvId) from VTCongVan b where msnv = '" + msnv + "')";
+		if (conditions != null) {
+			for (String key : conditions.keySet()) {
+					sql += " and " + key + " = :" + key;
+				}
+		}
 		sql += " order by cvNgayNhan DESC";
 		Query query = session.createQuery(sql);
 		query.setParameter("year", year);
+		if (conditions != null) {
+			for (String key : conditions.keySet()) {
+				Object object = conditions.get(key);
+					query.setParameter(key, object);
+				}
+		}
 		
 		ArrayList<Integer> monthList = (ArrayList<Integer>) query.list();
 		session.getTransaction().commit();
 		return monthList;
 	}
-	public ArrayList<Integer> groupByDate(final String msnv, final int year, final int month){
+	public ArrayList<Integer> groupByDate(final String msnv, HashMap<String, Object> conditions, final int year, final int month){
 		ArrayList<Integer> cvIdList = getCvIdByMsnv(msnv);
 
 		session.beginTransaction();
@@ -290,9 +316,21 @@ public class CongVanDAO {
 		if (msnv != null) {
 				sql	+= "  and a.cvId in (select distinct(b.cvId) from VTCongVan b where msnv = '" + msnv + "')";
 		}
-		sql += " order by cvId DESC";
+		if (conditions != null) {
+			for (String key : conditions.keySet()) {
+					sql += " and " + key + " = :" + key;
+				}
+		}
+		sql += " order by cvNgayNhan DESC";
 		Query query = session.createQuery(sql);
-		System.out.println(sql);
+		query.setParameter("year", year);
+		query.setParameter("month", month);
+		if (conditions != null) {
+			for (String key : conditions.keySet()) {
+				Object object = conditions.get(key);
+					query.setParameter(key, object);
+				}
+		}
 		query.setParameter("year", year);
 		query.setParameter("month", month);
 		ArrayList<Integer> dateList = (ArrayList<Integer>) query.list();
@@ -369,6 +407,8 @@ public class CongVanDAO {
 		session.getTransaction().commit();
 		return congVanList;
 	}
+	
+
 public long size(String msnv, HashMap<String, Object> conditions) {
 		
 		Criteria cr = getCriteria(msnv);
@@ -421,10 +461,10 @@ public long size(String msnv, HashMap<String, Object> conditions) {
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 //		conditions.put("year", 2015);
 //		conditions.put("month", 8);
-		conditions.put("trichYeu", "1");
-		ArrayList<CongVan> size =  new CongVanDAO().searchLimit("b1203959" , conditions, null, 0, 100);
-		for(CongVan year : size)
+		conditions.put("soDen", 19);
+		ArrayList<Integer> size =  new CongVanDAO().groupByYearLimit(null , null, 0);
+		for(Integer year : size)
 			System.out.println(year);
-		System.out.println(size.size());
+//		System.out.println(size.size());
 	}
 }

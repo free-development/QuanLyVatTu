@@ -60,6 +60,8 @@ function preAddSoLuong(){
 			  		$('#nsxTenAdd').html(ctvt.noiSanXuat.nsxTen);
 			  		$('#clTenAdd').html(ctvt.chatLuong.clTen);
 			  		$('#dvtAdd').html(ctvt.vatTu.dvt.dvtTen);
+			  		$('#dvtAdd').html(ctvt.vatTu.dvt.dvtTen);
+			  		$('#soLuongTonAdd').html(ctvt.soLuongTon);
 			  	}
 			});
 				
@@ -93,6 +95,7 @@ function addSoLuong(){
 					+ '<td>' + ctVatTu.noiSanXuat.nsxTen + '</td>'
 					+ '<td>' + ctVatTu.chatLuong.clTen + '</td>'
 					+ '<td>' + ctVatTu.vatTu.dvt.dvtTen + '</td>'
+					+ '<td>' + ctVatTu.soLuongTon + '</td>'
 					+ '<td>' + yeuCau.ycSoLuong + '</td>'
 					+ '<td id=\"soLuongCap' + yeuCau.ycId +'\">' + yeuCau.capSoLuong + '</td>';
 				
@@ -167,7 +170,9 @@ function preUpdateYc() {
 		  		$('#vtTenUpdate').html(ctVatTu.vatTu.vtTen);
 		  		$('#nsxTenUpdate').html(ctVatTu.noiSanXuat.nsxTen);
 		  		$('#clTenUpdate').html(ctVatTu.chatLuong.clTen);
-		  		$('#dvtUpdate').html(ctVatTu.vatTu.dvt.dvtTen);	
+		  		$('#dvtUpdate').html(ctVatTu.vatTu.dvt.dvtTen);
+		  		$('#dvtUpdate').html(ctVatTu.vatTu.dvt.dvtTen);
+		  		$('#soLuongTonUpdate').html(ctVatTu.soLuongTon);
 			  	$('#update-so-luong-form input[name=soLuongUpdate]').val(yeuCau.ycSoLuong);
 		    } 
 		});  
@@ -189,7 +194,7 @@ function updateYc() {
 	  	
 	  	success: function(ycId) {
 	  		if (ycId == 'fail')
-	  			alert('Số lương yêu cầu không hợp lệ! Số lượng yêu cầu phải lớn hơn số lượng cấp!!!');
+	  			alert('Số lương yêu cầu không hợp lệ! Số lượng thiếu phải lớn hơn số lượng cấp!!!');
 	  		else {
 	  			alert('Cập nhật số lượng thành công');
 	//  			alert('soLuong' + ycId);
@@ -231,6 +236,7 @@ function preCapVatTu() {
 		  		$('#nsxTenCap').html(ctVatTu.noiSanXuat.nsxTen);
 		  		$('#clTenCap').html(ctVatTu.chatLuong.clTen);
 		  		$('#dvtCap').html(ctVatTu.vatTu.dvt.dvtTen);	
+		  		$('#soLuongTonCap').html(ctVatTu.soLuongTon);
 			  	$('#Cap-so-luong-form input[name=soLuongCap]').val(yeuCau.capSoLuong);
 		    } 
 		});  
@@ -251,8 +257,10 @@ function capVatTu() {
 	    mimeType: 'application/json',
 	  	
 	  	success: function(ycVatTu) {
-	  		if (ycVatTu == 'fail')
-	  			alert('Số lương cấp phát không hợp lệ! Số lượng cấp phát phải nhỏ hơn hoặc bằng tổng số lượng yêu cầu!!!');
+	  		if (ycVatTu == '-1')
+	  			alert('Số lương cấp phát không hợp lệ! Số lượng cấp phát phải nhỏ hơn hoặc bằng tổng số lượng thiếu!!');
+	  		else if (ycVatTu == '-2')
+	  			alert('Số lượng tồn không đủ để cấp. Vui lòng kiểm tra lại!!!');
 	  		else {
 	  			alert('Cấp phát vật tư thành công');
 	  			$('input[name=soLuongCap]').val('0')	;	
@@ -271,9 +279,11 @@ function searchCtVt(){
 	var vtMa = '';
 	var check = $('#checkTen:checked').val();
 	if (check != null)
-		vtTen = $('#yc-table input[name=search]').val();
+		vtTen = $('#search input[name=search]').val();
 	else 
-		vtMa = $('#yc-table input[name=search]').val();
+		vtMa = $('#search input[name=search]').val();
+//	alert(vtMa);
+//	alert(vtTen);
 	$.ajax({
 		url: getRoot() +  "/searchCtvtYc.html",	
 	  	type: "GET",
@@ -296,12 +306,13 @@ function searchCtVt(){
 						var style = '';
 						if (i % 2 == 1)
 							style = 'style=\"background : #CCFFFF;\"';
-						var cells =   '<td>' + ctVatTu.vatTu.vtMa + '</td>'
-									+ '<td>' + ctVatTu.vatTu.vtTen + '</td>'
-									+ '<td>' + ctVatTu.noiSanXuat.nsxTen + '</td>'
-									+ '<td>' + ctVatTu.chatLuong.clTen + '</td>'
-									+ '<td>' + ctVatTu.vatTu.dvt.dvtTen + '</td>'
-									+ '<td><input class=\"radio\"  type=\"radio\" id="a" name=\"ctvtId\" value=\"' + ctVatTu.ctvtId + '\" onchange=\"preAddSoLuong();\"> </td>';
+						var cells =   '<td \"style="text-align: center;"\">' + ctVatTu.vatTu.vtMa + '</td>'
+									+ '<td >' + ctVatTu.vatTu.vtTen + '</td>'
+									+ '<td >' + ctVatTu.noiSanXuat.nsxTen + '</td>'
+									+ '<td >' + ctVatTu.chatLuong.clTen + '</td>'
+									+ '<td \"style="text-align: center;"\">' + ctVatTu.vatTu.dvt.dvtTen + '</td>'
+									+ '<td \"style="text-align: center;"\">' + ctVatTu.soLuongTon + '</td>'
+									+ '<td \"style="text-align: center;"\"><input class=\"radio\"  type=\"radio\" id="a" name=\"ctvtId\" value=\"' + ctVatTu.ctvtId + '\" onchange=\"preAddSoLuong();\"> </td>';
 						var row = '<tr ' +style + ' class=\"rowContent\">' + cells + '</tr>';
 						$('#view-table-ds table tr:first').after(row);
 					}
@@ -364,6 +375,7 @@ function loadPageCtvtYc(pageNumber) {
 								+ '<td>' + ctVatTu.noiSanXuat.nsxTen + '</td>'
 								+ '<td>' + ctVatTu.chatLuong.clTen + '</td>'
 								+ '<td>' + ctVatTu.vatTu.dvt.dvtTen + '</td>'
+								+ '<td>' + ctVatTu.soLuongTon + '</td>'
 								+ '<td><input class=\"radio\"  type=\"radio\" id="a" name=\"ctvtId\" value=\"' + ctVatTu.ctvtId + '\" onchange=\"preAddSoLuong();\"> </td>';
 					var row = '<tr ' +style + 'class = \"rowContent\">' + cells + '</tr>';
 					 $('#view-table-ds table tr:first').after(row);
