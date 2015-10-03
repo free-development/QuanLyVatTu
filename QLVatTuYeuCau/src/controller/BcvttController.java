@@ -70,25 +70,17 @@ public class BcvttController extends HttpServlet {
     		System.out.println(ngaybd);
     		System.out.println(ngaykt);
     		CongVanDAO congVan = new CongVanDAO();
-//    		ArrayList<CongVan> congVanList = (ArrayList<CongVan>)congVanDAO.getByCvSo(cvSo);
     		HashMap<Integer, Integer> yeuCauHash = new HashMap<Integer, Integer>();
     		
-//    			for(CongVan congVan: congVanList){
     		ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) yeuCauDAO.getVTThieu();
     		HashMap<Integer, CTVatTu> ctvtHash = new CTVatTuDAO().getHashMap();
     		
     		HashMap<Integer, ArrayList<Integer>> soDenHash = new HashMap<Integer, ArrayList<Integer>>();
     		HashMap<Integer, ArrayList<Integer>> cvIdHash = new HashMap<Integer, ArrayList<Integer>>();
     		
-//    		ArrayList<Integer> soDenList = new ArrayList<Integer>();
-//    		ArrayList<Integer> cvIdList = new ArrayList<Integer>();
     		for(YeuCau yeuCau: yeuCauList){
     				int ctVtId = yeuCau.getCtVatTu().getCtvtId();
-//    				soDenList.add(yeuCau.getCvId());
     				int cvId = yeuCau.getCvId();
-//    				cvIdList.add(cvId);
-//    				soDenList.
-//    				add(congVanDAO.getSoDen(cvId));
     				Integer slCu = yeuCauHash.get(ctVtId);
     				Integer soluong = yeuCau.getYcSoLuong();
     				if (slCu != null)

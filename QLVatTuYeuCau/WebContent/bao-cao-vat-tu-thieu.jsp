@@ -253,8 +253,6 @@
 	   		HashMap<Integer, ArrayList<Integer>> soDenHash = (HashMap<Integer, ArrayList<Integer>>) session.getAttribute("soDenHash");
 	   		%>
 			
-<!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
-<!-- 			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	ArrayList<CongVan> congVanList = (ArrayList<CongVan>) session.getAttribute("congVanList");	 -->
 				<div style="text-align: center;font-size: 20px;color:firebrick;font-weight: bold;margin-top:10px;">Tổng hợp vật tư thiếu</div>
 				<div id="view-table-bao-cao" style="max-height: 420px;width: 1200px;display: auto;border: 1px dotted #CCCCCC;margin: 0 auto;overflow: scroll;">
 				<table style="margin: 0 auto;width:1200px;border: 1px dotted black;" >
@@ -270,8 +268,9 @@
 						<th style="border: 1px dotted black;width: 150px;" class="one-column">Công văn liên quan (số đến)</th>
 					</tr >
 								<%
+								int count = 0;
 							if(yeuCauHash != null){
-							int count = 0;
+							
 							for (CongVan congVan : congVanList) {
 							for(Integer key  : yeuCauHash.keySet()) { count++;
 							CTVatTu ctvt = ctvtHash.get(key);
@@ -305,10 +304,6 @@
 							%>
 							 
 						</td>
-<%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
-<!-- 						</td> -->
-<%-- 						<td class="e-column"style="text-align: left;"><%=congVan.getCvSo()%></td> --%>
-<!-- 						</td> -->
 					</tr>
 					<%} }%>
 				</table>
