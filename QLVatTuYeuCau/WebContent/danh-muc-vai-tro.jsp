@@ -166,7 +166,7 @@
 							int count = 0;
 							for(VaiTro vaiTro : listVaiTro) {count++ ;%>
 							<tr class="rowContent"
-								<%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>>
+								<%if (count % 2 == 1) out.println("style=\"background : #CCFFFF;\"");%>>
 								<td class="left-column"><input type="checkbox" name="vtId"
 									value="<%=vaiTro.getVtTen() %>" class="checkbox"></td>
 								<td class="col"><%=vaiTro.getVtTen() %></td>

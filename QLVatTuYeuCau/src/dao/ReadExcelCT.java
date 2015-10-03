@@ -218,7 +218,7 @@ public class ReadExcelCT {
 					if (vtMa.length() == 0 || vtTen.length() == 0 || dvt.length() == 0 || nsxMa.length() == 0 || clMa.length() == 0 )
 						{
 						System.out.println("VTMa = "+vtMa+ "\n vtTen = "+ vtTen + "\n dvt = "+dvt+ "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
-							if (vtMa.length() == 0) vtMa = "";
+						//	if (vtMa.length() == 0) vtMa = "";
 							if (vtTen.length() == 0) vtTen = "";
 							
 							if (nsxMa.length() == 0) nsxMa = "";

@@ -256,7 +256,11 @@
 <!-- 								</tr> -->
 <!-- 							</table> -->
 <!-- 						</div> -->
-			<div id = "paging" >
+						<div id = "paging" style="text-align: center;">
+						<table style ="border-style: none;">
+								<tr>
+									<td>Trang</td>
+									<td>
 								<%
 										String str = "";
 										String pages = ""; 
@@ -269,6 +273,9 @@
 										str += "<input type=\"button\" class=\"pageMove\" value=\"Sau >>\" onclick= \"loadPageVatTu(\'Next\');\">";
 									out.println(str);	
 								%>
+								</td>
+								</tr>
+								</table>
 <!-- 									<input type="button" value="Next>>"></td> -->
 					
 			</div>
@@ -407,11 +414,11 @@
 				</div>
 			</form>
 			
-						<form id="import-formct" action="<%=siteMap.readExcelCt %>" method="post" enctype="multipart/form-data" style="height: 200px;text-align: center;">
+						<form id="import-formct" action="<%=siteMap.readExcelCt %>" method="post" enctype="multipart/form-data" style="height: 200px;width:350px;text-align: center;">
 									<input type="file" name="file" accept=".xls, .xlsx" class="text" style="padding-left: 0px;">
 									<div class="group-button">
-										<input value="uploadFile" name="action" type="submit" class="button" style="width: 100px;font-size: 17px;text-align: center;">
-										<input value="Thoát" onclick="showForm2('vattu','import-formct', false);" type="button" class="button"  style="width: 70px;text-align: center;font-size: 17px;">
+										<input value="uploadFile" name="action" type="submit" class="button" style="width: 120px;font-size: 17px;text-align: center;">
+										<input value="Thoát" onclick="showForm2('vattu','import-formct', false);" type="button" class="button"  style="width: 100px;text-align: center;font-size: 17px;">
 									</div>
 						</form>
 			

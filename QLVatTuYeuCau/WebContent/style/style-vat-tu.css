@@ -15,6 +15,12 @@
 	border: outset;
 	border-color: #0000FF;
 }
+#paging table {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 5px;
+	margin: 0 auto;
+}
 .text {
 	border-radius: 5px;
 	border-style: dotted;
@@ -148,7 +154,8 @@
 	border-width: 1px;
 	color: black;
 	margin: 0px;
-	border-spacing: 0px border-spacing: 0px;
+	border-spacing: 0px ;
+	border-spacing: 0px;
 	padding-left: 10px;
 	padding-right: 10px;
 	background-color: #199e5e;
@@ -330,7 +337,7 @@
 	display: none;
 	position: absolute;
 	top:17%;
-	left:12%;
+	left:18%;
 	border-radius: 10px;
 	background-color: #DCEAF5;
 	border: outset;
