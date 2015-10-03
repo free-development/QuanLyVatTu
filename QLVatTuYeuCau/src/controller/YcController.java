@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,11 +54,9 @@ public class YcController extends HttpServlet {
 		String cvSo = request.getParameter("cvSo");
 		//if(s[0] == null)
 		
-		JOptionPane.showConfirmDialog(null, s);
 		if(s == null)
 			return new ModelAndView(siteMap.cvManage + "?action=manageCv");
 		int cvId =  Integer.parseInt(s);
-		JOptionPane.showConfirmDialog(null, s);
 		session.setAttribute("cvId", cvId);
     	CTVatTuDAO ctvtDAO =  new CTVatTuDAO();
     	YeuCauDAO yeuCauDAO = new YeuCauDAO();
@@ -65,7 +64,6 @@ public class YcController extends HttpServlet {
     	ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
     	CongVanDAO congVanDAO = new CongVanDAO();
     	ArrayList<CTVatTu> ctVatTuList = (ArrayList<CTVatTu>) ctvtDAO.limit((pageCtvt - 1)*10, 10);
-    	JOptionPane.showConfirmDialog(null, "ok");
     	ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
     	ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) nsxDAO.getAllNoiSanXuat();
     	ArrayList<ChatLuong> chatLuongList = (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();
@@ -117,38 +115,56 @@ public class YcController extends HttpServlet {
 		ycDAO.disconnect();
 		CongVanDAO congVanDAO = new CongVanDAO();
 		CTVatTuDAO ctvtDAO = new CTVatTuDAO();
-		CTVatTu ctvt = ctvtDAO.getCTVatTuById(ctvtId);		
+//		CTVatTu ctVatTu = ctVatTuDAO.getCTVatTuById(ctVatTuId);
+		CTVatTu ctVatTu = yeuCau.getCtVatTu();
 		CongVan congVan = congVanDAO.getCongVan(cvId);
 		congVanDAO.disconnect();
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
-//		NhatKyDAO nhatKyDAO = new NhatKyDAO();
-//		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), 0, "Bạn đã cập nhật số lượng cho vât tư có mã " + ctvt.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctvt.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctvt.getChatLuong().getClMa() + "của công văn  " + congVan.getSoDen());
-//		nhatKyDAO.addNhatKy(nhatKy);
-//		nhatKyDAO.disconnect();
-    	NhatKy nhatKy = (NhatKy) session.getAttribute("nhatKy");
-    	if (nhatKy == null) {
-    		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
-    		nhatKy = new NhatKy(authentication.getMsnv(), currentDate, cvId + "#Bạn đã cập nhật vật tư thiếu cho công văn có số đến " + congVan.getSoDen() + " nhận ngày " + congVan.getCvNgayNhan() + ":<br> ");
-    	}
+		NhatKyDAO nhatKyDAO = new NhatKyDAO();
+		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
+		String content = "Vât tư có mã " + ctVatTu.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctVatTu.getNoiSanXuat().getNsxMa() + " và mã chất lượng "  + ctVatTu.getChatLuong().getClMa() + " được thêm tất cả " + yeuCau.getYcSoLuong();
+		
+		String dvt = ctVatTu.getVatTu().getDvt().getDvtTen();
+		if (dvt.length() > 0)
+			content += "/" + dvt +".";
+		else
+			content += ".";
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId + "#Thêm số lượng vật tư thiếu của công văn  có số đến " + congVan.getSoDen() + " nhận ngày "+ congVan.getCvNgayNhan(), currentDate, content);
+		nhatKyDAO.addNhatKy(nhatKy);
+		nhatKyDAO.disconnect();
+//    	NhatKy nhatKy = (NhatKy) session.getAttribute("nhatKy");
+//    	if (nhatKy == null) {
+//    		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
+//    		nhatKy = new NhatKy(authentication.getMsnv(), currentDate, cvId + "#Bạn đã cập nhật vật tư thiếu cho công văn có số đến " + congVan.getSoDen() + " nhận ngày " + congVan.getCvNgayNhan() + ":<br> ");
+//    	}
     	
-    	String noiDung = nhatKy.getNoiDung();
-    	noiDung += "&nbsp;&nbsp;+" + "Vật tư có mã: " + ctvt.getVatTu().getVtMa() 
-    			+ ", mã nơi sản xuất: "  + ctvt.getNoiSanXuat().getNsxMa() + ""
-    			+ ", mã chất lượng: " + ctvt.getChatLuong().getClMa() + " số lượng "  + yeuCau.getYcSoLuong() + ctvt.getVatTu().getDvt().getDvtTen();
-    	nhatKy.setNoiDung(noiDung);
 		return JSonUtil.toJson(yeuCau);
 	}
 	
 	@RequestMapping(value="/deleteYc", method=RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	 public @ResponseBody String deleteYc(@RequestParam("ycList") String ycList) {
+	 public @ResponseBody String deleteYc(@RequestParam("ycList") String ycList, HttpSession session) {
 //		int id = Integer.parseInt(ycId);
 		String[] ycIdList = ycList.split("\\, ");
+		int cvId = (Integer) session.getAttribute("cvId");
+		
+		CongVanDAO congVanDAO = new CongVanDAO(); 
+		CongVan congVan = congVanDAO.getCongVan(cvId);
+		StringBuilder content = new StringBuilder("Vật tư được đã xóa ra danh sách thiếu: ");
 		YeuCauDAO ycDAO = new YeuCauDAO();
 		for (String s : ycIdList) {
 			int id = Integer.parseInt(s);
+			YeuCau yeuCau = ycDAO.getYeuCau(id);
+			CTVatTu ctVatTu = yeuCau.getCtVatTu();
+			content.append("<br>&nbsp;&nbsp;+ Mã vật tư" + ctVatTu.getVatTu().getVtMa() + ", mã nơi sản xuất" + ctVatTu.getNoiSanXuat().getNsxMa() + ", mã chất lượng " + ctVatTu.getChatLuong().getClMa() + ".");
 			ycDAO.deleteYeuCau(id);
 		}
+		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+		NhatKyDAO nhatKyDAO = new NhatKyDAO();
+		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId + "#" + "#Xóa vật tư thiếu của công văn  có số đến " + congVan.getSoDen() + " nhận ngày "+ congVan.getCvNgayNhan(), currentDate, content.toString());
+		nhatKyDAO.addNhatKy(nhatKy);
+		nhatKyDAO.disconnect();
 		ycDAO.disconnect();
 		
 //		CongVanDAO congVanDAO = new CongVanDAO();
@@ -186,8 +202,22 @@ public class YcController extends HttpServlet {
 			return JSonUtil.toJson("fail");
 		}
 		YeuCauDAO ycDAO2 = new YeuCauDAO();
+		int cvId = (Integer) session.getAttribute("cvId");
+		CTVatTu ctVatTu = yeuCau.getCtVatTu();
+		CongVanDAO congVanDAO = new CongVanDAO(); 
+		CongVan congVan = congVanDAO.getCongVan(cvId);
+		StringBuilder content = new StringBuilder("Vật tư có mã " + ctVatTu.getVatTu().getVtMa() + ", mã nơi sản xuất " + ctVatTu.getNoiSanXuat().getNsxMa() + ", mã chất lượng " + ctVatTu.getChatLuong().getClMa() + "của công văn có số đến " + congVan.getSoDen() +  " nhận ngày "+ congVan.getCvNgayNhan() +  " được đã được cập nhật " + yeuCau.getYcSoLuong());
+		String dvt = ctVatTu.getVatTu().getDvt().getDvtTen(); 
+		if (dvt.length() > 0)
+			content.append("/" + dvt);
 		yeuCau.setYcSoLuong(sl);
 		ycDAO2.updateYeuCau(yeuCau);
+		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
+		NhatKyDAO nhatKyDAO = new NhatKyDAO();
+		java.sql.Date currentDate = DateUtil.convertToSqlDate(new java.util.Date());
+		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId + "#Thay đổi số lượng vật tư thiếu của công văn có số đến " + congVan.getSoDen() + " nhận ngày " + congVan.getCvNgayNhan(), currentDate, content.toString());
+		nhatKyDAO.addNhatKy(nhatKy);
+		nhatKyDAO.disconnect();
 		ycDAO.disconnect();
 		ycDAO2.disconnect();
 		return JSonUtil.toJson(yeuCau.getYcId());
@@ -209,9 +239,13 @@ public class YcController extends HttpServlet {
 		YeuCauDAO ycDAO = new YeuCauDAO();
 		YeuCau yeuCau = (YeuCau) session.getAttribute("vatTuCap");
 		int sl = Integer.parseInt(soLuong);
-		if (ycDAO.checkCapSoLuong(yeuCau.getYcId(), sl) < 0) {
+		int check = ycDAO.checkCapSoLuong(yeuCau.getYcId(), sl);
+		if (check == -1) {
 			ycDAO.disconnect();
-			return JSonUtil.toJson("fail");
+			return JSonUtil.toJson("-1");
+		} else if (check == -2) {
+			ycDAO.disconnect();
+			return JSonUtil.toJson("-2");
 		}
 //		yeuCau.setYcSoLuong(sl);
 		ycDAO.capVatTu(yeuCau, sl);

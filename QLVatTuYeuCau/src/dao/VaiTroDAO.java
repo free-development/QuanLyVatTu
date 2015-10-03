@@ -126,4 +126,12 @@ public class VaiTroDAO {
 		if (session.isConnected())
 			session.disconnect();
 	}
+	public ArrayList<VaiTro> getVaiTro(ArrayList<VTCongVan> vtcvList) {
+		ArrayList<VaiTro> vaiTroList = new ArrayList<VaiTro>();
+		for  (VTCongVan vtCongVan : vtcvList) {
+			VaiTro vaiTro = getVaiTro(vtCongVan.getVtId());
+			vaiTroList.add(vaiTro);
+		}
+		return vaiTroList;
+	}
 }

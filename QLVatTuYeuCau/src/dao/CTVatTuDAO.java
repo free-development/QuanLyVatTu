@@ -337,5 +337,20 @@ public class CTVatTuDAO {
 //			System.out.println(ctvt.getVatTu().getVtMa());
 //		}
 		//System.out.println(new CTVatTuDAO().getCTVatTu("", nsxMa, clMa));
+		CTVatTuDAO ct = new CTVatTuDAO();
+		System.out.println(ct.getCtVatTuListAlert());
+	}
+	public ArrayList<CTVatTu> getCtVatTuListAlert() {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(CTVatTu.class, "ctVatTu");
+		cr.createAlias("ctVatTu.noiSanXuat", "noiSanXuat");
+		cr.createAlias("ctVatTu.chatLuong", "chatLuong");
+		cr.createAlias("ctVatTu.vatTu", "vatTu");
+		cr.createAlias("vatTu.dvt", "dvt");
+//		cr.add(Restrictions.eq("dinhMuc", ))
+		cr.add(Restrictions.sqlRestriction("soLuongTon < dinhMuc"));
+		ArrayList<CTVatTu> ctvatTuList =  (ArrayList<CTVatTu>) cr.list();
+		session.getTransaction().commit();
+		return ctvatTuList;
 	}
 }

@@ -326,6 +326,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE NHATKY (
 	NKID int primary key auto_increment,
 	MSNV varchar(10),
+	HOATDONG TEXT,
 	THOIGIAN date,
 	NOIDUNG TEXT,
 	constraint FK_MSNV foreign key (MSNV) references NGUOIDUNG(MSNV)

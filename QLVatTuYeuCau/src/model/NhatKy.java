@@ -14,6 +14,7 @@ public class NhatKy {
 	private String msnv;
 	private Date thoiGian;
 	private String noiDung;
+	private String hoatDong;
 	
 	/**
 	 * @param nkId
@@ -25,6 +26,7 @@ public class NhatKy {
 		this.nkId = 0;
 		this.msnv = "";
 		this.thoiGian = new Date(1,1,115);
+		this.hoatDong = "";
 		this.noiDung = "";
 	}
 	
@@ -33,10 +35,11 @@ public class NhatKy {
 	 * @param cvId
 	 * @param noiDung
 	 */
-	public NhatKy(String msnv, Date thoiGian, String noiDung) {
+	public NhatKy(String msnv, String hoatDong, Date thoiGian, String noiDung) {
 		this.msnv = msnv;
 		this.thoiGian = thoiGian;
 		this.noiDung = noiDung;
+		this.hoatDong = hoatDong;
 	}
 	
 	/**
@@ -45,11 +48,12 @@ public class NhatKy {
 	 * @param cvId
 	 * @param noiDung
 	 */
-	public NhatKy(int nkId, String msnv, Date thoiGian, String noiDung) {
+	public NhatKy(int nkId, String msnv, String hoatDong, Date thoiGian, String noiDung) {
 		this.nkId = nkId;
 		this.msnv = msnv;
 		this.thoiGian = thoiGian;
 		this.noiDung = noiDung;
+		this.hoatDong = hoatDong;
 	}
 
 	public Date getThoiGian() {
@@ -100,6 +104,14 @@ public class NhatKy {
 	 */
 	public void setNoiDung(String noiDung) {
 		this.noiDung = noiDung;
+	}
+
+	public String getHoatDong() {
+		return hoatDong;
+	}
+
+	public void setHoatDong(String hoatDong) {
+		this.hoatDong = hoatDong;
 	}
 	
 	

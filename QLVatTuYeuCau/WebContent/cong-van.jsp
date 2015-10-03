@@ -1,3 +1,4 @@
+<%@page import="model.VTCongVan"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="model.VaiTro"%>
 <%@page import="dao.VaiTroDAO"%>
@@ -66,9 +67,10 @@
     	ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) request.getAttribute("trangThaiList");
     	ArrayList<Integer> yearList = (ArrayList<Integer>) request.getAttribute("yearList");
     	Long size = (Long) request.getAttribute("size");
-    	ArrayList<ArrayList<VaiTro>> vtCongVanList = (ArrayList<ArrayList<VaiTro>>) request.getAttribute("vtCongVanList");
+    	ArrayList<ArrayList<VaiTro>> vaiTroList = (ArrayList<ArrayList<VaiTro>>) request.getAttribute("vaiTroList");
+    	ArrayList<ArrayList<VTCongVan>> vtCongVanList = (ArrayList<ArrayList<VTCongVan>>) request.getAttribute("vtCongVanList");
     	ArrayList<ArrayList<String>> nguoiXlCongVan = (ArrayList<ArrayList<String>>) request.getAttribute("nguoiXlCongVan");
-    	ArrayList<String> ttMaList = (ArrayList<String>) request.getAttribute("ttMaList");
+//     	ArrayList<String> ttMaList = (ArrayList<String>) request.getAttribute("ttMaList");
     	
     	try {
     %>
@@ -81,8 +83,10 @@ check = <% if (vanThuMa.equals(chucDanhMa) ) out.print("false"); else out.print(
 capVatTuId = '<%=capPhatMa  %>';
 chucDanhMa = '<%=chucDanhMa  %>';
 vanThuMa = '<%=vanThuMa  %>';
+adminMa = '<%=adminMa  %>';
 truongPhongMa = '<%=truongPhongMa  %>';
 hosting = '<%=hosting  %>';
+msnv = '<%=authentication.getMsnv()  %>';
 
 // || capPhatMa.equals(chucDanhMa)
 
@@ -342,21 +346,44 @@ hosting = '<%=hosting  %>';
 <%-- 									<%} %> --%>
 								<%} else {%>
 									<td class="left-column-first" style="font-weight: bold;">Vai trò</td>
-									<td class="column-color"colspan="3">
+									<td class="column-color"colspan="5">
+									<table>
 									<%
 									boolean capPhat = false;
-									StringBuilder vaiTro = new StringBuilder("");
-									ArrayList<VaiTro> vaiTroList = vtCongVanList.get(count - 1);
-									if (vaiTroList.size() > 0) {
-										
-										for (VaiTro vt : vaiTroList) {
-											vaiTro.append(vt.getVtTen() + ", ");
+									ArrayList<VaiTro> vaiTro = vaiTroList.get(count - 1);
+									ArrayList<VTCongVan> vtCongVan = vtCongVanList.get(count - 1);									
+									if (vaiTro.size() > 0) {
+										int i = 0;
+										for (VaiTro vt : vaiTro) {
+											VTCongVan vtcv = vtCongVan.get(i);
 											if (vt.getVtId() == capPhatMa)
 												capPhat = true;
-										}
-										int len = vaiTro.length();
-										vaiTro.delete(len - 2, len);
-										out.println(vaiTro.toString());%>
+											i++;
+										%>
+										<tr>
+										<td><%=vt.getVtTen() %>:</td>
+										<td>
+											<input type="radio" <%if ("CGQ".equals(vtcv.getTrangThai().getTtMa())) out.println(" checked ");%> name="<%=vtcv.getMsnv() + "#" + vtcv.getCvId() + "#" + vtcv.getVtId() %>"  value="<%=vtcv.getMsnv() + "#" + vtcv.getCvId() + "#" + vtcv.getVtId() + "#"+"CGQ"%>"  class="ttMaVtUpdate"> 	
+											<label for="<%=vtcv.getMsnv() + "#" + vtcv.getCvId() + "#" + vtcv.getVtId() + "#"+"CGQ"%>">Chưa giải quyết</label>&nbsp;&nbsp;&nbsp;
+										</td>
+										<td>
+											<input type="radio" <%if ("DGQ".equals(vtcv.getTrangThai().getTtMa())) out.println(" checked ");%> name="<%=vtcv.getMsnv() + "#" + vtcv.getCvId() + "#" + vtcv.getVtId()  %>"  value="<%=vtcv.getMsnv() + "#" + vtcv.getCvId() + "#" + vtcv.getVtId() + "#"+"DGQ"%>" class="ttMaVtUpdate" >
+											<label for="<%=vtcv.getMsnv() + "#" + vtcv.getCvId() + "#" + vtcv.getVtId() + "#"+"DGQ"%>">Còn thiếu hàng</label>&nbsp;&nbsp;&nbsp;
+										</td>
+										<td>
+											<input type="radio" <%if ("DaGQ".equals(vtcv.getTrangThai().getTtMa())) out.println(" checked ");%> name="<%=vtcv.getMsnv() + "#" + vtcv.getCvId() + "#" + vtcv.getVtId()  %>"  value="<%=vtcv.getMsnv() + "#" + vtcv.getCvId() + "#" + vtcv.getVtId() + "#"+"DaGQ"%>" class="ttMaVtUpdate">
+											<label for="<%=vtcv.getMsnv() + "#" + vtcv.getCvId() + "#" + vtcv.getVtId() + "#"+""%>">Đã cấp đủ hàng</label>&nbsp;&nbsp;&nbsp;
+										</td>
+											<div id="requireTrangThaiUp" style="color: red"></div>
+										<tr>
+										<%}%>
+										<script type="text/javascript">
+											$('.ttMaVtUpdate').bind('change', function() {
+												var trangThai = $(this).val(); 
+												changeTrangThaiVt(trangThai) ;
+											}); 
+										</script>	
+										</table>
 									</td>
 									<%if (capPhat) { %>
 										<td colspan="3" style="float: right;">
@@ -393,16 +420,14 @@ hosting = '<%=hosting  %>';
 							<th style="text-align: left"><label>Trạng
 									thái</label></th>
 							<td style="text-align: left; padding-left: 10px;" colspan = "5">
-								
-								<input type="radio" <%if ("CGQ".equals(ttMaList.get(count - 1))) out.println(" checked ");%> name="<%=congVan.getCvId() %>"  value="<%=congVan.getCvId()+"#"+"CGQ"%>"  class="ttMaUpdate">
+							<% if(chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)  || chucDanh.equals(adminMa)) { %>
+								<input type="radio" <%if ("CGQ".equals(congVan.getTrangThai().getTtMa())) out.println(" checked ");%> name="<%=congVan.getCvId() %>"  value="<%=congVan.getCvId()+"#"+"CGQ"%>"  class="ttMaUpdate"> 	
 								<label for="<%=congVan.getCvId()+"#"+"CGQ"%>">Chưa giải quyết</label>&nbsp;&nbsp;&nbsp;
-								
-								<input type="radio" <%if ("DGQ".equals(ttMaList.get(count - 1))) out.println(" checked ");%> name="<%=congVan.getCvId() %>"  value="<%=congVan.getCvId()+"#"+"DGQ"%>" class="ttMaUpdate" >
+								<input type="radio" <%if ("DGQ".equals(congVan.getTrangThai().getTtMa())) out.println(" checked ");%> name="<%=congVan.getCvId() %>"  value="<%=congVan.getCvId()+"#"+"DGQ"%>" class="ttMaUpdate" >
 								<label for="<%=congVan.getCvId()+"#"+"DGQ"%>">Còn thiếu hàng</label>&nbsp;&nbsp;&nbsp;
-								
-								<input type="radio" <%if ("DaGQ".equals(ttMaList.get(count - 1))) out.println(" checked ");%> name="<%=congVan.getCvId() %>"  value="<%=congVan.getCvId()+"#"+"DaGQ"%>" class="ttMaUpdate">
+								<input type="radio" <%if ("DaGQ".equals(congVan.getTrangThai().getTtMa())) out.println(" checked ");%> name="<%=congVan.getCvId() %>"  value="<%=congVan.getCvId()+"#"+"DaGQ"%>" class="ttMaUpdate">
 								<label for="<%=congVan.getCvId()+"#"+"DaGQ"%>">Đã cấp đủ hàng</label>&nbsp;&nbsp;&nbsp;
-								<div id="requireTrangThaiUp" style="color: red"></div>
+							<%} else out.print(congVan.getTrangThai().getTtTen());%>
 							</td>
 						</tr>	
 					</table>
@@ -414,9 +439,9 @@ hosting = '<%=hosting  %>';
 					<script type="text/javascript">
 						$('.ttMaUpdate').bind('change', function() {
 							var trangThai = $(this).val(); 
-							changeTrangThai(trangThai) ;
+							changeTrangThaiCv(trangThai) ;
 						}); 
-					</script>;	
+					</script>	
 
 
 						</div>

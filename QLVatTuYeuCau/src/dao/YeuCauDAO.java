@@ -264,12 +264,13 @@ public class YeuCauDAO {
 		int capSoLuong = yeuCau.getCapSoLuong() + soLuong;
 		int ycSoLuong = yeuCau.getYcSoLuong();
 		int temp = ycSoLuong - capSoLuong;
-		if (temp == 0)
+		int soLuongTon = yeuCau.getCtVatTu().getSoLuongTon();
+		if (soLuongTon <= soLuong)
+			return -2;
+		if (temp >= 0)
 			return 1;
-		else if (temp > 0)
-			return 0;
-		else
-			return -1;
+		
+		return -1;
 	}
 	
 	public void close() {

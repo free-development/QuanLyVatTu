@@ -17,10 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
 
+import dao.CTVatTuDAO;
 import dao.CongVanDAO;
 import dao.NhatKyDAO;
 import dao.VTCongVanDAO;
 import map.siteMap;
+import model.CTVatTu;
 import model.CongVan;
 import model.NguoiDung;
 import model.NhatKy;
@@ -41,12 +43,12 @@ public class HomeController extends HttpServlet {
 	   	int vtCapVt = Integer.parseInt(context.getInitParameter("capPhatId"));
 	   	NhatKyDAO nhatKyDAO = new NhatKyDAO();
 		HttpSession session = request.getSession();
-		NhatKy nhatKy = (NhatKy) session.getAttribute("nhatKy");
-		if (nhatKy != null) {
-			nhatKyDAO.addNhatKy(nhatKy);
-			session.removeAttribute("nhatKy");
-			nhatKyDAO.refresh(nhatKy);
-		}
+//		NhatKy nhatKy = (NhatKy) session.getAttribute("nhatKy");
+//		if (nhatKy != null) {
+//			nhatKyDAO.addNhatKy(nhatKy);
+//			session.removeAttribute("nhatKy");
+//			nhatKyDAO.refresh(nhatKy);
+//		}
 		
 		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
 		
@@ -63,6 +65,12 @@ public class HomeController extends HttpServlet {
 			nhatKyDAO.disconnect();
 			congVanDAO.disconnect();
 			request.setAttribute("nhatKyList", nhatKyList);
+			if (cdMa.equals(truongPhongMa)) {
+				CTVatTuDAO ctVatTuDAO = new CTVatTuDAO();
+				ArrayList<CTVatTu> ctVatTuListAlert = ctVatTuDAO.getCtVatTuListAlert();
+				request.setAttribute("ctVatTuListAlert", ctVatTuListAlert);
+				ctVatTuDAO.disconnect();
+			}
 			return new ModelAndView("home");
 		}
 //		else if (cdMa.equals(vanThuMa)) {

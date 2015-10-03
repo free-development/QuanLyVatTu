@@ -164,11 +164,12 @@ public class ChiaSeCvController extends HttpServlet {
 			NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
 			
 			Date currentDate = DateUtil.convertToSqlDate(new java.util.Date ());
-			NhatKy nhatKy = new NhatKy(nguoiDung.getMsnv(), currentDate, cvId + "#Bạn đã chia sẽ cho công văn số " + congVan.getSoDen() + " nhận ngày " + DateUtil.toString(congVan.getCvNgayNhan()) + " cho:   " + hotens.toString());
+			NhatKy nhatKy = new NhatKy(nguoiDung.getMsnv(), congVan.getCvId() + "#Chia sẻ công văn số " + congVan.getSoDen() + " nhận ngày " + DateUtil.toString(congVan.getCvNgayNhan()), currentDate,  hotens.toString());
 //			NhatKyDAO nhatKyDAO = new NhatKyDAO();
-			
-			HttpSession session = request.getSession(false);
-			session.setAttribute("nhatKy", nhatKy);
+			NhatKyDAO nhatKyDAO = new NhatKyDAO();
+			nhatKyDAO.addNhatKy(nhatKy);
+//			HttpSession session = request.getSession(false);
+//			session.setAttribute("nhatKy", nhatKy);
 			
 			request.setAttribute("vaiTroHash", vaiTroHash);
 			request.setAttribute("vtNguoiDungHash", vtNguoiDungHash);
@@ -272,7 +273,7 @@ public class ChiaSeCvController extends HttpServlet {
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
 		
 		Date currentDate = DateUtil.convertToSqlDate(new java.util.Date ());
-		NhatKy nhatKy = new NhatKy(nguoiDung.getMsnv(), currentDate, cvId + "#Bạn đã chia sẽ cho công văn số " + congVan.getSoDen() + " nhận ngày " + DateUtil.toString(congVan.getCvNgayNhan()) + " cho:   " + hotens.toString());
+		NhatKy nhatKy = new NhatKy(nguoiDung.getMsnv(), "chia sẻ công văn số " + congVan.getSoDen() + " nhận ngày " + DateUtil.toString(congVan.getCvNgayNhan()), currentDate,  hotens.toString());
 		NhatKyDAO nhatKyDAO = new NhatKyDAO();
 		
 		session.setAttribute("nhatKy", nhatKy);
