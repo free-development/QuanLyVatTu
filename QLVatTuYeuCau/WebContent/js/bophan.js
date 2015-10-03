@@ -74,7 +74,14 @@ function showForm2(formId1, formId2, check){
 		 			 });
  			}
  		}
-	
+		function loadAddBp() {
+	 		showForm('add-form', false);
+	 		$('input[name="dvMa"]:checked').prop('checked',false);
+	 	}
+	 	function loadUpdateBp() {
+	 		showForm('update-form', false);
+	 		$('input[name="dvMa"]:checked').prop('checked',false);
+	 	}
 		function preUpdateBp(formId, check){
 			dvMa = $('input:checkbox[name=dvMa]:checked').val();
 			var dvMaList = [];
@@ -174,6 +181,7 @@ function showForm2(formId1, formId2, check){
 							emailUpdate = $('input:text[name=emailUpdate]').val('');
 					  		showForm("update-form", false);	
 					  		alert("Thay đổi thành công bộ phân có mã "+ dvMaUpdate);
+					  		$('input[name="dvMa"]:checked').prop('checked',false);
 					  	}
 					});
 			}

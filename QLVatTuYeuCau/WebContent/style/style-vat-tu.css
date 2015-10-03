@@ -121,13 +121,11 @@
 	background-color: #199e5e;
 	text-align: center;
 }
-#view-table-chi-tiet {
-	margin: 0 auto;
-	width: 1024px;
-}
+
 #view-table-chi-tiet table {
 	border-spacing: 0px;
 	margin: 0 auto;
+	width: 1024px;
 	/*height: 800px;*/
 	background: #FFF;
 }
@@ -263,13 +261,14 @@
 	position: absolute;
 	left: 483px;
 	margin-top: 30px;
-	top: 25%;
+	top: 15%;
+	height: 25%;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 20px;
-	border: dotted;
+	border: outset;
 	border-color: #0000FF;
 }
 
@@ -279,13 +278,14 @@
 	position: absolute;
 	left: 483px;
 	margin-top: 30px;
-	top: 25%;
+	top: 15%;
+	height: 25%;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;
 	padding-right: 10px;
 	padding-top: 20px;
-	border: dotted;
+	border: outset;
 	border-color: #0000FF;
 }
 .button-xem {
@@ -329,17 +329,18 @@
 #chitiet{
 	display: none;
 	position: absolute;
-	top: 35%;
+	top:17%;
+	left:12%;
+	border-radius: 10px;
 	background-color: #DCEAF5;
-	
+	border: outset;
+	border-color: #0000FF;
 }
 #add-chitiet{
 	display: none;
-	width: 450px;
 	position: absolute;
-	left: 550px;
-	margin-top: 30px;
-	top: 200px;
+	top:17%;
+	left:35%;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;
@@ -350,11 +351,9 @@
 }
 #update-chitiet{
 	display: none;
-	width: 450px;
 	position: absolute;
-	left: 490px;
-	margin-top: 30px;
-	top: 200px;
+	top:17%;
+	left:35%;
 	background-color: #DCEAF5;
 	border-radius: 10px;
 	padding-left: 10px;

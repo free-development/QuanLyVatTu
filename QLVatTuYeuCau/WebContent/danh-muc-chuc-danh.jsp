@@ -243,7 +243,7 @@
 						<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
 					</button>
 					<button type="button" class="button"
-						onclick="showForm('add-form', false)">
+						onclick="loadAddCd();">
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
 				</div>
@@ -280,7 +280,7 @@
 						<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
 					</button>
 					<button type="button" class="button"
-						onclick="showForm('update-form')">
+						onclick="loadUpdateCd();">
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
 				</div>

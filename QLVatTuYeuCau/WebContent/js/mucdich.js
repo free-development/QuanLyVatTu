@@ -38,6 +38,14 @@ function showForm(formId, check){
 		});
 		}
 	}
+	function loadAddMd() {
+ 		showForm('add-form', false);
+ 		$('input[name="mdMa"]:checked').prop('checked',false);
+ 	}
+ 	function loadUpdateMd() {
+ 		showForm('update-form', false);
+ 		$('input[name="mdMa"]:checked').prop('checked',false);
+ 	}
 	function confirmDeleteMd(){
 		var mdMa = $('input:checkbox[name=mdMa]:checked').val();
 		var mdMaList = [];
@@ -143,6 +151,7 @@ function showForm(formId, check){
 		  		$('#view-table table tr:first').after('<tr class="rowContent"><td class=\"left-column\"><input type=\"checkbox\" name=\"mdMa\" value=\"' +mdMaUpdate + '\"</td><td class=\"col\">'+ mdMaUpdate +'</td><td class=\"col\">' + mdTenUpdate+'</td></tr>');
 		  		$('input:text[name=mdMaUpdate]').val('');
 				mdTenUpdate = $('input:text[name=mdTenUpdate]').val('');
+				$('input[name="mdMa"]:checked').prop('checked',false);
 		  		showForm("update-form", false);	
 		  	}
 		});

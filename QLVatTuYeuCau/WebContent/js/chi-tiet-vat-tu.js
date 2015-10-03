@@ -186,6 +186,7 @@
 						$('input[name=soLuongTonUpdate]').val('');
 						
 				  		alert("Sửa thành công chi tiết vật tư có mã "+ vtMaUpdate+ " !");
+				  		$('input[name="ctvtId"]:checked').prop('checked',false);
 				  		showForm2('add-chitiet' ,'chitiet', true);
 				  	}
 				});
