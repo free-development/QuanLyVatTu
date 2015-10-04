@@ -244,10 +244,21 @@ td.input {
 .view-tbao table tr td{
 	
 /* 	cell-spacing: 0px; */
-	border: 1px;
+	border-style: dotted;
+	border-width: 1px;
 	font-size: 20px;
 	
 }
+
+.view-tbao table tr th{
+	
+/* 	cell-spacing: 0px; */
+	border-style: dotted;
+	border-width: 1px;
+	font-size: 20px;
+	
+}
+
 
 .view-cvnew table tr th{
 	color: black;

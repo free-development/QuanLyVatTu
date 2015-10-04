@@ -163,7 +163,7 @@
 						<tr ><th colspan = "5" style="text-align: center; width: 300px; font-size: 20px;color:red;"><i class="fa fa-sign-out"></i>&nbsp;Công việc</th></tr>
 						<% if (chucDanh.equalsIgnoreCase(truongPhongMa) && ctVatTuListAlert != null && ctVatTuListAlert.size() > 0) { %>
 						<tr style="background: #CCFFFF">
-							<th colspan ="5" style="text-align: center; width: 180px;">Vật tư đã hết vượt đinh mức: </th>
+							<th colspan ="5" style="text-align: center; width: 180px;">Vật tư dưới định mức: </th>
 						</tr>
 						<tr>
 							<th>Mã vật tư</th>
@@ -173,14 +173,14 @@
 							<th>Số lượng tồn</th>
 						</tr>
 						
-						<%for (CTVatTu ctVatTu : ctVatTuListAlert) {%>
-							<tr>
+						<% int cnt=0; for (CTVatTu ctVatTu : ctVatTuListAlert) {cnt++;%>
+						<tr style = "<% if (cnt % 2 == 1) out.print("background: #CCFFFF; ");%>";>
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getVatTu().getVtMa()%> </td>
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getNoiSanXuat().getNsxMa()%> </td>
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getChatLuong().getClMa()%> </td>
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getDinhMuc()%> </td>
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getSoLuongTon()%> </td>
-							</tr>
+						</tr>
 						<%}} %>
 						
 						<tr style="background: #CCFFFF">
