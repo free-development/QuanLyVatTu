@@ -215,10 +215,10 @@ public class ReadExcelCT {
 					if (vtMa.length() == 0 && vtTen.length() == 0 && dvt.length() == 0 && nsxMa.length() == 0 && clMa.length() == 0 )
 						break;
 //					System.out.println("VTMa = "+vtMa+ "\n vtTen = "+ vtTen + "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
-					if (vtMa.length() == 0 || vtTen.length() == 0 || dvt.length() == 0 || nsxMa.length() == 0 || clMa.length() == 0 )
+					if (vtTen.length() == 0 || dvt.length() == 0 || nsxMa.length() == 0 || clMa.length() == 0 )
 						{
-						System.out.println("VTMa = "+vtMa+ "\n vtTen = "+ vtTen + "\n dvt = "+dvt+ "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
-						//	if (vtMa.length() == 0) vtMa = "";
+					//	System.out.println("VTMa = "+vtMa+ "\n vtTen = "+ vtTen + "\n dvt = "+dvt+ "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
+							//if (vtMa.length() == 0) vtMa = "";
 							if (vtTen.length() == 0) vtTen = "";
 							
 							if (nsxMa.length() == 0) nsxMa = "";
@@ -266,7 +266,7 @@ public class ReadExcelCT {
 					String nsxMa = nsxList.get(i);
 					String clMa = chatLuongList.get(i);
 					DonViTinh dvt = dvtList.get(i);
-					System.out.println("count = " + i + " \n  VTMa = "+vatTu.getVtMa()+ "\n vtTen = "+ vatTu.getVtTen() + "\n dvt = " + dvt.getDvtTen() + "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
+					//System.out.println("count = " + i + " \n  VTMa = "+vatTu.getVtMa()+ "\n vtTen = "+ vatTu.getVtTen() + "\n dvt = " + dvt.getDvtTen() + "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
 					
 					NoiSanXuat noisx = nsxDAO.getNoiSanXuat(nsxMa);
 					ChatLuong chatluong = clDAO.getChatLuong(clMa);
@@ -292,13 +292,13 @@ public class ReadExcelCT {
 						CTVatTu ctvt = ctvtDAO.getCTVatTu(vatTu.getVtMa(), nsxMa, clMa);
 						CTVatTu ctvtTemp = ctvtList.get(i);
 						if (ctvt == null) {
-							System.out.println("CTVT them duoc!");
-							System.out.println("VTMa = "+ctvtTemp.getVatTu().getVtMa()+ "\n vtTen = "+ ctvtTemp.getVatTu().getVtTen() + "\n dvt = "+dvt.getDvtTen()+ "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
+							//System.out.println("CTVT them duoc!");
+							//System.out.println("VTMa = "+ctvtTemp.getVatTu().getVtMa()+ "\n vtTen = "+ ctvtTemp.getVatTu().getVtTen() + "\n dvt = "+dvt.getDvtTen()+ "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
 							ctvtDAO.addCTVatTu(ctvtTemp);
 						}
 						else {
-							System.out.println("CTVT bi loi!");
-							System.out.println("VTMa = "+ctvtTemp.getVatTu().getVtMa()+ "\n vtTen = "+ ctvtTemp.getVatTu().getVtTen() + "\n dvt = "+dvt.getDvtTen()+ "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
+							//System.out.println("CTVT bi loi!");
+							//System.out.println("VTMa = "+ctvtTemp.getVatTu().getVtMa()+ "\n vtTen = "+ ctvtTemp.getVatTu().getVtTen() + "\n dvt = "+dvt.getDvtTen()+ "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
 							
 							ctvtListError.add(ctvtTemp);
 						}

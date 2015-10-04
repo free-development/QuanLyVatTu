@@ -22,7 +22,7 @@
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
 	type="text/css" rel="stylesheet">
 <meta charset="utf-8">
-<title></title>
+<title>Xuất báo cáo</title>
 <style type="text/css" media="print">
 #print_button{
 display:none;

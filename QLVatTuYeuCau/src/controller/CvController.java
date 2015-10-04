@@ -77,6 +77,7 @@ public class CvController extends HttpServlet{
     private String adminMa = "";
     private String vanThuMa = "";
     private int vtCapVt = 0;
+    
     public ModelAndView getCongvan( HttpServletRequest request) {
     	truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");
@@ -245,8 +246,12 @@ public class CvController extends HttpServlet{
 //    	request.ge
     	HttpSession session = request.getSession(false);
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
-//    	root =  request.getRealPath("/");
-    	root =  "/home/quoioln/DATA/";
+    	root =  request.getRealPath("/");
+<<<<<<< HEAD
+    	//root =  "/home/quoioln/DATA/";
+=======
+    //	root =  "/home/quoioln/DATA/";
+>>>>>>> 3b8e4b5adc069370b9538e66b22febf7b5832374
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -376,9 +381,13 @@ public class CvController extends HttpServlet{
     @RequestMapping("updateCongVan")
     public ModelAndView updateCongVan(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //    	request.ge
-//    	root =  request.getRealPath("/");
+    	root =  request.getRealPath("/");
     	
-    	root =  "/home/quoioln/DATA/";
+<<<<<<< HEAD
+    	//root =  "/home/quoioln/DATA/";
+=======
+    //	root =  "/home/quoioln/DATA/";
+>>>>>>> 3b8e4b5adc069370b9538e66b22febf7b5832374
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
