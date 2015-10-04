@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1092,6 +1091,15 @@ public class CvController extends HttpServlet{
 				VTCongVan vtCongVan = vtCongVanDAO.getVTCongVan(msnv, cvId, vtId);
 				vtCongVan.setTrangThai(new TrangThai(ttMa));
 				vtCongVanDAO.updateVTCongVan(vtCongVan);
+				int check = vtCongVanDAO.checkTtCongVan(cvId);
+				if (check == 1) {
+					CongVanDAO congVanDAO = new CongVanDAO();
+					CongVan congVan = congVanDAO.getCongVan(cvId);
+					congVan.setTrangThai(new TrangThai("DaGQ"));
+					congVanDAO.updateCongVan(congVan);
+					congVanDAO.disconnect();
+					return JSonUtil.toJson("changTtCongVan");
+				}
 				vtCongVanDAO.disconnect();
 			}
 			return JSonUtil.toJson("success");

@@ -419,7 +419,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 						<tr>
 							<th style="text-align: left"><label>Trạng
 									thái</label></th>
-							<td style="text-align: left; padding-left: 10px;" colspan = "5">
+							<td style="text-align: left; padding-left: 10px;" colspan = "5" id = "<%=congVan.getCvId() %>ttMaCongvan">
 							<% if(chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)  || chucDanh.equals(adminMa)) { %>
 								<input type="radio" <%if ("CGQ".equals(congVan.getTrangThai().getTtMa())) out.println(" checked ");%> name="<%=congVan.getCvId() %>"  value="<%=congVan.getCvId()+"#"+"CGQ"%>"  class="ttMaUpdate"> 	
 								<label for="<%=congVan.getCvId()+"#"+"CGQ"%>">Chưa giải quyết</label>&nbsp;&nbsp;&nbsp;
