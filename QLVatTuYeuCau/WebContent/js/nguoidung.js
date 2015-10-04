@@ -194,7 +194,8 @@ function updateNd(msnv, hoten,chucdanh, email, diachi, sdt) {
 			email = $('input:text[name=email]').val('');
 			diachi = $('input:text[name=diachi]').val('');
 			sdt = $('input:text[name=sdt]').val('');
-	  		alert("Thay đổi thành công người dùng có mã "+msnv+ " !")	
+	  		alert("Thay đổi thành công người dùng có mã "+msnv+ " !");
+	  		$('input[name="msnv"]:checked').prop('checked',false);
 	  		showForm2('add-form',false);	
 	  		//$('#main-form').show();
 	  		
@@ -537,7 +538,14 @@ function checkPassword()
 			checkPassword();
 		}
 	}
-	
+	function loadAddNd() {
+ 		showForm2('add-form', false);
+ 		$('input[name="msnv"]:checked').prop('checked',false);
+ 	}
+ 	function loadUpdateNd() {
+ 		showForm2('update-form', false);
+ 		$('input[name="msnv"]:checked').prop('checked',false);
+ 	}
  function addNd() {
 		var msnv = $('#add-form input:text[name=msnv]').val();
 		var matkhau = $('#add-form input:password[name=matkhau]').val();

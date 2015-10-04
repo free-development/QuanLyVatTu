@@ -147,7 +147,7 @@ public class ReadExcelNsx {
 					
 					NoiSanXuat nsx = nsxList.get(i);
 
-					NoiSanXuat temp = nsxDAO.getByNameNsx(nsx.getNsxMa());
+					NoiSanXuat temp = nsxDAO.getNoiSanXuat(nsx.getNsxMa());
 						if (temp ==  null) {
 							nsxDAO.addNoiSanXuat(nsx);
 						}

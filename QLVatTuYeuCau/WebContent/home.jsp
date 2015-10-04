@@ -150,16 +150,18 @@
 						<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 				<div id="main-content">
 				
-				<table style = "margin: 0 auto;width: 1024spx; vertical-align:top ;">
-				<tr>
-				<td>
+<!-- 				<table style = "margin: 0 auto;width: 1024spx; vertical-align:top ;"> -->
+<!-- 				<tr  style="vertical-align:top ;"> -->
+				<table style = "margin: 0 auto;width: 1124spx; vertical-align:top ;">
+				<tr >
+				<td style=" vertical-align:top ;"">
 					<% if (chucDanh.equalsIgnoreCase(truongPhongMa) || chucDanh.equalsIgnoreCase(vanThuMa)){
 						ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList");
 						ArrayList<CTVatTu> ctVatTuListAlert = (ArrayList<CTVatTu>) request.getAttribute("ctVatTuListAlert");
 						ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) request.getAttribute("nhatKyList");
 					%>
 					<div class="view-tbao">
-						<table style="width:450px;">
+						<table style="width:550px;">
 						<tr ><th colspan = "5" style="text-align: center; width: 300px; font-size: 20px;color:red;"><i class="fa fa-sign-out"></i>&nbsp;Công việc</th></tr>
 						<% if (chucDanh.equalsIgnoreCase(truongPhongMa) && ctVatTuListAlert != null && ctVatTuListAlert.size() > 0) { %>
 						<tr style="background: #CCFFFF">
@@ -249,7 +251,7 @@
 				</td>
 				<td style="vertical-align:top ;">
 					<div class="view-nky" >
-						<table style="width:750px;">
+						<table style="width:900px;">
 						<tr>
 						<th colspan ="3" style="text-align: center; font-size: 20px;color:red;">
 							<i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động

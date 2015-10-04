@@ -413,7 +413,6 @@
 	insert into CHUCDANH values ('GD', 'Giám đốc',0);
 	insert into CHUCDANH values ('TP', 'Trưởng phòng',0);
 	insert into CHUCDANH values ('NV', 'Nhân viên',0);
-	insert into CHUCDANH values ('TK', 'Thư ký',0);
 	insert into CHUCDANH values ('VT', 'Văn thư',0);
 
 	insert into VAITRO values(1,'Lap phieu nhap', 0);
@@ -443,7 +442,7 @@
 	
 	
 	insert into CHUCDANH value('AD','Admin',0);
-	insert into NGUOIDUNG values ('admin123','AD','Vo Phu Quoi','An Giang','quoipro94@gmail.com','0979921380');
+	insert into NGUOIDUNG values ('admin123','AD','Võ Phú Quới','An Giang','quoipro94@gmail.com','0979921380');
 	insert into CTNGUOIDUNG values ('admin123' ,md5('123456789'),0);
 	insert into CTNGUOIDUNG values ('admin123' ,md5('123456789'),0);
 	insert into CTNGUOIDUNG values ('b1203958' ,md5('123456789'),0);
@@ -480,13 +479,13 @@
 	INSERT INTO TRANGTHAI VALUES('DGQ','Đang giải quyết',0);
 	INSERT INTO TRANGTHAI VALUES('DaGQ','Đã giải quyết',0);
 	-- ---------------------------
-	INSERT INTO DONVI VALUES('F02F09','Công ty Điện lực Cần Thơ', '0979921380' , 'vpdtevn@gmail.com', 'Can Tho', 0);
-	INSERT INTO DONVI VALUES('F09A01','Ban QLDA lưới điện', '0979921380' , 'vpdtevn@gmail.com', 'Can Tho', 0);
-	INSERT INTO DONVI VALUES('F09D01','Phòng tổ chức và nhân sự', '0979921380' , 'vpdtevn@gmail.com', 'Can Tho', 0);
-	INSERT INTO DONVI VALUES('F02D08','Phòng Kế Hoạch(Cty)', '0979921380' , 'vpdtevn@gmail.com', 'Can Tho', 0);
-	INSERT INTO DONVI VALUES('F09D02','Phòng Thanh tra bảo vệ-Pháp', '0979921380' , 'vpdtevn@gmail.com', 'Can Tho', 0);
-	INSERT INTO DONVI VALUES('F09D03','Phòng Kỹ thuật Sản xuất(Cty)', '0979921380' , 'vpdtevn@gmail.com', 'Can Tho', 0);
-	INSERT INTO DONVI VALUES('F09D04','Phòng Vật tư(Cty)', '0979921380' , 'vpdtevn@gmail.com', 'Can Tho', 0);
+	INSERT INTO DONVI VALUES('F02F09','Công ty Điện lực Cần Thơ', '0979921380' , 'vpdtevn@gmail.com', 'Cần Thơ', 0);
+	INSERT INTO DONVI VALUES('F09A01','Ban QLDA lưới điện', '0979921380' , 'vpdtevn@gmail.com', 'Cần Thơ', 0);
+	INSERT INTO DONVI VALUES('F09D01','Phòng tổ chức và nhân sự', '0979921380' , 'vpdtevn@gmail.com', 'Cần Thơ', 0);
+	INSERT INTO DONVI VALUES('F02D08','Phòng Kế Hoạch(Cty)', '0979921380' , 'vpdtevn@gmail.com', 'Cần Thơ', 0);
+	INSERT INTO DONVI VALUES('F09D02','Phòng Thanh tra bảo vệ-Pháp', '0979921380' , 'vpdtevn@gmail.com', 'Cần Thơ', 0);
+	INSERT INTO DONVI VALUES('F09D03','Phòng Kỹ thuật Sản xuất(Cty)', '0979921380' , 'vpdtevn@gmail.com', 'Cần Thơ', 0);
+	INSERT INTO DONVI VALUES('F09D04','Phòng Vật tư(Cty)', '0979921380' , 'vpdtevn@gmail.com', 'Cần Thơ', 0);
 	-----------------------------
 	INSERT INTO MUCDICH VALUES('MD1','Mục đích 1',0);
 	INSERT INTO MUCDICH VALUES('MD2','Mục đích 2',0);
@@ -498,37 +497,37 @@
 	
 	insert into CONGVAN values(1,"F02F09","DGQ","MD2",1,"2014-09-01","111","2014-09-01","Không có trích yếu","Không có bút phê",0);
 	insert into CONGVAN values(2,"F02D08","DGQ","MD3",2,"2015-08-27","222","2015-08-27","Không có trích yếu","Không có bút phê",0);
-	insert into CONGVAN values(3,"F02D08","DGQ","MD3",3,"2015-08-27","333","2015-08-27","Không có trích yếu","Không có bút phê",0);
+	insert into CONGVAN values(3,"F02D08","DaGQ","MD3",3,"2015-08-27","333","2015-08-27","Không có trích yếu","Không có bút phê",0);
 	insert into CONGVAN values(4,"F09D01","DGQ","MD2",4,"2015-08-28","444","2015-08-28","Không có trích yếu","Không có bút phê",0);
-	insert into CONGVAN values(5,"F09A01","DGQ","MD2",5,"2015-11-06","555","2015-08-06","111","11",0);
+	insert into CONGVAN values(5,"F09A01","DaGQ","MD2",5,"2012-11-06","555","2015-08-06","111","11",0);
 	insert into CONGVAN values(6,"F09A01","DGQ","MD2",6,"2015-08-28","666","2015-07-30","1111","1111",0);
-	insert into CONGVAN values(7,"F09A01","DGQ","MD2",7,"2015-08-28","777","2015-07-30","1111","1111",0);
+	insert into CONGVAN values(7,"F09A01","DGQ","MD2",7,"2012-08-28","777","2015-07-30","1111","1111",0);
 	insert into CONGVAN values(8,"F09A01","DGQ","MD2",8,"2015-08-28","888","2015-07-30","1111","1111",0);
 	insert into CONGVAN values(9,"F09A01","DGQ","MD2",9,"2015-08-28","999","2015-07-30","1111","1111",0);
 	insert into CONGVAN values(10,"F02D08","DGQ","MD3",10,"2015-08-28","123","2015-08-28","a","a",0);
 	insert into CONGVAN values(11,"F02D08","DGQ","MD3",11,"2015-08-28","234","2015-08-28","a","a",0);
-	insert into CONGVAN values(12,"F02D08","DGQ","MD3",12,"2015-08-28","345","2015-08-28","a","a",0);
+	insert into CONGVAN values(12,"F02D08","DGQ","MD3",12,"2013-08-28","345","2015-08-28","a","a",0);
 	insert into CONGVAN values(13,"F09A01","DaGQ","MD3",13,"2015-08-28","456","2015-08-28","Không có trích yếu","Không có bút phê",0);
-	insert into CONGVAN values(14,"F02F09","DaGQ","MD3",1,"2015-11-01","789","2015-11-01","111","111",0);
+	insert into CONGVAN values(14,"F02F09","DaGQ","MD3",1,"2013-11-01","789","2015-11-01","111","111",0);
 	insert into CONGVAN values(15,"F09A01","CGQ","MD2",1,"2015-09-01","890","2015-09-01","Không có trích yếu","Không có bút phê",0);
 	insert into CONGVAN values(16,"F09A01","CGQ","MD3",1,"2015-09-01","901","2015-09-01","Khong co","Khong co",0);
 	insert into CONGVAN values(17,"F02D08","CGQ","MD1",14,"2015-06-06","012","2015-05-06","khong"," khong",0);
 	insert into CONGVAN values(18,"F02F09","CGQ","MD2",15,"2014-09-01","1234","2014-09-01","Khong co trich yeu","Khong co but phe",0);
-	insert into CONGVAN values(19,"F02D08","DGQ","MD3",16,"2015-08-27","2345","2015-08-27","Không có trích yếu","Không có bút phê",0);
-	insert into CONGVAN values(20,"F02D08","DGQ","MD3",17,"2015-08-27","3456","2015-08-27","Không có trích yếu","Không có bút phê",0);
+	insert into CONGVAN values(19,"F02D08","DGQ","MD3",16,"2012-08-27","2345","2015-08-27","Không có trích yếu","Không có bút phê",0);
+	insert into CONGVAN values(20,"F02D08","DaGQ","MD3",17,"2015-08-27","3456","2015-08-27","Không có trích yếu","Không có bút phê",0);
 	insert into CONGVAN values(21,"F09D01","DGQ","MD2",18,"2015-08-28","4567","2015-08-28","Không có trích yếu","Không có bút phê",0);
-	insert into CONGVAN values(22,"F09A01","CGQ","MD2",19,"2015-11-06","5678","2015-08-06","111","11",0);
+	insert into CONGVAN values(22,"F09A01","CGQ","MD2",19,"2012-11-06","5678","2015-08-06","111","11",0);
 	insert into CONGVAN values(23,"F09A01","DGQ","MD2",20,"2015-08-28","6789","2015-07-30","1111","1111",0);
 	insert into CONGVAN values(24,"F09A01","DGQ","MD2",21,"2015-08-28","7890","2015-07-30","1111","1111",0);
-	insert into CONGVAN values(25,"F09A01","DGQ","MD2",22,"2015-08-28","8901","2015-07-30","1111","1111",0);
+	insert into CONGVAN values(25,"F09A01","DaGQ","MD2",22,"2013-08-28","8901","2015-07-30","1111","1111",0);
 	insert into CONGVAN values(26,"F09A01","DGQ","MD2",23,"2015-08-28","9012","2015-07-30","1111","1111",0);
 	insert into CONGVAN values(27,"F02D08","DGQ","MD3",24,"2015-08-28","0123","2015-08-28","a","a",0);
-	insert into CONGVAN values(28,"F02D08","DGQ","MD3",25,"2015-08-28","12345","2015-08-28","a","a",0);
+	insert into CONGVAN values(28,"F02D08","DaGQ","MD3",25,"2013-08-28","12345","2015-08-28","a","a",0);
 	insert into CONGVAN values(29,"F02D08","DGQ","MD3",26,"2015-08-28","23456","2015-08-28","a","a",0);
 	insert into CONGVAN values(30,"F09A01","CGQ","MD3",27,"2015-08-28","34567","2015-08-28","Không có trích yếu","Không có bút phê",0);
 	insert into CONGVAN values(31,"F02F09","CGQ","MD3",28,"2015-11-01","45678","2015-11-01","111","111",0);
 	insert into CONGVAN values(32,"F09A01","CGQ","MD2",29,"2015-09-01","56789","2015-09-01","Không có trích yếu","Không có bút phê",0);
-	insert into CONGVAN values(33,"F09A01","CGQ","MD3",30,"2015-09-01","67890","2015-09-01","Không có trích yếu","Không có bút phê",0);
+	insert into CONGVAN values(33,"F09A01","CGQ","MD3",30,"2013-09-01","67890","2015-09-01","Không có trích yếu","Không có bút phê",0);
 	insert into CONGVAN values(34,"F02D08","CGQ","MD1",31,"2015-06-06","78901","2015-05-06","Không có trích yếu","Không có bút phê",0);
 	insert into CONGVAN values(35,"F02F09","CGQ","MD2",32,"2014-09-01","89012","2014-09-01","Không có trích yếu","Không có bút phê",0);
 	insert into CONGVAN values(36,"F02D08","DGQ","MD3",33,"2015-08-27","90123","2015-08-27","Không có trích yếu","Không có bút phê",0);

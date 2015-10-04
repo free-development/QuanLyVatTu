@@ -60,6 +60,11 @@ public class Mail {
 	public void setTo(String to) {
 		this.to = to;
 	}
+
+	public void setContent(String content2, String string) {
+		
+		
+	}
 	
 	
 }

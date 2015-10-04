@@ -266,7 +266,7 @@
 					<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
 				</button>
 				<button type="button" class="button"
-					onclick="showForm('add-form', false)">
+					onclick="loadAddNsx();">
 					<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 				</button>
 			</div>
@@ -301,7 +301,7 @@
 					<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
 				</button>
 				<button type="button" class="button"
-					onclick="showForm('update-form', false)">
+					onclick="loadUpdateNsx()">
 					<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 				</button>
 			</div>

@@ -52,6 +52,14 @@ function preUpdateNsx(formId, check) {
 		});
 	}
 }
+function loadAddNsx() {
+		showForm('add-form', false);
+		$('input[name="nsxMa"]:checked').prop('checked',false);
+	}
+	function loadUpdateNsx() {
+		showForm('update-form', false);
+		$('input[name="nsxMa"]:checked').prop('checked',false);
+	}
 function confirmDelete(){
 	var nsxMa = $('input:checkbox[name=nsxMa]:checked').val();
 	var nsxMaList = [];
