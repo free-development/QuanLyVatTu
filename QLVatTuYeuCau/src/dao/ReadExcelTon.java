@@ -193,6 +193,7 @@ public class ReadExcelTon {
 				}
 				count++;
 			}
+				System.out.println("VTMa = "+vtMa+ "\n vtTen = "+ vtTen + "\n nsxTen= "+ nsxTen + "\n clTen = " + clTen + "\n soLuong = " + soLuong);
 			if (vtMa.length() == 0 && vtTen.length() == 0 && dvt.length() == 0 && nsxTen.length() == 0 && clTen.length() == 0 && soLuong == -1)
 				break;
 			if (vtMa.length() == 0 || vtTen.length() == 0 || dvt.length() == 0 || nsxTen.length() == 0 || clTen.length() == 0 || soLuong == -1)
@@ -221,7 +222,7 @@ public class ReadExcelTon {
 			
 			NoiSanXuat nsxTemp = nsxDAO.getByNameNsx(nsxTen);
 			ChatLuong chatLuongTemp = clDAO.getByNameCl(clTen);
-//			System.out.println("VTMa = "+ctvt.getCtvtId()+ "\n vtTen = "+ vtTen + "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
+			System.out.println("VTMa = "+vatTu.getVtMa()+ "\n vtTen = "+ vatTu.getVtTen() + "\n nsxTen= "+ nsxTen + "\n clTen = " + clTen);
 			if (nsxTemp !=  null && chatLuongTemp !=  null) {
 				CTVatTu ctvt = ctvtDAO.getCTVatTu(vatTu.getVtMa(), nsxTemp.getNsxMa(), chatLuongTemp.getClMa());
 				if (ctvt != null) {
