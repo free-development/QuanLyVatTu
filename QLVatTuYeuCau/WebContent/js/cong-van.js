@@ -441,7 +441,7 @@ function loadCongVan(congVanList, fileList, unknownList, vtCongVanList) {
 				tables	+= '</tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Xem công văn: </td>'
 						+ '<td colspan=\"1\">'
-						+ '<a href=\"' + getRoot() + '/cvManage.html' + '?action=download&file=' + congVan.cvId + '\">'
+						+ '<a  target=\"_black\" href=\"' + getRoot() + '/downloadFileMn.html' + '?action=download&file=' + congVan.cvId + '\">'
 						+ '<div class=\"mo-ta\">' + fileName + '</div>'
 						+ '</a> '
 						+ '</td>'
@@ -530,7 +530,7 @@ function filterData(filter, filterValue) {
 	    	var unknownList = objectList[3];
 	    	var vtCongVanList = objectList[4];
 	    	loadCongVan(congVanList, fileList, unknownList, vtCongVanList);
-	    	loadPageNumber('',size);
+	    	loadPageNumber(0, '',size);
 	    } 
 	});
 }

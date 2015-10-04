@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 
 import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -206,8 +207,9 @@ public class CvController extends HttpServlet{
 		 date = 0;
 		 ttMa = "";
 		 column = "";
-		 Object columnValue = "";
-		 Integer cvId = 0;
+		 
+		 columnValue = "";
+		 cvId = 0;
 		
 		return new ModelAndView("login");
 	}
@@ -247,11 +249,8 @@ public class CvController extends HttpServlet{
     	HttpSession session = request.getSession(false);
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
     	root =  request.getRealPath("/");
-<<<<<<< HEAD
     	//root =  "/home/quoioln/DATA/";
-=======
     //	root =  "/home/quoioln/DATA/";
->>>>>>> 3b8e4b5adc069370b9538e66b22febf7b5832374
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -382,12 +381,8 @@ public class CvController extends HttpServlet{
     public ModelAndView updateCongVan(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //    	request.ge
     	root =  request.getRealPath("/");
-    	
-<<<<<<< HEAD
     	//root =  "/home/quoioln/DATA/";
-=======
     //	root =  "/home/quoioln/DATA/";
->>>>>>> 3b8e4b5adc069370b9538e66b22febf7b5832374
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -928,7 +923,7 @@ public class CvController extends HttpServlet{
 		orderBy.put("cvNgayNhan", true);
 		
 		
-		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnv, conditions, orderBy, 0, 3);
+		ArrayList<CongVan> congVanList = congVanDAO.searchLimit(msnvTemp, conditions, orderBy, 0, 3);
 		ArrayList<File> fileList = new ArrayList<File>();
 		ArrayList<ArrayList<String>> nguoiXlCongVan = new ArrayList<ArrayList<String>>();
 		// array list vai tro nguoi dung
@@ -957,7 +952,11 @@ public class CvController extends HttpServlet{
 				nguoiXlCongVan.add(nguoiXl);
 			}
 		}
+		
 		long size = 0;
+		for (String key : conditions.keySet()) {
+			System.out.println("condition = " + key + "\tvalue= " + conditions.get(key));
+		}
 		if (this.cvId != 0) 
 			size  = 1;
 		else
@@ -1011,7 +1010,7 @@ public class CvController extends HttpServlet{
 			if (this.cvId != 0) {
 				conditions.put("cvId", cvId);
 			}	
-			ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp, conditions, 5);
+//			ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp, conditions, 5);
 
 			if (year != 0)
 				conditions.put("year", year);

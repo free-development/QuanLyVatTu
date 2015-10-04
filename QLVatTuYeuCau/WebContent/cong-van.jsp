@@ -407,7 +407,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 								fileName += path.substring(index3);
 							%>
 							<td colspan="1">
-								<a href="<%="/QLVatTuYeuCau/downloadFileMn.html" + "?action=download&file=" + congVan.getCvId()%>">
+								<a target="_black" href="<%="/QLVatTuYeuCau/downloadFileMn.html" + "?action=download&file=" + congVan.getCvId()%>">
 									<div class="mo-ta"><%=fileName %></div>
 								</a>
 							</td>
