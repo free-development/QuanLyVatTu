@@ -106,7 +106,6 @@ public ArrayList<String> startWithTen(String i) {
 		Query query = session.createQuery(sql);
 		query.setParameter("vtTen", i+"%");
 		ArrayList<String> list = (ArrayList<String>) query.list();
-		
 		session.getTransaction().commit();
 		return list;
 	}

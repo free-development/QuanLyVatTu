@@ -179,7 +179,7 @@
 						  	success: function(vt) {
 						  		$('table tr').has('input[name="vtMa"]:checked').remove();
 						  		$('#view-table-vat-tu table tr:first').after('<tr class=\"rowContent\"><td class=\"left-column\"><input type=\"checkbox\" name=\"vtMa\" value=\"' +vtMaUpdate + '\"</td><td class=\"col\">'+ vtMaUpdate +'</td><td class=\"col\">' + vtTenUpdate+'</td><td class=\"col\">' 
-						  				+ dvtUpdate+'</td><td style=\"text-align: center;\"><button type=\"button\" class=\"button-xem\" value=\"Xem\" onclick=\"showCTVatTu(\''
+						  				+ vt.dvt.dvtTen+'</td><td style=\"text-align: center;\"><button type=\"button\" class=\"button-xem\" value=\"Xem\" onclick=\"showCTVatTu(\''
 										+vtMaUpdate+'\');\">Xem</button></td></tr>');
 						  		$('input:text[name=vtMaUpdate]').val('');			 
 						  		$('input:text[name=vtTenUpdate]').val('');

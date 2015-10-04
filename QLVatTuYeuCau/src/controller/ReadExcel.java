@@ -43,6 +43,8 @@ import model.VatTu;
 import util.FileUtil;
 import dao.ReadExcelCT;
 import dao.ReadExcelBpsd;
+import dao.ReadExcelNsx;
+import dao.ReadExcelCl;
 
 /**
  * Servlet implementation class ReadExcel
@@ -112,6 +114,11 @@ public class ReadExcel extends HttpServlet {
 	@RequestMapping("/readExcelCt")
 	protected ModelAndView readExcelCt(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getCharacterEncoding();
+		response.getCharacterEncoding();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		isMultipart = ServletFileUpload.isMultipartContent(request);
 		response.setContentType("text/html");
 		java.io.PrintWriter out = response.getWriter();
@@ -136,19 +143,7 @@ public class ReadExcel extends HttpServlet {
 			if ("xls".equalsIgnoreCase(extenstionFile)) {
 				file = new File("temp.xls");
 				fi.write(file);
-//				if(!ReadExcelCT.readXls(file))
-//					return new ModelAndView("import-excelCt", "status", "formatException");
-//				ArrayList<CTVatTu> ctvtListError = new ArrayList<CTVatTu>();
-//				ArrayList<CTVatTu> temp = new ArrayList<CTVatTu>();
-				
 				ArrayList<CTVatTu>  ctvtListError = ReadExcelCT.readXls(file);
-				
-//				long length = ReadExcelCT.readXls(file).size();
-//				System.out.println(length);
-//				for (int j = 0; j < length; j++)
-//				{
-//					ctvtListError.add(temp.get(j));
-//				}
 				
 				if(ctvtListError.size() != 0)
 				{
@@ -219,5 +214,96 @@ public class ReadExcel extends HttpServlet {
 		request.setAttribute("status", "success");
 		return new ModelAndView(siteMap.boPhanSuDung);
 		
+	}
+	@RequestMapping("/readExcelNsx")
+	protected ModelAndView readExcelNsx(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		isMultipart = ServletFileUpload.isMultipartContent(request);
+		response.setContentType("text/html");
+		java.io.PrintWriter out = response.getWriter();
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		// maximum size that will be stored in memory
+		factory.setSizeThreshold(maxMemSize);
+		// Location to save data that is larger than maxMemSize.
+		factory.setRepository(new File(pathTemp));
+		// Create a new file upload handler
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		// maximum file size to be uploaded.
+		upload.setSizeMax(maxFileSize);
+		try {
+			// Parse the request to get file items.
+			List fileItems = upload.parseRequest(request);
+			// Process the uploaded file items
+			Iterator i = fileItems.iterator();
+			FileItem fi = (FileItem) i.next();
+			String fileName = fi.getName();
+			String extenstionFile = FileUtil.getExtensionByPath(fileName);
+			File file;
+			if ("xls".equalsIgnoreCase(extenstionFile)) {
+				file = new File("temp.xls");
+				fi.write(file);
+				if(!ReadExcelNsx.readXls(file))
+					return new ModelAndView("import-excelNsx", "status", "formatException");
+			}
+			else if ("xlsx".equalsIgnoreCase(extenstionFile)) {
+				file = new File("temp.xlsx");
+				fi.write(file);
+				if(!ReadExcelNsx.readXlsx(file))
+					return new ModelAndView("import-excelNsx", "status", "formatException");
+			}
+			else {
+				return new ModelAndView("import-excelNsx", "status", "unknownFile");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("status", "success");
+		return new ModelAndView(siteMap.noiSanXuat);
+		
+	}
+	@RequestMapping("/readExcelCl")
+	protected ModelAndView readExcelCl(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		isMultipart = ServletFileUpload.isMultipartContent(request);
+		response.setContentType("text/html");
+		java.io.PrintWriter out = response.getWriter();
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		// maximum size that will be stored in memory
+		factory.setSizeThreshold(maxMemSize);
+		// Location to save data that is larger than maxMemSize.
+		factory.setRepository(new File(pathTemp));
+		// Create a new file upload handler
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		// maximum file size to be uploaded.
+		upload.setSizeMax(maxFileSize);
+		try {
+			// Parse the request to get file items.
+			List fileItems = upload.parseRequest(request);
+			// Process the uploaded file items
+			Iterator i = fileItems.iterator();
+			FileItem fi = (FileItem) i.next();
+			String fileName = fi.getName();
+			String extenstionFile = FileUtil.getExtensionByPath(fileName);
+			File file;
+			if ("xls".equalsIgnoreCase(extenstionFile)) {
+				file = new File("temp.xls");
+				fi.write(file);
+				if(!ReadExcelCl.readXls(file))
+					return new ModelAndView("import-excelCl", "status", "formatException");
+			}
+			else if ("xlsx".equalsIgnoreCase(extenstionFile)) {
+				file = new File("temp.xlsx");
+				fi.write(file);
+				if(!ReadExcelCl.readXlsx(file))
+					return new ModelAndView("import-excelCl", "status", "formatException");
+			}
+			else {
+				return new ModelAndView("import-excelCl", "status", "unknownFile");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("status", "success");
+		return new ModelAndView(siteMap.chatLuong);
 	}
 }
