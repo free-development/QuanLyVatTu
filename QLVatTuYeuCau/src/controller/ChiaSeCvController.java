@@ -68,6 +68,7 @@ public class ChiaSeCvController extends HttpServlet {
 			ArrayList<VaiTro> vaiTroList = (ArrayList<VaiTro>) vaiTroDAO.getAllVaiTro();
 			ArrayList<String> ignoreList = new ArrayList<String>();
 			ignoreList.add("TP");
+			ignoreList.add("VT");
 			ignoreList.add("AD");
 			ArrayList<NguoiDung> nguoiDungList = (ArrayList<NguoiDung>) nguoiDungDAO.getAllNguoiDung(ignoreList);
 			VTCongVanDAO vtCongVanDAO = new VTCongVanDAO();
@@ -107,7 +108,6 @@ public class ChiaSeCvController extends HttpServlet {
 			session = request.getSession(false);
 			CongVan congVan = (CongVan) session.getAttribute("congVan");
 			String[] vaiTro = request.getParameterValues("vaiTro");
-			System.out.println(vaiTro.length);
 			VTCongVanDAO vtCongVanDAO = new VTCongVanDAO();
 			NguoiDungDAO nguoiDungDAO = new NguoiDungDAO();
 			VaiTroDAO vaiTroDAO = new VaiTroDAO();
@@ -123,6 +123,11 @@ public class ChiaSeCvController extends HttpServlet {
 				vtCongVan.setVtId(Integer.parseInt(str[1]));
 				vtCongVanDAO.addOrUpdateVTCongVan(vtCongVan);
 			}
+			CongVanDAO congVanDAO = new CongVanDAO();
+			CongVan congVanUpdate = congVanDAO.getCongVan(cvId);
+			congVanUpdate.setTrangThai(new TrangThai("DGQ"));
+			congVanDAO.updateCongVan(congVanUpdate);
+			congVanDAO.disconnect();
 			HashMap<String, NguoiDung> vtNguoiDungHash = vtCongVanDAO.getNguoiXuLy(cvId);
 			HashMap<String, HashMap<Integer, VaiTro>> vaiTroHash = new HashMap<String, HashMap<Integer, VaiTro>>();
 			StringBuilder hotens = new StringBuilder("");

@@ -201,7 +201,7 @@
 						<th style="width: 50px;">Mã vật tư</th>
 						<th style="width: 350px;">Tên vật tư</th>
 						<th style="width: 100px;">Nơi sản xuất</th>
-						<th style="width: 50px;">Đơn vị tính</th>
+						<th style="width: 50px;">Đvt</th>
 						<th style="width: 100px;">Trạng thái</th>
 						<th style="width: 150px;">Đơn vị</th>
 						<th style="width: 100px;">Chất lượng</th>

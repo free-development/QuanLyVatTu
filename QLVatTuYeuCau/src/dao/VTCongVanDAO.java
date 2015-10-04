@@ -247,11 +247,7 @@ public class VTCongVanDAO {
 		}
 		return vaiTroList;
 	}
-	public static void main(String[] args) {
-//		ArrayList<VaiTro> cvIdList = new VTCongVanDAO().getVaiTro(17, "b1203954");
-		VTCongVan vtCongVan = new VTCongVanDAO().getVTCongVan("b1203954", 17, 1);
-		System.out.println(vtCongVan.getMsnv());
-	}
+	
 	public VTCongVan getVTCongVan(String msnv, int cvId, int vtId) {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(VTCongVan.class);
@@ -279,5 +275,30 @@ public class VTCongVanDAO {
 		}
 		return trangThaiList;
 	}
-	
+	public ArrayList<String> getTtByCvId(int cvId) {
+		session.beginTransaction();
+		Criteria cr = session.createCriteria(VTCongVan.class, "vtCongVan");
+		cr.createAlias("vtCongVan.trangThai", "trangThai");
+		cr.add(Restrictions.eq("cvId", cvId));
+		cr.setProjection(Projections.property("trangThai.ttMa"));
+		ArrayList<String> trangThaiList = (ArrayList<String>) cr.list();
+		session.getTransaction().commit();
+		return trangThaiList;
+	}
+	public int checkTtCongVan(int cvId) {
+		ArrayList<String> trangThaiList = getTtByCvId(cvId);
+		int check = 1;
+		for (String ttMa : trangThaiList) {
+			if (ttMa.equals("DGQ") || ttMa.equals("CGQ")) {
+				check = 0;
+				break;
+			}
+		}
+		return check;
+	}
+	public static void main(String[] args) {
+//		ArrayList<VaiTro> cvIdList = new VTCongVanDAO().getVaiTro(17, "b1203954");
+		ArrayList<String> trangThaiList = new VTCongVanDAO().getTtByCvId(51);
+		System.out.println(trangThaiList);
+	}
 }

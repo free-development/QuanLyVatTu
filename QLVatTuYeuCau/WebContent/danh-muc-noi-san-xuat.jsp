@@ -168,7 +168,7 @@
 		<div id="main-content">
 			
 			<form id="main-form">
-				<div id="view-table" style="height: 600px; margin: 0 auto;">
+				<div id="view-table" style=" margin: 0 auto;">
 					<table>
 						<tr style="background:#199e5e">
 							<th class="left-column"><input type="checkbox" class="checkAll"></th>
