@@ -48,7 +48,7 @@ public class ReadExcelTon {
 			while (rows.hasNext()) {
 				row = (XSSFRow) rows.next();
 				j++;
-				if (j == 1)
+				if (j < 4)
 					continue;
 				Iterator cells = row.cellIterator();
 				int count = 0;
@@ -154,7 +154,7 @@ public class ReadExcelTon {
 			while (rows.hasNext()) {
 				row = (HSSFRow) rows.next();
 				j++;
-				if (j == 1)
+				if (j < 4)
 					continue;
 				Iterator cells = row.cellIterator();
 				int count = 0;
@@ -168,25 +168,25 @@ public class ReadExcelTon {
 					cell = (HSSFCell) cells.next();
 					if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
 						switch (count) {
-						case 0:
+						case 1:
 							vtMa = cell.getStringCellValue();
 							break;
-						case 1:
+						case 2:
 							vtTen = cell.getStringCellValue();
 							break;
-						case 2:
-							dvt = cell.getStringCellValue();
-							break;	
 						case 3:
-							nsxTen = cell.getStringCellValue();
+							dvt = cell.getStringCellValue();
 							break;
 						case 4:
+							nsxTen = cell.getStringCellValue();
+							break;
+						case 5:
 							clTen = cell.getStringCellValue();
 							break;
 						}
 					} else if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
 						switch (count) {
-						case 5:
+						case 6:
 							soLuong = cell.getNumericCellValue();
 							break;
 					}

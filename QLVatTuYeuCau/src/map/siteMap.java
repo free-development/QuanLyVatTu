@@ -93,8 +93,9 @@ public class siteMap {
 	// map file download file
 	public static final String  fileDownload = "download-file";
 	// map xuat file bcvtt
-		public static final String xuatFile = "xuatFile";
+	public static final String xuatFile = "xuatFile";
 
+	public static final String xuatNsx = "xuatNsx";
 
 	// map login page
 	public static final String  loginAction =  home + "login.html";
