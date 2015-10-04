@@ -425,7 +425,7 @@ function loadCongVan(congVanList, fileList, unknownList, vtCongVanList) {
 						if (capPhat == true) {
 							tables += '<td colspan=\"1\" style=\"float: right;\">' 
 							+ '<button class=\"button\" type=\"button\" style=\"width: 200px; height: 30px;\"' 
-							+ '  onclick=\"location.href=\'/QLVatTuYeuCau/ycvtManage.html?cvId=' + congVan.cvId + '\"\'>'
+							+ '  onclick=\"location.href=\'/QLVatTuYeuCau/ycvtManage.html?cvId=' + congVan.cvId + '\'\">'
 							+ '<i class="fa fa-spinner"></i>&nbsp;&nbsp;Cập vật tư yêu cầu'
 							+ '</button>'
 							+ '</td>';
