@@ -78,6 +78,7 @@ public class CvController extends HttpServlet{
     private String adminMa = "";
     private String vanThuMa = "";
     private int vtCapVt = 0;
+    
     public ModelAndView getCongvan( HttpServletRequest request) {
     	truongPhongMa = context.getInitParameter("truongPhongMa");
     	vanThuMa = context.getInitParameter("vanThuMa");

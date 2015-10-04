@@ -408,7 +408,7 @@
 	insert into VAITRO values(1,'Lập phiếu nhập',0);
 	insert into VAITRO values(2,'Mua vật tư',0);
 	insert into VAITRO values(3,'Cấp vật tư',0);
-	insert into VAITRO values(4,'Mua Lap phieu xuat',0);
+	insert into VAITRO values(4,'Lập phiếu xuất',0);
 	
 	insert into CHUCDANH values ('GD', 'Giám đốc',0);
 	insert into CHUCDANH values ('TP', 'Trưởng phòng',0);
@@ -435,7 +435,7 @@
 	
 	
 	insert into NGUOIDUNG values ('b1203959', 'GD', 'Võ Phú Quới', 'An giang', 'camtien.le1994@gmail.com', '0979921380');
-	insert into NGUOIDUNG values ('b1203958', 'TK', 'Lê Thị Cẩm Tiên', 'An giang', 'camtien.le1994@gmail.com', '0979921380');
+	insert into NGUOIDUNG values ('b1203958', 'NV', 'Lê Thị Cẩm Tiên', 'An giang', 'camtien.le1994@gmail.com', '0979921380');
 	insert into NGUOIDUNG values ('b1203957', 'TP', 'Nguyễn Thị Cẩm Nhung', 'An giang', 'camtien.le1994@gmail.com', '0979921380');
 	insert into NGUOIDUNG values ('b1203955', 'VT', 'Trương Trung Hiếu', 'An giang', 'camtien.le1994@gmail.com', '0979921380');
 	insert into NGUOIDUNG values ('b1203954', 'NV', 'Trương Quốc Huy', 'An giang', 'camtien.le1994@gmail.com', '0979921380');

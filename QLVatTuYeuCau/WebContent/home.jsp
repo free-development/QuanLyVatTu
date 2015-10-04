@@ -249,7 +249,7 @@
 				</td>
 				<td style="vertical-align:top ;">
 					<div class="view-nky" >
-						<table style="width:900px;">
+						<table style="width:800px;">
 						<tr>
 						<th colspan ="3" style="text-align: center; font-size: 20px;color:red;">
 							<i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động
