@@ -109,12 +109,13 @@ public class SendMail {
 			message.setSubject(mail.getSubject());
 //			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
 			message.setSubject(mail.getSubject());//etSubject(mail.getSubject());
-			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
-//			message.setText(mail.getContent());
+			//message.setContent(mail.getContent(),"text/html; charset=UTF-8");
+			message.setText(mail.getContent());
 //			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
 			Transport.send(message);
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+			
+		} catch (Exception e) {
 		}
 	}
 }
+	

@@ -382,7 +382,7 @@ function loadCongVan(congVanList, fileList, unknownList, vtCongVanList) {
 						tables += '<td class=\"left-column-first\" style=\"font-weight: bold;\">Người xử lý</td>'
 						+ '<td class=\"column-color\" colspan=\"3\">' + cellNguoiXl + '</td>';
 							tables += '<td colspan=\"3\" style=\"float: right;\">'
-							+ '<button  class=\"button-chia-se\" id=\"chiaSe\" type=\"button\" style=\"width: 170px; height: 30px;\"' 
+							+ '<button  class=\"button\" id=\"chiaSe\" type=\"button\" style=\"width: 170px; height: 30px;\"' 
 							+ '  onclick=\"location.href=\'/QLVatTuYeuCau/cscvManage.html?action=chiaSeCv&congVan=' + congVan.cvId + '\'\">'
 							+ '<i class=\"fa fa-spinner\"></i>&nbsp;&nbsp;Chia sẻ công văn'
 							+ '</button>'
@@ -441,7 +441,7 @@ function loadCongVan(congVanList, fileList, unknownList, vtCongVanList) {
 				tables	+= '</tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Xem công văn: </td>'
 						+ '<td colspan=\"1\">'
-						+ '<a href=\"' + getRoot() + '/cvManage.html' + '?action=download&file=' + congVan.cvId + '\">'
+						+ '<a  target=\"_black\" href=\"' + getRoot() + '/downloadFileMn.html' + '?action=download&file=' + congVan.cvId + '\">'
 						+ '<div class=\"mo-ta\">' + fileName + '</div>'
 						+ '</a> '
 						+ '</td>'
@@ -452,7 +452,7 @@ function loadCongVan(congVanList, fileList, unknownList, vtCongVanList) {
 						
 				tables += '<tr>' 
 					+ '<th style="text-align: left"><label for=\"TT\">Trạng thái</label></th>'
-					+ '<td style=\"text-align: left; padding-left: 10px;\" colspan = \"5\">';
+					+ '<td style=\"text-align: left; padding-left: 10px;\" colspan = \"5\" id =\"' + congVan.cvId  + 'ttMaCongVan\">';
 				if (chucDanhMa == truongPhongMa || chucDanhMa == vanThuMa || chucDanhMa == adminMa) {
 					tables += '<input type=\"radio\"' + ('CGQ'== congVan.trangThai.ttMa ? ' checked ' : '') + 'name=' + congVan.cvId  + ' value=\"' + congVan.cvId +'#' + 'CGQ\"' + ' class=\"ttMaUpdate\" >'; //onchange=\"changeTrangThai()\"
 					tables += '&nbsp;<label for=\"' + congVan.cvId + '#CGQ\">Chưa giải quyết</label>&nbsp;&nbsp;&nbsp';
@@ -530,7 +530,7 @@ function filterData(filter, filterValue) {
 	    	var unknownList = objectList[3];
 	    	var vtCongVanList = objectList[4];
 	    	loadCongVan(congVanList, fileList, unknownList, vtCongVanList);
-	    	loadPageNumber('',size);
+	    	loadPageNumber(0, '',size);
 	    } 
 	});
 }
@@ -830,6 +830,8 @@ function changeTrangThaiCv(trangThai) {
 	});
 }
 function changeTrangThaiVt(trangThai) {
+	var temp = trangThai.split('\\#');
+	var cvId = temp[1];
 	$.ajax({
 		url: getRoot() +  "/changeTrangThaiVt.html",	
 	  	type: "GET",
@@ -839,9 +841,15 @@ function changeTrangThaiVt(trangThai) {
 	    mimeType: 'application/json',
 	  	
 	  	success: function(status) {
-		  if (status == "success")
+	  		if (status == "changTtCongVan") {
+	  			
+	  			alert("Bạn đã thay đổi trạng thái của công văn thành công!!!");
+	  			$('#' + cvId + 'ttMaCongVan').html('Đã cấp đủ hàng');
+	  		}
+	  			
+	  		else if (status == "success")
 			  alert("Bạn đã thay đổi trạng thái của công văn thành công!!!");
-		  else
+	  		else
 			  alert("Bạn không thể thay đổi trạng thái của công văn!!!");
 	  	}
 	});

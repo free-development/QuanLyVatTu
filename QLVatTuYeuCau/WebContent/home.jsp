@@ -164,10 +164,10 @@
 						<table style="width:550px;">
 						<tr ><th colspan = "5" style="text-align: center; width: 300px; font-size: 20px;color:red;"><i class="fa fa-sign-out"></i>&nbsp;Công việc</th></tr>
 						<% if (chucDanh.equalsIgnoreCase(truongPhongMa) && ctVatTuListAlert != null && ctVatTuListAlert.size() > 0) { %>
-						<tr style="background: #CCFFFF">
-							<th colspan ="5" style="text-align: center; width: 180px;">Vật tư đã hết vượt đinh mức: </th>
+						<tr style="background-color:white;">
+							<th colspan ="5" style="text-align: center; width: 180px;color:red;">Vật tư dưới định mức: </th>
 						</tr>
-						<tr>
+						<tr style="background-color: #199e5e;">
 							<th>Mã vật tư</th>
 							<th>Mã nơi sản xuất</th>
 							<th>Mã chất lượng</th>
@@ -175,17 +175,17 @@
 							<th>Số lượng tồn</th>
 						</tr>
 						
-						<%for (CTVatTu ctVatTu : ctVatTuListAlert) {%>
-							<tr>
+						<% int cnt=0; for (CTVatTu ctVatTu : ctVatTuListAlert) {cnt++;%>
+						<tr style = "<% if (cnt % 2 == 1) out.print("background: #CCFFFF; ");%>";>
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getVatTu().getVtMa()%> </td>
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getNoiSanXuat().getNsxMa()%> </td>
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getChatLuong().getClMa()%> </td>
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getDinhMuc()%> </td>
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getSoLuongTon()%> </td>
-							</tr>
+						</tr>
 						<%}} %>
 						
-						<tr style="background: #CCFFFF">
+						<tr style="background-color: #199e5e;">
 <!-- 							<td style="text-align: center;" colspan="2"> -->
 <!-- 							<i class="fa fa-sign-out"></i>&nbsp;Thông báo -->
 <!-- 							</td> -->
@@ -251,13 +251,13 @@
 				</td>
 				<td style="vertical-align:top ;">
 					<div class="view-nky" >
-						<table style="width:900px;">
+						<table style="width:800px;">
 						<tr>
 						<th colspan ="3" style="text-align: center; font-size: 20px;color:red;">
 							<i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động
 						</th>
 						</tr>
-						<tr>
+						<tr style="background-color: #199e5e;">
 							<th style="width: 40px;">STT</th>
 							<th style="width: 200px;">Hoạt động</th>
 							<th style="width: 200px;">Nội dung</th>

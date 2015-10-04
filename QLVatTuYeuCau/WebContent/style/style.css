@@ -244,10 +244,29 @@ td.input {
 .view-tbao table tr td{
 	
 /* 	cell-spacing: 0px; */
-	border: 1px;
+	border-width: 1px;
 	font-size: 20px;
-	
+	border-spacing: 0px ;
+	border-spacing: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
+
+.view-tbao table tr th{
+	
+/* 	cell-spacing: 0px; */
+	border-width: 1px;
+	font-size: 20px;
+	border-spacing: 0px ;
+	border-spacing: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
 
 .view-cvnew table tr th{
 	color: black;
@@ -273,10 +292,9 @@ td.input {
 	left:18%;
 	position: absolute;*/
 	border-style: solid;
-	border-width: 1px;
+	border-width: 2px;
 	border-radius: 5px;
 	border-color: #2CCAAE;
-	width:450px;
 	
 }
 .view-nky table {
@@ -306,7 +324,6 @@ td.input {
 	border-width: 1px;
 	border-radius: 5px;
 	border-color: #2CCAAE;
-	width:900px;
 	
 	
 }
