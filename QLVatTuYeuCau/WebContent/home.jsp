@@ -162,10 +162,10 @@
 						<table style="width:550px;">
 						<tr ><th colspan = "5" style="text-align: center; width: 300px; font-size: 20px;color:red;"><i class="fa fa-sign-out"></i>&nbsp;Công việc</th></tr>
 						<% if (chucDanh.equalsIgnoreCase(truongPhongMa) && ctVatTuListAlert != null && ctVatTuListAlert.size() > 0) { %>
-						<tr style="background: #CCFFFF">
-							<th colspan ="5" style="text-align: center; width: 180px;">Vật tư dưới định mức: </th>
+						<tr style="background-color:white;">
+							<th colspan ="5" style="text-align: center; width: 180px;color:red;">Vật tư dưới định mức: </th>
 						</tr>
-						<tr>
+						<tr style="background-color: #199e5e;">
 							<th>Mã vật tư</th>
 							<th>Mã nơi sản xuất</th>
 							<th>Mã chất lượng</th>
@@ -183,7 +183,7 @@
 						</tr>
 						<%}} %>
 						
-						<tr style="background: #CCFFFF">
+						<tr style="background-color: #199e5e;">
 <!-- 							<td style="text-align: center;" colspan="2"> -->
 <!-- 							<i class="fa fa-sign-out"></i>&nbsp;Thông báo -->
 <!-- 							</td> -->
@@ -255,7 +255,7 @@
 							<i class="fa fa-sign-out"></i>&nbsp;Nhật ký hoạt động
 						</th>
 						</tr>
-						<tr>
+						<tr style="background-color: #199e5e;">
 							<th style="width: 40px;">STT</th>
 							<th style="width: 200px;">Hoạt động</th>
 							<th style="width: 200px;">Nội dung</th>
