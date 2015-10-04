@@ -265,15 +265,25 @@ public class CongVanDAO {
 		
 		if (conditions != null) {
 			for (String key : conditions.keySet()) {
+				int index = key.indexOf(".");
+				if (index != -1)
+					key = key.substring(index + 1);
 					sql += " and " + key + " = :" + key;
+					
 				}
+			
 		}
 		sql += " order by cvNgayNhan DESC";
 		Query query = session.createQuery(sql);
 		if (conditions != null) {
 			for (String key : conditions.keySet()) {
+				
 				Object object = conditions.get(key);
+				int index = key.indexOf(".");
+				if (index != -1)
+					key = key.substring(index + 1);
 					query.setParameter(key, object);
+					
 				}
 		}
 		query.setMaxResults(limit);
@@ -290,15 +300,22 @@ public class CongVanDAO {
 				sql	+= "  and a.cvId in (select distinct(b.cvId) from VTCongVan b where msnv = '" + msnv + "')";
 		if (conditions != null) {
 			for (String key : conditions.keySet()) {
+					int index = key.indexOf(".");
+					if (index != -1)
+						key = key.substring(index + 1);
 					sql += " and " + key + " = :" + key;
 				}
 		}
+		System.out.println(sql);
 		sql += " order by cvNgayNhan DESC";
 		Query query = session.createQuery(sql);
 		query.setParameter("year", year);
 		if (conditions != null) {
 			for (String key : conditions.keySet()) {
 				Object object = conditions.get(key);
+				int index = key.indexOf(".");
+				if (index != -1)
+					key = key.substring(index + 1);
 					query.setParameter(key, object);
 				}
 		}
@@ -318,6 +335,9 @@ public class CongVanDAO {
 		}
 		if (conditions != null) {
 			for (String key : conditions.keySet()) {
+				int index = key.indexOf(".");
+				if (index != -1)
+					key = key.substring(index + 1);
 					sql += " and " + key + " = :" + key;
 				}
 		}
@@ -328,6 +348,9 @@ public class CongVanDAO {
 		if (conditions != null) {
 			for (String key : conditions.keySet()) {
 				Object object = conditions.get(key);
+				int index = key.indexOf(".");
+				if (index != -1)
+					key = key.substring(index + 1);
 					query.setParameter(key, object);
 				}
 		}
@@ -462,7 +485,8 @@ public long size(String msnv, HashMap<String, Object> conditions) {
 //		conditions.put("year", 2015);
 //		conditions.put("month", 8);
 		conditions.put("soDen", 19);
-		ArrayList<Integer> size =  new CongVanDAO().groupByYearLimit(null , null, 0);
+		conditions.put("trangThai.ttMa", "CGQ");
+		ArrayList<Integer> size =  new CongVanDAO().groupByMonth(null , conditions, 2015);
 		for(Integer year : size)
 			System.out.println(year);
 //		System.out.println(size.size());

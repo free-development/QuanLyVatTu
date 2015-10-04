@@ -150,9 +150,11 @@
 						<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 				<div id="main-content">
 				
+<!-- 				<table style = "margin: 0 auto;width: 1024spx; vertical-align:top ;"> -->
+<!-- 				<tr  style="vertical-align:top ;"> -->
 				<table style = "margin: 0 auto;width: 1124spx; vertical-align:top ;">
-				<tr>
-				<td>
+				<tr >
+				<td style=" vertical-align:top ;"">
 					<% if (chucDanh.equalsIgnoreCase(truongPhongMa) || chucDanh.equalsIgnoreCase(vanThuMa)){
 						ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList");
 						ArrayList<CTVatTu> ctVatTuListAlert = (ArrayList<CTVatTu>) request.getAttribute("ctVatTuListAlert");

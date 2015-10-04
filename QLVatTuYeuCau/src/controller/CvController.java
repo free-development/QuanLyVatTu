@@ -248,7 +248,11 @@ public class CvController extends HttpServlet{
     	HttpSession session = request.getSession(false);
     	NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
     	root =  request.getRealPath("/");
+<<<<<<< HEAD
     	//root =  "/home/quoioln/DATA/";
+=======
+    //	root =  "/home/quoioln/DATA/";
+>>>>>>> 3b8e4b5adc069370b9538e66b22febf7b5832374
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -380,7 +384,11 @@ public class CvController extends HttpServlet{
 //    	request.ge
     	root =  request.getRealPath("/");
     	
+<<<<<<< HEAD
     	//root =  "/home/quoioln/DATA/";
+=======
+    //	root =  "/home/quoioln/DATA/";
+>>>>>>> 3b8e4b5adc069370b9538e66b22febf7b5832374
     	request.getCharacterEncoding();
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
@@ -813,7 +821,6 @@ public class CvController extends HttpServlet{
 		if (this.cvId != 0) {
 			conditions.put("cvId", cvId);
 		}	
-		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp, conditions, 5);
 		if (year != 0)
 			conditions.put("year", year);
 		if (month != 0)
@@ -911,7 +918,7 @@ public class CvController extends HttpServlet{
 		if (this.cvId != 0) {
 			conditions.put("cvId", cvId);
 		}
-		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp, conditions, 5);
+//		ArrayList<Integer> yearList = congVanDAO.groupByYearLimit(msnvTemp, conditions, 5);
 		
 		if (year != 0)
 			conditions.put("year", year);

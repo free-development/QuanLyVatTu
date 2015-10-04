@@ -162,7 +162,9 @@ public class VattuController extends HttpServlet {
 		produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	 public @ResponseBody String updateVattu(@RequestParam("vtMaUpdate") String vtMaUpdate, @RequestParam("vtTenUpdate") String vtTenUpdate, @RequestParam("dvtUpdate") String dvtUpdate) {
 		int id = Integer.parseInt(dvtUpdate);
-		VatTu vt = new VatTu(vtMaUpdate, vtTenUpdate, new DonViTinh(id),0);
+		DonViTinhDAO dvtDAO = new DonViTinhDAO();
+		DonViTinh dvt = dvtDAO.getDonViTinh(id);
+		VatTu vt = new VatTu(vtMaUpdate, vtTenUpdate, dvt,0);
 		VatTuDAO vatTuDAO = new VatTuDAO();
 		vatTuDAO.updateVatTu(vt);
 		vatTuDAO.disconnect();
