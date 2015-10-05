@@ -12,6 +12,7 @@
 
 </head>
 <body>
+
 					<div style="text-align: center;margin: 0 auto;"><img src="./img/login.jpg" /></div>
 				<div class="main-content">
 					<div style="width: 800px; height: 630px;background-image: url('./img/content.jpg');background-repeat: no-repeat;text-align: center;margin: 0 auto;">

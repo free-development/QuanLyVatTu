@@ -1,4 +1,5 @@
 
+<%@page import="util.DateUtil"%>
 <%@page import="model.CTVatTu"%>
 <%@page import="javax.swing.JOptionPane"%>
 <%@page import="model.VaiTro"%>
@@ -17,7 +18,10 @@
         <link rel="stylesheet" href="style/style-giao-dien-chinh.css" type="text/css">
 		<link rel="stylesheet" href="style/style.css" type="text/css">
     <link href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery.min.js">
+    <script type="text/javascript" src="js/location.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/home.js"></script>
+    <script type="text/javascript" src="js/date-util.js"></script>
 	<script type="text/javascript">
 		function showForm(formId, check){
 			if (check)
@@ -36,10 +40,11 @@
 		$(window).load(function(){
 // 			$("body").css("cursor", "auto");		
 			//Set the cursor ASAP to "Wait"
-		    document.body.style.cursor='wait';
+// 		    document.body.style.cursor='wait';
 
 		    //When the window has finished loading, set it back to default...
-		    window.onload=function(){document.body.style.cursor='wait';} 
+// 		    window.onload=function(){document.body.style.cursor='wait';
+// 		    } 
 		});
 	</script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -63,91 +68,20 @@
     		String vanThuMa = request.getServletContext().getInitParameter("vanThuMa");
     		String nhanVienMa = request.getServletContext().getInitParameter("nhanVienMa");
     	%>
+    	<script type="text/javascript">
+
+chucDanhMa = '<%=chucDanh  %>';
+vanThuMa = '<%=vanThuMa  %>';
+adminMa = '<%=adminMa  %>';
+truongPhongMa = '<%=truongPhongMa  %>';
+msnv = '<%=authentication.getMsnv()  %>';
+
+// || capPhatMa.equals(chucDanhMa)
+
+</script>
         <div class="wrapper">
-				<div class="header">
-	<!--
-					<img src="img/logo.png" alt="" id="logo" width=80 height=80/><br/>
-					<img src="img/textlogo.png" alt="" id="logo" width=80 height=20/>
-	-->
-					<div id="top_title">Văn phòng điện tử</div>
-					<div id="bottom-title">Công ty điện lực cần thơ</div>
-					<div class="search_form" id="search">
-						<form action="" method="post">
-<!--
-							<span class="search-select">
-								<select name="" ><option disabled selected>--Tùy chọn kiếm kiềm--</option></select>
-								<option value=""></option>
-							</span>
--->
-							
-							<span class="search-text">
-								&nbsp;
-							<input type="search" class="search" name="search_box" name="search" placeholder="Tìm kiếm" />
-							</span>
-							<span class="search-button">
-							&nbsp;
-							<button class="btn-search"><i class="fa fa-search" ></i></button>
-							</span>
-						</form>
-					</div>
-					
-				</div>
-				<div class="main_menu">
-					<ul>
-						<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
-						
-						<li><a>Danh mục</a>
-							<ul>
-										<li><a href="<%=siteMap.nsxManage + "?action=manageNsx"%>">Danh
-												mục nơi sản xuất</a></li>
-										<li><a href="<%=siteMap.clManage + "?action=manageCl"%>">Danh
-												mục chất lượng</a></li>
-										<li><a href="<%=siteMap.vattuManage + "?action=manageVattu"%>">Danh
-												mục vật tư</a></li>
-										<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Vật tư tồn kho</a></li>
-										<li><a href="<%=siteMap.bpsdManage +  "?action=manageBpsd"%>">Danh
-												mục bộ phận sử dụng</a></li>
-										<li><a href="<%=siteMap.mdManage + "?action=manageMd"%>">Danh
-												mục mục đích</a></li>
-										<li><a href="<%=siteMap.vtManage + "?action=manageVt"%>">Danh mục vai trò</a></li>
-										<li><a href="<%=siteMap.dvtManage + "?action=manageDvt"%>">Danh mục đơn vị tính</a></li>
-										<li><a href="<%=siteMap.cdManage + "?action=manageCd"%>">Danh
-												mục chức danh</a></li>
-										
-									</ul>
-						</li>
-						<%} %>
-							<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-							<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
-							<li><a>Báo cáo</a>
-								<ul>
-									<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
-									<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
-								</ul>
-							</li>
-							<%} %>
-						<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
-						<li><a>Quản lý người dùng</a>
-							<ul>
-								<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>">Thêm người dùng</li>
-								<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
-								<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
-								<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
-								<li><a href="<%=siteMap.resetNguoiDung%>"/>Khôi phục tài khoản</li>
-							</ul>
-						</li>
-						<%} %>
-						<li><a>Tài khoản</a>
-							<ul>
-								<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
-								<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
-							</ul>
-						</li>		
-					</ul>
-					<div class="clear"></div>
-				</div>
-						<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
+				<jsp:include page="header.jsp" />
+<%-- 						<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div> --%>
 				<div id="main-content">
 				
 <!-- 				<table style = "margin: 0 auto;width: 1024spx; vertical-align:top ;"> -->
@@ -160,7 +94,8 @@
 						ArrayList<CTVatTu> ctVatTuListAlert = (ArrayList<CTVatTu>) request.getAttribute("ctVatTuListAlert");
 						ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) request.getAttribute("nhatKyList");
 					%>
-					<div class="view-tbao">
+					<div class="view-tbao" >
+					<div id = "alert">
 						<table style="width:550px;">
 						<tr ><th colspan = "5" style="text-align: center; width: 300px; font-size: 20px;color:red;"><i class="fa fa-sign-out"></i>&nbsp;Công việc</th></tr>
 						<% if (chucDanh.equalsIgnoreCase(truongPhongMa) && ctVatTuListAlert != null && ctVatTuListAlert.size() > 0) { %>
@@ -184,7 +119,11 @@
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getSoLuongTon()%> </td>
 						</tr>
 						<%}} %>
-						
+						</table>
+						<div class="button-group"><button class="button" id ="moreAlert">Xem thêm</button></div>
+						</div>
+						<div id = "work">
+						<table style="width:550px;">
 						<tr style="background-color: #199e5e;">
 <!-- 							<td style="text-align: center;" colspan="2"> -->
 <!-- 							<i class="fa fa-sign-out"></i>&nbsp;Thông báo -->
@@ -205,11 +144,15 @@
 							
 						%>
 						<tr style = "<% if (count % 2 == 1) out.print("background: #CCFFFF; ");%>";>
-							<td colspan = "3" style="text-align: center;"><a style="color: blue; text-decoration: underline; " href='<%=siteMap.searchCongVan + "?congVan=" + congVan.getCvId() %>'> Công văn số <%=congVan.getSoDen()  + " có ngày nhận " + congVan.getCvNgayNhan()%></a></td>
+							<td colspan = "3" style="text-align: center;"><a style="color: blue; text-decoration: underline; " href='<%=siteMap.searchCongVan + "?congVan=" + congVan.getCvId() %>'> Công văn số <%=congVan.getSoDen()  + " có ngày nhận " + DateUtil.toString(congVan.getCvNgayNhan())%></a></td>
 							<td colspan = "2" style="text-align: center;"><div style="<%=style%>"><%=trangThai.getTtTen() %></div></td>
 						</tr>
 						<%count ++;} %>
 						</table>
+						<script type="text/javascript">
+							sttWork = '<%=congVanList.size()%>'
+						</script>
+						<div class="button-group"><button class="button" id ="moreWork">Xem thêm</button></div>
 					</div>
 					<%} else if (chucDanh.equalsIgnoreCase(nhanVienMa)){ 
 					ArrayList<CongVan> congVanList = (ArrayList<CongVan>) request.getAttribute("congVanList"); 
@@ -217,7 +160,8 @@
 					ArrayList<ArrayList<VaiTro>> vaiTroList = (ArrayList<ArrayList<VaiTro>>) request.getAttribute("vaiTroList");
 					ArrayList<ArrayList<String>> trangThaiList = (ArrayList<ArrayList<String>>) request.getAttribute("trangThaiList");
  				%> 
-					<div class="view-tbao"> 
+<!-- 					<div class="view-tbao">  -->
+						<div id ="work">
  						<table style="width:450px;"> 
 						<tr ><th colspan = "2" style="text-align: center; width: 300px; font-size: 20px;color:red;"><i class="fa fa-sign-out"></i>&nbsp;Công việc</th></tr> 
 <!--  						<tr style="background: #CCFFFF">  -->
@@ -229,7 +173,7 @@
  						<%int count = 0;  
  						for (CongVan congVan : congVanList) {
  							String style ="";
- 							String noiDung = "Vai trò công văn có số đến " + congVan.getSoDen() + " nhận ngày " + congVan.getCvNgayNhan() + ":";
+ 							String noiDung = "Vai trò công văn có số đến " + congVan.getSoDen() + " nhận ngày " + DateUtil.toString(congVan.getCvNgayNhan()) + ":";
  							ArrayList<VaiTro> vaiTroCongVanList = vaiTroList.get(count);
  							ArrayList<String> trangThaiCongVanList = trangThaiList.get(count);
  							int i = 0;
@@ -246,11 +190,14 @@
 						</tr>
 						<%count ++;} %>
 						</table>
-					</div>
+						<div class="button-group"><button class="button" id ="moreWork">Xem thêm</button></div>
+						</div>
+					
 					<%} %>
+					</div>
 				</td>
 				<td style="vertical-align:top ;">
-					<div class="view-nky" >
+					<div class="view-nky" id ="nhatKy">
 						<table style="width:800px;">
 						<tr>
 						<th colspan ="3" style="text-align: center; font-size: 20px;color:red;">
@@ -266,6 +213,7 @@
 						<%
 						int count2 = 0;
 						ArrayList<NhatKy> nhatKyList = (ArrayList<NhatKy>) request.getAttribute("nhatKyList");
+						
 						for (NhatKy nhatKy : nhatKyList) {
 							String cvId = "";
 							String hoatDong = "";
@@ -286,16 +234,22 @@
 // 							}
 							
 						%>
+						
 						<tr style = "<% if (count2 % 2 == 0) out.print("background: #CCFFFF; ");%>";>
 							<td style="text-align: center;"><%=count2 + 1 %></td>
 							
 							
 							<td ><%out.print(link + " "); %></td>
 							<td style="""><%=nhatKy.getNoiDung() %></td>
-							<td style="text-align: center;"><%=nhatKy.getThoiGian() %></td>
+							<td style="text-align: center;"><%=DateUtil.toString(nhatKy.getThoiGian()) %></td>
 						</tr>
 						<%count2++;} %>
+<!-- 						<tr><th colspan = "4"></th></tr> -->
 						</table>
+						<script type="text/javascript">
+							sttNhatKy = '<%=nhatKyList.size()%>';
+						</script>
+						<div class="button-group"><button class="button" id ="moreNhatKy">Xem thêm</button></div>
 					</div>
 					</td>
 					</tr>

@@ -317,7 +317,7 @@ public class CTVatTuDAO {
 		CTVatTuDAO ct = new CTVatTuDAO();
 		System.out.println(ct.searchByCtvtMaLimit("1", 0, 10000000).size());
 	}
-	public ArrayList<CTVatTu> getCtVatTuListAlert() {
+	public ArrayList<CTVatTu> getCtVatTuListAlert(int first, int limit) {
 		session.beginTransaction();
 		Criteria cr = session.createCriteria(CTVatTu.class, "ctVatTu");
 		cr.createAlias("ctVatTu.noiSanXuat", "noiSanXuat");
@@ -326,6 +326,8 @@ public class CTVatTuDAO {
 		cr.createAlias("vatTu.dvt", "dvt");
 //		cr.add(Restrictions.eq("dinhMuc", ))
 		cr.add(Restrictions.sqlRestriction("soLuongTon < dinhMuc"));
+		cr.setFirstResult(first);
+		cr.setMaxResults(limit);
 		ArrayList<CTVatTu> ctvatTuList =  (ArrayList<CTVatTu>) cr.list();
 		session.getTransaction().commit();
 		return ctvatTuList;
