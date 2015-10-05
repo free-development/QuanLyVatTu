@@ -279,11 +279,9 @@ function searchCtVt(){
 	var vtMa = '';
 	var check = $('#checkTen:checked').val();
 	if (check != null)
-		vtTen = $('#search input[name=search]').val();
+		vtTen = $('#searchName').val();
 	else 
-		vtMa = $('#search input[name=search]').val();
-//	alert(vtMa);
-//	alert(vtTen);
+		vtMa = $('#searchName').val();
 	$.ajax({
 		url: getRoot() +  "/searchCtvtYc.html",	
 	  	type: "GET",
@@ -450,6 +448,17 @@ $(document).ready(function(){
 	  }
 	}); 
 });
+$(document).ready(function(){
+	$('#searchForm').keypress(function(e) {
+	var key = e.which;
+	 if(key == 13)  // the enter key code
+	  {
+		searchCtVt();
+	    return false;  
+	  }
+	}); 
+});
+
 /*
  * click event
  */
@@ -477,7 +486,7 @@ $(document).ready(function(){
 	});
 });
 $(document).ready(function(){
-	$('#yc-table #search').click(function(){
+	$('#search-button').click(function(){
 		searchCtVt();
 	});
 });
