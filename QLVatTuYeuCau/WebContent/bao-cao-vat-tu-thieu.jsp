@@ -260,8 +260,8 @@
 						<th style="border: 1px dotted black;width: 400px;" class="three-column">Tên vật tư</th>
 						<th style="border: 1px dotted black;width: 100px;" class="three-column">Nơi sản xuất</th>
 						<th style="border: 1px dottedblack;width: 100px;" class="three-column">Chất lượng</th>
-						<th style="border: 1px dottedblack;width: 350px;" class="three-column">Đơn vị xin</th>
-						<th style="border: 1px dotted black;width: 50px;" class="six-column">Đơn vị tính</th>
+						<th style="border: 1px dottedblack;width: 350px;" class="three-column">Đơn vị</th>
+						<th style="border: 1px dotted black;width: 50px;" class="six-column">Đvt</th>
 						<th style="border: 1px dotted black;width: 50px;" class="one-column">Tổng số lượng thiếu</th>
 						<th style="border: 1px dotted black;width: 50px;" class="one-column">Số lượng tồn</th>
 						<th style="border: 1px dotted black;width: 150px;" class="one-column">Công văn liên quan (số đến)</th>
@@ -270,9 +270,10 @@
 								int count = 0;
 							if(yeuCauHash != null){
 							
-							for (CongVan congVan : congVanList) {
+							
 							for(Integer key  : yeuCauHash.keySet()) { count++;
 							CTVatTu ctvt = ctvtHash.get(key);
+							CongVan congVan = congVanList.get(count); 	
 							%>
 									
 					<tr
@@ -320,7 +321,7 @@
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
 			</div>
-				<%}}%>
+				<%}%>
 	</div>
 	</div>
 </body>

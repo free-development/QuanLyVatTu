@@ -67,14 +67,15 @@ public class YcController extends HttpServlet {
     	ArrayList<YeuCau> yeuCauList = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
     	ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) nsxDAO.getAllNoiSanXuat();
     	ArrayList<ChatLuong> chatLuongList = (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();
-    	CongVan congVan = (CongVan)congVanDAO.getByCvSo(cvSo);
+    	CongVan congVan = (CongVan)congVanDAO.getCongVan(cvId);
+    	//System.out.print(congVan);
     	long sizeCtvt = ctvtDAO.size();
-    	request.setAttribute("page", sizeCtvt / 10);
+    	request.setAttribute("page", sizeCtvt / 10);	
     	request.setAttribute("ctVatTuList", ctVatTuList);
     	request.setAttribute("yeuCauList", yeuCauList);
     	request.setAttribute("nsxList", nsxList);
     	request.setAttribute("chatLuongList", chatLuongList);
-    	request.setAttribute("congVan", congVan);
+    	session.setAttribute("congVan", congVan);
     	//request.setAttribute("congVanList", congVanList);
     	chatLuongDAO.disconnect();
     	ctvtDAO.disconnect();
@@ -293,7 +294,6 @@ public class YcController extends HttpServlet {
 	public @ResponseBody String searchCtvtYc(@RequestParam("vtMa") String vtMa, @RequestParam("vtTen") String vtTen) {
 		CTVatTuDAO ctvtDAO = new CTVatTuDAO();
 		ArrayList<Object> objectList = new ArrayList<Object>();
-		JOptionPane.showMessageDialog(null, vtMa + "***"+vtTen + "***");
 		if(vtMa.length() != 0){
 			searchMa = vtMa;
 			searchTen = "";
