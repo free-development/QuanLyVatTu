@@ -330,7 +330,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 											System.out.println("size ngXlCv = " + nguoiXlList.size());
 											StringBuilder cellHoTen = new StringBuilder("");   
 											for (String hoTen : nguoiXlList) {
-												cellHoTen.append(hoTen + ", ");
+												cellHoTen.	append(hoTen + ", ");
 											}
 											int len = cellHoTen.length();
 											cellHoTen.delete(len -2, len);
@@ -481,6 +481,9 @@ msnv = '<%=authentication.getMsnv()  %>';
 							</button>
 							<button class="button" type="button" onclick="confirmDelete();">
 								<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa
+							</button>
+							<button class="button" type="button" onclick="location.href='<%=siteMap.xuatCongVan+".jsp"%>'">
+							<i class="fa fa-print"></i>&nbsp;&nbsp;Xuất file
 							</button>
 							<%} %>
 <!-- 							<button class="button" "> -->

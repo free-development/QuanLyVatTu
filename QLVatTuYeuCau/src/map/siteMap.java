@@ -100,6 +100,8 @@ public class siteMap {
 	public static final String  loginAction =  home + "login.html";
 	public static final String  login = "login";
 	public static final String  xuatBangDeNghi = "xuatBangDeNghi";
+	//map xuat cong van
+	public static final String  xuatCongVan = "xuatCongVan";
 	//map home
 		
 	//map readExel
