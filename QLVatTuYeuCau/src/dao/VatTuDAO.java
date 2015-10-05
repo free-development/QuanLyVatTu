@@ -122,7 +122,7 @@ public void disconnect() {
 public ArrayList<VatTu> searchVtTen(String i) {
 	session.beginTransaction();
 	Criteria cr = session.createCriteria(VatTu.class);
-	cr.add(Restrictions.like("vtTen", i+"%"));
+	cr.add(Restrictions.like("vtTen", i , MatchMode.START));
 	ArrayList<VatTu> list = (ArrayList<VatTu>) cr.list();
 	session.getTransaction().commit();
 	return list;
@@ -140,7 +140,7 @@ public ArrayList<VatTu> searchVtTen(String i) {
 	session.beginTransaction();
 //	String sql = "select E.vtMa, E.vtTen, E.dvt, E.daXoa from VatTu E where E.vtMa LIKE :vtMa";
 	Criteria cr = session.createCriteria(VatTu.class);
-	cr.add(Restrictions.like("vtMa", i+"%"));
+	cr.add(Restrictions.like("vtMa", i, MatchMode.START));
 //	Restrictions.
 //	Query query = session.createQuery(sql);
 	

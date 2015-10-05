@@ -254,7 +254,7 @@ public class CTVatTuDAO {
 		cr.createAlias("ctVatTu.chatLuong", "chatLuong");
 		cr.createAlias("ctVatTu.vatTu", "vatTu");
 		cr.createAlias("vatTu.dvt", "dvt");
-		cr.add(Restrictions.like("vatTu.vtMa", vtMa+"%"));
+		cr.add(Restrictions.like("vatTu.vtMa", vtMa, MatchMode.START));
 		cr.addOrder(Order.asc("vatTu.vtMa"));
 		cr.setFirstResult(first);
 		cr.setMaxResults(limit);
@@ -285,7 +285,6 @@ public class CTVatTuDAO {
 		cr.setFirstResult(first);
 		cr.setMaxResults(limit);
 		ArrayList<CTVatTu> list = (ArrayList<CTVatTu>) cr.list();
-		
 		session.getTransaction().commit();
 		return list;
 	}
@@ -314,31 +313,9 @@ public class CTVatTuDAO {
 	}
 
 	public static void main(String[] args) {
-		//CTVatTuDAO ct = new CTVatTuDAO();//.getCTVatTu("VT5", "NB", "CL0");
-//		System.out.pritnln(ct.getCtvtId());
-		//System.out.println(new CTVatTuDAO().getLastInsert());
-//		System.out.println(new CTVatTuDAO().search("", "Tru dien", "", "").size());
-//		System.out.println(new CTVatTuDAO().search("", "", "", "CL4").size());
-//		System.out.println(new CTVatTuDAO().search("", "", "Vn4", "").size());
-		//CTVatTu l = ct.getCTVatTu("VT4","VN0","CL0");
-		//for (CTVatTu vatTu : l) {
-		//	System.out.println(l.getVatTu().getVtMa());
-		//}
-//			CTVatTu ctvt = new CTVatTuDAO().getCTVatTu("12122001", "VN", "000");
-//			if (ctvt == null)
-//				System.out.println("OK");
-//			else 
-//				System.out.println(ctvt.getCtvtId() + "fail");
-//		System.out.println(new CTVatTuDAO().searchByCtvtTenLimit("T",0,5).size());
-//		System.out.println(new CTVatTuDAO().sizeOfSearchCtvtTen("T"));
-//		System.out.println(new CTVatTuDAO().searchByCtvtTenLimit("T", 0, 5).get(0).getVatTu().getVtTen());
-//		ArrayList<CTVatTu> ctvtList = new CTVatTuDAO().searchByCtvtMaLimit("121",0,30);
-//		for (CTVatTu ctvt : ctvtList) {
-//			System.out.println(ctvt.getVatTu().getVtMa());
-//		}
-		//System.out.println(new CTVatTuDAO().getCTVatTu("", nsxMa, clMa));
+		
 		CTVatTuDAO ct = new CTVatTuDAO();
-		System.out.println(ct.getCtVatTuListAlert());
+		System.out.println(ct.searchByCtvtMaLimit("1", 0, 10000000).size());
 	}
 	public ArrayList<CTVatTu> getCtVatTuListAlert() {
 		session.beginTransaction();

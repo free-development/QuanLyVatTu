@@ -1,5 +1,4 @@
 <%@page import="model.NguoiDung"%>
-<%@page import="javax.persistence.criteria.CriteriaBuilder.In"%>
 <%@page import="model.YeuCau"%>
 <%@page import="model.NoiSanXuat"%>
 <%@page import="model.ChatLuong"%>
@@ -134,7 +133,7 @@
 									</ul>
 						</li>
 						<%} %>
-							<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
+							<li><a href="<%=siteMap.cvManage+ "?action=manaxgeCv" %>">Công văn</a></li>
 							<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
 							<li><a>Báo cáo</a>
 								<ul>
@@ -169,7 +168,7 @@
 			<form id="add-yeu-cau-form">
 			</form>
 <%--  			<div style="color: #CC3333;height:20px;text-align: right;margin-right: 40px;">Số công văn:&nbsp;<%=congVan.getCvSo() %></div> --%>
-			<form id="danh-sach-vat-tu">
+			
 			<div class="form-title-vat-tu">Danh sách vật tư</div>
 			<div id="yc-table">
 				<table style="margin-left:60px;margin-bottom: 10px;">		
@@ -177,7 +176,7 @@
 					<td  style="text-align: left; font-size: 19px;color:#6600FF;">* Tìm kiếm mã</td>
 								<td>
 									<div class="search_form1" id="search">		
-										<form>	
+										<form id ="searchForm" onsubmit="return false;">	
 <!-- 											<span class="search-text"> &nbsp; <input type="search" class="text" name="search_box" name="search" placeholder="Tìm kiếm" /> 												 -->
 <!-- 												<td><input type="checkbox" class="checkbox" style="text-align: center;"/></td> -->
 <!-- 												<td  style="text-align: center; color: black; font-size: 19px;">Theo tên</td>&nbsp;&nbsp;&nbsp; -->
@@ -191,12 +190,13 @@
 												<td><input type="checkbox" value="check" class="checkbox" style="text-align: center;" id="checkTen"/></td>
 												<td  style="text-align: center; color:#6600FF; font-size: 19px;">Theo tên</td>&nbsp;&nbsp;&nbsp;
 											</span>
-												<td> <span class="search-button"> &nbsp; <button type="button" id="search" class="btn-search" style="background-color: #00A69B;" ><i class="fa fa-search"></i></button></span></td>						
+												<td> <span class="search-button"> &nbsp; <button type="button" id="search-button" class="btn-search" style="background-color: #00A69B;" ><i class="fa fa-search"></i></button></span></td>						
 										</form>
 									</div>
 					</tr>					
 				</table>
 				</div>
+				<form id="danh-sach-vat-tu">
 				<div id="view-search">
 				<div id="view-table-ds">
 				<table style="width:960px;margin:0 auto;">

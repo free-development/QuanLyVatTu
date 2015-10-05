@@ -113,8 +113,9 @@ public class SendMail {
 			message.setText(mail.getContent());
 //			message.setContent(mail.getContent(),"text/html; charset=UTF-8");
 			Transport.send(message);
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+			
+		} catch (Exception e) {
 		}
 	}
 }
+	

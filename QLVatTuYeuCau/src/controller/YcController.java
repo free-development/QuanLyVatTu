@@ -75,7 +75,7 @@ public class YcController extends HttpServlet {
     	request.setAttribute("yeuCauList", yeuCauList);
     	request.setAttribute("nsxList", nsxList);
     	request.setAttribute("chatLuongList", chatLuongList);
-    	request.setAttribute("congVan", congVan);
+    	session.setAttribute("congVan", congVan);
     	//request.setAttribute("congVanList", congVanList);
     	chatLuongDAO.disconnect();
     	ctvtDAO.disconnect();
@@ -294,7 +294,6 @@ public class YcController extends HttpServlet {
 	public @ResponseBody String searchCtvtYc(@RequestParam("vtMa") String vtMa, @RequestParam("vtTen") String vtTen) {
 		CTVatTuDAO ctvtDAO = new CTVatTuDAO();
 		ArrayList<Object> objectList = new ArrayList<Object>();
-		JOptionPane.showMessageDialog(null, vtMa + "***"+vtTen + "***");
 		if(vtMa.length() != 0){
 			searchMa = vtMa;
 			searchTen = "";

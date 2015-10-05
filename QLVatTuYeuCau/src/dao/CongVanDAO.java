@@ -484,10 +484,10 @@ public long size(String msnv, HashMap<String, Object> conditions) {
 		HashMap<String, Object> conditions = new HashMap<String, Object>();
 //		conditions.put("year", 2015);
 //		conditions.put("month", 8);
-		conditions.put("soDen", 19);
-		conditions.put("trangThai.ttMa", "CGQ");
-		ArrayList<Integer> size =  new CongVanDAO().groupByMonth(null , conditions, 2015);
-		for(Integer year : size)
+		conditions.put("soDen", 1);
+//		conditions.put("trangThai.ttMa", "CGQ");
+		ArrayList<CongVan> size =  new CongVanDAO().searchLimit(null , conditions, null, 0, 10);
+		for(CongVan year : size)
 			System.out.println(year);
 //		System.out.println(size.size());
 	}
