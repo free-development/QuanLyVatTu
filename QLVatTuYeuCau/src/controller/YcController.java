@@ -68,8 +68,9 @@ public class YcController extends HttpServlet {
     	ArrayList<NoiSanXuat> nsxList = (ArrayList<NoiSanXuat>) nsxDAO.getAllNoiSanXuat();
     	ArrayList<ChatLuong> chatLuongList = (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();
     	CongVan congVan = (CongVan)congVanDAO.getCongVan(cvId);
+    	//System.out.print(congVan);
     	long sizeCtvt = ctvtDAO.size();
-    	request.setAttribute("page", sizeCtvt / 10);
+    	request.setAttribute("page", sizeCtvt / 10);	
     	request.setAttribute("ctVatTuList", ctVatTuList);
     	request.setAttribute("yeuCauList", yeuCauList);
     	request.setAttribute("nsxList", nsxList);

@@ -103,6 +103,8 @@ public class BcvttController extends HttpServlet {
     					soDenList = soDenListCu;
     					cvList = cvListCu;
     				}
+    				
+    				
     				soDenList.add(soDen);
     				soDenHash.put(ctVtId, soDenList);
     				//
@@ -118,7 +120,9 @@ public class BcvttController extends HttpServlet {
         			session.setAttribute("ctvtHash", ctvtHash);
         			session.setAttribute("action", action);
         			session.setAttribute("cvIdHash", cvIdHash);
+        			System.out.print(cvIdHash.size());
         			session.setAttribute("soDenHash", soDenHash);
+        			System.out.print(soDenHash.size());
         			session.setAttribute("congVanList", congVanList);
         			session.setAttribute("yeuCau", yeuCauHash);
 //        			session.setAttribute("soDenHash", soDenHash);

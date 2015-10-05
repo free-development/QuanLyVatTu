@@ -71,7 +71,7 @@
 				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
 			<div id="title-content">Danh mục vai trò</div>
 				<form id="main-form">
-					<div id="view-table" style="height: 600px; margin: 0 auto;">
+					<div id="view-table" style="margin: 0 auto;">
 						<table>
 							<tr style="background: #199e5e">
 								<th class="left-column"><input type="checkbox"

@@ -115,7 +115,7 @@ public class HomeController extends HttpServlet {
 	   	NhatKyDAO nhatKyDAO = new NhatKyDAO();
 		HttpSession session = request.getSession(false);
 		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
-		ArrayList<NhatKy> nhatKyList = nhatKyDAO.getLimitByMsnv(authentication.getMsnv(), nhatKyPage, 10);
+		ArrayList<NhatKy> nhatKyList = nhatKyDAO.getLimitByMsnv(authentication.getMsnv(), nhatKyPage * 10, 10);
 		nhatKyDAO.disconnect();
 		return JSonUtil.toJson(nhatKyList);
    }

@@ -33,8 +33,9 @@
 #print_button{
 display:none;
 }
+
 @page 
-        {
+        { 
             size: auto A4 landscape;
         	color: black; background: white; }
 	   table 
@@ -73,98 +74,7 @@ display:none;
 	            
 	        }
 		%>
-		<table style = "margin: 0 auto;width:960px;">
-		<tr>
-			<td></td>
-			<td style="text-align: left;font-size: 17px;width:350px;">CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td style="font-size: 17px; text-align: left;">PHÒNG VẬT TƯ</td>
-			<td></td>
-			
-			
-			<td style="text-align: left;font-size: 17px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
-			
-		</tr>
-		<tr>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td style="font-size: 17px; padding-left:70px;">Độc lập - Tự do - Hạnh phúc</td>
-		</tr>
-		</table>
-		<br>
-		<div style="text-align: center;font-size: 30px;font-weight: bold;color: solid black;margin-top:20px;">Báo cáo bảng đề nghị cấp vật tư</div>
-		<% if((ngaybd!=null)&&(ngaykt!=null)){%>
-			
-			<div style="text-align: center;font-size: 17px;">Từ ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaybd)%>&nbsp;&nbsp;đến ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaykt)%></div>
-			
-			<% }%>
-		<div style="margin-right: 10px;padding-left: 750px;font-size: 17px;">Ngày in:&nbsp;&nbsp;&nbsp;&nbsp;  <%=DateUtil.toString(new java.util.Date())%></div>
-			<div id="view-table-bao-cao">
-					<table style="text-align: center;margin: 0 auto; color: black;border: solid 1px black;width:960px;">
-					<thead>
-						<tr bgcolor="#199e5e"  style= "border-style: solid;border-color:black;">
-							<th style="border: 1px solid black;font-size: 17px;" class="a-column">Số đến</th>
-							<th style="border: 1px solid black;font-size: 17px;" class="b-column">Ngày nhận</th>
-							<th style="border: 1px solid black;font-size: 17px;" class="c-column">Mã vật tư</th>
-							<th style="border: 1px solid black;font-size: 17px;" class="d-column">Tên vật tư</th>
-							<th style="border: 1px solid black;font-size: 17px;" class="e-column">Nơi sản xuất</th>
-							<th style="border: 1px solid black;font-size: 17px;" class="f-column">Đơn vị tính</th>
-							<th style="border: 1px solid black;font-size: 17px;" class="g-column">Trạng thái</th>
-							<th style="border: 1px solid black;font-size: 17px;" class="k-column">Đơn vị</th>
-							<th style="border: 1px solid black;font-size: 17px;" class="h-column">Chất lượng</th>
-							<th style="border: 1px solid black;font-size: 17px;" class="m-column">Số lượng</th>
-							
-						</tr>
-						</thead>
-								<tbody>
-								<%
-								if(yeuCauHash != null) {
-								 int cnt = 0;
-								for(CongVan congVan  : congVanList) {
-								ArrayList<YeuCau> yeuCauList = yeuCauHash.get(congVan.getCvId());
-								for (YeuCau yeuCau : yeuCauList) {cnt++;
-								%>
-								<tr 
-									<%if (cnt % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>
-									style= "border-style: solid;border-color:black black black black;">
-									<td style="border: 1px solid black;font-size: 17px;" class="a-column"><%=congVan.getSoDen() %></td>
-									<td style="border: 1px solid black;font-size: 17px;" class="b-column"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
-									<td style="border: 1px solid black;font-size: 17px;" class="c-column"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
-									<td style="border: 1px solid black;font-size: 17px;" class="d-column"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
-									<td style="border: 1px solid black;font-size: 17px;" class="e-column"><%=yeuCau.getCtVatTu().getNoiSanXuat().getNsxTen() %></td>
-									<td style="border: 1px solid black;font-size: 17px;" class="f-column"><%=yeuCau.getCtVatTu().getVatTu().getDvt().getDvtTen() %></td>
-									<td style="border: 1px solid black;font-size: 17px;" class="g-column"><%=congVan.getTrangThai().getTtTen() %></td>
-									<td style="border: 1px solid black;font-size: 17px;" class="h-column"><%=congVan.getDonVi().getDvTen()%></td>
-									<td style="border: 1px solid black;font-size: 17px;" class="k-column"><%=yeuCau.getCtVatTu().getChatLuong().getClTen() %></td>
-									<td style="border: 1px solid black;font-size: 17px;" class="m-column"><%=yeuCau.getYcSoLuong() %></td>
-	
-								</tr>
-									<%}} %>
-							</tbody>
-							<%} 
-					%>
-				</table>
-				</div>
-				<br>
-				<br>
-				<br>
-				<div style="width:800px;font-size: 18px;margin: auto;">
-						<table style="width:800px;font-size: 18px;;">
-								<tr>
-									<td></td>
-									<td style="text-align: right;">Ngày.....tháng.....năm.....</td>
-								</tr>
-								<tr>
-									<td style="text-align: left;font-weight: bold;">Người lập biểu</td>
-									<td style="text-align: right;font-weight: bold;">Trưởng Phòng Vật Tư</td>
-								</tr>
-						</table>
-				</div>
-				<div class="group-button">
+		<div class="group-button" style="position: fixed; right: 10px;">
 					<%
         				if (exportToExcel == null) {
    				 	 %>
@@ -181,6 +91,94 @@ display:none;
 					</button>
 					<% } %>
 					 
+				</div>
+		<table style = "margin: 0 auto;width:960px;">
+		<tr>
+			<td style="text-align: right;font-size: 17px;width:350px;">CÔNG TY ĐIỆN LỰC TP CẦN THƠ</td>
+			<td style="text-align: center;font-size: 17px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
+		</tr>
+		<tr>
+			<td style="font-size: 17px; padding-left: 150px;">PHÒNG VẬT TƯ</td>
+			<td style="font-size: 17px; text-align: center;">Độc lập - Tự do - Hạnh phúc</td>
+		</tr>
+		<tr>
+		<td style="padding-left: 150px;">-----------------------</td>
+		<td style="text-align: center;">-----------------------</td>
+		</tr>
+		<tr>
+		<td></td>
+		<td style="font-size: 17px; text-align: center;">Cần Thơ, ngày...tháng...năm...</td>
+		</tr>
+		</table>
+		<br>
+		<div style="text-align: center;font-size: 30px;font-weight: bold;color: solid black;margin-top:20px;">Báo cáo bảng đề nghị cấp vật tư</div>
+		<% if((ngaybd!=null)&&(ngaykt!=null)){%>
+			
+			<div style="text-align: center;font-size: 17px;">Từ ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaybd)%>&nbsp;&nbsp;đến ngày:&nbsp;&nbsp;<%=DateUtil.toString(ngaykt)%></div>
+			
+			<% }%>
+		<div style="margin-right: 10px;padding-left: 750px;font-size: 17px;">Ngày in:&nbsp;&nbsp;&nbsp;&nbsp;  <%=DateUtil.toString(new java.util.Date())%></div>
+			<div id="view-table-bao-cao">
+					<table style="text-align: center;margin: 0 auto; color: black;border: solid 1px black;width:1224px;">
+					<thead>
+						<tr bgcolor="#199e5e"  style= "border-style: solid;border-color:black;">
+<!-- 							<th style="border: 1px solid black;font-size: 17px;width: 50px;" class="a-column">Số đến</th> -->
+							<th style="border: 1px solid black;font-size: 17px;width: 100px;" class="b-column">Ngày nhận</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 50px;" class="c-column">Mã vật tư</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 350px;" class="d-column">Tên vật tư</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 100px;" class="e-column">Nơi sản xuất</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 50px;" class="f-column">Đvt</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 100px;" class="g-column">Trạng thái</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 200px;" class="k-column">Đơn vị</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 100px;" class="h-column">Chất lượng</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 50px;" class="m-column">Số lượng</th>
+							
+						</tr>
+						</thead>
+								<tbody>
+								<%
+								if(yeuCauHash != null) {
+								 int cnt = 0;
+								for(CongVan congVan  : congVanList) {
+								ArrayList<YeuCau> yeuCauList = yeuCauHash.get(congVan.getCvId());
+								for (YeuCau yeuCau : yeuCauList) {cnt++;
+								%>
+								<tr 
+									<%if (cnt % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>
+									style= "border-style: solid;border-color:black black black black;">
+									<td style="border: 1px solid black;font-size: 17px;" class="a-column"><%=congVan.getSoDen() %></td>
+									<td style="border: 1px solid black;font-size: 17px;" class="b-column"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
+<%-- 									<td style="border: 1px solid black;font-size: 17px;" class="a-column"><%=congVan.getSoDen() %></td> --%>
+									<td style="border: 1px solid black;font-size: 17px;" class="b-column"><%=congVan.getCvNgayNhan() %></td>
+									<td style="border: 1px solid black;font-size: 17px;" class="c-column"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
+									<td style="border: 1px solid black;font-size: 17px;text-align: left;" class="d-column"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
+									<td style="border: 1px solid black;font-size: 17px;" class="e-column"><%=yeuCau.getCtVatTu().getNoiSanXuat().getNsxTen() %></td>
+									<td style="border: 1px solid black;font-size: 17px;" class="f-column"><%=yeuCau.getCtVatTu().getVatTu().getDvt().getDvtTen() %></td>
+									<td style="border: 1px solid black;font-size: 17px;" class="g-column"><%=congVan.getTrangThai().getTtTen() %></td>
+									<td style="border: 1px solid black;font-size: 17px;" class="h-column"><%=congVan.getDonVi().getDvTen()%></td>
+									<td style="border: 1px solid black;font-size: 17px;" class="k-column"><%=yeuCau.getCtVatTu().getChatLuong().getClTen() %></td>
+									<td style="border: 1px solid black;font-size: 17px;" class="m-column"><%=yeuCau.getYcSoLuong() %></td>
+	
+								</tr>
+									<%}} %>
+							</tbody>
+							<%} %>
+				</table>
+				</div>
+				<br>
+				<br>
+				<br>
+				<div style="width:800px;font-size: 18px;margin: auto;">
+						<table style="width:800px;font-size: 18px;;">
+								<tr>
+								<td></td>
+								<td style="font-size: 17px; text-align: center;">Cần Thơ, ngày...tháng...năm...</td>
+								</tr>
+								<tr>
+									<td style="padding-left: 50px;font-weight: bold;">Người lập biểu</td>
+									<td style="text-align: center;font-weight: bold;">Trưởng Phòng Vật Tư</td>
+								</tr>
+						</table>
 				</div>
 		</body>
 		</html>

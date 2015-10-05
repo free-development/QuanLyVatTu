@@ -85,7 +85,7 @@
 		<div id="main-content">
 			
 			<form id="main-form">
-				<div id="view-table" style="height: 600px; margin: 0 auto;">
+				<div id="view-table" style=" margin: 0 auto;">
 					<table>
 						<tr style="background:#199e5e">
 							<th class="left-column"><input type="checkbox" class="checkAll"></th>
@@ -147,6 +147,10 @@
 							onclick="showForm2('view-table','import-formct', true)"> 
 							<i class="fa fa-pencil fa-fw"></i>&nbsp;Import 
 						</button>&nbsp;
+						<button class="button" type="button" onclick="location.href='<%=siteMap.xuatNsx+".jsp"%>'">
+							<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xuất File
+						</button>
+						&nbsp;
 						<button class="button" type="reset">
 							<i class="fa fa-spinner"></i>&nbsp;&nbsp;Bỏ qua
 						</button>&nbsp;

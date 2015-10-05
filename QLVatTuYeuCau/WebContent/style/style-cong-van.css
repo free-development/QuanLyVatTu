@@ -27,7 +27,7 @@
 }*/
 #content-form{
 	background-color: #dceaf5;
-	height:750px;
+	border-radius: 10px;
 }
 #content {
 	margin: 0 auto;

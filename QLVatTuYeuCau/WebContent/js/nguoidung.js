@@ -575,7 +575,7 @@ function checkPassword()
  						$('#add-form input:text[name=sdt]').val('');
  						$('#add-form input:text[name=email]').val('');
  						$('#add-form input:text[name=diachi]').val('');
- 				  		window.location.assign("home");
+// 				  		window.location.assign("home.jsp");
  					}
  			  		else{
  			  			alert("Người dùng có mã số"+"'"+msnv+"'"+ "đã tồn tại");	

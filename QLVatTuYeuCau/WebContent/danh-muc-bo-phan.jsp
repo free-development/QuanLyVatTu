@@ -75,7 +75,7 @@
 			<div id="title-content">Danh mục bộ phận sử dụng</div>
 
 				<form id="main-form">
-					<div id="view-table-bo-phan" style="height: 700px;width: 1000px; margin: 0 auto;overflow: auto;" class="scroll_content">
+					<div id="view-table-bo-phan" style="margin: 0 auto;overflow: auto;" class="scroll_content">
 						<table>
 							<tr>
 								<th class="left-column"><input type="checkbox"

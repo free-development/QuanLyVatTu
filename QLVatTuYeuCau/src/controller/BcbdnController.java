@@ -56,14 +56,14 @@ public class BcbdnController extends HttpServlet {
 				ArrayList<YeuCau> yeuCau = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
 				yeuCauHash.put(cvId, yeuCau);
 			}
-			yeuCauDAO.disconnect();
-			congVanDAO.disconnect();
-			donViDAO.disconnect();
 			
 			session.setAttribute("donViList", donViList);
 			session.setAttribute("trangThaiList", trangThaiList);
 			session.setAttribute("congVanList", congVanList);
 			session.setAttribute("yeuCau", yeuCauHash);
+			yeuCauDAO.disconnect();
+			congVanDAO.disconnect();
+			donViDAO.disconnect();
 			
 			return new ModelAndView(siteMap.baoCaoBangDeNghi);
 		}
@@ -85,9 +85,7 @@ public class BcbdnController extends HttpServlet {
 				ArrayList<YeuCau> yeuCau = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
 				yeuCauHash.put(cvId, yeuCau);
 			}
-			yeuCauDAO.disconnect();
-			congVanDAO.disconnect();
-			donViDAO.disconnect();
+			
 			
 			session.setAttribute("ngaybd", DateUtil.parseDate(ngaybd));
 			session.setAttribute("ngaykt", DateUtil.parseDate(ngaykt));
@@ -95,9 +93,44 @@ public class BcbdnController extends HttpServlet {
 			session.setAttribute("trangThaiList", trangThaiList);
 			session.setAttribute("congVanList", congVanList);
 			session.setAttribute("yeuCau", yeuCauHash);
+			yeuCauDAO.disconnect();
+			congVanDAO.disconnect();
+			donViDAO.disconnect();
 			return new ModelAndView(siteMap.baoCaoBangDeNghi);
 		}
-		return new ModelAndView("login");
+	if ("baocaocv".equalsIgnoreCase(action)) {
+		ArrayList<TrangThai> trangThaiList = (ArrayList<TrangThai>) trangThaiDAO.getAllTrangThai();
+		ArrayList<DonVi> donViList = (ArrayList<DonVi>) donViDAO.getAllDonVi();
+		String ngaybd = request.getParameter("ngaybd");
+		String ngaykt = request.getParameter("ngaykt");
+		String donvi = request.getParameter("donvi");
+		String trangthai = request.getParameter("trangthai");
+		System.out.println(ngaykt);
+		System.out.println(donvi);
+		System.out.println(trangthai);
+		HashMap<String, Object> conditions = new HashMap<String, Object>();
+		HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
+		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(null, conditions, orderBy, 0, Integer.MAX_VALUE);
+		HashMap<Integer, ArrayList<YeuCau>> yeuCauHash = new HashMap<Integer, ArrayList<YeuCau>>();
+		for (CongVan congVan : congVanList) {
+			int cvId = congVan.getCvId();
+			ArrayList<YeuCau> yeuCau = (ArrayList<YeuCau>) yeuCauDAO.getByCvId(cvId);
+			yeuCauHash.put(cvId, yeuCau);
+		}
+		
+		
+		session.setAttribute("ngaybd", DateUtil.parseDate(ngaybd));
+		session.setAttribute("ngaykt", DateUtil.parseDate(ngaykt));
+		session.setAttribute("donViList", donViList);
+		session.setAttribute("trangThaiList", trangThaiList);
+		session.setAttribute("congVanList", congVanList);
+		session.setAttribute("yeuCau", yeuCauHash);
+		yeuCauDAO.disconnect();
+		congVanDAO.disconnect();
+		donViDAO.disconnect();
+		return new ModelAndView(siteMap.baoCaoBangDeNghi);
+		
 	}
-
+	return new ModelAndView("login");
+	}
 }

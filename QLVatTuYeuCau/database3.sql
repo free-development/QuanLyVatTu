@@ -257,7 +257,7 @@ DEFAULT CHARACTER SET = utf8;
 create table VATTU
 (
    VTMA                 char(16) not null,
-   VTTEN                varchar(100),
+   VTTEN                varchar(200),
    DVTID int,
    DAXOA int(2) default 0,
    primary key (VTMA),
