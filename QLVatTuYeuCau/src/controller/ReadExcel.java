@@ -68,6 +68,11 @@ public class ReadExcel extends HttpServlet {
 	@RequestMapping("/readExcel")
 	protected ModelAndView readExcel(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getCharacterEncoding();
+		response.getCharacterEncoding();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		isMultipart = ServletFileUpload.isMultipartContent(request);
 		response.setContentType("text/html");
 		java.io.PrintWriter out = response.getWriter();
@@ -172,6 +177,11 @@ public class ReadExcel extends HttpServlet {
 	@RequestMapping("/readExcelBpsd")
 	protected ModelAndView readExcelBpsd(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getCharacterEncoding();
+		response.getCharacterEncoding();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		isMultipart = ServletFileUpload.isMultipartContent(request);
 		response.setContentType("text/html");
 		java.io.PrintWriter out = response.getWriter();
@@ -218,6 +228,11 @@ public class ReadExcel extends HttpServlet {
 	@RequestMapping("/readExcelNsx")
 	protected ModelAndView readExcelNsx(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getCharacterEncoding();
+		response.getCharacterEncoding();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		isMultipart = ServletFileUpload.isMultipartContent(request);
 		response.setContentType("text/html");
 		java.io.PrintWriter out = response.getWriter();
@@ -264,6 +279,11 @@ public class ReadExcel extends HttpServlet {
 	@RequestMapping("/readExcelCl")
 	protected ModelAndView readExcelCl(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getCharacterEncoding();
+		response.getCharacterEncoding();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		isMultipart = ServletFileUpload.isMultipartContent(request);
 		response.setContentType("text/html");
 		java.io.PrintWriter out = response.getWriter();

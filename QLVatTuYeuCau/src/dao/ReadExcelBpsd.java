@@ -47,7 +47,7 @@ public class ReadExcelBpsd {
 			while (rows.hasNext()) {
 				row = (XSSFRow) rows.next();
 				j++;
-				if (j == 1)
+				if (j < 2)
 					continue;
 				Iterator cells = row.cellIterator();
 				int count = 0;

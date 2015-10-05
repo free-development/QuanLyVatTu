@@ -108,8 +108,9 @@ public class BcbdnController extends HttpServlet {
 		System.out.println(ngaykt);
 		System.out.println(donvi);
 		System.out.println(trangthai);
-		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.getTrangThai(ngaybd, ngaykt, donvi,
-				trangthai);
+		HashMap<String, Object> conditions = new HashMap<String, Object>();
+		HashMap<String, Boolean> orderBy = new HashMap<String, Boolean>();
+		ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.searchLimit(null, conditions, orderBy, 0, Integer.MAX_VALUE);
 		HashMap<Integer, ArrayList<YeuCau>> yeuCauHash = new HashMap<Integer, ArrayList<YeuCau>>();
 		for (CongVan congVan : congVanList) {
 			int cvId = congVan.getCvId();

@@ -196,7 +196,7 @@
 			<div id="view-table" style="smax-height: 420px;width: 1224px;display: auto;border: 1px solid #CCCCCC;margin: 0 auto;margin-top: 20px;overflow: scroll;">
 				<table >
 					<tr bgcolor="lightgreen">
-						<th style="width: 50px;">Số đến</th>
+<!-- 						<th style="width: 50px;">Số đến</th> -->
 						<th style="width: 100px;">Ngày nhận</th>
 						<th style="width: 50px;">Mã vật tư</th>
 						<th style="width: 350px;">Tên vật tư</th>
@@ -218,7 +218,7 @@
 									
 					<tr
 						<%if (cnt % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>>
-						<td style="width: 50px; text-align: center;"><%=congVan.getSoDen() %></td>
+<%-- 						<td style="width: 50px; text-align: center;"><%=congVan.getSoDen() %></td> --%>
 						<td style="width: 100px; text-align: center;"><%=congVan.getCvNgayNhan() %></td>
 						<td style="width: 50px; text-align: center;"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
 						<td style="text-align: left; width: 300px;"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
@@ -249,4 +249,4 @@
 		</table>
 	
 </body>
-</html>s
+</html>

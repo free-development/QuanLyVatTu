@@ -48,7 +48,7 @@ public class ReadExcelTon {
 			while (rows.hasNext()) {
 				row = (XSSFRow) rows.next();
 				j++;
-				if (j == 1)
+				if (j < 4)
 					continue;
 				Iterator cells = row.cellIterator();
 				int count = 0;
@@ -154,7 +154,7 @@ public class ReadExcelTon {
 			while (rows.hasNext()) {
 				row = (HSSFRow) rows.next();
 				j++;
-				if (j == 1)
+				if (j < 4)
 					continue;
 				Iterator cells = row.cellIterator();
 				int count = 0;
@@ -168,31 +168,32 @@ public class ReadExcelTon {
 					cell = (HSSFCell) cells.next();
 					if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
 						switch (count) {
-						case 0:
+						case 1:
 							vtMa = cell.getStringCellValue();
 							break;
-						case 1:
+						case 2:
 							vtTen = cell.getStringCellValue();
 							break;
-						case 2:
-							dvt = cell.getStringCellValue();
-							break;	
 						case 3:
-							nsxTen = cell.getStringCellValue();
+							dvt = cell.getStringCellValue();
 							break;
 						case 4:
+							nsxTen = cell.getStringCellValue();
+							break;
+						case 5:
 							clTen = cell.getStringCellValue();
 							break;
 						}
 					} else if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
 						switch (count) {
-						case 5:
+						case 6:
 							soLuong = cell.getNumericCellValue();
 							break;
 					}
 				}
 				count++;
 			}
+				System.out.println("VTMa = "+vtMa+ "\n vtTen = "+ vtTen + "\n nsxTen= "+ nsxTen + "\n clTen = " + clTen + "\n soLuong = " + soLuong);
 			if (vtMa.length() == 0 && vtTen.length() == 0 && dvt.length() == 0 && nsxTen.length() == 0 && clTen.length() == 0 && soLuong == -1)
 				break;
 			if (vtMa.length() == 0 || vtTen.length() == 0 || dvt.length() == 0 || nsxTen.length() == 0 || clTen.length() == 0 || soLuong == -1)
@@ -221,7 +222,7 @@ public class ReadExcelTon {
 			
 			NoiSanXuat nsxTemp = nsxDAO.getByNameNsx(nsxTen);
 			ChatLuong chatLuongTemp = clDAO.getByNameCl(clTen);
-//			System.out.println("VTMa = "+ctvt.getCtvtId()+ "\n vtTen = "+ vtTen + "\n nsxMa = "+ nsxMa + "\n clMa = " + clMa);
+			System.out.println("VTMa = "+vatTu.getVtMa()+ "\n vtTen = "+ vatTu.getVtTen() + "\n nsxTen= "+ nsxTen + "\n clTen = " + clTen);
 			if (nsxTemp !=  null && chatLuongTemp !=  null) {
 				CTVatTu ctvt = ctvtDAO.getCTVatTu(vatTu.getVtMa(), nsxTemp.getNsxMa(), chatLuongTemp.getClMa());
 				if (ctvt != null) {

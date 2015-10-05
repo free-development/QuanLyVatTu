@@ -29,14 +29,9 @@ display:none;
 }
 @page 
         {
-            margin: 0;
- border: initial;
- border-radius: initial;
- width: initial;
- min-height: initial;
- box-shadow: initial;
- background: initial;
- page-break-after: always; }
+            {
+            size: auto A4 landscape;
+        	color: black; background: white; } }
 	   table 
 	   { 
 	   		font-size: 70%; 
@@ -72,6 +67,26 @@ display:none;
 		   		HashMap<Integer, ArrayList<YeuCau>> ctvtList = (HashMap<Integer, ArrayList<YeuCau>>) session.getAttribute("ctvtList");
 		   		
 		    %>
+		    				<div class="group-button" style="position: fixed; right: 10px;">
+					
+					 <%
+        				if (exportToExcel == null) {
+   				 	 %>
+   				 	 <button class="button" id="print_button" type="button" onclick="window.print();">
+						<i class="fa fa-print"></i>&nbsp;&nbsp;In
+					</button>
+					&nbsp;
+					<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.xuatFile+".jsp"+ "?exportToExel=YES" %>'">
+						<i class="fa fa-print"></i>&nbsp;&nbsp;Xuất file
+					</button>
+					
+					&nbsp;
+					<button type="button" id="print_button" class="button" onclick="location.href='<%=siteMap.baoCaoVatTuThieu+".jsp" %>'">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
+					</button>
+				</div>
+			
+					<%} %>
 		   <table style = "margin: 0 auto;width:960px;">
 		<tr>
 			<td style="text-align: right;font-size: 17px;width:350px;">CÔNG TY ĐIỆN LỰC TP CẦN THƠ</td>
@@ -100,7 +115,7 @@ display:none;
 					<table  style="border: solid 1px black;width:1224px;">
 						<thead >
 							<tr bgcolor="#199e5e" style="border: 1px solid black;" >
-								<th style="border: 1px solid black;width: 50px;" class="one-column">Số đến</th>
+<!-- 								<th style="border: 1px solid black;width: 50px;" class="one-column">Số đến</th> -->
 								<th style="border: 1px solid black;width: 100px;" class="one-column">Số công văn</th>
 								<th style="border: 1px solid black;width: 100px;" class="three-column">Ngày nhận</th>
 								<th style="border: 1px solid black;width: 100px;" class="three-column" style="text-align: center;">Mã vật tư</th>
@@ -109,6 +124,7 @@ display:none;
 								<th style="border: 1px solid black;width: 100px;" class="three-column">Chất lượng</th>
 								<th style="border: 1px solid black;width: 250px;" class="three-column">Đơn vị</th>
 								<th style="border: 1px solid black;width: 50px;" class="three-column">Đơn vị tính</th>
+								<th style="border: 1px solid black;width: 50px;" class="three-column">Đvt</th>
 								<th style="border: 1px solid black;width: 50px;" class="one-column">Số lượng thiếu</th>
 								<th style="border: 1px solid black;width: 50px;" class="one-column">Số lượng tồn</th>
 								
@@ -129,7 +145,7 @@ display:none;
 												
 									<tr style= "border-style: solid;border-color:black;"
 										<%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>>
-										<td style="border: 1px solid black;text-align: center;" class="a-column"><%=congVan.getSoDen() %></td>
+<%-- 										<td style="border: 1px solid black;text-align: center;" class="a-column"><%=congVan.getSoDen() %></td> --%>
 										<td style="border: 1px solid black;text-align: center;" class="a-column"><%=congVan.getCvSo() %></td>
 										<td style="border: 1px solid black;text-align: center;" class="b-column"><%=congVan.getCvNgayNhan() %></td>
 										<td style="border: 1px solid black;text-align: center;" class="a-column"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
@@ -143,7 +159,7 @@ display:none;
 									</tr>	
 								<%}} %>
 						</tbody>
-						<%} %>
+						<%}} %>
 					</table>
 				</div>
 				<br>
@@ -162,26 +178,7 @@ display:none;
 								</tr>	
 						</table>
 				</div>
-				<div class="group-button">
-					
-					 <%
-        				if (exportToExcel == null) {
-   				 	 %>
-   				 	 <button class="button" id="print_button" type="button" onclick="window.print();">
-						<i class="fa fa-print"></i>&nbsp;&nbsp;In
-					</button>
-					&nbsp;
-					<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.xuatFile+".jsp"+ "?exportToExel=YES" %>'">
-						<i class="fa fa-print"></i>&nbsp;&nbsp;Xuất file
-					</button>
-					<% } %>
-					&nbsp;
-					<button type="button" id="print_button" class="button" onclick="location.href='<%=siteMap.baoCaoVatTuThieu+".jsp" %>'">
-						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
-					</button>
-				</div>
-			
-					<% }%>
+
 					
 				<% if("tonghop".equalsIgnoreCase(loaiBc)){
 			
@@ -191,6 +188,26 @@ display:none;
 	   		HashMap<Integer, ArrayList<Integer>> cvIdHash = (HashMap<Integer, ArrayList<Integer>>) session.getAttribute("cvIdHash");
 	   		HashMap<Integer, ArrayList<Integer>> soDenHash = (HashMap<Integer, ArrayList<Integer>>) session.getAttribute("soDenHash");
 	   		%>
+	   						 <%
+        			if (exportToExcel == null) {
+   				 %>
+   				 <div class="group-button" style="position: fixed; right: 10px;">
+				<button class="button" type="button" id="print_button" onclick="window.print()">
+					<i class="fa fa-print"></i>&nbsp;&nbsp;In
+				</button>
+				&nbsp;
+<!--     <a href="excel.jsp?exportToExcel=YES">Export to Excel</a> -->
+
+				<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.xuatFile+".jsp"+ "?exportToExel=YES" %>'">
+					<i class="fa fa-print"></i>&nbsp;&nbsp;Tải file
+				</button>
+				    
+				&nbsp;
+				<button type="button" id="print_button" class="button" onclick="location.href='<%=siteMap.baoCaoVatTuThieu+".jsp" %>'">
+					<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
+				</button>
+			</div>
+				<%}%>
 	   		 <table style = "margin: 0 auto;width:960px;">
 		<tr>
 			<td style="text-align: right;font-size: 17px;width:350px;">CÔNG TY ĐIỆN LỰC TP CẦN THƠ</td>
@@ -283,26 +300,7 @@ display:none;
 								</tr>	
 						</table>
 				</div>
-				 <%
-        			if (exportToExcel == null) {
-   				 %>
-   				 <div class="group-button">
-				<button class="button" type="button" id="print_button" onclick="window.print()">
-					<i class="fa fa-print"></i>&nbsp;&nbsp;In
-				</button>
-				&nbsp;
-<!--     <a href="excel.jsp?exportToExcel=YES">Export to Excel</a> -->
-
-				<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.xuatFile+".jsp"+ "?exportToExel=YES" %>'">
-					<i class="fa fa-print"></i>&nbsp;&nbsp;Tải file
-				</button>
-				    
-				&nbsp;
-				<button type="button" id="print_button" class="button" onclick="location.href='<%=siteMap.baoCaoVatTuThieu+".jsp" %>'">
-					<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
-				</button>
-			</div>
-				<%}}}%>
+<%}}%>
 <%-- 				<% if(exportToExcel != null) --%>
 <%-- 					response.sendRedirect("xuatFile.jsp");%> --%>
 </body>

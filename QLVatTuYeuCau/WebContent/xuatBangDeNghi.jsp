@@ -35,14 +35,9 @@ display:none;
 }
 
 @page 
-        { margin: 0;
- border: initial;
- border-radius: initial;
- width: initial;
- min-height: initial;
- box-shadow: initial;
- background: initial;
- page-break-after: always;}
+        { 
+            size: auto A4 landscape;
+        	color: black; background: white; }
 	   table 
 	   { 
 	   		font-size: 70%; 
@@ -79,6 +74,24 @@ display:none;
 	            
 	        }
 		%>
+		<div class="group-button" style="position: fixed; right: 10px;">
+					<%
+        				if (exportToExcel == null) {
+   				 	 %>
+   				 	 <button class="button" id="print_button" type="button" onclick="window.print();">
+						<i class="fa fa-print"></i>&nbsp;&nbsp;In
+					</button>
+					&nbsp;&nbsp;
+					<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.xuatBangDeNghi+".jsp"+ "?exportToExel=YES" %>'">
+						<i class="fa fa-print"></i>&nbsp;&nbsp;Tải file
+					</button>
+					&nbsp;&nbsp;
+					<button type="button" id="print_button" class="button"  onclick="location.href='<%=siteMap.baoCaoBangDeNghi+".jsp" %>'">
+						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
+					</button>
+					<% } %>
+					 
+				</div>
 		<table style = "margin: 0 auto;width:960px;">
 		<tr>
 			<td style="text-align: right;font-size: 17px;width:350px;">CÔNG TY ĐIỆN LỰC TP CẦN THƠ</td>
@@ -109,7 +122,7 @@ display:none;
 					<table style="text-align: center;margin: 0 auto; color: black;border: solid 1px black;width:1224px;">
 					<thead>
 						<tr bgcolor="#199e5e"  style= "border-style: solid;border-color:black;">
-							<th style="border: 1px solid black;font-size: 17px;width: 50px;" class="a-column">Số đến</th>
+<!-- 							<th style="border: 1px solid black;font-size: 17px;width: 50px;" class="a-column">Số đến</th> -->
 							<th style="border: 1px solid black;font-size: 17px;width: 100px;" class="b-column">Ngày nhận</th>
 							<th style="border: 1px solid black;font-size: 17px;width: 50px;" class="c-column">Mã vật tư</th>
 							<th style="border: 1px solid black;font-size: 17px;width: 350px;" class="d-column">Tên vật tư</th>
@@ -133,7 +146,7 @@ display:none;
 								<tr 
 									<%if (cnt % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>
 									style= "border-style: solid;border-color:black black black black;">
-									<td style="border: 1px solid black;font-size: 17px;" class="a-column"><%=congVan.getSoDen() %></td>
+<%-- 									<td style="border: 1px solid black;font-size: 17px;" class="a-column"><%=congVan.getSoDen() %></td> --%>
 									<td style="border: 1px solid black;font-size: 17px;" class="b-column"><%=congVan.getCvNgayNhan() %></td>
 									<td style="border: 1px solid black;font-size: 17px;" class="c-column"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
 									<td style="border: 1px solid black;font-size: 17px;text-align: left;" class="d-column"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
@@ -147,8 +160,7 @@ display:none;
 								</tr>
 									<%}} %>
 							</tbody>
-							<%} 
-					%>
+							<%} %>
 				</table>
 				</div>
 				<br>
@@ -165,24 +177,6 @@ display:none;
 									<td style="text-align: center;font-weight: bold;">Trưởng Phòng Vật Tư</td>
 								</tr>
 						</table>
-				</div>
-				<div class="group-button">
-					<%
-        				if (exportToExcel == null) {
-   				 	 %>
-   				 	 <button class="button" id="print_button" type="button" onclick="window.print();">
-						<i class="fa fa-print"></i>&nbsp;&nbsp;In
-					</button>
-					&nbsp;&nbsp;
-					<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.xuatBangDeNghi+".jsp"+ "?exportToExel=YES" %>'">
-						<i class="fa fa-print"></i>&nbsp;&nbsp;Tải file
-					</button>
-					&nbsp;&nbsp;
-					<button type="button" id="print_button" class="button"  onclick="location.href='<%=siteMap.baoCaoBangDeNghi+".jsp" %>'">
-						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
-					</button>
-					<% } %>
-					 
 				</div>
 		</body>
 		</html>

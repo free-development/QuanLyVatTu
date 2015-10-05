@@ -8,7 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import model.CTVatTu;
 import model.DonVi;
 import model.NoiSanXuat;
 import util.JSonUtil;
@@ -32,6 +34,7 @@ import dao.NoiSanXuatDAO;
 @Controller
 public class NsxController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	HttpSession session;  
 	int page = 1;
 	@RequestMapping("/manageNsx")
 	public ModelAndView manageNsx(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,7 +43,7 @@ public class NsxController extends HttpServlet {
     	response.getCharacterEncoding();
     	request.setCharacterEncoding("UTF-8");
     	response.setCharacterEncoding("UTF-8");  
-		
+		HttpSession session = request.getSession(false);
 		String action = request.getParameter("action");
 //		if("AddNsx".equalsIgnoreCase(action)) {
 //			String nsxMa = request.getParameter("nsxMa");
@@ -64,6 +67,8 @@ public class NsxController extends HttpServlet {
 			long size = noiSanXuatDAO.size();
 			ArrayList<NoiSanXuat> noiSanXuatList =  (ArrayList<NoiSanXuat>) noiSanXuatDAO.limit(page - 1, 10);
 			System.out.println(size);
+			ArrayList<NoiSanXuat> allNoiSanXuatList =  (ArrayList<NoiSanXuat>) noiSanXuatDAO.getAllNoiSanXuat();
+			session.setAttribute("allNoiSanXuatList", allNoiSanXuatList);
 			request.setAttribute("size", size);
 			noiSanXuatDAO.disconnect();
 			return new ModelAndView("danh-muc-noi-san-xuat", "noiSanXuatList", noiSanXuatList);

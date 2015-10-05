@@ -482,7 +482,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 							<button class="button" type="button" onclick="confirmDelete();">
 								<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa
 							</button>
-							<button class="button" type="button" onclick="location.href='<%=siteMap.xuatCongVan+".jsp"%>'">
+							<button class="button" type="button" onclick="location.href='<%=siteMap.bccvManage+"?action=baocaocv"%>'">
 							<i class="fa fa-print"></i>&nbsp;&nbsp;Xuất file
 							</button>
 							<%} %>
