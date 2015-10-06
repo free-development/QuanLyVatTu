@@ -31,8 +31,6 @@ public class NoiSanXuatDAO {
 		session.beginTransaction();
 		
 		NoiSanXuat noiSanXuat = (NoiSanXuat) session.get(NoiSanXuat.class, nsxMa);
-//		session.
-		
 		session.getTransaction().commit();
 		return noiSanXuat;
 	}

@@ -97,6 +97,10 @@ public class siteMap {
 	public static final String xuatFile = "xuatFile";
 
 	public static final String xuatNsx = "xuatNsx";
+	
+	public static final String xuatCl = "xuatCl";
+	
+	public static final String xuatDv = "xuatDv";
 
 	// map login page
 	public static final String  loginAction =  home + "login.html";
@@ -123,5 +127,11 @@ public class siteMap {
 	// map home page
 	public static final String homePageManage = home + "home.html";
 	public static final String homePage = "index";
+	//xuat cac danh muc
 	
+	public static final String downloadExcelNsx = home + "downloadExcelNsx.html";
+	
+	public static final String downloadExcelCl = home + "downloadExcelCl.html";
+	
+	public static final String downloadExcelDv = home + "downloadExcelDv.html";
 }

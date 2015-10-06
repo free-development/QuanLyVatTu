@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.ChatLuong;
 import model.MucDich;
@@ -31,6 +32,7 @@ import dao.VaiTroDAO;
 @Controller
 public class ClController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	HttpSession session;  
 	int page = 1;
 	@RequestMapping("/manageCl")
 	public ModelAndView manageCl(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,8 +41,15 @@ public class ClController extends HttpServlet {
 		
 		if("manageCl".equalsIgnoreCase(action)) {
 			ChatLuongDAO chatLuongDAO = new ChatLuongDAO();
+			request.getCharacterEncoding();
+	    	response.getCharacterEncoding();
+	    	request.setCharacterEncoding("UTF-8");
+	    	response.setCharacterEncoding("UTF-8");  
+			HttpSession session = request.getSession(false);
 			long size = chatLuongDAO.size();
 			ArrayList<ChatLuong> chatLuongList =  (ArrayList<ChatLuong>) chatLuongDAO.limit(page -1, 10);
+			ArrayList<ChatLuong> allChatLuongList =  (ArrayList<ChatLuong>) chatLuongDAO.getAllChatLuong();
+			session.setAttribute("allChatLuongList", allChatLuongList);
 			request.setAttribute("size", size);
 			chatLuongDAO.disconnect();
 			return new ModelAndView("danh-muc-chat-luong", "chatLuongList", chatLuongList);

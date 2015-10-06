@@ -131,6 +131,10 @@
 							onclick="showForm2('view-table','import-formct', true)"> 
 							<i class="fa fa-pencil fa-fw"></i>&nbsp;Import 
 						</button>&nbsp;
+						<button class="button" type="button" onclick="location.href='<%=siteMap.xuatCl+".jsp"%>'">
+							<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xuất File
+						</button>
+						&nbsp;
 					<button class="button" type="reset">
 						<i class="fa fa-spinner"></i>&nbsp;&nbsp;Bỏ qua
 					</button>

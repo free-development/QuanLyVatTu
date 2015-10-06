@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.DonVi;
 
@@ -26,48 +27,50 @@ import dao.DonViDAO;
 public class BpsdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	int page = 1;
+	HttpSession session;  
 	@RequestMapping("/manageBpsd")
 	public ModelAndView manageBpsd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getCharacterEncoding();
-		response.getCharacterEncoding();
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		DonViDAO donViDAO = new DonViDAO();
-		
+
 		String action = request.getParameter("action");
-		if("AddBp".equalsIgnoreCase(action)) {
-			String dvMa = request.getParameter("dvMa");
-			String dvTen = request.getParameter("dvTen");
-			String sdt = request.getParameter("sdt");
-			String diaChi = request.getParameter("diaChi");
-			String email = request.getParameter("email");
-			donViDAO.addDonVi(new DonVi(dvMa, dvTen, sdt, diaChi, email,0 ));			
-			ArrayList<DonVi> donViList =  (ArrayList<DonVi>) donViDAO.getAllDonVi();
-			donViDAO.disconnect();
-			return new ModelAndView("danh-muc-bo-phan", "donViList", donViList);
-		}
-		
-		if("deleteBpsd".equalsIgnoreCase(action)) {
-			String[] idList = request.getParameterValues("dvMa");
-			for(String s : idList) {
-				if(s != null) {
-					donViDAO.deleteDonVi(s);
-				}
-			}
-			ArrayList<DonVi> donViList =  (ArrayList<DonVi>) donViDAO.getAllDonVi();
-			donViDAO.disconnect();
-			return new ModelAndView("danh-muc-bo-phan", "donViList", donViList);
-		}
-		
+//		if("AddBp".equalsIgnoreCase(action)) {
+//			String dvMa = request.getParameter("dvMa");
+//			String dvTen = request.getParameter("dvTen");
+//			String sdt = request.getParameter("sdt");
+//			String diaChi = request.getParameter("diaChi");
+//			String email = request.getParameter("email");
+//			donViDAO.addDonVi(new DonVi(dvMa, dvTen, sdt, diaChi, email,0 ));			
+//			ArrayList<DonVi> donViList =  (ArrayList<DonVi>) donViDAO.getAllDonVi();
+//			donViDAO.disconnect();
+//			return new ModelAndView("danh-muc-bo-phan", "donViList", donViList);
+//		}
+//		
+//		if("deleteBpsd".equalsIgnoreCase(action)) {
+//			String[] idList = request.getParameterValues("dvMa");
+//			for(String s : idList) {
+//				if(s != null) {
+//					donViDAO.deleteDonVi(s);
+//				}
+//			}
+//			ArrayList<DonVi> donViList =  (ArrayList<DonVi>) donViDAO.getAllDonVi();
+//			donViDAO.disconnect();
+//			return new ModelAndView("danh-muc-bo-phan", "donViList", donViList);
+//		}
+//		
 		if("manageBpsd".equalsIgnoreCase(action)) {
+			DonViDAO donViDAO = new DonViDAO();
+			request.getCharacterEncoding();
+	    	response.getCharacterEncoding();
+	    	request.setCharacterEncoding("UTF-8");
+	    	response.setCharacterEncoding("UTF-8");  
+			HttpSession session = request.getSession(false);
 			long size = donViDAO.size();
 			ArrayList<DonVi> donViList =  (ArrayList<DonVi>) donViDAO.limit(page - 1, 10);
+			ArrayList<DonVi> allDonViList  = (ArrayList<DonVi>) donViDAO.getAllDonVi();
+			session.setAttribute("allDonViList", allDonViList);
 			request.setAttribute("size", size);
 			donViDAO.disconnect();
 			return new ModelAndView("danh-muc-bo-phan", "donViList", donViList);
 		}
-		donViDAO.disconnect();
 		return new ModelAndView("login");
 	}
 	@RequestMapping(value="/preEditBp", method=RequestMethod.GET,
