@@ -188,10 +188,10 @@ public class CvController extends HttpServlet{
     
     @RequestMapping("/cvManage")
 	public ModelAndView manageCV(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.getCharacterEncoding();
-		response.getCharacterEncoding();
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
+//    	request.getCharacterEncoding();
+//		response.getCharacterEncoding();
+//		request.setCharacterEncoding("UTF-8");
+//		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession(false);
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
 		if (nguoiDung == null)
@@ -251,11 +251,12 @@ public class CvController extends HttpServlet{
     	root =  request.getRealPath("/");
     	//root =  "/home/quoioln/DATA/";
     //	root =  "/home/quoioln/DATA/";
-    	request.getCharacterEncoding();
-		response.getCharacterEncoding();
-		request.setCharacterEncoding("UTF-8");
+//    	request.getCharacterEncoding();
+//		response.getCharacterEncoding();
+    	response.setContentType ("text/html;charset=utf-8");
+    	request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		response.setContentType ("text/html;charset=utf-8");
+		
     	CongVanDAO congVanDAO = new CongVanDAO();
     	FileDAO fileDAO = new FileDAO();
     	

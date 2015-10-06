@@ -251,6 +251,12 @@ public class YcController extends HttpServlet {
 //		yeuCau.setYcSoLuong(sl);
 		ycDAO.capVatTu(yeuCau, sl);
 		ycDAO.disconnect();
+		CTVatTu ctVatTu = yeuCau.getCtVatTu();
+		CTVatTuDAO ctVatTuDAO = new CTVatTuDAO();
+		ctVatTu.setSoLuongTon(ctVatTu.getSoLuongTon() - sl);
+		ctVatTuDAO.updateCTVatTu(ctVatTu);
+		ctVatTuDAO.disconnect();
+		
 		return JSonUtil.toJson(yeuCau);
 	}
 //	@RequestMapping(value="/loadPageCtvtYc", method=RequestMethod.GET, 

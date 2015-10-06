@@ -245,12 +245,11 @@ public class YeuCauDAO {
 	}
 	// function cap vat tu
 	public YeuCau capVatTu(YeuCau yeuCau, final int soLuongCap) {
-		
 		int sl = yeuCau.getCapSoLuong();
 		if(yeuCau.getDaXoa() == 0)
 			sl += soLuongCap;
 		yeuCau.setCapSoLuong(sl);
-		new YeuCauDAO().updateYeuCau(yeuCau);
+		updateYeuCau(yeuCau);
 		return yeuCau;
 	}
 	// check before update so luong yeu cau
@@ -265,7 +264,7 @@ public class YeuCauDAO {
 		int ycSoLuong = yeuCau.getYcSoLuong();
 		int temp = ycSoLuong - capSoLuong;
 		int soLuongTon = yeuCau.getCtVatTu().getSoLuongTon();
-		if (soLuongTon <= soLuong)
+		if (soLuongTon < soLuong)
 			return -2;
 		if (temp >= 0)
 			return 1;

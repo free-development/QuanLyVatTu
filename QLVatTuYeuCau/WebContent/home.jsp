@@ -39,7 +39,7 @@
 		};
 		$(window).load(function(){
 // 			$("body").css("cursor", "auto");		
-			//Set the cursor ASAP to "Wait"
+// 			Set the cursor ASAP to "Wait"
 // 		    document.body.style.cursor='wait';
 
 		    //When the window has finished loading, set it back to default...
@@ -96,9 +96,10 @@ msnv = '<%=authentication.getMsnv()  %>';
 					%>
 					<div class="view-tbao" >
 					<div id = "alert">
+					<% if (chucDanh.equalsIgnoreCase(truongPhongMa) && ctVatTuListAlert != null && ctVatTuListAlert.size() > 0) { %>
 						<table style="width:550px;">
 						<tr ><th colspan = "5" style="text-align: center; width: 300px; font-size: 20px;color:red;"><i class="fa fa-sign-out"></i>&nbsp;Công việc</th></tr>
-						<% if (chucDanh.equalsIgnoreCase(truongPhongMa) && ctVatTuListAlert != null && ctVatTuListAlert.size() > 0) { %>
+						
 						<tr style="background-color:white;">
 							<th colspan ="5" style="text-align: center; width: 180px;color:red;">Vật tư dưới định mức: </th>
 						</tr>
@@ -118,9 +119,10 @@ msnv = '<%=authentication.getMsnv()  %>';
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getDinhMuc()%> </td>
 							<td colspan ="1" style="text-align: left;"><%=ctVatTu.getSoLuongTon()%> </td>
 						</tr>
-						<%}} %>
+						<%} %>
 						</table>
 						<div class="button-group"><button class="button" id ="moreAlert">Xem thêm</button></div>
+						<%} %>
 						</div>
 						<div id = "work">
 						<table style="width:550px;">

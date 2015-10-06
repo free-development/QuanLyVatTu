@@ -225,7 +225,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : #FFFFFF;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
 						<tr >
 						<% if (chucDanhMa.equals(vanThuMa) || chucDanhMa.equals(adminMa)) {%>
-							<td class="column-check" rowspan="8" style="margin-right: 30px;">
+							<td class="column-check" rowspan="9" style="margin-right: 30px;">
 								Chọn <input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>"> 
 							</td>
 							
@@ -352,13 +352,17 @@ msnv = '<%=authentication.getMsnv()  %>';
 							if (index3 != -1)
 								fileName += path.substring(index3);
 							%>
-							<td colspan="1">
+							<td colspan="6">
 								<a target="_black" href="<%="/QLVatTuYeuCau/downloadFileMn.html" + "?action=download&file=" + congVan.getCvId()%>">
 									<div class="mo-ta"><%=fileName %></div>
 								</a>
 							</td>
-							<td class="left-column-first" style="font-weight: bold;">Ghi chú: </td>
-							<td colspan="3">
+							
+							
+						</tr>
+						<tr>
+						<td class="left-column-first" style="font-weight: bold;">Ghi chú: </td>
+						<td colspan="5">
 								<%=file.getMoTa() %>
 							</td>
 						</tr>
@@ -517,7 +521,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
 						</button>
 						<button type="button" class="button"
-							onclick="showForm('main-form', 'add-form', false)">
+							onclick="hideAddForm();">
 							<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 						</button>
 					</div>
@@ -595,7 +599,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
 						</button>
 						<button type="button" class="button"
-							onclick="showForm('main-form', 'update-form', false)">
+							onclick="hideUpdateForm();">
 							<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 						</button>
 					</div>
