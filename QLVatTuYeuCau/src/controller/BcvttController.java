@@ -97,6 +97,7 @@ public class BcvttController extends HttpServlet {
     				ArrayList<Integer> soDenList = new ArrayList<Integer>();
     				ArrayList<Integer> soDenListCu = soDenHash.get(ctVtId);
     				int soDen = congVanDAO.getSoDen(cvId);
+    				//String ngayden = congVanDAO.g
     				System.out.println("CV:"+cvId);
     				System.out.println("SOden:"+soDen);
     				if (cvListCu != null) {
