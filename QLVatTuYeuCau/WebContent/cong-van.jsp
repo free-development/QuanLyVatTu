@@ -1,5 +1,4 @@
 <%@page import="model.VTCongVan"%>
-<%@page import="javax.swing.JOptionPane"%>
 <%@page import="model.VaiTro"%>
 <%@page import="dao.VaiTroDAO"%>
 <%@page import="model.NguoiDung"%>
@@ -29,6 +28,7 @@
 	type="text/css" rel="stylesheet">
 <script type="text/javascript" src="js/location.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/date-util.js"></script>
 
 <%
 		String truongPhongMa = request.getServletContext().getInitParameter("truongPhongMa");
@@ -49,6 +49,7 @@
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		response.setContentType ("text/html;charset=utf-8");
 		String error = (String) request.getAttribute("error");
 		if(error != null)
 			out.println("<script>alert('Số công văn đã tồn tại. Vui lòng nhập lại!!!')</script>");
@@ -102,62 +103,7 @@ msnv = '<%=authentication.getMsnv()  %>';
     
 	<div class="wrapper">
 		<jsp:include page="header.jsp" /> 
-		<div class="main_menu">
-			<ul>
-				<li><a href="<%=siteMap.homePageManage%>">Trang chủ</a></li>
-				<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
-				
-				<li><a>Danh mục</a>
-					<ul>
-								<li><a href="<%=siteMap.nsxManage + "?action=manageNsx"%>">Danh
-										mục nơi sản xuất</a></li>
-								<li><a href="<%=siteMap.clManage + "?action=manageCl"%>">Danh
-										mục chất lượng</a></li>
-								<li><a href="<%=siteMap.vattuManage + "?action=manageVattu"%>">Danh
-										mục vật tư</a></li>
-								<li><a href="<%=siteMap.ctvtManage + "?action=manageCtvt"%>">Vật tư tồn kho</a></li>
-								<li><a href="<%=siteMap.bpsdManage +  "?action=manageBpsd"%>">Danh
-										mục bộ phận sử dụng</a></li>
-								<li><a href="<%=siteMap.mdManage + "?action=manageMd"%>">Danh
-										mục mục đích</a></li>
-								<li><a href="<%=siteMap.vtManage + "?action=manageVt"%>">Danh mục vai trò</a></li>
-								<li><a href="<%=siteMap.dvtManage + "?action=manageDvt"%>">Danh mục đơn vị tính</a></li>
-								<li><a href="<%=siteMap.cdManage + "?action=manageCd"%>">Danh
-										mục chức danh</a></li>
-								
-							</ul>
-				</li>
-				<%} %>
-				<li><a href="<%=siteMap.cvManage+ "?action=manageCv" %>">Công văn</a></li>
-				<%if (!chucDanh.equalsIgnoreCase(vanThuMa)){ %>
-				<li><a>Báo cáo</a>
-					<ul>
-						<li><a href="<%=siteMap.bcvttManage+ "?action=manageBcvtt" %>"/>Báo cáo vật tư thiếu</li>
-						<li><a href="<%=siteMap.bcbdnManage+ "?action=manageBcbdn" %>"/>Báo cáo bảng đề nghị cấp vật tư</li>
-					</ul>
-				</li>
-				<%} %>
-				<%if (adminMa.equalsIgnoreCase(chucDanh)) {%>
-				<li><a>Quản lý người dùng</a>
-					<ul>
-						<li><a href="<%=siteMap.ndManage + "?action=manageNd"%>"/>Thêm người dùng</li>
-						<li><a href="<%=siteMap.updateNguoiDung%>"/>Cập nhật thông tin</li>
-						<li><a href="<%=siteMap.resetPassword%>"/>Khôi phục mật khẩu</li>
-						<li><a href="<%=siteMap.lockNguoiDung%>"/>Khóa tài khoản</li>
-						<li><a href="<%=siteMap.resetNguoiDung%>"/>Khôi phục tài khoản</li>
-					</ul>
-				</li>
-				<%} %>
-				<li><a>Tài khoản</a>
-					<ul>
-						<li><a href="<%=siteMap.changePassPage + ".jsp"%>">Đổi mật khẩu</a></li>
-						<li><a href="<%=siteMap.logout + "?action=logout"%>">Đăng xuất</a></li>
-					</ul>
-				</li>		
-			</ul>
-			<div class="clear"></div>
-		</div>
-				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
+		
 
 		<div id="main-content">
 			<div id="content-form">
@@ -269,7 +215,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 
 
                      <form name="main-form" id = "main-form" method="get" action="<%=siteMap.ycvtManage%>">
-                     <div style="height: 500px; width: 810px; overflow:auto" class="scroll_content ">
+                     <div style="width: 810px; overflow:auto" class="scroll_content ">
 						<%
 					
                      	int count = 0;
@@ -330,7 +276,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 											System.out.println("size ngXlCv = " + nguoiXlList.size());
 											StringBuilder cellHoTen = new StringBuilder("");   
 											for (String hoTen : nguoiXlList) {
-												cellHoTen.append(hoTen + ", ");
+												cellHoTen.	append(hoTen + ", ");
 											}
 											int len = cellHoTen.length();
 											cellHoTen.delete(len -2, len);
@@ -482,6 +428,9 @@ msnv = '<%=authentication.getMsnv()  %>';
 							<button class="button" type="button" onclick="confirmDelete();">
 								<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa
 							</button>
+							<button class="button" type="button" onclick="location.href='<%=siteMap.bccvManage+"?action=baocaocv"%>'">
+							<i class="fa fa-print"></i>&nbsp;&nbsp;Xuất file
+							</button>
 							<%} %>
 <!-- 							<button class="button" "> -->
 <!-- 								<i class="fa fa-trash-o"></i>&nbsp;&nbsp;Xóa -->
@@ -501,7 +450,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 				<!--    		</form>  -->
 				<!--                add-form-->
 				<%if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)  || chucDanh.equals(adminMa)) { %>
-				<form id="add-form" action="<%=siteMap.addCv %>" enctype="multipart/form-data" method="post">
+				<form id="add-form" action="<%=siteMap.addCv %>" enctype="multipart/form-data" method="post" acceptcharset="UTF-8">
 
 					<div class="form-title">Thêm công văn</div>
 					<div class="input-table">

@@ -65,6 +65,7 @@ public class siteMap {
 	//map manage bao cao bang de nghi cap vat tu
 	public static final String bcbdnManage = home + "manageBcbdn.html";
 	public static final String baoCaoBangDeNghi = "bao-cao-bang-de-nghi-cap-vat-tu";
+	public static final String bccvManage = home + "manageBccv.html";
 	
 	// map chia se cong van
 	public static final String cscvManage = home +  "cscvManage.html";
@@ -105,6 +106,9 @@ public class siteMap {
 	public static final String  loginAction =  home + "login.html";
 	public static final String  login = "login";
 	public static final String  xuatBangDeNghi = "xuatBangDeNghi";
+	//map xuat cong van
+	public static final String  xuatCongVan = "xuatCongVan";
+	public static final String  bCCongVan = "bao-cao-cong-van";
 	//map home
 		
 	//map readExel

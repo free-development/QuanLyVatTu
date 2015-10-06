@@ -83,15 +83,20 @@ display:none;
 				</div>
 		<table style = "margin: 0 auto;width:960px;">
 		<tr>
-			<td style="text-align: left; width: 500px;font-size: 17px;">CÔNG TY ĐIỆN LỰC THÀNH PHỐ CẦN THƠ</td>		
-		<tr>
-			<td style="text-align: left; width: 350px;font-size: 17px;left: 20px;">PHÒNG VẬT TƯ</td>
+			<td style="text-align: right;font-size: 17px;width:350px;">CÔNG TY ĐIỆN LỰC TP CẦN THƠ</td>
+			<td style="text-align: center;font-size: 17px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
 		</tr>
 		<tr>
-			<td style="text-align: center; width: 350px;font-size: 17px;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</td>
+			<td style="font-size: 17px; padding-left: 150px;">PHÒNG VẬT TƯ</td>
+			<td style="font-size: 17px; text-align: center;">Độc lập - Tự do - Hạnh phúc</td>
 		</tr>
 		<tr>
-			<td style="text-align: center; width: 350px;font-size: 17px;">Độc lập - Tự do - Hạnh phúc</td>		
+		<td style="padding-left: 150px;">-----------------------</td>
+		<td style="text-align: center;">-----------------------</td>
+		</tr>
+		<tr>
+		<td></td>
+		<td style="font-size: 17px; text-align: center;">Cần Thơ, ngày...tháng...năm...</td>
 		</tr>
 		</table>
 		<div style="text-align: center;font-size: 30px;font-weight: bold;color: solid black;margin-top:20px;">BÁO CÁO VẬT TƯ TỒN KHO</div>
@@ -119,7 +124,7 @@ display:none;
 			
 												<tr style= "border-style: solid;border-color:black;" class="rowContent">
 													<td style="border: 1px solid black;font-size: 17px;"><%=i++%></td>
-													<td style="border: 1px solid black;font-size: 17px;"><%=ctVatTu.getVatTu().getVtMa() %></td>
+													<td style="border: 1px solid black;font-size: 17px;text-align: center;"><%=ctVatTu.getVatTu().getVtMa() %></td>
 													<td style="border: 1px solid black;font-size: 17px;text-align: left"><%=ctVatTu.getVatTu().getVtTen() %></td>
 													<td style="border: 1px solid black;font-size: 17px;width: 40px;text-align: center;"><%=ctVatTu.getNoiSanXuat().getNsxTen() %></td>
 													<td style="border: 1px solid black;font-size: 17px;text-align: center;"><%=ctVatTu.getChatLuong().getClTen() %></td>
@@ -131,15 +136,15 @@ display:none;
 									</tbody>
 				</table>
 				</div>
-				<div style="width:960px;font-size: 18px;margin: auto;">
-						<table style="width:960px;font-size: 18px;;">
+				<div style="width:800px;font-size: 18px;margin: auto;">
+						<table style="width:800px;font-size: 18px;;">
 								<tr>
-									<td></td>
-									<td style="text-align: right;">Ngày.....tháng.....năm.....</td>
+								<td></td>
+								<td style="font-size: 17px; text-align: center;">Cần Thơ, ngày...tháng...năm...</td>
 								</tr>
 								<tr>
-									<td style="text-align: left;font-weight: bold;">Người lập biểu</td>
-									<td style="text-align: right;font-weight: bold;">Trưởng Phòng Vật Tư</td>
+									<td style="padding-left: 50px;font-weight: bold;">Người lập biểu</td>
+									<td style="text-align: center;font-weight: bold;">Trưởng Phòng Vật Tư</td>
 								</tr>
 						</table>
 				</div>

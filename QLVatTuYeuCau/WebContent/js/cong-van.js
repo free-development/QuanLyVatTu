@@ -315,6 +315,14 @@ function loadCongVan(congVanList, fileList, unknownList, vtCongVanList) {
 		for (var i = 0; i < length; i++) {
 			var style = 'style=\"';
 			var congVan = congVanList[i];
+			
+			var cvNgayNhan = parseDate(congVan.cvNgayNhan);
+//  			var dateTemp = congVan.cvNgayNhan.split('\\-');
+//  			var date = dateTemp[2] + '/' + dateTemp[1] + '/' + dateTemp[0];   
+//  			alert(date);
+//			alert(cvNgayNhan);
+//			alert(congVan.cvNgayNhan);
+			var cvNgayDi = parseDate(congVan.cvNgayDi);   
 			var file = fileList[i];
 			if (i % 2 == 1)
 				style += 'background : #CCFFFF; ';
@@ -323,7 +331,7 @@ function loadCongVan(congVanList, fileList, unknownList, vtCongVanList) {
 			style += ' font-size: 16px; width: 900px;\"';
 			tables +=     '<table class=\"tableContent\" ' + style + ' class=\"border-congvan\">'
 						+ '<tr >';
-						if(chucDanhMa == vanThuMa) {
+						if(chucDanhMa == vanThuMa || chucDanhMa == adminMa) {
 						tables += '<td class=\"column-check\" rowspan=\"8\" style=\"margin-right: 30px;\">'
 						+ 'Chọn <input title=\"Click để chọn công văn\" type=\"checkbox\" name=\"cvId\" value=\"' + congVan.cvId + '\">'
 						+ '</td>';
@@ -331,7 +339,7 @@ function loadCongVan(congVanList, fileList, unknownList, vtCongVanList) {
 						tables += '<td class=\"left-column-soden\" style=\"font-weight: bold;\">Số đến: &nbsp;&nbsp;</td>'
 						+ '<td class=\"column-so-den\" style=\"text-align: left\">' + congVan.soDen + '</td>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Ngày đến: &nbsp;&nbsp;</td>'
-						+ '<td colspan =\"3\" class=\"column-date\" style=\"text-align: left;color:blue;\">' + congVan.cvNgayNhan + '</td>'
+						+ '<td colspan =\"3\" class=\"column-date\" style=\"text-align: left;color:blue;\">' + cvNgayNhan + '</td>'
 //						+ '<td colspan=\"1\" style=\"font-weight: bold;\">Trạng thái</td>'
 //						+ '<td colspan=\"1\" style=\"color:red;font-weight: bold;font-style: oblique;\">' + congVan.trangThai.ttTen + '</td>'
 						+ '</tr>'
@@ -339,7 +347,7 @@ function loadCongVan(congVanList, fileList, unknownList, vtCongVanList) {
 						+ '<td class=\"left-column-socv\" style=\"font-weight: bold;\">Số công văn đến: &nbsp;&nbsp;</td>'
 						+ '<td colspan=\"3\" class=\"column-socv\" style=\"text-align: left;color:red;\">' + congVan.cvSo + '</td>'
 						+ '<th  class=\"left-column-ngdi\" style=\"font-weight: bold;\">Ngày công văn đi:&nbsp;&nbsp;</th>'
-						+ '<td class=\"column-date\" style=\"text-align: left;color:blue;\">' + congVan.cvNgayDi+ '</td>'
+						+ '<td class=\"column-date\" style=\"text-align: left;color:blue;\">' + cvNgayDi+ '</td>'
 						+ '</tr>'
 						+ '<tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Mục đích: &nbsp;&nbsp;</td>'

@@ -29,8 +29,9 @@ display:none;
 }
 @page 
         {
+            {
             size: auto A4 landscape;
-        	color: black; background: white; }
+        	color: black; background: white; } }
 	   table 
 	   { 
 	   		font-size: 70%; 
@@ -114,7 +115,7 @@ display:none;
 					<table  style="border: solid 1px black;width:1224px;">
 						<thead >
 							<tr bgcolor="#199e5e" style="border: 1px solid black;" >
-								<th style="border: 1px solid black;width: 50px;" class="one-column">Số đến</th>
+<!-- 								<th style="border: 1px solid black;width: 50px;" class="one-column">Số đến</th> -->
 								<th style="border: 1px solid black;width: 100px;" class="one-column">Số công văn</th>
 								<th style="border: 1px solid black;width: 100px;" class="three-column">Ngày nhận</th>
 								<th style="border: 1px solid black;width: 100px;" class="three-column" style="text-align: center;">Mã vật tư</th>
@@ -122,6 +123,7 @@ display:none;
 								<th style="border: 1px solid black;width: 100px;" class="three-column">Nơi sản xuất</th>
 								<th style="border: 1px solid black;width: 100px;" class="three-column">Chất lượng</th>
 								<th style="border: 1px solid black;width: 250px;" class="three-column">Đơn vị</th>
+								<th style="border: 1px solid black;width: 50px;" class="three-column">Đơn vị tính</th>
 								<th style="border: 1px solid black;width: 50px;" class="three-column">Đvt</th>
 								<th style="border: 1px solid black;width: 50px;" class="one-column">Số lượng thiếu</th>
 								<th style="border: 1px solid black;width: 50px;" class="one-column">Số lượng tồn</th>
@@ -143,7 +145,7 @@ display:none;
 												
 									<tr style= "border-style: solid;border-color:black;"
 										<%if (count % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>>
-										<td style="border: 1px solid black;text-align: center;" class="a-column"><%=congVan.getSoDen() %></td>
+<%-- 										<td style="border: 1px solid black;text-align: center;" class="a-column"><%=congVan.getSoDen() %></td> --%>
 										<td style="border: 1px solid black;text-align: center;" class="a-column"><%=congVan.getCvSo() %></td>
 										<td style="border: 1px solid black;text-align: center;" class="b-column"><%=congVan.getCvNgayNhan() %></td>
 										<td style="border: 1px solid black;text-align: center;" class="a-column"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
