@@ -269,6 +269,7 @@ function capVatTu() {
 				$('input[name="yeuCau"]:checked').prop('checked',false);
 	  		}
 	  		showForm('add-yeu-cau-form','cap-so-luong-form',false);
+	  		$('input[name="yeuCau"]:checked').prop('checked',false);
 	  		$('#danh-sach-vat-tu').show();
 	  		$('#main-form').show();
   		}

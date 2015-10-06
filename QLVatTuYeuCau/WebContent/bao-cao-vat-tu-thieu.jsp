@@ -102,7 +102,7 @@
 		   		HashMap<Integer, ArrayList<YeuCau>> yeuCauHash = (HashMap<Integer, ArrayList<YeuCau>>) session.getAttribute("yeuCau");
 		   		
 		    %>
-					<div style="text-align: center;font-size: 20px;color:firebrick;font-weight: bold;margin-top:10px;">Chi tiết vật tư thiếu</div>
+					<div style="text-align: center;font-size: 25px;color:firebrick;font-weight: bold;margin-top:10px;">Chi tiết vật tư thiếu</div>
 					<div id="view-table-bao-cao" style="max-height: 520px;width: 1200px;display: auto;border: 1px dotted #CCCCCC;margin: 0 auto;overflow: scroll;">
 					<table style="margin: 0 auto; width:1190px; border: 1px dotted black;">
 							<tr bgcolor="#199e5e"style="border: 1px dotted black;">
@@ -169,7 +169,7 @@
 	   		HashMap<Integer, ArrayList<Integer>> soDenHash = (HashMap<Integer, ArrayList<Integer>>) session.getAttribute("soDenHash");
 	   		%>
 			
-				<div style="text-align: center;font-size: 20px;color:firebrick;font-weight: bold;margin-top:10px;">Tổng hợp vật tư thiếu</div>
+				<div style="text-align: center;font-size: 25px;color:firebrick;font-weight: bold;margin-top:10px;">Tổng hợp vật tư thiếu</div>
 				<div id="view-table-bao-cao" style="max-height: 420px;width: 1200px;display: auto;border: 1px dotted #CCCCCC;margin: 0 auto;overflow: scroll;">
 				<table style="margin: 0 auto;width:1200px;border: 1px dotted black;" >
 					<tr bgcolor="#199e5e" style="border: 1px dotted black;">
