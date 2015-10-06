@@ -32,30 +32,7 @@ public class BpsdController extends HttpServlet {
 	public ModelAndView manageBpsd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String action = request.getParameter("action");
-//		if("AddBp".equalsIgnoreCase(action)) {
-//			String dvMa = request.getParameter("dvMa");
-//			String dvTen = request.getParameter("dvTen");
-//			String sdt = request.getParameter("sdt");
-//			String diaChi = request.getParameter("diaChi");
-//			String email = request.getParameter("email");
-//			donViDAO.addDonVi(new DonVi(dvMa, dvTen, sdt, diaChi, email,0 ));			
-//			ArrayList<DonVi> donViList =  (ArrayList<DonVi>) donViDAO.getAllDonVi();
-//			donViDAO.disconnect();
-//			return new ModelAndView("danh-muc-bo-phan", "donViList", donViList);
-//		}
-//		
-//		if("deleteBpsd".equalsIgnoreCase(action)) {
-//			String[] idList = request.getParameterValues("dvMa");
-//			for(String s : idList) {
-//				if(s != null) {
-//					donViDAO.deleteDonVi(s);
-//				}
-//			}
-//			ArrayList<DonVi> donViList =  (ArrayList<DonVi>) donViDAO.getAllDonVi();
-//			donViDAO.disconnect();
-//			return new ModelAndView("danh-muc-bo-phan", "donViList", donViList);
-//		}
-//		
+	
 		if("manageBpsd".equalsIgnoreCase(action)) {
 			DonViDAO donViDAO = new DonViDAO();
 			request.getCharacterEncoding();
