@@ -53,6 +53,7 @@ public class DonViFile extends AbstractExcelView {
 		
 		// create header row
 		HSSFRow header = sheet.createRow(0);
+		response.setHeader("Content-Disposition", "inline; filename=" + "Bophansudung.xls");
 		
 		header.createCell(0).setCellValue("Mã Bộ phận sử dụng");
 		header.getCell(0).setCellStyle(style);

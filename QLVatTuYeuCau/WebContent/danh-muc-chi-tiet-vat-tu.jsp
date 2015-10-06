@@ -144,9 +144,9 @@
 					</div>			
 				</form>
 				</div>
-						<form id="import-form" action="<%=siteMap.readExcel %>" method="post" enctype="multipart/form-data" >
+						<form id="import-form" action="<%=siteMap.readExcel %>" method="post" enctype="multipart/form-data" onsubmit="document.body.style.cursor='wait'; return true;">
 								<input type="file" name="file" accept=".xls, .xlsx" class="text" style="padding-left: 0px;">
-<div class="button-group" style="margin-top: -40px;"><input value="uploadFile" name="action" type="submit" class="button">
+<div class="button-group" style="margin-top: -40px;"><input value="uploadFile" name="action" type="submit" class="button" onclick="document.body.style.cursor='wait'; return true;">
 								<input value="Thoát" onclick="showForm('import-form',false);" type="button" class="button">
 								</div>
 						</form>

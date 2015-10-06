@@ -128,7 +128,7 @@
 					</button>
 					&nbsp;
 					<button type="button" class="button" 
-							onclick="showForm2('view-table','import-formct', true)"> 
+							onclick="showForm2('main-form','import-formct', true)"> 
 							<i class="fa fa-pencil fa-fw"></i>&nbsp;Import 
 						</button>&nbsp;
 						<button class="button" type="button" onclick="location.href='<%=siteMap.xuatCl+".jsp"%>'">
@@ -216,11 +216,11 @@
 					</button>
 				</div>
 			</form>
-			<form id="import-formct" action="<%=siteMap.readExcelCl %>" method="post" enctype="multipart/form-data" style="height: 200px;text-align: center;">
+			<form id="import-formct" action="<%=siteMap.readExcelCl %>" method="post" enctype="multipart/form-data" style="height: 200px;text-align: center;" onsubmit="document.body.style.cursor='wait'; return true;">
 									<input type="file" name="file" accept=".xls, .xlsx" class="text" style="padding-left: 0px;">
 									<div class="group-button">
-										<input value="uploadFile" name="action" type="submit" class="button" style="width: 100px;font-size: 17px;text-align: center;">
-										<input value="Thoát" onclick="showForm2('view-table-bo-phan','import-formct', false);" type="button" class="button"  style="width: 70px;text-align: center;font-size: 17px;">
+										<input value="uploadFile" name="action" type="submit" class="button" style="width: 100px;font-size: 17px;text-align: center;" onclick="document.body.style.cursor='wait'; return true;">
+										<input value="Thoát" onclick="showForm2('main-form','import-formct', false);" type="button" class="button"  style="width: 70px;text-align: center;font-size: 17px;">
 									</div>
 						</form>
 		</div>
