@@ -53,13 +53,13 @@ display:none;
    		}
    	%>
 		<% 
-    	ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) session.getAttribute("allNoiSanXuatList");
+    	ArrayList<DonVi> listDonVi = (ArrayList<DonVi>) session.getAttribute("allDonViList");
 		String exportToExcel = request.getParameter("exportToExel");
 	        response.setCharacterEncoding("UTF-8");
 	        request.setCharacterEncoding("UTF-8");
 	        if (exportToExcel != null && exportToExcel.toString().equalsIgnoreCase("YES")) {
 	            response.setContentType("application/vnd.ms-excel");
-	            response.setHeader("Content-Disposition", "inline; filename=" + "Noisanxuat.xls");
+	            response.setHeader("Content-Disposition", "inline; filename=" + "Bophansudung.xls");
 	            
 	        }
 		%>
@@ -71,39 +71,45 @@ display:none;
 						<i class="fa fa-print"></i>&nbsp;&nbsp;In
 					</button>
 					&nbsp;&nbsp;
-					<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.downloadExcelNsx%>'">
+					<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.downloadExcelDv%>'">
 						<i class="fa fa-print"></i>&nbsp;&nbsp;Tải file
 					</button>
 					&nbsp;&nbsp;
-					<button type="button" id="print_button" class="button"  onclick="location.href='<%=siteMap.nsxManage + "?action=manageNsx"%>'">
+					<button type="button" id="print_button" class="button"  onclick="location.href='<%=siteMap.bpsdManage + "?action=manageBpsd"%>'">
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
 					<% } %>
 					 
 				</div>
 
-		<div style="text-align: center;font-size: 30px;font-weight: bold;color: solid black;margin-top:20px;">DANH MỤC NƠI SẢN XUẤT</div>
+		<div style="text-align: center;font-size: 30px;font-weight: bold;color: solid black;margin-top:20px;">DANH MỤC BỘ PHẬN SỬ DỤNG</div>
 			
 		<div style="margin-right: 10px;padding-left: 800px;font-size: 17px;">Ngày in:&nbsp;<%=DateUtil.toString(new java.util.Date())%></div>
 			<div id="view-table-bao-cao">
 					<table  style="border: solid 1px black;width:960px;font-size: 12px;">
 						<thead>
 							<tr style="border: 1px solid black;">
-							<th style="border: 1px solid black;font-size: 17px;width: 5px;">STT</th>
-							<th style="border: 1px solid black;font-size: 17px;width: 50px;">MÃ NSX</th>
-							<th style="border: 1px solid black;font-size: 17px;width: 300px;">TÊN NƠI SẢN XUẤT</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 3px;">STT</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 30px;">MÃ BPSD</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 100px;">TÊN BPSD</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 30px;">SỐ ĐIỆN THOẠI</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 30px;">ĐỊA CHỈ</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 30px;">EMAIL</th>
 							</tr>
 							</thead>
 							<tbody>
 										<%
-										if(listNoiSanXuat != null) {
+										if(listDonVi != null) {
 											int i = 1;
-										for(NoiSanXuat nsx : listNoiSanXuat) { %>
-												<tr style= "border-style: solid;border-color:black;" class="rowContent">
-													<td style="border: 1px solid black;font-size: 17px;text-align: center"><%=i++%></td>
-													<td style="border: 1px solid black;font-size: 17px;"><%=nsx.getNsxMa() %></td>
-													<td style="border: 1px solid black;font-size: 17px;text-align: left"><%=nsx.getNsxTen() %></td>
-												</tr>
+										for(DonVi dv : listDonVi) { %>
+											<tr style= "border-style: solid;border-color:black;" class="rowContent">
+												<td style="border: 1px solid black;font-size: 17px;text-align: center"><%=i++%></td>
+												<td style="border: 1px solid black;font-size: 17px;"><%=dv.getDvMa()%></td>
+												<td style="border: 1px solid black;font-size: 17px;text-align: left"><%=dv.getDvTen() %></td>
+												<td style="border: 1px solid black;font-size: 17px;text-align: left"><%=dv.getSdt() %></td>
+												<td style="border: 1px solid black;font-size: 17px;text-align: left"><%=dv.getDiaChi() %></td>
+												<td style="border: 1px solid black;font-size: 17px;text-align: left"><%=dv.getEmail() %></td>
+											</tr>
 										<%} }%>
 							</tbody>
 				</table>

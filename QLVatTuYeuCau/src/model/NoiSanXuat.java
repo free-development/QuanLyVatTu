@@ -34,6 +34,10 @@ public class NoiSanXuat implements Serializable{
 		this.nsxTen = nsxTen;
 		this.daXoa = daXoa;
 	}
+	public NoiSanXuat(String nsxMa, String nsxTen) {
+		this.nsxMa = nsxMa;
+		this.nsxTen = nsxTen;
+	}
 	public NoiSanXuat(String nsxMa) {
 		this.nsxMa = nsxMa;
 	}

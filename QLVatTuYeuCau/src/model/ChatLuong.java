@@ -32,7 +32,10 @@ public class ChatLuong implements Serializable {
 	 * @param clTen
 	 * @param daXoa
 	 */
-	
+	public ChatLuong(String clMa, String clTen) {
+		this.clMa = clMa;
+		this.clTen = clTen;
+	}
 	public ChatLuong(String clMa, String clTen,int daXoa) {
 		this.clMa = clMa;
 		this.clTen = clTen;
@@ -71,6 +74,4 @@ public class ChatLuong implements Serializable {
 	public void setClTen(String clTen) {
 		this.clTen = clTen;
 	}
-
-
 }

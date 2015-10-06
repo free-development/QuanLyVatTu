@@ -27,20 +27,11 @@
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
 	type="text/css" rel="stylesheet">
 <meta charset="utf-8">
-<title>Xuất danh mục nơi sản xuất</title>
+<title>Xuất danh mục chất lượng</title>
 <style type="text/css" media="print">
 #print_button{
 display:none;
 }
-@page 
-        {
-            size: auto A4 landscape;
-        	color: black; background: white; }
-	   table 
-	   { 
-	   		font-size: 70%; 
-	   			 }
-		
 </style>
 </head>
 <body>
@@ -52,14 +43,14 @@ display:none;
    			dispatcher.forward(request, response);
    		}
    	%>
-		<% 
-    	ArrayList<NoiSanXuat> listNoiSanXuat = (ArrayList<NoiSanXuat>) session.getAttribute("allNoiSanXuatList");
+	<% 
+    	ArrayList<ChatLuong> listChatLuong = (ArrayList<ChatLuong>) session.getAttribute("allChatLuongList");
 		String exportToExcel = request.getParameter("exportToExel");
 	        response.setCharacterEncoding("UTF-8");
 	        request.setCharacterEncoding("UTF-8");
 	        if (exportToExcel != null && exportToExcel.toString().equalsIgnoreCase("YES")) {
 	            response.setContentType("application/vnd.ms-excel");
-	            response.setHeader("Content-Disposition", "inline; filename=" + "Noisanxuat.xls");
+	            response.setHeader("Content-Disposition", "inline; filename=" + "Chatluong.xls");
 	            
 	        }
 		%>
@@ -71,18 +62,18 @@ display:none;
 						<i class="fa fa-print"></i>&nbsp;&nbsp;In
 					</button>
 					&nbsp;&nbsp;
-					<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.downloadExcelNsx%>'">
+					<button class="button" id="print_button" type="button" onclick="location.href='<%=siteMap.downloadExcelCl%>'">
 						<i class="fa fa-print"></i>&nbsp;&nbsp;Tải file
 					</button>
 					&nbsp;&nbsp;
-					<button type="button" id="print_button" class="button"  onclick="location.href='<%=siteMap.nsxManage + "?action=manageNsx"%>'">
+					<button type="button" id="print_button" class="button"  onclick="location.href='<%=siteMap.nsxManage + "?action=manageCl"%>'">
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
 					<% } %>
 					 
 				</div>
 
-		<div style="text-align: center;font-size: 30px;font-weight: bold;color: solid black;margin-top:20px;">DANH MỤC NƠI SẢN XUẤT</div>
+		<div style="text-align: center;font-size: 30px;font-weight: bold;color: solid black;margin-top:20px;">DANH MỤC CHẤT LƯỢNG</div>
 			
 		<div style="margin-right: 10px;padding-left: 800px;font-size: 17px;">Ngày in:&nbsp;<%=DateUtil.toString(new java.util.Date())%></div>
 			<div id="view-table-bao-cao">
@@ -90,19 +81,19 @@ display:none;
 						<thead>
 							<tr style="border: 1px solid black;">
 							<th style="border: 1px solid black;font-size: 17px;width: 5px;">STT</th>
-							<th style="border: 1px solid black;font-size: 17px;width: 50px;">MÃ NSX</th>
-							<th style="border: 1px solid black;font-size: 17px;width: 300px;">TÊN NƠI SẢN XUẤT</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 50px;">Mã Chất lượng</th>
+							<th style="border: 1px solid black;font-size: 17px;width: 300px;">Tên chất lượng</th>
 							</tr>
 							</thead>
 							<tbody>
 										<%
-										if(listNoiSanXuat != null) {
+										if(listChatLuong != null) {
 											int i = 1;
-										for(NoiSanXuat nsx : listNoiSanXuat) { %>
+										for(ChatLuong cl : listChatLuong) { %>
 												<tr style= "border-style: solid;border-color:black;" class="rowContent">
 													<td style="border: 1px solid black;font-size: 17px;text-align: center"><%=i++%></td>
-													<td style="border: 1px solid black;font-size: 17px;"><%=nsx.getNsxMa() %></td>
-													<td style="border: 1px solid black;font-size: 17px;text-align: left"><%=nsx.getNsxTen() %></td>
+													<td style="border: 1px solid black;font-size: 17px;"><%=cl.getClMa() %></td>
+													<td style="border: 1px solid black;font-size: 17px;text-align: left"><%=cl.getClTen() %></td>
 												</tr>
 										<%} }%>
 							</tbody>
