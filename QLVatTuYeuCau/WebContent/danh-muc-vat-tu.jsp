@@ -130,8 +130,8 @@
 				</table>
 			
 			
-			<div id="view-table-vat-tu" style="height: 370px; margin: 0 auto; overflow: auto;font-family: Tahoma,.vntime;" class="scroll_content">
-				<table>
+			<div id="view-table-vat-tu" style="margin: 0 auto; overflow: auto;font-family: Tahoma,.vntime;" class="scroll_content">
+				<table style="width:1024px; ">
 					<tr style="background: #199e5e; height: 30px">
 						<th class="left-column"><input type="checkbox"
 							class="checkAll"></th>
