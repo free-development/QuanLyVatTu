@@ -444,11 +444,12 @@ msnv = '<%=authentication.getMsnv()  %>';
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
 						</div>
+				</form>
 				</div>
 				</td>
 				</tr>
 				</table>
-				</form>
+				
 <!-- 				</div> -->
 
 				<!--    		</form>  -->

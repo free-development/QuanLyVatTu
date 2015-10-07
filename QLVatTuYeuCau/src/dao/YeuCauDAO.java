@@ -249,7 +249,11 @@ public class YeuCauDAO {
 		if(yeuCau.getDaXoa() == 0)
 			sl += soLuongCap;
 		yeuCau.setCapSoLuong(sl);
+//		CTVatTu ctvt = yeuCau.getCtVatTu();
+//		ctvt.setSoLuongTon(ctvt.getSoLuongTon() - soLuongCap);
+//		yeuCau.setCtVatTu(ctvt);
 		updateYeuCau(yeuCau);
+//		session.refresh(YeuCau.class);
 		return yeuCau;
 	}
 	// check before update so luong yeu cau

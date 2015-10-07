@@ -100,12 +100,12 @@
 					  		$('#add-form input:text[name=vtMa]').val('');
 							$('#add-form input:text[name=vtTen]').val('');
 							$('#add-form select[name=dvt]').val('');
-							$('#add-chitiet input:text[name=vtMa]').val(vtMa);
-							$('#add-chitiet input:text[name=vtTen]').val(vtTen);
-							$('#add-chitiet input:text[name=dvt]').val(dvt);
+//							$('#add-chitiet input:text[name=vtMa]').val(vtMa);
+//							$('#add-chitiet input:text[name=vtTen]').val(vtTen);
+//							$('#add-chitiet input:text[name=dvt]').val(dvt);
 							
-					  		showForm2('add-form','vattu', false);	
-					  		
+//					  		showForm2('add-form','vattu', false);	
+							loadAddVt();
 					  		alert("Vật tư "+ vtMa + " đã được thêm ");
 						}
 				  		else{

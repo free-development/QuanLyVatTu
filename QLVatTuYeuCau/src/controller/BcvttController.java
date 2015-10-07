@@ -29,19 +29,18 @@ public class BcvttController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     @RequestMapping("/manageBcvtt")
 	public ModelAndView manageBcvtt(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	YeuCauDAO yeuCauDAO = new YeuCauDAO();
     	
-    	CongVanDAO congVanDAO = new CongVanDAO();
     	HttpSession session = request.getSession(false);
     	
     	String action = request.getParameter("action");
     	if ("manageBcvtt".equalsIgnoreCase(action)) {
-    		congVanDAO.disconnect();
-			yeuCauDAO.disconnect();
+			session.removeAttribute("action");
     		return new ModelAndView(siteMap.baoCaoVatTuThieu);
 		}
     	if("chitiet".equalsIgnoreCase(action)){
 //    		String loaiBc = new String(action);
+    		YeuCauDAO yeuCauDAO = new YeuCauDAO();
+        	CongVanDAO congVanDAO = new CongVanDAO();
     		String ngaybd = request.getParameter("ngaybd");
     		String ngaykt = request.getParameter("ngaykt");
     			ArrayList<CongVan> congVanList = (ArrayList<CongVan>) congVanDAO.getTrangThai(DateUtil.parseDate(ngaybd), DateUtil.parseDate(ngaykt));
@@ -64,6 +63,8 @@ public class BcvttController extends HttpServlet {
         			return new ModelAndView(siteMap.baoCaoVatTuThieu);
     		}
     	else if ("tonghop".equalsIgnoreCase(action)){
+    		YeuCauDAO yeuCauDAO = new YeuCauDAO();
+        	CongVanDAO congVanDAO = new CongVanDAO();
     		String ngaybd = request.getParameter("ngaybd");
     		String ngaykt = request.getParameter("ngaykt");
     		//sString cvSo = request.getParameter("cvSo");

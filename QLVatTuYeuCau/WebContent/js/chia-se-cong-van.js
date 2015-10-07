@@ -99,7 +99,7 @@ function loadPageCscv(pageNumber) {
 $(document).ready(function() {
 	$('#update').click(function() {
 		var msnv = $('#view-chia-se input:checkbox[name=msnv]:checked').val();
-		//alert(msnv);
+//		alert(msnv);
 		var msnvList = [];
 		$.each($('#view-chia-se input:checkbox[name=msnv]:checked'), function(){            
 			msnvList.push($(this).val());

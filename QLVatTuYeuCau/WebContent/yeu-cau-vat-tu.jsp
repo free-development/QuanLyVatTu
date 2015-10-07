@@ -48,7 +48,7 @@
 		String adminMa = request.getServletContext().getInitParameter("adminMa");
 		String soCv = request.getServletContext().getInitParameter("soCv");
    		NguoiDung authentication = (NguoiDung) session.getAttribute("nguoiDung");
-   		CongVan congVan = (CongVan) request.getAttribute("congVan");
+   		CongVan congVan = (CongVan) session.getAttribute("congVan");
    		if (authentication == null) {
    			request.setAttribute("url", siteMap.cvManage+ "?action=manageCv");
    			RequestDispatcher dispatcher = request.getRequestDispatcher(siteMap.login + ".jsp");
