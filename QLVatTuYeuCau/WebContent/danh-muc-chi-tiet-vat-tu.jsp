@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="style/style-giao-dien-chinh.css"
 	type="text/css">
 <link rel="stylesheet" href="style/style.css" type="text/css">
-<link href="style/style-ctvt.css"css" type="text/css" rel="stylesheet">
+<link href="style/style-ctvt.css" type="text/css" rel="stylesheet">
 <link
 	href="style/font-awesome-4.3.0/font-awesome-4.3.0/css/font-awesome.min.css"
 	type="text/css" rel="stylesheet">

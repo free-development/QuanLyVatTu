@@ -114,7 +114,8 @@ public class VattuController extends HttpServlet {
 		VatTuDAO vatTuDAO = new VatTuDAO();
 		VatTu vt = vatTuDAO.getVatTu(vtMa);
 		DonViTinhDAO dvtDAO = new DonViTinhDAO();
-		DonViTinh dVT = dvtDAO.getDonViTinhByTen(dvt);
+		int idDvt = Integer.parseInt(dvt);
+		DonViTinh dVT = dvtDAO.getDonViTinh(idDvt);
 		if(vt == null) 
 		{
 			vatTuDAO.addVatTu(new VatTu(vtMa, vtTen,dVT,0));
