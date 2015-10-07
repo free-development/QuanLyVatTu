@@ -91,7 +91,7 @@ create table CONGVAN
    DAXOA int(2) default 0,
    primary key (CVID)
 ) ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+DEFAULT CHARACTER SET = utf8 ;
 
 /*==============================================================*/
 /* Table: CTNGUOIDUNG                                           */

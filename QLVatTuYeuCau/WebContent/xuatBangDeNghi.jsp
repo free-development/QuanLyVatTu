@@ -147,7 +147,9 @@ display:none;
 									<%if (cnt % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>
 									style= "border-style: solid;border-color:black black black black;">
 <%-- 									<td style="border: 1px solid black;font-size: 17px;" class="a-column"><%=congVan.getSoDen() %></td> --%>
-									<td style="border: 1px solid black;font-size: 17px;" class="b-column"><%=congVan.getCvNgayNhan() %></td>
+									<td style="border: 1px solid black;font-size: 17px;" class="b-column"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
+<%-- 									<td style="border: 1px solid black;font-size: 17px;" class="a-column"><%=congVan.getSoDen() %></td> --%>
+<%-- 									<td style="border: 1px solid black;font-size: 17px;" class="b-column"><%=congVan.getCvNgayNhan() %></td> --%>
 									<td style="border: 1px solid black;font-size: 17px;" class="c-column"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
 									<td style="border: 1px solid black;font-size: 17px;text-align: left;" class="d-column"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
 									<td style="border: 1px solid black;font-size: 17px;" class="e-column"><%=yeuCau.getCtVatTu().getNoiSanXuat().getNsxTen() %></td>

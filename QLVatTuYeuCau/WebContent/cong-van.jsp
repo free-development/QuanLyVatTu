@@ -11,8 +11,7 @@
 <%@page import="map.siteMap"%>
 <%@page import="java.util.HashMap"%> 
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>	
 <html>
 <head>
@@ -49,7 +48,8 @@
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		response.setContentType ("text/html;charset=utf-8");
+		System.out.println(request.getCharacterEncoding());
+		response.setContentType ("text/html;charset=UTF-8");
 		String error = (String) request.getAttribute("error");
 		if(error != null)
 			out.println("<script>alert('Số công văn đã tồn tại. Vui lòng nhập lại!!!')</script>");
@@ -93,7 +93,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 
 </script>
 <script type="text/javascript" src="js/cong-van.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
 
 </head>
@@ -455,7 +455,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 				<!--    		</form>  -->
 				<!--                add-form-->
 				<%if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)  || chucDanh.equals(adminMa)) { %>
-				<form id="add-form" action="<%=siteMap.addCv %>" enctype="multipart/form-data" method="post" acceptcharset="UTF-8">
+				<form id="add-form" action="<%=siteMap.addCv %>" enctype="multipart/form-data" method="post">
 
 					<div class="form-title">Thêm công văn</div>
 					<div class="input-table">
@@ -529,7 +529,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 
 				</form>
 				<!--            update-form-->
-				<form id="update-form" method="post" action="<%=siteMap.updateCv %>" enctype="multipart/form-data">
+				<form id="update-form" method="post" action="<%=siteMap.updateCv %>" enctype="multipart/form-data" acceptcharset="UTF-8">
 				<div class="form-title">Sửa công văn</div>
 					<div class="input-table">
 						<div class="input-table">

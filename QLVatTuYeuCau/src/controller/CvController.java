@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 
+import javax.servlet.FilterChain;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,6 +81,12 @@ public class CvController extends HttpServlet{
     private String adminMa = "";
     private String vanThuMa = "";
     private int vtCapVt = 0;
+    
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException{
+    	request.setCharacterEncoding("UTF-8");
+    	response.setCharacterEncoding("UTF-8");
+    	chain.doFilter(request, response);
+    }
     
     public ModelAndView getCongvan( HttpServletRequest request) {
     	truongPhongMa = context.getInitParameter("truongPhongMa");
@@ -192,6 +201,11 @@ public class CvController extends HttpServlet{
 //		response.getCharacterEncoding();
 //		request.setCharacterEncoding("UTF-8");
 //		response.setCharacterEncoding("UTF-8");
+    	request.getCharacterEncoding();
+		response.getCharacterEncoding();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		HttpSession session = request.getSession(false);
 		NguoiDung nguoiDung = (NguoiDung) session.getAttribute("nguoiDung");
 		if (nguoiDung == null)
@@ -381,28 +395,27 @@ public class CvController extends HttpServlet{
 	}
     @RequestMapping("updateCongVan")
     public ModelAndView updateCongVan(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//    	request.ge
-    	root =  request.getRealPath("/");
-    	//root =  "/home/quoioln/DATA/";
-    //	root =  "/home/quoioln/DATA/";
-    	request.getCharacterEncoding();
-		response.getCharacterEncoding();
+    	root =  "/home/quoioln/DATA/";
+//    	request.getCharacterEncoding();
+//		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
     	CongVanDAO congVanDAO = new CongVanDAO();
     	FileDAO fileDAO = new FileDAO();
     	// 
+    	
     	MultipartRequest multipartRequest = new MultipartRequest(request, root + tempPath, maxSize);
 		String action = multipartRequest.getParameter("action");
-		String soDen = multipartRequest.getParameter("soDen");
-		String cvSo = multipartRequest.getParameter("cvSo");
-		
+		String soDen = new String(multipartRequest.getParameter("soDen").getBytes("Windows-1252"), "UTF-8");
+		String cvSo =  new String(multipartRequest.getParameter("cvSo").getBytes("Windows-1252"), "UTF-8");
 		Date cvNgayGoi = DateUtil.parseDate(multipartRequest.getParameter("ngayGoiUpdate"));
 		Date cvNgayNhan = DateUtil.parseDate(multipartRequest.getParameter("ngayNhanUpdate"));
-		String mdMa = multipartRequest.getParameter("mucDichUpdate");
-		String dvMa = multipartRequest.getParameter("donViUpdate");
-		String trichYeu = multipartRequest.getParameter("trichYeuUpdate");
-		String butPhe = multipartRequest.getParameter("butPheUpdate");
+		String mdMa =  new String(multipartRequest.getParameter("mucDichUpdate").getBytes("Windows-1252"), "UTF-8");
+		String dvMa =  new String(multipartRequest.getParameter("donViUpdate").getBytes("Windows-1252"), "UTF-8");
+		String trichYeu = new String(multipartRequest.getParameter("trichYeuUpdate").getBytes("Windows-1252"), "UTF-8");
+		
+		String butPhe =  new String(multipartRequest.getParameter("butPheUpdate").getBytes("Windows-1252"), "UTF-8");
 		String fileFullName = "";
 		CongVan congVan = congVanDAO.getByCvSo(cvSo);
 		int cvId = congVan.getCvId();
@@ -461,6 +474,7 @@ public class CvController extends HttpServlet{
 		NhatKy nhatKy = new NhatKy(authentication.getMsnv(), cvId + "#Thay đổi công văn số " + soDen + " nhận ngày " + cvNgayNhan, currentDate, content);
 		nhatKyDAO.addNhatKy(nhatKy);
 		nhatKyDAO.disconnect();
+		System.out.println(trichYeu);
 		return getCongvan(request);
     }
 	@RequestMapping(value="/deleteCv", method=RequestMethod.GET, 

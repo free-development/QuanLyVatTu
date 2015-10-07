@@ -1,4 +1,5 @@
-﻿<%@page import="model.NguoiDung"%>
+﻿<%@page import="util.DateUtil"%>
+<%@page import="model.NguoiDung"%>
 <%@page import="model.DonVi"%>
 <%@page import="model.CongVan"%>
 <%@page import="model.YeuCau"%>
@@ -219,7 +220,9 @@
 					<tr
 						<%if (cnt % 2 == 0) out.println("style=\"background : #CCFFFF;\"");%>>
 <%-- 						<td style="width: 50px; text-align: center;"><%=congVan.getSoDen() %></td> --%>
-						<td style="width: 100px; text-align: center;"><%=congVan.getCvNgayNhan() %></td>
+						<td style="width: 100px; text-align: center;"><%=DateUtil.toString(congVan.getCvNgayNhan()) %></td>
+<%-- 						<td style="width: 50px; text-align: center;"><%=congVan.getSoDen() %></td> --%>
+<%-- 						<td style="width: 100px; text-align: center;"><%=congVan.getCvNgayNhan() %></td> --%>
 						<td style="width: 50px; text-align: center;"><%=yeuCau.getCtVatTu().getVatTu().getVtMa() %></td>
 						<td style="text-align: left; width: 300px;"><%=yeuCau.getCtVatTu().getVatTu().getVtTen() %></td>
 						<td style="text-align: left; width: 100px;"><%=yeuCau.getCtVatTu().getNoiSanXuat().getNsxTen() %></td>

@@ -9,7 +9,7 @@
 */
 
 body{
-	font-family:.vntime;
+	font-family: Times-New-Roman;
 }
 #import-formct {
 	display: none;
@@ -78,7 +78,8 @@ textarea.text {
 	font-size: 16px;
 	padding-left: 20px;
 	margin-bottom: 10px;
-	/*	margin: 5px;*/
+	font-family: "Times New Roman";
+		/*	margin: 5px;*/
 	/*    margin-bottom: 10px;*/
 }
 
