@@ -26,6 +26,7 @@
 	%>
 	<%
 	ArrayList<CTVatTu> listCTVatTu = (ArrayList<CTVatTu>) request.getAttribute("ctvtListError");
+	ArrayList<String> statusError = (ArrayList<String>) request.getAttribute("statusError");
 		Long size = (Long) request.getAttribute("size");
 
 		Long pageNum = size/10;
@@ -43,7 +44,8 @@
 								<th class="three-column">Tên vật tư</th>
 								<th class="six-column">Mã nơi sản xuất</th>
 								<th class="six-column">Mã chất lượng</th>
-<!-- 								<th class="four-column">Đơn vị tính</th> -->
+								<th class="four-column">Đơn vị tính</th>
+								<th class="four-column">Lỗi</th>
 							</tr>
 							<%
 									if(listCTVatTu != null) {
@@ -58,7 +60,8 @@
 								<td class="col" style="text-align: left;"><%String vtTen = ctVatTu.getVatTu().getVtTen(); if (vtTen != null) out.println(vtTen); else out.println("");%></td>
 								<td class="col" style="text-align: left;"><%String nsxMa = ctVatTu.getNoiSanXuat().getNsxMa(); if (nsxMa != null) out.println(nsxMa); else out.println(""); %></td>
 								<td class="col" style="text-align: left;"><%String clMa = ctVatTu.getChatLuong().getClMa(); if (clMa != null) out.println(clMa); else out.println("");%></td>
-<%-- 								<td class="col"><%String dvt = ctVatTu.getVatTu().getDvt().getDvtTen(); if (dvt != null) out.println(dvt);else out.println(""); %></td> --%>
+								<td class="col"><%String dvt = ctVatTu.getVatTu().getDvt().getDvtTen(); if (dvt != null) out.println(dvt);else out.println(""); %></td>
+								<td class="col"><%=statusError.get(count - 1) %></td>
 							</tr>
 							<%} }%>
 		

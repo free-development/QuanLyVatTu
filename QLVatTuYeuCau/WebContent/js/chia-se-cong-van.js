@@ -99,7 +99,7 @@ function loadPageCscv(pageNumber) {
 $(document).ready(function() {
 	$('#update').click(function() {
 		var msnv = $('#view-chia-se input:checkbox[name=msnv]:checked').val();
-		//alert(msnv);
+//		alert(msnv);
 		var msnvList = [];
 		$.each($('#view-chia-se input:checkbox[name=msnv]:checked'), function(){            
 			msnvList.push($(this).val());
@@ -114,11 +114,10 @@ $(document).ready(function() {
 				url: getRoot() +  "/preUpdateYeuCau.html",	
 			  	type: "GET",
 			  	dateType: "JSON",
-			  	contentType:"application/json; charset=utf-8",
 			  	data: { "msnv": msnv},
+			  	contentType: 'application/json',
 			    mimeType: 'application/json',
 			  	success: function(objectList) {
-			  		xmlHttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded; charset=UTF-8');
 			  		var nguoiDung = objectList[0];
 			  		var vaiTroList = objectList[1];
 			  		var vtCongVanList= objectList[2];
@@ -197,6 +196,7 @@ $(document).ready(function() {
 			
 	});   
 });
+
 
 function timKiemNguoidungCs(){
 	var hoTen = '';

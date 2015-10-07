@@ -54,6 +54,7 @@ public class DownloadFileServlet extends HttpServlet {
 		else {
 			response.setContentType("APPLICATION/OCTET-STREAM"); 
 			response.setHeader("Content-Disposition","attachment; filename=\"" + fileName + "\"");
+			response.setHeader("Content-Disposition","attachment; filename=\"" + FileUtil.getNameFile(file) + "." + FileUtil.getExtension(file) + "\"");
 			response.setContentLength((int) file.length());
 			OutputStream outStream = response.getOutputStream();
 			byte[] buffer = new byte[4096];

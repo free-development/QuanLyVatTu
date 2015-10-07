@@ -76,7 +76,7 @@
 					
 					$('#add-chitiet input[name=dinhMuc]').val('');
 					$('#add-chitiet input[name=soLuongTon]').val('');
-			  		
+					showForm2('chitiet' ,'add-chitiet', false);
 			  		alert("Chi tiết vật tư "+vtMa + " đã được thêm ");	
 				}
 		  		else{

@@ -148,13 +148,15 @@ public class ReadExcel extends HttpServlet {
 			if ("xls".equalsIgnoreCase(extenstionFile)) {
 				file = new File("temp.xls");
 				fi.write(file);
-				ArrayList<CTVatTu>  ctvtListError = ReadExcelCT.readXls(file);
-				
+				ArrayList<Object> objectListError = ReadExcelCT.readXls(file);
+				ArrayList<CTVatTu> ctvtListError = (ArrayList<CTVatTu>) objectListError.get(0);
+				ArrayList<String> statusError = (ArrayList<String>) objectListError.get(1);
 				if(ctvtListError.size() != 0)
 				{
 					long size = ctvtListError.size();
 					request.setAttribute("size", size);
 					request.setAttribute("ctvtListError", ctvtListError);
+					request.setAttribute("statusError", statusError);
 					return new ModelAndView("import-excelError", "status", "formatException");
 				}
 			}

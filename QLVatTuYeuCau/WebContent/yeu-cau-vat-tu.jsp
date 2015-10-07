@@ -166,14 +166,13 @@
 
 		<div id="main-content">
 			<form id="add-yeu-cau-form">
-			</form>
 <%--  			<div style="color: #CC3333;height:20px;text-align: right;margin-right: 40px;">Số công văn:&nbsp;<%=congVan.getCvSo() %></div> --%>
 			
 			<div class="form-title-vat-tu">Danh sách vật tư</div>
 			<div id="yc-table">
-				<table style="margin-left:60px;margin-bottom: 10px;">		
+				<table style="margin-bottom: 10px;">		
 					<tr>		
-					<td  style="text-align: left; font-size: 19px;color:#6600FF;">* Tìm kiếm mã</td>
+					<td  style="text-align: center; font-size: 19px;color:#6600FF;">* Tìm kiếm mã</td>
 								<td>
 									<div class="search_form1" id="search">		
 										<form id ="searchForm" onsubmit="return false;">	
@@ -199,7 +198,7 @@
 				<form id="danh-sach-vat-tu">
 				<div id="view-search">
 				<div id="view-table-ds">
-				<table style="width:960px;margin:0 auto;">
+				<table style="width:1024px;margin:0 auto;">
 <!-- 					<tr><th >Ma vat tu</th><th >Ten vat tu</th><th >Noi san xuat</th><th >Chat luong</th><th >Don vi tinh</th><th ></th></tr> -->
 					<tr style="background-color: #199e5e">
 						<th style="text-align: center;" >Mã vật tư</th>
@@ -232,8 +231,7 @@
 				</table>
 				</div>
 				</div>
-			</form>				
-				<div id = "paging" >
+					<div id = "paging" >
 				<table style ="border-style: none;">
 								<tr>
 									<td>Trang</td>
@@ -252,10 +250,12 @@
 								</tr>
 								</table>
 					</div>
+			</form>				
+			</form>
 			<form id="main-form">
 			<div class="form-title-vat-tu" style="padding-top: 10px;">Yêu cầu vật tư còn thiếu cho công văn số <%=congVan.getSoDen() %> nhận ngày <%=congVan.getCvNgayNhan() %></div> 
 					<div id="view-table-yc" class="scroll-vat-tu">
-							<table style= "width:960px; margin: 0 auto;" >
+							<table style= "width:1024px; margin: 0 auto;" >
 								<tr>
 									<th class="a-column"style= "text-align: center;">Chọn</th>
 									<th class="b-column" style="text-align: center;">Mã vật tư</th>

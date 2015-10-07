@@ -23,6 +23,24 @@ function hideForm(formId, check){
     s.filter = 'alpha(opacity='+opacity+')';
     for(var i=0; i<f.length; i++) f[i].disabled = check;
 }
+function showTime(formId){
+    
+        document.getElementById(formId).style.display="block";
+    var f = document.getElementById(formId), s, opacity;
+    s = f.style;
+    opacity = '100';
+    s.opacity = s.MozOpacity = s.KhtmlOpacity = opacity/100;
+    s.filter = 'alpha(opacity='+opacity+')';
+    for(var i=0; i<f.length; i++) f[i].disabled = false;
+}
+function hideAddForm(){
+	showForm('main-form', 'add-form', false);
+	showForm('time-form', 'add-form', false);
+}
+function hideUpdateForm(){
+	showForm('main-form', 'update-form', false);
+	showForm('time-form', 'update-form', false);
+}
 function checkAdd(){
 	var cvSo = $('#add-form input:text[name=cvSo]').val();
 	var ngayNhan = $('#add-form input:text[name=ngayNhan]').val();
@@ -202,6 +220,7 @@ function preUpdateCv(cv) {
 	  		$('#update-form textarea[name=butPheUpdate]').val(congVan.butPhe);
 	  		$('#update-form textarea[name=moTa]').val(file.moTa);
 	  		showForm('head-form','update-form', true);
+	  		showForm('main-form','update-form', true);
 	  		
 	    }
 	});  
@@ -332,7 +351,7 @@ function loadCongVan(congVanList, fileList, unknownList, vtCongVanList) {
 			tables +=     '<table class=\"tableContent\" ' + style + ' class=\"border-congvan\">'
 						+ '<tr >';
 						if(chucDanhMa == vanThuMa || chucDanhMa == adminMa) {
-						tables += '<td class=\"column-check\" rowspan=\"8\" style=\"margin-right: 30px;\">'
+						tables += '<td class=\"column-check\" rowspan=\"9\" style=\"margin-right: 30px;\">'
 						+ 'Chọn <input title=\"Click để chọn công văn\" type=\"checkbox\" name=\"cvId\" value=\"' + congVan.cvId + '\">'
 						+ '</td>';
 						}
@@ -448,15 +467,17 @@ function loadCongVan(congVanList, fileList, unknownList, vtCongVanList) {
 						fileName += path.substring(index3);
 				tables	+= '</tr>'
 						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Xem công văn: </td>'
-						+ '<td colspan=\"1\">'
+						+ '<td colspan=\"5\">'
 						+ '<a  target=\"_black\" href=\"' + getRoot() + '/downloadFileMn.html' + '?action=download&file=' + congVan.cvId + '\">'
 						+ '<div class=\"mo-ta\">' + fileName + '</div>'
 						+ '</a> '
 						+ '</td>'
-						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Ghi chú</td>'
-						+ '<td>' + file.moTa + '</td>'
+						
 						+ '</tr>'
-						;
+						+ '<tr>'
+						+ '<td class=\"left-column-first\" style=\"font-weight: bold;\">Ghi chú</td>'
+						+ '<td colspan = \"5\">' + file.moTa + '</td>'
+						+ '</tr>';
 						
 				tables += '<tr>' 
 					+ '<th style="text-align: left"><label for=\"TT\">Trạng thái</label></th>'

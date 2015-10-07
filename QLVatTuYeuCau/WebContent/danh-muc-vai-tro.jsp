@@ -64,11 +64,11 @@
 			}
 // 			Long size = (Long) request.getAttribute("size");
 			long size = (Long) request.getAttribute("size");
-    	%>
+    	%>	
 	<div class="wrapper">
 		<jsp:include page="header.jsp" />
 		<div id="main-content">
-				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div>
+<%-- 				<div id="greeting"style="color: #6600FF;height:20px;"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chào:&nbsp;<%=authentication.getHoTen() %></b></div> --%>
 			<div id="title-content">Danh mục vai trò</div>
 				<form id="main-form">
 					<div id="view-table" style="margin: 0 auto;">

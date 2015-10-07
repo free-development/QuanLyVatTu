@@ -11,8 +11,7 @@
 <%@page import="map.siteMap"%>
 <%@page import="java.util.HashMap"%> 
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>	
 <html>
 <head>
@@ -49,7 +48,8 @@
 		response.getCharacterEncoding();
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		response.setContentType ("text/html;charset=utf-8");
+		System.out.println(request.getCharacterEncoding());
+		response.setContentType ("text/html;charset=UTF-8");
 		String error = (String) request.getAttribute("error");
 		if(error != null)
 			out.println("<script>alert('Số công văn đã tồn tại. Vui lòng nhập lại!!!')</script>");
@@ -93,7 +93,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 
 </script>
 <script type="text/javascript" src="js/cong-van.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="Shortcut Icon" href="img/logo16.png" type="image/x-icon" />
 
 </head>
@@ -225,7 +225,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 					<table class="tableContent" <%if (count % 2 == 1){ out.println("style=\"background : #CCFFFF;\"");}else{out.println("style=\"background : #FFFFFF;\"");}%>style="font-size: 16px;width:900px;" class="border-congvan">
 						<tr >
 						<% if (chucDanhMa.equals(vanThuMa) || chucDanhMa.equals(adminMa)) {%>
-							<td class="column-check" rowspan="8" style="margin-right: 30px;">
+							<td class="column-check" rowspan="9" style="margin-right: 30px;">
 								Chọn <input title="Click để chọn công văn"type="checkbox" name="cvId" value="<%=congVan.getCvId()%>"> 
 							</td>
 							
@@ -352,13 +352,17 @@ msnv = '<%=authentication.getMsnv()  %>';
 							if (index3 != -1)
 								fileName += path.substring(index3);
 							%>
-							<td colspan="1">
+							<td colspan="6">
 								<a target="_black" href="<%="/QLVatTuYeuCau/downloadFileMn.html" + "?action=download&file=" + congVan.getCvId()%>">
 									<div class="mo-ta"><%=fileName %></div>
 								</a>
 							</td>
-							<td class="left-column-first" style="font-weight: bold;">Ghi chú: </td>
-							<td colspan="3">
+							
+							
+						</tr>
+						<tr>
+						<td class="left-column-first" style="font-weight: bold;">Ghi chú: </td>
+						<td colspan="5">
 								<%=file.getMoTa() %>
 							</td>
 						</tr>
@@ -440,17 +444,18 @@ msnv = '<%=authentication.getMsnv()  %>';
 						<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 					</button>
 						</div>
+				</form>
 				</div>
 				</td>
 				</tr>
 				</table>
-				</form>
+				
 <!-- 				</div> -->
 
 				<!--    		</form>  -->
 				<!--                add-form-->
 				<%if (chucDanh.equals(truongPhongMa) || chucDanh.equals(vanThuMa)  || chucDanh.equals(adminMa)) { %>
-				<form id="add-form" action="<%=siteMap.addCv %>" enctype="multipart/form-data" method="post" acceptcharset="UTF-8">
+				<form id="add-form" action="<%=siteMap.addCv %>" enctype="multipart/form-data" method="post">
 
 					<div class="form-title">Thêm công văn</div>
 					<div class="input-table">
@@ -517,14 +522,14 @@ msnv = '<%=authentication.getMsnv()  %>';
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
 						</button>
 						<button type="button" class="button"
-							onclick="showForm('main-form', 'add-form', false)">
+							onclick="hideAddForm();">
 							<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 						</button>
 					</div>
 
 				</form>
 				<!--            update-form-->
-				<form id="update-form" method="post" action="<%=siteMap.updateCv %>" enctype="multipart/form-data">
+				<form id="update-form" method="post" action="<%=siteMap.updateCv %>" enctype="multipart/form-data" acceptcharset="UTF-8">
 				<div class="form-title">Sửa công văn</div>
 					<div class="input-table">
 						<div class="input-table">
@@ -595,7 +600,7 @@ msnv = '<%=authentication.getMsnv()  %>';
 							<i class="fa fa-refresh"></i>&nbsp;&nbsp;Nhập lại
 						</button>
 						<button type="button" class="button"
-							onclick="showForm('main-form', 'update-form', false)">
+							onclick="hideUpdateForm();">
 							<i class="fa fa-sign-out"></i>&nbsp;&nbsp;Thoát
 						</button>
 					</div>
